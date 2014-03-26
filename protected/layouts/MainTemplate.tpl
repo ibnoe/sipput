@@ -17,8 +17,9 @@
     <link rel="stylesheet" href="<%=$this->page->theme->baseUrl%>/assets/components/library/icons/glyphicons/assets/css/glyphicons_regular.css">
 	<link rel="stylesheet" href="<%=$this->page->theme->baseUrl%>/assets/components/library/icons/glyphicons/assets/css/glyphicons_social.css">
     <link rel="stylesheet" href="<%=$this->page->theme->baseUrl%>/assets/components/library/icons/glyphicons/assets/css/glyphicons_filetypes.css">
-    <link rel="stylesheet" href="<%=$this->page->theme->baseUrl%>/assets/components/library/icons/pictoicons/css/picto.css">
-    <link rel="stylesheet" href="<%=$this->page->theme->baseUrl%>/assets/components/library/animate/animate.min.css">    
+    <link rel="stylesheet" href="<%=$this->page->theme->baseUrl%>/assets/components/library/icons/pictoicons/css/picto.css">    
+    <link rel="stylesheet" href="<%=$this->page->theme->baseUrl%>/assets/components/modules/admin/notifications/notyfy/assets/lib/css/jquery.notyfy.css">    
+    <link rel="stylesheet" href="<%=$this->page->theme->baseUrl%>/assets/components/modules/admin/notifications/notyfy/assets/lib/css/notyfy.theme.default.css">    
     <com:TContentPlaceHolder ID="csscontent" />   	
 </com:THead>
 <body class="">
@@ -112,5 +113,16 @@
 <script src="<%=$this->Page->Theme->baseUrl%>/assets/components/core/js/sidebar.collapse.init.js?v=v1.2.3"></script>
 <script src="<%=$this->Page->Theme->baseUrl%>/assets/components/helpers/themer/assets/plugins/cookie/jquery.cookie.js?v=v1.2.3"></script>
 <script src="<%=$this->Page->Theme->baseUrl%>/assets/components/core/js/core.init.js?v=v1.2.3"></script>	
+<ul id="notyfy_container_top" class="notyfy_container i-am-new" style="display: none;">
+    <li class="notyfy_wrapper notyfy_information">
+        <div class="notyfy_bar">
+            <div class="notyfy_message">
+                <span class="notyfy_text">
+                    Mohon ditunggu proses Anda sedang kami <strong>eksekusi</strong>.
+                </span>
+            </div>
+        </div>
+    </li>
+</ul>
 </body>
 </html>
