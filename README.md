@@ -1,4 +1,4 @@
 SIPPUT
 ======
 
-Sistem Informasi Pengajuan Perizinan User Perikanan
+Sistem Informasi Pengajuan Perizinan Usaha Perikanan
