@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+	<modules>
+		<module id="otorisasi_user" class="Application.Autorisasi" />
+		<module id="auth" class="TAuthManager" UserManager="otorisasi_user" LoginPage="default.Login" />
+	</modules>
+	<authorization>
+		<allow roles="superadmin" />		        
+        <allow roles="admin" />
+        <allow roles="pejabat" />
+        <allow roles="user" />
+        <allow roles="pemohon" />
+		<deny users="*" />		
+	</authorization>
+	<parameters>
+		<parameter id="NewUserRoles" value="superadmin,admin,pejabat,user,pemohon" />
+	</parameters>
+</configuration>

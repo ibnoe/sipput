@@ -1,0 +1,35 @@
+<%@ Title="Login" %>
+<com:TContent ID="content">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="login-panel panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Silahkan Login</h3>
+                </div>
+                <div class="panel-body">
+                    <fieldset>
+                        <div class="form-group">
+                            <com:TTextBox ID="txtUsername" Attributes.placeholder="Nama User" CssClass="form-control" />
+                            <com:TRequiredFieldValidator ValidationGroup="userlogin" Display="Dynamic" ControlToValidate="txtUsername" FocusOnError="true" ErrorMessage="Isi Username">
+                            </com:TRequiredFieldValidator>
+                        </div>
+                        <div class="form-group">
+                            <com:TTextBox ID="txtPassword" Attributes.placeholder="Kata Sandi" CssClass="form-control" TextMode="Password" />             
+                            <com:TRequiredFieldValidator ValidationGroup="userlogin" Display="Dynamic" ControlToValidate="txtPassword" FocusOnError="true" ErrorMessage="Isi Password">            
+                            </com:TRequiredFieldValidator>
+                        </div>
+                    </fieldset>
+                    <com:TActiveLinkButton ID="btnLogin" CssClass="btn btn-lg btn-success btn-block" Text="Masuk" ValidationGroup="userlogin" Onclick="doLogin">                            
+                        <prop:ClientSide.OnLoading>
+                            $('<%=$this->btnLogin->ClientId%>').disabled='disabled';									                            
+                        </prop:ClientSide.OnLoading>
+                        <prop:ClientSide.onComplete>
+                            $('<%=$this->btnLogin->ClientId%>').disabled='';																								                                                                                
+                        </prop:ClientSide.OnComplete>
+                    </com:TActiveLinkButton>
+                    <com:TActiveLabel ID="errormessage" />
+                </div>
+            </div>
+        </div>
+    </div>    
+</com:TContent>

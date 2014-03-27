@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<application id="SIPPUT 1.0" Mode="Debug">
+	<paths>
+		<using namespace="System.Security.*"/>		
+		<using namespace="System.Web.UI.ActiveControls.*"/>        				
+		<using namespace="Application.MainPage"/>			    
+        <using namespace="Application.lib.CustomControls.*" />    
+		<using namespace="Application.logic.LogicFactory"/>        
+	</paths>
+	<services>
+		<service id="page" class="TPageService" DefaultPage="default.Home">
+			<modules>
+				<module id="db" class="Application.lib.Database.DBFactory"/>
+				<module id="logic" class="LogicFactory"/> 
+                <module id="cache" class="System.Caching.TDbCache" />                               
+			</modules>            
+            <pages StatePersisterClass="System.Web.UI.TCachePageStatePersister" StatePersister.CacheModuleID="cache" StatePersister.CacheTimeout="7200" />
+		</service>
+	</services>        
+    <parameters>
+        <parameter id="db_host" value="localhost"/>
+        <parameter id="db_username" value="root"/>
+        <parameter id="db_userpassword" value=""/>
+        <parameter id="db_name" value="sipput"/>
+        <parameter id="db_type" value="mysql"/>		
+        <parameter id="address_lokal" value="http://localhost/sipput"/>
+        <parameter id="address_lan" value=""/>        
+        <parameter id="address_internet" value="http://sipput.yacanet.com"/>                        
+    </parameters>    	
+</application>
