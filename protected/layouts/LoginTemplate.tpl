@@ -10,6 +10,9 @@
     <link href="<%=$this->Page->Theme->baseUrl%>/css/sb-admin.css" rel="stylesheet">
 </com:THead>
 <body>
+<div id="loading" style="display:none">
+    Please wait while process your request !!!
+</div>
 <com:TForm Attributes.role="form">
     <div class="container">
         <com:TContentPlaceHolder ID="content" />

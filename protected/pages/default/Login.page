@@ -8,22 +8,41 @@
                 </div>
                 <div class="panel-body">
                     <fieldset>
-                        <div class="form-group">
-                            <com:TTextBox ID="txtUsername" Attributes.placeholder="Nama User" CssClass="form-control" />
-                            <com:TRequiredFieldValidator ValidationGroup="userlogin" Display="Dynamic" ControlToValidate="txtUsername" FocusOnError="true" ErrorMessage="Isi Username">
+                        <div class="form-group" id="divTxtUsername">
+                            <com:TTextBox ID="txtUsername" Attributes.placeholder="Nama User" CssClass="form-control" Attributes.autofocus="true" />
+                            <com:TRequiredFieldValidator ValidationGroup="userlogin" Display="Dynamic" ControlToValidate="txtUsername" FocusOnError="true" ErrorMessage="Isi Username" CssClass="has-error help-block">
+                                <prop:ClientSide.OnValidationError>
+                                    $('divTxtUsername').addClassName('has-error');
+                                    jQuery('#<%=$this->txtUsername->ClientID%>').removeAttr('style');                                
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('divTxtUsername').removeClassName('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
                             </com:TRequiredFieldValidator>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" id="divTxtPassword">
                             <com:TTextBox ID="txtPassword" Attributes.placeholder="Kata Sandi" CssClass="form-control" TextMode="Password" />             
                             <com:TRequiredFieldValidator ValidationGroup="userlogin" Display="Dynamic" ControlToValidate="txtPassword" FocusOnError="true" ErrorMessage="Isi Password">            
+                                <prop:ClientSide.OnValidationError>
+                                    $('divTxtPassword').addClassName('has-error');
+                                    jQuery('#<%=$this->txtPassword->ClientID%>').removeAttr('style');                                
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('divTxtPassword').removeClassName('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
                             </com:TRequiredFieldValidator>
                         </div>
                     </fieldset>
                     <com:TActiveLinkButton ID="btnLogin" CssClass="btn btn-lg btn-success btn-block" Text="Masuk" ValidationGroup="userlogin" Onclick="doLogin">                            
+                        <prop:ClientSide.OnPreDispatch>
+                            $('loading').show();                                             
+                            $('<%=$this->btnLogin->ClientId%>').disabled='disabled';						
+                        </prop:ClientSide.OnPreDispatch>
                         <prop:ClientSide.OnLoading>
                             $('<%=$this->btnLogin->ClientId%>').disabled='disabled';									                            
                         </prop:ClientSide.OnLoading>
                         <prop:ClientSide.onComplete>
+                            $('loading').hide();
                             $('<%=$this->btnLogin->ClientId%>').disabled='';																								                                                                                
                         </prop:ClientSide.OnComplete>
                     </com:TActiveLinkButton>

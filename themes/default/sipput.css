@@ -1,0 +1,10 @@
+#loading{
+    position: fixed;
+    top: 0px;
+    left: 500px;
+    z-index: 5000;
+    background-color: red;
+    font-size: 150%;
+    color: white;
+    padding: 2px;
+}

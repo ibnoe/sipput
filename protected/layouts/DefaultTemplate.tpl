@@ -12,6 +12,9 @@
     <link href="<%=$this->Page->Theme->baseUrl%>/css/sb-admin.css" rel="stylesheet">
 </com:THead>
 <body>
+<div id="loading" style="display:none">
+    Please wait while process your request !!!
+</div>
 <com:TForm Attributes.role="form">
 <div id="wrapper">
     <!-- start navbar-header -->
@@ -50,7 +53,7 @@
         <div class="sidebar-collapse">
             <ul class="nav" id="side-menu">                
                 <li>
-                    <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                    <a href="<%=$this->Page->constructUrl('sa.Home')%>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                 </li>                
                 <li>
                     <a href="#"><i class="fa fa-book fa-fw"></i> Data Master<span class="fa arrow"></span></a>
@@ -61,11 +64,14 @@
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>                
-                <li class="active">
+                <li<%=$this->Page->showSetting==true ? ' class="active"':''%>>
                     <a href="#"><i class="fa fa-wrench fa-fw"></i> Setting<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
                             <a href="<%=$this->Page->constructUrl('sa.setting.User')%>">User</a>
+                        </li>                        
+                        <li>
+                            <a href="<%=$this->Page->constructUrl('sa.setting.Cache')%>">Cache</a>
                         </li>                        
                     </ul>
                     <!-- /.nav-second-level -->
@@ -86,6 +92,7 @@
         <!-- /.row -->
     </div>
     <!-- /#page-wrapper -->
+    <com:TJavascriptLogger ID="JSLogger" />
 </div>
 </com:TForm>
 <!-- Core Scripts -->

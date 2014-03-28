@@ -5,24 +5,28 @@ class Logic_Users extends Logic_Global {
 	/**
 	* object Users
 	*/
-	private $u;	
+	private $U;	
 	/**
 	* Roles
 	*/
-	private $roles;
+	private $Roles;
 	/**
 	* Data User
 	*/
-	private $dataUser;	
-	
+	private $DataUser;	
+	/**
+     * list roles user     
+     */
+    private $ListUserRoles=array('none'=>' ','sa'=>'SUPER ADMIN','ad'=>'ADMIN','us'=>'USER','pem'=>'PEMOHON','pj'=>'PEJABAT');
+    
 	public function __construct ($db) {
 		parent::__construct ($db);	
-		$this->u = $this->User;
-		if (method_exists($this->u,'getRoles')) {
-			$dataUser=$this->u->getName();	
+		$this->U = $this->User;
+		if (method_exists($this->U,'getRoles')) {
+			$dataUser=$this->U->getName();	
 			if ($dataUser != 'Guest') {
-				$this->roles=$this->u->getRoles();			
-				$this->dataUser=$dataUser;		                
+				$this->Roles=$this->U->getRoles();			
+				$this->DataUser=$dataUser;		                
             }		
 		}				
 	}
@@ -45,7 +49,7 @@ class Logic_Users extends Logic_Global {
 	* digunakan untuk mendapatkan tipe user
 	*/		
 	public function getTipeUser () {
-		return $this->dataUser['page'];
+		return $this->DataUser['page'];
 	}		
 	/**
 	* digunakan untuk mendapatkan data user
@@ -54,42 +58,33 @@ class Logic_Users extends Logic_Global {
 	*/
 	public function getDataUser ($id='all') {						
 		if ($id=='all')
-			return $this->dataUser;
+			return $this->DataUser;
 		else
-			return $this->dataUser[$id];
+			return $this->DataUser[$id];
 	}	
 	/**
 	* untuk mendapatkan userid dari user
 	*
 	*/
 	public function getUserid () {			
-		return $this->dataUser['userid'];		
+		return $this->DataUser['userid'];		
 	}		
 	/**
 	* untuk mendapatkan username dari user
 	*
 	*/
 	public function getUsername () {		
-		return $this->dataUser['username'];
+		return $this->DataUser['username'];
 	}
     /**
-	* untuk mendapatkan role name dari user
+	* untuk mendapatkan daftar roles
 	*
 	*/
-	public function getRolename ($role=null) {		        
-        $roles='';
-        $page=$role === null ? $this->dataUser['page']:$role;
-		if ($page == 'sa')
-            $roles='Super Admin';
-        elseif ($page == 'ad')
-            $roles='Admin';
-        elseif ($page == 'u')
-            $roles='User';
-        elseif ($page == 'p')
-            $roles='Pemohon';
-        elseif ($page == 'pe')
-            $roles='Pejabat';            
-        return $roles;
+	public function getListUserRoles($role=null) {		        
+        if ($role===null)
+            return $this->ListUserRoles;
+        else
+            return $this->ListUserRoles[$role];
 	}	
 }
 ?>

@@ -30,7 +30,7 @@ class Login extends MainPage {
                 $page=$pengguna->getTipeUser ();                
                 $this->redirect("$page.Home");                
             }catch (Exception $e) {		
-                $message='<div class="alert alert-error">
+                $message='<br /><div class="alert alert-danger">
                     <strong>Error!</strong>
                     '.$e->getMessage().'</div>';
 				$this->errormessage->Text=$message;					

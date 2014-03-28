@@ -26,5 +26,5 @@
         <parameter id="address_lokal" value="http://localhost/sipput"/>
         <parameter id="address_lan" value=""/>        
         <parameter id="address_internet" value="http://sipput.yacanet.com"/>                        
-    </parameters>    	
+    </parameters>      
 </application>

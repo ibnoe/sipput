@@ -3,12 +3,18 @@ prado::using ('Application.MainPageSA');
 class CUser extends MainPageSA {
 	public function onLoad($param) {		
 		parent::onLoad($param);		        
+        $this->showSetting=true;
+        $this->showUser=true;
 		if (!$this->IsPostBack&&!$this->IsCallBack) {
             if (!isset($_SESSION['currentPageUser'])||$_SESSION['currentPageUser']['page_name']!='sa.setting.User') {
                 $_SESSION['currentPageUser']=array('page_name'=>'sa.setting.User','page_num'=>0,'roles'=>'none','search'=>false);												
 			}     
             $_SESSION['currentPageUser']['search']=false;
+            $listroles=$this->Pengguna->getListUserRoles();
+            $listroles['none']='All';
+            $this->cmbRoles->DataSource=$listroles;
             $this->cmbRoles->Text=$_SESSION['currentPageUser']['roles'];
+            $this->cmbRoles->DataBind();
 			$this->populateData ();			
 		}
 	}    
@@ -32,23 +38,23 @@ class CUser extends MainPageSA {
 	}
     private function populateData ($search=false) {                
         if ($search) {
-            $str = "SELECT userid,username,page,uk.nama_unit,email,active FROM user u LEFT JOIN unitkerja uk ON (uk.idunitkerja=u.idunitkerja) WHERE page != 'ptt' AND  page != 'pns' ";        
+            $str = "SELECT userid,username,page,email,active FROM user u";        
             $txtsearch=$this->txtKriteria->Text;
             switch ($this->cmbKriteria->Text) {
                 case 'username' :
-                    $cluasa="AND username LIKE '%$txtsearch%'";
-                    $jumlah_baris=$this->DB->getCountRowsOfTable ("user WHERE page != 'ptt' AND  page != 'pns' $cluasa",'userid');
+                    $cluasa=" WHERE username LIKE '%$txtsearch%'";
+                    $jumlah_baris=$this->DB->getCountRowsOfTable ("user $cluasa",'userid');
                     $str = "$str $cluasa";
                 break;
                 case 'email' :
-                    $cluasa="AND email LIKE '%$txtsearch%'";
-                    $jumlah_baris=$this->DB->getCountRowsOfTable ("user WHERE page != 'ptt' AND  page != 'pns' $cluasa",'userid');
+                    $cluasa=" WHERE email LIKE '%$txtsearch%'";
+                    $jumlah_baris=$this->DB->getCountRowsOfTable ("user $cluasa",'userid');
                     $str = "$str $cluasa";
                 break;
             }
         }else {
             $roles=$_SESSION['currentPageUser']['roles'];
-            $str_roles=$roles=='none'?"WHERE page != 'ptt' AND  page != 'pns'":" WHERE page='$roles'";
+            $str_roles=$roles=='none'?'':" WHERE page='$roles'";
             $str = "SELECT userid,username,page,email,active FROM user u $str_roles";        
             $jumlah_baris=$this->DB->getCountRowsOfTable ("user $str_roles",'userid');		
         }		
@@ -63,9 +69,14 @@ class CUser extends MainPageSA {
 		}
 		if ($limit < 0) {$offset=0;$limit=10;$_SESSION['currentPageUser']['page_num']=0;}
         $str = "$str ORDER BY username ASC, page ASC LIMIT $offset,$limit";        
-		$this->DB->setFieldTable(array('userid','username','page','nama_unit','email','active'));
+		$this->DB->setFieldTable(array('userid','username','page','nama_uptd','email','active'));
 		$r=$this->DB->getRecord($str);                
-		$this->RepeaterS->DataSource=$r;
+        $result=array();
+        while (list($k,$v)=each($r)) {
+            $v['nama_uptd']='N.A';
+            $result[$k]=$v;
+        }
+		$this->RepeaterS->DataSource=$result;
 		$this->RepeaterS->dataBind();      		
     }
     public function dataBound ($sender,$param) {
@@ -77,15 +88,13 @@ class CUser extends MainPageSA {
         }
     }
     public function addProcess ($sender,$param) {
-		$this->idProcess='add';
-        $this->createObjPegawai();
-        $unitkerja=$this->pegawai->getListUnitKerja ();                
-        $unitkerja['none']=' ';
-        $this->cmbAddUnitKerja->DataSource=$unitkerja;        
-        $this->cmbAddUnitKerja->dataBind();   
+		$this->idProcess='add';                
+        $this->cmbAddRoles->DataSource=$this->Pengguna->getListUserRoles();
+        $this->cmbAddRoles->Text=$_SESSION['currentPageUser']['roles'];
+        $this->cmbAddRoles->DataBind();        
     }
     public function checkUsername ($sender,$param) {
-		$this->idProcess=$sender->getId()=='addUsername'?'add':'edit';
+		$this->idProcess=$sender->getId()=='CustomAddUsernameValidator'?'add':'edit';
         $username=$param->Value;		
         if ($username != '') {
             try {   
@@ -101,7 +110,7 @@ class CUser extends MainPageSA {
         }	
     }
     public function checkEmail ($sender,$param) {
-		$this->idProcess=$sender->getId()=='addEmail'?'add':'edit';
+		$this->idProcess=$sender->getId()=='CustomAddEmailValidator'?'add':'edit';
         $email=$param->Value;		
         if ($email != '') {
             try {   
@@ -134,8 +143,8 @@ class CUser extends MainPageSA {
 		$this->idProcess='edit';
 		$id=$this->getDataKeyField($sender,$this->RepeaterS);        
 		$this->hiddenuserid->Value=$id;
-        $str = "SELECT username,email,page,idunitkerja,active FROM user WHERE userid='$id'";
-        $this->DB->setFieldTable(array('username','email','page','idunitkerja','active'));
+        $str = "SELECT username,email,page,active FROM user WHERE userid='$id'";
+        $this->DB->setFieldTable(array('username','email','page','active'));
         $r=$this->DB->getRecord($str);    
 		$result = $r[1];        				
         $this->hiddenusername->Value=$result['username'];
@@ -143,14 +152,9 @@ class CUser extends MainPageSA {
 		$this->txtEditUsername->Text=$result['username'];		
         $this->txtEditUsername->Enabled=$result['page']=='ptt'||$result['page']=='pns'?false:true;
 		$this->txtEditAlamatEmail->Text=$result['email'];		        
-		$this->cmbEditRoles->Text=$result['page'];		
-        $this->cmbEditRoles->Enabled=$result['page']=='ptt'||$result['page']=='pns'?false:true;
-        $this->createObjPegawai();
-        $unitkerja=$this->pegawai->getListUnitKerja ();                
-        $unitkerja['none']=' ';
-        $this->cmbEditUnitKerja->DataSource=$unitkerja;        
-        $this->cmbEditUnitKerja->Text=$result['idunitkerja'];
-        $this->cmbEditUnitKerja->dataBind();  
+        $this->cmbEditRoles->DataSource=$this->Pengguna->getListUserRoles();   
+		$this->cmbEditRoles->Text=$result['page'];		        
+        $this->cmbEditRoles->DataBind();     
         if ($id == 1) {
             $this->txtEditUsername->Enabled=false;
             $this->cmbEditRoles->Enabled=false;
@@ -162,16 +166,15 @@ class CUser extends MainPageSA {
             $id=$this->hiddenuserid->Value;
             $username=$this->txtEditUsername->Text;            
             $alamatemail=$this->txtEditAlamatEmail->Text;            
-            $page=$this->cmbEditRoles->Text;
-            $idunitkerja = $page=='ad'?$this->cmbEditUnitKerja->Text:0;
+            $page=$this->cmbEditRoles->Text;           
             $active=$this->cmbEditStatus->Text;
             if ($this->txtEditPassword->Text == '') {
-                $str = "UPDATE user SET username='$username',page='$page',idunitkerja=$idunitkerja,email='$alamatemail',active=$active WHERE userid=$id";
+                $str = "UPDATE user SET username='$username',page='$page',email='$alamatemail',active=$active WHERE userid=$id";
             }else {
                 $data=$this->Pengguna->createHashPassword($this->txtEditPassword->Text);
                 $salt=$data['salt'];
                 $password=$data['password'];
-                $str = "UPDATE user SET username='$username',userpassword='$password',salt='$salt',page='$page',idunitkerja=$idunitkerja,email='$alamatemail',active=$active WHERE userid=$id";
+                $str = "UPDATE user SET username='$username',userpassword='$password',salt='$salt',page='$page',email='$alamatemail',active=$active WHERE userid=$id";
             }
             $this->DB->updateRecord($str);           
             $this->redirect('sa.setting.User');

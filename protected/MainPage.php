@@ -24,7 +24,12 @@ class MainPage extends TPage {
 	* Object Variable "User"
 	*
 	*/
-	public $Pengguna;    
+	public $Pengguna;  
+    
+    /**     
+     * show page setting
+     */
+    public $showSetting=false;
 	public function OnPreInit ($param) {	
 		parent::onPreInit ($param);
 		//instantiasi database		
