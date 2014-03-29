@@ -25,7 +25,10 @@ class MainPage extends TPage {
 	*
 	*/
 	public $Pengguna;  
-    
+    /**     
+     * show page dmaster
+     */
+    public $showDMaster=false;
     /**     
      * show page setting
      */

@@ -2,6 +2,10 @@
 
 class MainPageSA extends MainPage {  
     /**     
+     * show page UPDT
+     */
+    public $showUPDT=false;
+    /**     
      * show page cache
      */
     public $showUser=false;

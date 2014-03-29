@@ -55,7 +55,7 @@
                 <li>
                     <a href="<%=$this->Page->constructUrl('sa.Home')%>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                 </li>                
-                <li>
+                <li<%=$this->Page->showDMaster==true ? ' class="active"':''%>>
                     <a href="#"><i class="fa fa-book fa-fw"></i> Data Master<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
@@ -104,6 +104,8 @@
 <script src="<%=$this->Page->Theme->baseUrl%>/js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <!-- SB Admin Scripts  -->
 <script src="<%=$this->Page->Theme->baseUrl%>/js/sb-admin.js"></script>
+<!-- SIPPUT Scripts  -->
+<script src="<%=$this->Page->Theme->baseUrl%>/js/sipput.js"></script>
 <!-- Page-Level Plugin Scripts -->
 <com:TContentPlaceHolder ID="jscontent" />  
 </body>
