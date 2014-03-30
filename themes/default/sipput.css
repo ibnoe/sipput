@@ -8,3 +8,27 @@
     color: white;
     padding: 2px;
 }
+/*adding panel heading **/
+.panel-primary > .panel-heading-addprocess {
+    background-color: #428BCA;
+    border-color: #428BCA;
+    color: #FFFFFF;
+}
+.panel-heading-addprocess {
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    padding: 10px 15px;
+}
+.panel-primary > .panel-heading-editprocess {
+    background-color: #428BCA;
+    border-color: #428BCA;
+    color: #FFFFFF;
+}
+.panel-heading-editprocess {
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    padding: 10px 15px;
+}
+.child-menu-selected {
+    float:right;
+}

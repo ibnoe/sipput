@@ -29,23 +29,15 @@
             <a class="navbar-brand" href="<%=$this->Page->constructUrl('sa.Home')%>">SIPPUT</a>            
         </div>
         <ul class="nav navbar-top-links navbar-right">
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+            <li>
+                <a href="#">
+                    <i class="fa fa-user fa-fw"></i>
+                    PROFIL USER
                 </a>
-                <ul class="dropdown-menu dropdown-user">
-                    <li>
-                        <a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a href="<%=$this->Page->constructUrl('Logout')%>"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                    </li>
-                </ul>           
             </li>
+            <li>
+                <a href="<%=$this->Page->constructUrl('Logout')%>"><i class="fa fa-sign-out fa-fw"></i> LOGOUT</a>
+            </li>            
         </ul>
     </nav>
     <!-- end navbar-header --> 
@@ -59,19 +51,19 @@
                     <a href="#"><i class="fa fa-book fa-fw"></i> Data Master<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="<%=$this->Page->constructUrl('sa.dmaster.UPDT')%>">UPTD</a>
+                            <a href="<%=$this->Page->constructUrl('sa.dmaster.UPDT')%>">UPTD<%=$this->Page->showUPDT==true?'<span class="fa fa-eye child-menu-selected"></span>':''%></a>
                         </li>                        
                     </ul>
                     <!-- /.nav-second-level -->
-                </li>                
+                </li>                                
                 <li<%=$this->Page->showSetting==true ? ' class="active"':''%>>
                     <a href="#"><i class="fa fa-wrench fa-fw"></i> Setting<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
+                    <ul class="nav nav-second-level">                        
                         <li>
-                            <a href="<%=$this->Page->constructUrl('sa.setting.User')%>">User</a>
+                            <a href="<%=$this->Page->constructUrl('sa.setting.User')%>">User <%=$this->Page->showUser==true?'<span class="fa fa-eye child-menu-selected"></span>':''%></a>
                         </li>                        
                         <li>
-                            <a href="<%=$this->Page->constructUrl('sa.setting.Cache')%>">Cache</a>
+                            <a href="<%=$this->Page->constructUrl('sa.setting.Cache')%>">Cache<%=$this->Page->showCache==true?'<span class="fa fa-eye child-menu-selected"></span>':''%></a>
                         </li>                        
                     </ul>
                     <!-- /.nav-second-level -->
@@ -86,10 +78,10 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header"><com:TContentPlaceHolder ID="moduleheader" /></h1>
-            </div>
-            <com:TContentPlaceHolder ID="maincontent" />            
+            </div>                        
         </div>
         <!-- /.row -->
+        <com:TContentPlaceHolder ID="maincontent" />
     </div>
     <!-- /#page-wrapper -->
     <com:TJavascriptLogger ID="JSLogger" />

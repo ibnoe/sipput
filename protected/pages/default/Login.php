@@ -14,7 +14,7 @@ class Login extends MainPage {
 		if ($auth->login ($username,$userpassword)){			
 			return true;			
 		}else {
-			throw new Exception ('<br />Username atau password salah!.Silahkan ulangi kembali');						
+			throw new Exception ('Username atau password salah!.Silahkan ulangi kembali');						
 		}
 	}
     public function doLogin ($sender,$param) {
