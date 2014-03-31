@@ -136,7 +136,7 @@ class CUser extends MainPageSA {
             $idunitkerja = $page=='ad'?$this->cmbAddUnitKerja->Text:0;
             $str = "INSERT INTO user (userid,username,userpassword,salt,page,idunitkerja,email,active) VALUES (NULL,'$username','$password','$salt','$page',$idunitkerja,'$alamatemail',1)";
             $this->DB->insertRecord($str);
-            $this->redirect('sa.setting.User');
+            $this->redirect('setting.User',true);
         }
 	}
     public function editRecord ($sender,$param) {		
@@ -177,13 +177,13 @@ class CUser extends MainPageSA {
                 $str = "UPDATE user SET username='$username',userpassword='$password',salt='$salt',page='$page',email='$alamatemail',active=$active WHERE userid=$id";
             }
             $this->DB->updateRecord($str);           
-            $this->redirect('sa.setting.User');
+            $this->redirect('setting.User',true);
         }
 	}
     public function deleteRecord($sender,$param) {
         $id=$this->getDataKeyField($sender,$this->RepeaterS);
         $this->DB->deleteRecord("user WHERE userid=$id");
-        $this->redirect('sa.setting.User');
+        $this->redirect('setting.User',true);
     }
 }
 		

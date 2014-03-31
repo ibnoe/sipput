@@ -6,7 +6,7 @@
     <com:TPanel Visible="<%= $this->getAddProcess(false) %>" CssClass="row">
         <div class="col-lg-12">
             <div class="panel panel-primary">
-                <div class="panel-heading-addprocess">                        
+                <div class="panel-heading-process">                        
                     <h3 class="panel-title">
                         <i class="fa fa-plus"></i>
                         TAMBAH USER
@@ -129,7 +129,7 @@
         <com:TActiveHiddenField ID="hiddenemail" />
         <div class="col-lg-12">
             <div class="panel panel-primary">
-                <div class="panel-heading-editprocess">                        
+                <div class="panel-heading-process">                        
                     <h3 class="panel-title">
                         <i class="fa fa-pencil"></i>
                         UBAH USER

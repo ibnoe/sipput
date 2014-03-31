@@ -30,6 +30,22 @@ class MainPage extends TPage {
      */
     public $showDMaster=false;
     /**     
+     * show page perizinan
+     */
+    public $showPerizinan=false;
+    /**     
+     * show page pemohon [perizinan]
+     */
+    public $showPemohon=false;
+    /**     
+     * show page permohonan baru [perizinan]
+     */
+    public $showPermohonanBaru=false;
+    /**     
+     * show page permhohonan baru [perizinan]
+     */
+    public $showPermohonanPerpanjangan=false;
+    /**     
      * show page setting
      */
     public $showSetting=false;
@@ -55,7 +71,7 @@ class MainPage extends TPage {
                 $page=$datauser['page'];
                 $currentPage=explode('.',$currentPage);	                
                 if ($currentPage[1] != $page) {					                                                 
-                    $this->redirect("$page.Home");
+                    $this->redirect("Home");
                 }
             }
 		}		    
@@ -142,15 +158,20 @@ class MainPage extends TPage {
     /**
 	* Redirect
 	*/
-	protected function redirect ($page,$param=array()) {
-		$this->Response->Redirect($this->constructUrl($page,$param));	
+	protected function redirect ($page,$automaticpage=false,$param=array()) {
+		$this->Response->Redirect($this->constructUrl($page,$automaticpage,$param));	
 	}	  
     /**
      * digunakan untuk membuat url
      */
-    public function constructUrl($page,$param=array()) {
-        $theme=$this->Theme->getName();
-        return $this->Service->constructUrL("$theme.$page",$param);
+    public function constructUrl($page,$automaticpage=false,$param=array()) {
+        $url=$this->Theme->getName();        
+        if ($automaticpage) {
+            $tipeuser=$this->Pengguna->getTipeUser();
+            $url="$url.$tipeuser";
+        }
+        $url="$url.$page";
+        return $this->Service->constructUrL($url,$param);
     }
 }
 ?>

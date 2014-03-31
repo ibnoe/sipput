@@ -26,9 +26,15 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="<%=$this->Page->constructUrl('sa.Home')%>">SIPPUT</a>            
+            <a class="navbar-brand" href="<%=$this->Page->constructUrl('Home',true)%>">SIPPUT</a>            
         </div>
         <ul class="nav navbar-top-links navbar-right">
+            <li>
+                <a href="<%=$this->Page->constructUrl('Download',true)%>">
+                    <i class="fa fa-download fa-fw"></i>
+                    DOWNLOAD
+                </a>
+            </li>
             <li>
                 <a href="#">
                     <i class="fa fa-user fa-fw"></i>
@@ -45,25 +51,39 @@
         <div class="sidebar-collapse">
             <ul class="nav" id="side-menu">                
                 <li>
-                    <a href="<%=$this->Page->constructUrl('sa.Home')%>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                    <a href="<%=$this->Page->constructUrl('Home',true)%>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                 </li>                
                 <li<%=$this->Page->showDMaster==true ? ' class="active"':''%>>
                     <a href="#"><i class="fa fa-book fa-fw"></i> Data Master<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="<%=$this->Page->constructUrl('sa.dmaster.UPDT')%>">UPTD<%=$this->Page->showUPDT==true?'<span class="fa fa-eye child-menu-selected"></span>':''%></a>
+                            <a href="<%=$this->Page->constructUrl('dmaster.UPDT',true)%>">UPTD<%=$this->Page->showUPDT==true?'<span class="fa fa-eye child-menu-selected"></span>':''%></a>
                         </li>                        
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>                                
+                <li<%=$this->Page->showPerizinan==true ? ' class="active"':''%>>
+                    <a href="#"><i class="fa fa-tasks fa-fw"></i> Perizinan<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">                        
+                        <li>
+                            <a href="<%=$this->Page->constructUrl('perizinan.Pemohon',true)%>">Pemohon <%=$this->Page->showPemohon==true?'<span class="fa fa-eye child-menu-selected"></span>':''%></a>
+                        </li>                        
+                        <li>
+                            <a href="<%=$this->Page->constructUrl('perizinan.PermohonanBaru',true)%>">Permohonan Baru <%=$this->Page->showPermohonanBaru==true?'<span class="fa fa-eye child-menu-selected"></span>':''%></a>
+                        </li>                        
+                        <li>
+                            <a href="<%=$this->Page->constructUrl('perizinan.PermohonanPerpanjangan',true)%>">Permohonan Perpan. <%=$this->Page->showPermohonanPerpanjangan==true?'<span class="fa fa-eye child-menu-selected"></span>':''%></a>
+                        </li>                        
+                    </ul>
+                </li>
                 <li<%=$this->Page->showSetting==true ? ' class="active"':''%>>
                     <a href="#"><i class="fa fa-wrench fa-fw"></i> Setting<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">                        
                         <li>
-                            <a href="<%=$this->Page->constructUrl('sa.setting.User')%>">User <%=$this->Page->showUser==true?'<span class="fa fa-eye child-menu-selected"></span>':''%></a>
+                            <a href="<%=$this->Page->constructUrl('setting.User',true)%>">User <%=$this->Page->showUser==true?'<span class="fa fa-eye child-menu-selected"></span>':''%></a>
                         </li>                        
                         <li>
-                            <a href="<%=$this->Page->constructUrl('sa.setting.Cache')%>">Cache<%=$this->Page->showCache==true?'<span class="fa fa-eye child-menu-selected"></span>':''%></a>
+                            <a href="<%=$this->Page->constructUrl('setting.Cache',true)%>">Cache<%=$this->Page->showCache==true?'<span class="fa fa-eye child-menu-selected"></span>':''%></a>
                         </li>                        
                     </ul>
                     <!-- /.nav-second-level -->

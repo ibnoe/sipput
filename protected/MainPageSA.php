@@ -2,15 +2,15 @@
 
 class MainPageSA extends MainPage {  
     /**     
-     * show page UPDT
+     * show page UPDT  [dmaster]
      */
-    public $showUPDT=false;
+    public $showUPDT=false;    
     /**     
-     * show page cache
+     * show page cache [setting]
      */
     public $showUser=false;
     /**     
-     * show page cache
+     * show page cache [setting]
      */
     public $showCache=false;
 	public function onLoad ($param) {		

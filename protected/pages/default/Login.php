@@ -26,9 +26,9 @@ class Login extends MainPage {
                 $_SESSION['ta']=date('Y');
                 $pengguna=$this->getLogic('Users');
                 $userid=$pengguna->getDataUser('userid');
-                $this->DB->updateRecord("UPDATE user SET logintime=NOW() WHERE userid=$userid");
-                $page=$pengguna->getTipeUser ();                
-                $this->redirect("$page.Home");                
+                $this->DB->updateRecord("UPDATE user SET logintime=NOW() WHERE userid=$userid");                        
+                $page=$pengguna->getTipeUser ();
+                $this->redirect("$page.Home"); 
             }catch (Exception $e) {		
                 $message='<br /><div class="alert alert-danger">
                     <strong>Error!</strong>

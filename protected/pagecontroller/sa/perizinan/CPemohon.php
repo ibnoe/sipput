@@ -1,10 +1,10 @@
 <?php
 prado::using ('Application.MainPageSA');
-class CUPDT extends MainPageSA {
+class CPemohon extends MainPageSA {
 	public function onLoad($param) {		
 		parent::onLoad($param);		
-        $this->showDMaster=true;
-        $this->showUPDT=true;        
+        $this->showPerizinan=true;
+        $this->showPemohon=true;        
 		if (!$this->IsPostBack&&!$this->IsCallBack) {
             if (!isset($_SESSION['currentPageUPDT'])||$_SESSION['currentPageUPDT']['page_name']!='sa.dmaster.UPDT') {
                 $_SESSION['currentPageUPDT']=array('page_name'=>'sa.dmaster.UPDT','page_num'=>0,'search'=>false);	                
@@ -75,6 +75,23 @@ class CUPDT extends MainPageSA {
             }	
         }	
     }
+    public function processNextButton($sender,$param) {
+        $this->idProcess='add';            
+        
+		if ($param->CurrentStepIndex ==0) {       
+            
+		}elseif ($param->CurrentStepIndex ==1) {
+            
+        }elseif ($param->CurrentStepIndex ==2) {    
+            
+        }elseif ($param->CurrentStepIndex ==3) {         
+            $this->imgAddPegawai->ImageUrl=$this->setup->getUrlPhotoPegawai().'no_photos.jpg';
+            $this->imgAddPegawai->ImageUrl=$this->setup->getUrlPhotoPegawai().'no_photos.jpg';        
+        }
+	}
+    public function addNewPegawaiCompleted ($sender,$param) {
+        $this->idProcess='add';                
+    }
     public function saveData($sender,$param) {		
         if ($this->Page->IsValid) {		
             $kodeupdt=$this->txtAddKodeUPDT->Text;
@@ -88,7 +105,7 @@ class CUPDT extends MainPageSA {
                 $dataitem['none']='-------------- Seluruh UPDT --------------';    
                 $this->Application->Cache->set('listupdt',$dataitem);
             }
-            $this->redirect('dmaster.UPDT',true);
+            $this->redirect('sa.dmaster.UPDT');
         }
 	}
     public function editRecord ($sender,$param) {		
@@ -118,7 +135,7 @@ class CUPDT extends MainPageSA {
                 $dataitem['none']='-------------- Seluruh UPDT Kerja --------------';    
                 $this->Application->Cache->set('listupdt',$dataitem);
             }
-            $this->redirect('dmaster.UPDT',true);
+            $this->redirect('sa.dmaster.UPDT');
         }
 	}
     public function deleteRecord ($sender,$param) {
@@ -131,7 +148,7 @@ class CUPDT extends MainPageSA {
                 $this->Application->Cache->set('listupdt',$dataitem);
             }
             $this->DB->query('COMMIT');
-            $this->redirect('dmaster.UPDT',true);					
+            $this->redirect('sa.dmaster.UPDT');					
         }else{
             $this->DB->query('ROLLBACK');
         }

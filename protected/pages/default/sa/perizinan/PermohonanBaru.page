@@ -1,9 +1,9 @@
-<%@ Title="Data Master - UPDT" %>
+<%@ Title="Perizinan - Permohonan Baru" %>
 <com:TContent ID="moduleheader">
-    <i class="fa fa-building-o"></i> UPDT (Unit Pelaksana Teknis Dinas)
+    <i class="fa fa-ticket"></i> PERMOHONAN BARU
 </com:TContent>
 <com:TContent ID="maincontent">
-    <com:TPanel Visible="<%= $this->getEditProcess(false) %>" CssClass="row">
+    <com:TPanel Visible="<%= $this->getEditProcess(false) %>" CssClass="row-fluid">
         <com:TActiveHiddenField ID="hiddenkode_updt" />        
         <div class="col-lg-12">
             <div class="panel panel-primary">
@@ -174,7 +174,7 @@
             </div>
         </div>        
     </com:TPanel>
-    <com:TPanel Visible="<%= $this->getDefaultProcess(false) %>">  
+    <com:TPanel Visible="<%= $this->getDefaultProcess(false) %>" CssClass="row-fluid">  
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel panel-primary">
@@ -188,8 +188,8 @@
                         <div class="form-group">
                             <label>Kriteria</label>                                                        
                             <com:TDropDownList ID="cmbKriteria" AutoPostBack="false" CssClass="form-control" Width="150px;">
-                                <com:TListItem Text="Kode UPDT" value="kode"/>
-                                <com:TListItem Text="Nama UPDT" value="nama_updt"/>
+                                <com:TListItem Text="Kode" value="kode"/>
+                                <com:TListItem Text="UPDT" value="nama_updt"/>
                             </com:TDropDownList>
                         </div>
                         <div class="form-group" id="divtxtKriteria">
