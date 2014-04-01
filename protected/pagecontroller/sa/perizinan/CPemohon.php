@@ -6,10 +6,10 @@ class CPemohon extends MainPageSA {
         $this->showPerizinan=true;
         $this->showPemohon=true;        
 		if (!$this->IsPostBack&&!$this->IsCallBack) {
-            if (!isset($_SESSION['currentPageUPDT'])||$_SESSION['currentPageUPDT']['page_name']!='sa.dmaster.UPDT') {
-                $_SESSION['currentPageUPDT']=array('page_name'=>'sa.dmaster.UPDT','page_num'=>0,'search'=>false);	                
+            if (!isset($_SESSION['currentPagePemohon'])||$_SESSION['currentPagePemohon']['page_name']!='sa.perizinan.Pemohon') {
+                $_SESSION['currentPagePemohon']=array('page_name'=>'sa.perizinan.Pemohon','page_num'=>0,'search'=>false);	                
             }        
-            $_SESSION['currentPageUPDT']['search']=false;
+            $_SESSION['currentPagePemohon']['search']=false;
             $this->populateData();
 		}
 	}    
@@ -17,12 +17,12 @@ class CPemohon extends MainPageSA {
 		$this->RepeaterS->render($param->NewWriter);	
 	}	
 	public function Page_Changed ($sender,$param) {
-		$_SESSION['currentPageUPDT']['page_num']=$param->NewPageIndex;
-		$this->populateData($_SESSION['currentPageUPDT']['search']);
+		$_SESSION['currentPagePemohon']['page_num']=$param->NewPageIndex;
+		$this->populateData($_SESSION['currentPagePemohon']['search']);
 	} 
     public function filterRecord ($sender,$param) {
-		$_SESSION['currentPageUPDT']['search']=true;
-        $this->populateData($_SESSION['currentPageUPDT']['search']);
+		$_SESSION['currentPagePemohon']['search']=true;
+        $this->populateData($_SESSION['currentPagePemohon']['search']);
 	}
     private function populateData ($search=false) {
         $str = "SELECT idupdt,nama_updt,alamat_updt,enabled FROM updt";
@@ -43,7 +43,7 @@ class CPemohon extends MainPageSA {
         }else {
             $jumlah_baris=$this->DB->getCountRowsOfTable ('updt','idupdt');			
         }
-        $this->RepeaterS->CurrentPageIndex=$_SESSION['currentPageUPDT']['page_num'];		
+        $this->RepeaterS->CurrentPageIndex=$_SESSION['currentPagePemohon']['page_num'];		
 		$this->RepeaterS->VirtualItemCount=$jumlah_baris;
 		$currentPage=$this->RepeaterS->CurrentPageIndex;
 		$offset=$currentPage*$this->RepeaterS->PageSize;		
@@ -52,7 +52,7 @@ class CPemohon extends MainPageSA {
 		if (($offset+$limit)>$itemcount) {
 			$limit=$itemcount-$offset;
 		}
-		if ($limit <= 0) {$offset=0;$limit=10;$_SESSION['currentPageUPDT']['page_num']=0;}
+		if ($limit <= 0) {$offset=0;$limit=10;$_SESSION['currentPagePemohon']['page_num']=0;}
         $str = "$str LIMIT $offset,$limit";        
 		$this->DB->setFieldTable(array('idupdt','nama_updt','alamat_updt','enabled'));
 		$r=$this->DB->getRecord($str,$offset+1);        
@@ -61,12 +61,12 @@ class CPemohon extends MainPageSA {
     }
     public function checkId ($sender,$param) {
 		$this->idProcess=$sender->getId()=='addKodeUPDT'?'add':'edit';
-        $kode_updt=$param->Value;		
-        if ($kode_updt != '') {
+        $idpemohon=$param->Value;		
+        if ($idpemohon != '') {
             try {   
-                if ($this->hiddenkode_updt->Value!=$kode_updt) {                    
-                    if ($this->DB->checkRecordIsExist('idupdt','updt',$kode_updt)) {                                
-                        throw new Exception ("Kode UPDT ($kode_updt) sudah tidak tersedia silahkan ganti dengan yang lain.");		
+                if ($this->hiddenidpemohon->Value!=$idpemohon) {                    
+                    if ($this->DB->checkRecordIsExist('idupdt','updt',$idpemohon)) {                                
+                        throw new Exception ("ID Pemohon ($idpemohon) sudah tidak tersedia silahkan ganti dengan yang lain.");		
                     }                               
                 }                
             }catch (Exception $e) {
