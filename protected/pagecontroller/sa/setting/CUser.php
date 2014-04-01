@@ -89,7 +89,8 @@ class CUser extends MainPageSA {
     }
     public function addProcess ($sender,$param) {
 		$this->idProcess='add';                
-        $this->cmbAddRoles->DataSource=$this->Pengguna->getListUserRoles();
+        $listroles=$this->Pengguna->removeIdFromArray($this->Pengguna->getListUserRoles(),'pem');
+        $this->cmbAddRoles->DataSource=$listroles;
         $this->cmbAddRoles->Text=$_SESSION['currentPageUser']['roles'];
         $this->cmbAddRoles->DataBind();        
     }
@@ -152,7 +153,8 @@ class CUser extends MainPageSA {
 		$this->txtEditUsername->Text=$result['username'];		
         $this->txtEditUsername->Enabled=$result['page']=='ptt'||$result['page']=='pns'?false:true;
 		$this->txtEditAlamatEmail->Text=$result['email'];		        
-        $this->cmbEditRoles->DataSource=$this->Pengguna->getListUserRoles();   
+        $listroles=$this->Pengguna->removeIdFromArray($this->Pengguna->getListUserRoles(),'pem');
+        $this->cmbEditRoles->DataSource=$listroles;   
 		$this->cmbEditRoles->Text=$result['page'];		        
         $this->cmbEditRoles->DataBind();     
         if ($id == 1) {
