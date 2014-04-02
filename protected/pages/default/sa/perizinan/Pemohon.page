@@ -12,7 +12,7 @@
             ShowSideBar="false"                              
             StepStyle.CssClass="panel panel-primary"
             NavigationStyle.CssClass="btn-group btn-group-justified"
-            OnCompleteButtonClick="addNewPegawaiCompleted" 
+            OnCompleteButtonClick="addNewPemohonCompleted" 
             OnNextButtonClick="processNextButton">
             <prop:StartNavigationTemplate>                    
                 <com:TLinkButton Text="Next" CommandName="NextStep" ValidationGroup="addPemohon" CssClass="btn btn-default" />                    
@@ -20,15 +20,30 @@
             <prop:StepNavigationTemplate>                
                 <com:TLinkButton Text="Next" CommandName="NextStep" ValidationGroup="addPemohon" CssClass="btn btn-default" />                
             </prop:StepNavigationTemplate>
-            <prop:FinishCompleteButtonStyle CssClass="btn"/>
+            <prop:FinishNavigationTemplate>
+                <com:TLinkButton Text="Complete" CommandName="Complete" ValidationGroup="addPemohon" CssClass="btn btn-default" />                
+            </prop:FinishNavigationTemplate>
             <com:TWizardStep ID="datapribadiPemohon" Title="Data Pribadi" AllowReturn="false">                                     
                 <div class="panel-heading-process">
                     <h3 class='panel-title'>
                         <i class='fa fa-plus'></i>
-                        TAMBAH PEMOHON - BIODATA
+                        TAMBAH PEMOHON - PROFIL PEMOHON
                     </h3>
                 </div>
                 <div class="panel-body">
+                    <div class="form-group">
+                        <label>Status Pemohon</label>
+                        <div class="radio">
+                            <label>
+                                <com:TRadioButton ID="rdAddStatusPemohonPerorangan" Checked="true" GroupName="AddStatusPemohon" /> Perorangan                                 
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <com:TRadioButton ID="rdAddStatusPemohonPerusahaan" GroupName="AddStatusPemohon"  /> Perusahaan
+                            </label>
+                        </div>
+                    </div>
                     <div class="form-group" id="divKodePemohon">
                         <label>Kode Pemohon</label>
                         <com:TActiveTextBox ID="txtAddKodePemohon" Columns="4" MaxLength="4" Attributes.OnKeyUp="formatangka(this,true)" CssClass="form-control" Width="70px" Attributes.PlaceHolder="kode" />			                            
@@ -41,7 +56,7 @@
                                 $('divKodePemohon').removeClassName('has-error');
                             </prop:ClientSide.OnValidationSuccess>
                         </com:TRequiredFieldValidator>
-                        <com:TActiveCustomValidator ID="addKodePemohon" ControlToValidate="txtAddKodePemohon" Display="Dynamic" OnServerValidate="checkId" ValidationGroup="addPemohon" ErrorMessage="Kode Pemohon Yang Anda Inputkan Sudah Ada" FocusOnError="true" CssClass="has-error help-block">
+                        <com:TCustomValidator ID="addKodePemohon" ControlToValidate="txtAddKodePemohon" Display="Dynamic" OnServerValidate="checkId" ValidationGroup="addPemohon" ErrorMessage="Kode Pemohon Yang Anda Inputkan Sudah Ada" FocusOnError="true" CssClass="has-error help-block">
                             <prop:ClientSide.OnValidationError>
                                 $('divKodePemohon').addClassName('has-error');
                                 jQuery('#<%=$this->addKodePemohon->ClientID%>').removeAttr('style');
@@ -49,11 +64,11 @@
                             <prop:ClientSide.OnValidationSuccess>
                                 $('divKodePemohon').removeClassName('has-error');
                             </prop:ClientSide.OnValidationSuccess>
-                        </com:TActiveCustomValidator>                        
+                        </com:TCustomValidator>                        
                     </div>
                     <div class="form-group" id="divNamaPemohon">
                         <label>Nama Pemohon</label>
-                        <com:TTextBox ID="txtAddNamaPemohon" CssClass="form-control" Width="350px" Attributes.PlaceHolder="nama Pemohon" />
+                        <com:TTextBox ID="txtAddNamaPemohon" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Nama Pemohon" />
                         <com:TRequiredFieldValidator ID="FieldAddNamaPemohonValidator" ControlToValidate="txtAddNamaPemohon" Display="Dynamic" ErrorMessage="Isi Nama Pemohon" ValidationGroup="addPemohon" FocusOnError="true" CssClass="has-error help-block">				
                             <prop:ClientSide.OnValidationError>
                                 $('divNamaPemohon').addClassName('has-error');
@@ -79,7 +94,7 @@
                     </div>                    
                     <div class="form-group" id="divAlamatPemohon">
                         <label>Alamat</label>
-                        <com:TTextBox ID="txtAddAlamatPemohon" CssClass="form-control" Width="450px" Attributes.PlaceHolder="alamat Pemohon" />
+                        <com:TTextBox ID="txtAddAlamatPemohon" CssClass="form-control" Width="450px" Attributes.PlaceHolder="Alamat Pemohon" />
                         <com:TRequiredFieldValidator ID="FieldAddAlamatPemohonValidator" ControlToValidate="txtAddAlamatPemohon" Display="Dynamic" ErrorMessage="Isi Alamat Pemohon" ValidationGroup="addPemohon" FocusOnError="true" CssClass="has-error help-block">
                             <prop:ClientSide.OnValidationError>
                                 $('divAlamatPemohon').addClassName('has-error');
@@ -106,9 +121,163 @@
                 </div>
             </com:TWizardStep>
             <com:TWizardStep Title="Data Perusahaan" AllowReturn="false">                    
-
+                <div class="panel-heading-process">
+                    <h3 class='panel-title'>
+                        <i class='fa fa-plus'></i>
+                        TAMBAH PEMOHON - PROFIL PERUSAHAAN
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>Status Perusahaan</label>
+                        <div class="radio">
+                            <label>
+                                <com:TRadioButton ID="rdAddStatusPerusahaanPusat" Checked="true" GroupName="AddStatusPerusahaan" /> Pusat                                 
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <com:TRadioButton ID="rdAddStatusPerusahaanCabang" GroupName="AddStatusPerusahaan"  /> Cabang
+                            </label>
+                        </div>
+                    </div>     
+                    <div class="form-group" id="divNamaPerusahaan">
+                        <label>Nama Perusahaan</label>
+                        <com:TTextBox ID="txtAddNamaPerusahaan" CssClass="form-control" Width="380px" Attributes.PlaceHolder="Nama Perusahaan" />
+                        <com:TRequiredFieldValidator ID="FieldAddNamaPerusahaanValidator" ControlToValidate="txtAddNamaPerusahaan" Display="Dynamic" ErrorMessage="Isi Nama Perusahaan" ValidationGroup="addPemohon" FocusOnError="true" CssClass="has-error help-block">				
+                            <prop:ClientSide.OnValidationError>
+                                $('divNamaPerusahaan').addClassName('has-error');
+                                jQuery('#<%=$this->FieldAddNamaPerusahaanValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divNamaPerusahaan').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>
+                    </div>
+                    <div class="form-group" id="divNoAkterPerusahaan">
+                        <label>Nomor Akte Pendirian Perusahaan</label>
+                        <com:TTextBox ID="txtAddNoAktePerusahaan" CssClass="form-control" Width="200px" Attributes.PlaceHolder="No. Akter Perusahaan" />
+                        <com:TRequiredFieldValidator ID="FieldAddNoAkterValidator" ControlToValidate="txtAddNoAktePerusahaan" Display="Dynamic" ErrorMessage="Isi Nomor Akter Perusahaan" ValidationGroup="addPemohon" FocusOnError="true" CssClass="has-error help-block">				
+                            <prop:ClientSide.OnValidationError>
+                                $('divNoAkterPerusahaan').addClassName('has-error');
+                                jQuery('#<%=$this->FieldAddNoAkterValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divNoAkterPerusahaan').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>
+                    </div>
+                    <div class="form-group">
+                        <label>Tanggal Akte Pendirian Perusahaan</label>
+                        <div class="radio" style="padding-left:0px;">
+                            <label>
+                                <com:TDatePicker ID="cmbAddTGLAkterPendirian" DateFormat="dd-MMMM-yyyy" Culture="id"  FromYear="1970" UpToYear="<%= @date('Y') %>" InputMode="DropDownList" ShowCalendar="true" />                        
+                            </label>
+                        </div>
+                    </div>
+                </div>
             </com:TWizardStep>                     
+            <com:TWizardStep Title="Data Perusahaan" AllowReturn="false">                    
+                <div class="panel-heading-process">
+                    <h3 class='panel-title'>
+                        <i class='fa fa-plus'></i>
+                        TAMBAH PEMOHON - FOTO PEMOHON
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group" id="divFile1">
+                        <label>UPLOAD (Maks. <%=$this->setup->formatSizeUnits(3148576)%>)</label>
+                        <com:TFileUpload ID="FileFoto" MaxFileSize="3148576"/>
+                        <com:TCustomValidator ID="addFileFoto" ControlToValidate="FileFoto" Display="Dynamic" OnServerValidate="checkTypeFile" ValidationGroup="addPemohon" ErrorMessage="Ekstensi File yang di Ijinkan hanya jpg dan png." FocusOnError="true" CssClass="has-error help-block">
+                            <prop:ClientSide.OnValidationError>
+                                $('divFile1').addClassName('has-error');
+                                jQuery('#<%=$this->addKodePemohon->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divFile1').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TCustomValidator>
+                    </div> 
+                </div>
+            </com:TWizardStep> 
+            <com:TWizardStep Title="Summary" AllowReturn="false" StepType="Complete">
+                <com:THiddenField ID="path_userimages" />
+                <com:THiddenField ID="path_temp_userimages" />
+                <div class="panel-heading-process">
+                    <h3 class='panel-title'>
+                        <i class='fa fa-plus'></i>
+                        TAMBAH PEMOHON - RANGKUMAN
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#profilpemohon" data-toggle="tab">PROFIL PEMOHON</a>
+                        </li>
+                        <li><a href="#profilperusahaan" data-toggle="tab">PROFIL PERUSAHAAN</a>
+                        </li>
+                        <li><a href="#fotopemohon" data-toggle="tab">FOTO PEMOHON</a>
+                        </li>                           
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="profilpemohon">
+                            <h4>&nbsp;</h4>
+                            <div class="row">
+                                <div class="col-md-3"><strong>Status Pemohon:</strong></div>                                
+                                <div class="col-md-9"><%=$this->rdAddStatusPemohonPerorangan->Checked==true?'Perorangan':'Perusahaan'%></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3"><strong>Kode Pemohon:</strong></div>                                
+                                <div class="col-md-9"><%=$this->txtAddKodePemohon->Text%></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3"><strong>Nama Pemohon:</strong></div>                                
+                                <div class="col-md-9"><%=$this->txtAddNamaPemohon->Text%></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3"><strong>No. KTP Pemohon:</strong></div>                                
+                                <div class="col-md-9"><%=$this->txtAddNoKTP->Text%></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3"><strong>Alamat Pemohon:</strong></div>                                
+                                <div class="col-md-9"><%=$this->txtAddAlamatPemohon->Text%></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3"><strong>No. Telp Pemohon:</strong></div>                                
+                                <div class="col-md-9"><%=$this->txtAddNoTelp->Text%></div>
+                            </div>                            
+                        </div>
+                        <div class="tab-pane fade" id="profilperusahaan">
+                            <h4>Profile Tab</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        </div>
+                        <div class="tab-pane fade" id="fotopemohon">
+                            <h4>&nbsp;</h4>
+                            <p><img src="<%=$this->path_userimages->Value%>" height="189" widht="139" /></p>
+                        </div>                       
+                    </div>
+                </div>                
+                <div class="panel-footer">
+                    <com:TActiveLinkButton ID="btnSave" CssClass="btn btn-primary" OnClick="saveData">
+                        <prop:Text><i class="fa fa-save"></i> Simpan</prop:Text>
+                        <prop:ClientSide.OnPreDispatch>
+                            $('loading').show();                                             
+                            $('<%=$this->btnSave->ClientId%>').disabled='disabled';						
+                        </prop:ClientSide.OnPreDispatch>
+                        <prop:ClientSide.OnLoading>
+                            $('<%=$this->btnSave->ClientId%>').disabled='disabled';						
+                        </prop:ClientSide.OnLoading>
+                        <prop:ClientSide.OnComplete>																	
+                            $('<%=$this->btnSave->ClientId%>').disabled='';						                                            
+                            $('loading').hide(); 
+                        </prop:ClientSide.OnComplete>
+                    </com:TActiveLinkButton>
+                </div>
+            </com:TWizardStep>
         </com:TWizard>                    
+            
     </com:TPanel>
     <com:TPanel Visible="<%= $this->getDefaultProcess(false) %>" CssClass="row-fluid">  
         <div class="row">

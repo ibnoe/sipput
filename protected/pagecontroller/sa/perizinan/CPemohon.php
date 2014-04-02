@@ -10,7 +10,7 @@ class CPemohon extends MainPageSA {
                 $_SESSION['currentPagePemohon']=array('page_name'=>'sa.perizinan.Pemohon','page_num'=>0,'search'=>false);	                
             }        
             $_SESSION['currentPagePemohon']['search']=false;
-            $this->populateData();
+//            $this->populateData();
 		}
 	}    
     public function renderCallback ($sender,$param) {
@@ -25,39 +25,7 @@ class CPemohon extends MainPageSA {
         $this->populateData($_SESSION['currentPagePemohon']['search']);
 	}
     private function populateData ($search=false) {
-        $str = "SELECT idupdt,nama_updt,alamat_updt,enabled FROM updt";
-        if ($search) {
-            $txtsearch=$this->txtKriteria->Text;
-            switch ($this->cmbKriteria->Text) {
-                case 'kode' :
-                    $cluasa="WHERE idupdt='$txtsearch'";
-                    $jumlah_baris=$this->DB->getCountRowsOfTable ("updt $cluasa",'idupdt');
-                    $str = "$str $cluasa";
-                break;
-                case 'nama_updt' :
-                    $cluasa="WHERE nama_updt LIKE '%$txtsearch%'";
-                    $jumlah_baris=$this->DB->getCountRowsOfTable ("updt $cluasa",'idupdt');
-                    $str = "$str $cluasa";
-                break;
-            }
-        }else {
-            $jumlah_baris=$this->DB->getCountRowsOfTable ('updt','idupdt');			
-        }
-        $this->RepeaterS->CurrentPageIndex=$_SESSION['currentPagePemohon']['page_num'];		
-		$this->RepeaterS->VirtualItemCount=$jumlah_baris;
-		$currentPage=$this->RepeaterS->CurrentPageIndex;
-		$offset=$currentPage*$this->RepeaterS->PageSize;		
-		$itemcount=$this->RepeaterS->VirtualItemCount;
-		$limit=$this->RepeaterS->PageSize;
-		if (($offset+$limit)>$itemcount) {
-			$limit=$itemcount-$offset;
-		}
-		if ($limit <= 0) {$offset=0;$limit=10;$_SESSION['currentPagePemohon']['page_num']=0;}
-        $str = "$str LIMIT $offset,$limit";        
-		$this->DB->setFieldTable(array('idupdt','nama_updt','alamat_updt','enabled'));
-		$r=$this->DB->getRecord($str,$offset+1);        
-		$this->RepeaterS->DataSource=$r;
-		$this->RepeaterS->dataBind();      		
+        
     }
     public function checkId ($sender,$param) {
 		$this->idProcess=$sender->getId()=='addKodeUPDT'?'add':'edit';
@@ -75,83 +43,58 @@ class CPemohon extends MainPageSA {
             }	
         }	
     }
-    public function processNextButton($sender,$param) {
-        $this->idProcess='add';            
-        
-		if ($param->CurrentStepIndex ==0) {       
-            
-		}elseif ($param->CurrentStepIndex ==1) {
-            
-        }elseif ($param->CurrentStepIndex ==2) {    
-            
-        }elseif ($param->CurrentStepIndex ==3) {         
-            $this->imgAddPegawai->ImageUrl=$this->setup->getUrlPhotoPegawai().'no_photos.jpg';
-            $this->imgAddPegawai->ImageUrl=$this->setup->getUrlPhotoPegawai().'no_photos.jpg';        
-        }
-	}
-    public function addNewPegawaiCompleted ($sender,$param) {
-        $this->idProcess='add';                
+    public function checkTypeFile ($sender,$param) {
+        $this->idProcess=$sender->getId()=='addFileFoto'?'add':'edit';        
+        if ($this->FileFoto->FileType!='image/png' && $this->FileFoto->FileType!='image/jpeg')            
+            $param->IsValid=false;
     }
-    public function saveData($sender,$param) {		
-        if ($this->Page->IsValid) {		
-            $kodeupdt=$this->txtAddKodeUPDT->Text;
-            $nama_updt =  ucwords(addslashes($this->txtAddNamaUPDT->Text));
-            $alamat_updt =  addslashes($this->txtAddAlamatUPDT->Text);
-            $enabled=$this->cmbAddStatus->Text;
-            $str = "INSERT INTO updt (idupdt,nama_updt,alamat_updt,enabled) VALUES ('$kodeupdt','$nama_updt','$alamat_updt',$enabled)";
-            $this->DB->insertRecord($str);
-            if ($this->Application->Cache) {
-                $dataitem=$this->Pengguna->getList('updt WHERE enabled=1',array('idupdt','nama_updt'),'nama_updt',null,1);
-                $dataitem['none']='-------------- Seluruh UPDT --------------';    
-                $this->Application->Cache->set('listupdt',$dataitem);
+    public function processNextButton($sender,$param) {
+        $this->idProcess='add';                    
+		if ($param->CurrentStepIndex ==0) {                   
+            if ($this->rdAddStatusPemohonPerorangan->Checked) {
+                $this->newpemohonwizard->ActiveStepIndex=2; 
             }
-            $this->redirect('sa.dmaster.UPDT');
+		}
+	}
+    public function addNewPemohonCompleted ($sender,$param) {
+        $this->idProcess='add'; 
+        $RecNoPem=$this->DB->getMaxOfRecord('RecNoPem','pemohon')+1;
+        $name=$this->FileFoto->FileName;
+        $part=$this->setup->cleanFileNameString($name);                
+        $path=$this->setup->getSettingValue('dir_temp')."/$RecNoPem-$part";                
+        $this->path_temp_userimages->Value=$path;
+        $path=$this->setup->getSettingValue('dir_userimages')."/$RecNoPem-$part";                
+        $this->path_userimages->Value=$path;
+        $this->FileFoto->saveAs("./$path");      
+    }    
+    public function saveData($sender,$param) {		
+        if ($this->Page->IsValid) {		                                                                
+            $status_pemohon=$this->rdAddStatusPemohonPerorangan->Checked==true?'perorangan':'perusahaan';
+            $kode_pemohon=$this->txtAddKodePemohon->Text;
+            $nama_pemohon=$this->txtAddNamaPemohon->Text;
+            $no_ktp_pemohon=$this->txtAddNoKTP->Text;
+            $alamat_pemohon=$this->txtAddAlamatPemohon->Text;
+            $notelp_pemohon=$this->txtAddNoTelp->Text;
+            $path_temp_userimages=$this->path_temp_userimages->Value;
+            $path_userimages=$this->path_userimages->Value;
+            
+            $str = "INSERT INTO pemohon (RecNoPem,NmPem,KtpPem,AlmtPem,TelpPem,Foto,Status,DateAdded,DateModified) VALUES ('$kode_pemohon','$nama_pemohon','$no_ktp_pemohon','$alamat_pemohon','$notelp_pemohon','$path_userimages','$status_pemohon',NOW(),NOW())";
+            $this->DB->insertRecord($str);
+            
+            $this->redirect('perizinan.Pemohon', true);
         }
 	}
     public function editRecord ($sender,$param) {		
 		$this->idProcess='edit';
-		$idunikerja=$this->getDataKeyField($sender,$this->RepeaterS);
-		$this->hiddenkode_updt->Value=$idunikerja;
-        $str = "SELECT idupdt,nama_updt,alamat_updt,enabled FROM updt WHERE idupdt='$idunikerja'";
-        $this->DB->setFieldTable(array('idupdt','nama_updt','alamat_updt','enabled'));
-        $r=$this->DB->getRecord($str);    
-		$result = $r[1];        				
-		$this->txtEditKodeUPDT->Text=$result['idupdt'];		
-		$this->txtEditNamaUPDT->Text=$result['nama_updt'];		        
-		$this->txtEditAlamatUPDT->Text=$result['alamat_updt'];		
-        $this->cmbEditStatus->Text=$result['enabled'];		
+		
 	}
     public function updateData($sender,$param) {		
         if ($this->Page->IsValid) {		
-            $idupdt=$this->hiddenkode_updt->Value;
-            $kodeupdt=$this->txtEditKodeUPDT->Text;
-            $nama_updt =  ucwords(addslashes($this->txtEditNamaUPDT->Text));
-            $alamat_updt =  addslashes($this->txtEditAlamatUPDT->Text);
-            $enabled=$this->cmbEditStatus->Text;
-            $str = "UPDATE updt SET idupdt='$kodeupdt',nama_updt='$nama_updt',alamat_updt='$alamat_updt',enabled=$enabled WHERE idupdt=$idupdt";
-            $this->DB->updateRecord($str);
-            if ($this->Application->Cache) {
-                $dataitem=$this->Pengguna->getList('updt WHERE enabled=1',array('idupdt','nama_updt'),'nama_updt',null,1);
-                $dataitem['none']='-------------- Seluruh UPDT Kerja --------------';    
-                $this->Application->Cache->set('listupdt',$dataitem);
-            }
-            $this->redirect('sa.dmaster.UPDT');
+            
         }
 	}
     public function deleteRecord ($sender,$param) {
-        $idupdt=$this->getDataKeyField($sender,$this->RepeaterS);
-        $this->DB->query('BEGIN');
-        if ($this->DB->deleteRecord("updt WHERE idupdt='$idupdt'")) {                        
-            if ($this->Application->Cache) {
-                $dataitem=$this->Pengguna->getList('updt WHERE enabled=1',array('idupdt','nama_updt'),'nama_updt',null,1);
-                $dataitem['none']='-------------- Seluruh UPDT Kerja --------------';    
-                $this->Application->Cache->set('listupdt',$dataitem);
-            }
-            $this->DB->query('COMMIT');
-            $this->redirect('sa.dmaster.UPDT');					
-        }else{
-            $this->DB->query('ROLLBACK');
-        }
+        $id=$this->getDataKeyField($sender,$this->RepeaterS);        
     }
 }
 		
