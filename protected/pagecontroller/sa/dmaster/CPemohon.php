@@ -90,12 +90,10 @@ class CPemohon extends MainPageSA {
 	}
     public function addNewPemohonCompleted ($sender,$param) {
         $this->idProcess='add'; 
-        $RecNoPem=$this->DB->getMaxOfRecord('RecNoPem','pemohon')+1;
+        $filename=substr(hash('sha512',rand()),0,8);
         $name=$this->FileFoto->FileName;
-        $part=$this->setup->cleanFileNameString($name);                
-        $path=$this->setup->getSettingValue('dir_temp')."/$RecNoPem-$part";                
-        $this->path_temp_userimages->Value=$path;
-        $path=$this->setup->getSettingValue('dir_userimages')."/$RecNoPem-$part";                
+        $part=$this->setup->cleanFileNameString($name);                                
+        $path=$this->setup->getSettingValue('dir_userimages')."/$filename-$part";                
         $this->path_userimages->Value=$path;
         $this->FileFoto->saveAs("./$path");      
     }    
@@ -106,14 +104,14 @@ class CPemohon extends MainPageSA {
             $nama_pemohon=$this->txtAddNamaPemohon->Text;
             $no_ktp_pemohon=$this->txtAddNoKTP->Text;
             $alamat_pemohon=$this->txtAddAlamatPemohon->Text;
-            $notelp_pemohon=$this->txtAddNoTelp->Text;
-            $path_temp_userimages=$this->path_temp_userimages->Value;
+            $notelp_pemohon=$this->txtAddNoTelp->Text;            
             $path_userimages=$this->path_userimages->Value;
             
             $str = "INSERT INTO pemohon (RecNoPem,NmPem,KtpPem,AlmtPem,TelpPem,Foto,Status,DateAdded,DateModified) VALUES ('$kode_pemohon','$nama_pemohon','$no_ktp_pemohon','$alamat_pemohon','$notelp_pemohon','$path_userimages','$status_pemohon',NOW(),NOW())";
             $this->DB->query('BEGIN');
             if ($this->DB->insertRecord($str)) {
                 if ($status_pemohon=='perusahaan') {
+                    $status_perusahaan=$this->rdAddStatusPerusahaanPusat->Checked==true?'pusat':'cabang';
                     $nama_perusahaan=$this->txtAddNamaPerusahaan->Text;
                     $no_akte=$this->txtAddNoAktePerusahaan->Text;
                     $tgl_akte=date('Y-m-d',$this->cmbAddTGLAktePendirian->TimeStamp);
@@ -121,11 +119,12 @@ class CPemohon extends MainPageSA {
                     $alamat=$this->txtAddAlamatPerusahaan->Text;
                     $notelepon=$this->txtAddNoTelpPerusahaan->Text;
                     $nofax=$this->txtAddNoFaxPerusahaan->Text;
-                    $alamatcabang=$this->txtAddAlamatCabang->Text;
-                    
-                             
+                    $alamatcabang=$this->txtAddAlamatCabang->Text;                   
+                    $str = "INSERT INTO perusahaan (RecNoCom,RecStsCom,NmCom,NoAkte,TglAkte,NPWPCom,AlmtCom,TelCom,FaxComp,AlmtComCab) VALUES ($kode_pemohon,'$status_perusahaan','$nama_perusahaan','$no_akte','$tgl_akte','$npwp','$alamat','$notelepon','$nofax','$alamatcabang')";
+                    $this->DB->insertRecord($str);                             
                 }
-                $this->DB->query('COMMIT');
+                $this->DB->query('COMMIT');            
+                $this->redirect('dmaster.Pemohon',true);
             }else {
                 $this->DB->query('ROLLBACK');
             }          
@@ -151,4 +150,4 @@ class CPemohon extends MainPageSA {
         }
     }
 }
-		
+?>
