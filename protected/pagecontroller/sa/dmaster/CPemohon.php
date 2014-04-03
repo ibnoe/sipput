@@ -3,7 +3,7 @@ prado::using ('Application.MainPageSA');
 class CPemohon extends MainPageSA {
 	public function onLoad($param) {		
 		parent::onLoad($param);		
-        $this->showPerizinan=true;
+        $this->showDMaster=true;
         $this->showPemohon=true;        
 		if (!$this->IsPostBack&&!$this->IsCallBack) {
             if (!isset($_SESSION['currentPagePemohon'])||$_SESSION['currentPagePemohon']['page_name']!='sa.dmaster.Pemohon') {
