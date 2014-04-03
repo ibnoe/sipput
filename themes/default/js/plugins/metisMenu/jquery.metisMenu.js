@@ -1,4 +1,4 @@
-;(function (jQuery, window, document, undefined) {
+;(function ($, window, document, undefined) {
 
     var pluginName = "metisMenu",
         defaults = {
@@ -7,7 +7,7 @@
         
     function Plugin(element, options) {
         this.element = element;
-        this.settings = jQuery.extend({}, defaults, options);
+        this.settings = $.extend({}, defaults, options);
         this._defaults = defaults;
         this._name = pluginName;
         this.init();
@@ -16,28 +16,28 @@
     Plugin.prototype = {
         init: function () {
 
-            var jQuerythis = jQuery(this.element),
-                jQuerytoggle = this.settings.toggle;
+            var $this = $(this.element),
+                $toggle = this.settings.toggle;
 
-            jQuerythis.find('li.active').has('ul').children('ul').addClass('collapse in');
-            jQuerythis.find('li').not('.active').has('ul').children('ul').addClass('collapse');
+            $this.find('li.active').has('ul').children('ul').addClass('collapse in');
+            $this.find('li').not('.active').has('ul').children('ul').addClass('collapse');
 
-            jQuerythis.find('li').has('ul').children('a').on('click', function (e) {
+            $this.find('li').has('ul').children('a').on('click', function (e) {
                 e.preventDefault();
 
-                jQuery(this).parent('li').toggleClass('active').children('ul').collapse('toggle');
+                $(this).parent('li').toggleClass('active').children('ul').collapse('toggle');
 
-                if (jQuerytoggle) {
-                    jQuery(this).parent('li').siblings().removeClass('active').children('ul.in').collapse('hide');
+                if ($toggle) {
+                    $(this).parent('li').siblings().removeClass('active').children('ul.in').collapse('hide');
                 }
             });
         }
     };
 
-    jQuery.fn[ pluginName ] = function (options) {
+    $.fn[ pluginName ] = function (options) {
         return this.each(function () {
-            if (!jQuery.data(this, "plugin_" + pluginName)) {
-                jQuery.data(this, "plugin_" + pluginName, new Plugin(this, options));
+            if (!$.data(this, "plugin_" + pluginName)) {
+                $.data(this, "plugin_" + pluginName, new Plugin(this, options));
             }
         });
     };

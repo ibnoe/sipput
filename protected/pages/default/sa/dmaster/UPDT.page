@@ -38,7 +38,7 @@
                     </div>
                     <div class="form-group" id="divEditNamaUPDT">
                         <label>Nama UPDT</label>
-                        <com:TTextBox ID="txtEditNamaUPDT" CssClass="form-control" Width="350px" Attributes.PlaceHolder="nama UPDT" />
+                        <com:TTextBox ID="txtEditNamaUPDT" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Nama UPDT" />
                         <com:TRequiredFieldValidator ID="FieldEditNamaUPDTValidator" ControlToValidate="txtEditNamaUPDT" Display="Dynamic" ErrorMessage="Isi Nama UPDT" ValidationGroup="editUPDT" FocusOnError="true" CssClass="has-error help-block">				
                             <prop:ClientSide.OnValidationError>
                                 $('divEditNamaUPDT').addClassName('has-error');
@@ -123,7 +123,7 @@
                     </div>
                     <div class="form-group" id="divNamaUPDT">
                         <label>Nama UPDT</label>
-                        <com:TTextBox ID="txtAddNamaUPDT" CssClass="form-control" Width="350px" Attributes.PlaceHolder="nama UPDT" />
+                        <com:TTextBox ID="txtAddNamaUPDT" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Nama UPDT" />
                         <com:TRequiredFieldValidator ID="FieldAddNamaUPDTValidator" ControlToValidate="txtAddNamaUPDT" Display="Dynamic" ErrorMessage="Isi Nama UPDT" ValidationGroup="addUPDT" FocusOnError="true" CssClass="has-error help-block">				
                             <prop:ClientSide.OnValidationError>
                                 $('divNamaUPDT').addClassName('has-error');

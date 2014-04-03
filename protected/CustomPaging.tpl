@@ -1,4 +1,4 @@
-<div class="row table-footer-row">
+<div class="row">
     <div class="col-sm-12">
         <div class="pull-left">
             <com:TActiveLabel ID="paginationInfo"/>

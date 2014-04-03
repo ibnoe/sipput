@@ -59,15 +59,15 @@
                         <li>
                             <a href="<%=$this->Page->constructUrl('dmaster.UPDT',true)%>">UPTD<%=$this->Page->showUPDT==true?'<span class="fa fa-eye child-menu-selected"></span>':''%></a>
                         </li>                        
+                        <li>
+                            <a href="<%=$this->Page->constructUrl('dmaster.Pemohon',true)%>">Pemohon <%=$this->Page->showPemohon==true?'<span class="fa fa-eye child-menu-selected"></span>':''%></a>
+                        </li>                        
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>                                
                 <li<%=$this->Page->showPerizinan==true ? ' class="active"':''%>>
                     <a href="#"><i class="fa fa-tasks fa-fw"></i> Perizinan<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">                        
-                        <li>
-                            <a href="<%=$this->Page->constructUrl('perizinan.Pemohon',true)%>">Pemohon <%=$this->Page->showPemohon==true?'<span class="fa fa-eye child-menu-selected"></span>':''%></a>
-                        </li>                        
+                    <ul class="nav nav-second-level">                                                
                         <li>
                             <a href="<%=$this->Page->constructUrl('perizinan.PermohonanBaru',true)%>">Permohonan Baru <%=$this->Page->showPermohonanBaru==true?'<span class="fa fa-eye child-menu-selected"></span>':''%></a>
                         </li>                        

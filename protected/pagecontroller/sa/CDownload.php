@@ -39,7 +39,7 @@ class CDownload extends MainPageSA {
     public function saveData($sender,$param) {
         if ($this->IsValid) {           
             if ($this->File1->HasFile) {      
-                $name_alias=  addslashes($this->txtAddKeterangan->Text);
+                $name_alias=  addslashes($this->txtAddNamaFile->Text);
                 $note= strip_tags(addslashes($this->txtAddKeterangan->Text));
                 $name=$this->File1->FileName;
                 $part=$this->setup->cleanFileNameString($name);
