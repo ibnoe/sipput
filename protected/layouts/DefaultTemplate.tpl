@@ -123,9 +123,9 @@
 <script src="<%=$this->Page->Theme->baseUrl%>/js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <!-- SB Admin Scripts  -->
 <script src="<%=$this->Page->Theme->baseUrl%>/js/sb-admin.js"></script>
-<!-- SIPPUT Scripts  -->
-<script src="<%=$this->Page->Theme->baseUrl%>/js/sipput.js"></script>
 <!-- Page-Level Plugin Scripts -->
 <com:TContentPlaceHolder ID="jscontent" />  
+<!-- SIPPUT Scripts  -->
+<script src="<%=$this->Page->Theme->baseUrl%>/js/sipput.js"></script>
 </body>
 </html>

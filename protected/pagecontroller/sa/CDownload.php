@@ -46,10 +46,12 @@ class CDownload extends MainPageSA {
                 $size=$this->File1->FileSize;
                 $format=$this->File1->FileType;
                 $path=$this->setup->getSettingValue('dir_files')."/$part";
-                $this->File1->saveAs("./$path");                
-                $str = "INSERT INTO files (idfiles,name,name_alias,part,path,format,size,note) VALUES (NULL,'$name','$name_alias','$part','$path','$format','$size','$note')";
-                $this->DB->insertRecord($str);                     
-                $this->redirect('Download',true);
+                $this->File1->saveAs("./$path");
+                if (file_exists("./$path")) {
+                    $str = "INSERT INTO files (idfiles,name,name_alias,part,path,format,size,note) VALUES (NULL,'$name','$name_alias','$part','$path','$format','$size','$note')";
+                    $this->DB->insertRecord($str);                     
+                    $this->redirect('Download',true);
+                }
             }
         }
     }

@@ -104,10 +104,11 @@ class CPemohon extends MainPageSA {
             $nama_pemohon=$this->txtAddNamaPemohon->Text;
             $no_ktp_pemohon=$this->txtAddNoKTP->Text;
             $alamat_pemohon=$this->txtAddAlamatPemohon->Text;
+            $npwp_pemohon=$this->txtAddNoNPWPPemohon->Text;
             $notelp_pemohon=$this->txtAddNoTelp->Text;            
             $path_userimages=$this->path_userimages->Value;
             
-            $str = "INSERT INTO pemohon (RecNoPem,NmPem,KtpPem,AlmtPem,TelpPem,Foto,Status,DateAdded,DateModified) VALUES ('$kode_pemohon','$nama_pemohon','$no_ktp_pemohon','$alamat_pemohon','$notelp_pemohon','$path_userimages','$status_pemohon',NOW(),NOW())";
+            $str = "INSERT INTO pemohon (RecNoPem,NmPem,KtpPem,AlmtPem,TelpPem,NpwpPem,Foto,Status,DateAdded,DateModified) VALUES ('$kode_pemohon','$nama_pemohon','$no_ktp_pemohon','$alamat_pemohon','$notelp_pemohon','$npwp_pemohon','$path_userimages','$status_pemohon',NOW(),NOW())";
             $this->DB->query('BEGIN');
             if ($this->DB->insertRecord($str)) {
                 if ($status_pemohon=='perusahaan') {

@@ -2,6 +2,9 @@
 <com:TContent ID="moduleheader">
     <i class="fa fa-group"></i> User
 </com:TContent>
+<com:TContent ID="csscontent">
+<link rel="stylesheet" type="text/css" href="<%=$this->page->theme->baseUrl%>/js/plugins/chosen-bootstrap/chosen.min.css" />
+</com:TContent>
 <com:TContent ID="maincontent">
     <com:TPanel Visible="<%= $this->getAddProcess(false) %>" CssClass="row">
         <div class="col-lg-12">
@@ -101,7 +104,9 @@
                     </div>
                     <div class="form-group" id="divTxtAddUPTD">
                         <label>UPTD (Dipilih jika roles admin)</label>
-                        <com:TDropDownList ID="cmbAddUPTD" AutoPostBack="false" CssClass="form-control" Width="400px"/>                            
+                        <div class="radio" style="padding-left:0px">
+                            <com:TDropDownList ID="cmbAddUPTD" AutoPostBack="false" CssClass="form-control chosen" Width="400px"/>                            
+                        </div>                        
                     </div>
                 </div>
                 <div class="panel-footer">
@@ -406,4 +411,7 @@
         </div>            
     </com:TPanel>    
 </div>    
+</com:TContent>
+<com:TContent ID="jscontent">
+<script type="text/javascript" src="<%=$this->page->theme->baseUrl%>/js/plugins/chosen-bootstrap/chosen.jquery.min.js"></script>
 </com:TContent>
