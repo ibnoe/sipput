@@ -1,6 +1,6 @@
 <?php
-prado::using ('Application.pagecontroller.sa.dmaster.CUPDT');
-class UPDT extends CUPDT {
+prado::using ('Application.pagecontroller.sa.dmaster.CUPTD');
+class UPTD extends CUPTD {
 	public function onLoad($param) {		
 		parent::onLoad($param);		        
 	}    

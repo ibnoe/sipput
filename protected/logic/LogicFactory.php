@@ -27,6 +27,10 @@ class LogicFactory extends TModule {
 				prado::using ('Application.logic.Logic_Setup');
 				return new Logic_Setup ($this->db);
 			break;                        
+            case 'DMaster' :
+				prado::using ('Application.logic.Logic_DMaster');
+				return new Logic_DMaster ($this->db);
+			break;
 			default :
 				throw new Exception ("Logic_Factory.php :: $className tidak di ketahui");
 		}
