@@ -38,7 +38,7 @@ class CUser extends MainPageSA {
 	}
     private function populateData ($search=false) {                
         if ($search) {
-            $str = "SELECT userid,username,page,email,active FROM user u";        
+            $str = "SELECT userid,username,nama_uptd,page,email,active FROM user u LEFT JOIN uptd ON (uptd.iduptd=u.iduptd)";        
             $txtsearch=$this->txtKriteria->Text;
             switch ($this->cmbKriteria->Text) {
                 case 'username' :
@@ -55,7 +55,7 @@ class CUser extends MainPageSA {
         }else {
             $roles=$_SESSION['currentPageUser']['roles'];
             $str_roles=$roles=='none'?'':" WHERE page='$roles'";
-            $str = "SELECT userid,username,page,email,active FROM user u $str_roles";        
+            $str = "SELECT userid,username,nama_uptd,page,email,active FROM user u LEFT JOIN uptd ON (uptd.iduptd=u.iduptd) $str_roles";        
             $jumlah_baris=$this->DB->getCountRowsOfTable ("user $str_roles",'userid');		
         }		
         $this->RepeaterS->CurrentPageIndex=$_SESSION['currentPageUser']['page_num'];
@@ -70,10 +70,10 @@ class CUser extends MainPageSA {
 		if ($limit < 0) {$offset=0;$limit=10;$_SESSION['currentPageUser']['page_num']=0;}
         $str = "$str ORDER BY username ASC, page ASC LIMIT $offset,$limit";        
 		$this->DB->setFieldTable(array('userid','username','page','nama_uptd','email','active'));
-		$r=$this->DB->getRecord($str);                
+		$r=$this->DB->getRecord($str);            
         $result=array();
         while (list($k,$v)=each($r)) {
-            $v['nama_uptd']='N.A';
+            $v['nama_uptd']=$v['nama_uptd']==''?'N.A':$v['nama_uptd'];
             $result[$k]=$v;
         }
 		$this->RepeaterS->DataSource=$result;
@@ -92,7 +92,12 @@ class CUser extends MainPageSA {
         $listroles=$this->Pengguna->removeIdFromArray($this->Pengguna->getListUserRoles(),'pem');
         $this->cmbAddRoles->DataSource=$listroles;
         $this->cmbAddRoles->Text=$_SESSION['currentPageUser']['roles'];
-        $this->cmbAddRoles->DataBind();        
+        $this->cmbAddRoles->DataBind();  
+        
+        $this->createObj('DMaster');
+        $listuptd=$this->DMaster->getListUPTD();
+        $this->cmbAddUPTD->DataSource=$listuptd;
+        $this->cmbAddUPTD->DataBind();        
     }
     public function checkUsername ($sender,$param) {
 		$this->idProcess=$sender->getId()=='CustomAddUsernameValidator'?'add':'edit';
@@ -134,8 +139,8 @@ class CUser extends MainPageSA {
             $data=$this->Pengguna->createHashPassword($this->txtAddPassword->Text);
             $salt=$data['salt'];
             $password=$data['password'];
-            $idunitkerja = $page=='ad'?$this->cmbAddUnitKerja->Text:0;
-            $str = "INSERT INTO user (userid,username,userpassword,salt,page,idunitkerja,email,active) VALUES (NULL,'$username','$password','$salt','$page',$idunitkerja,'$alamatemail',1)";
+            $iduptd = $page=='ad'?$this->cmbAddUPTD->Text:0;
+            $str = "INSERT INTO user (userid,username,userpassword,salt,page,iduptd,email,active) VALUES (NULL,'$username','$password','$salt','$page',$iduptd,'$alamatemail',1)";
             $this->DB->insertRecord($str);
             $this->redirect('setting.User',true);
         }
@@ -144,8 +149,8 @@ class CUser extends MainPageSA {
 		$this->idProcess='edit';
 		$id=$this->getDataKeyField($sender,$this->RepeaterS);        
 		$this->hiddenuserid->Value=$id;
-        $str = "SELECT username,email,page,active FROM user WHERE userid='$id'";
-        $this->DB->setFieldTable(array('username','email','page','active'));
+        $str = "SELECT username,email,page,iduptd,active FROM user WHERE userid='$id'";
+        $this->DB->setFieldTable(array('username','email','page','iduptd','active'));
         $r=$this->DB->getRecord($str);    
 		$result = $r[1];        				
         $this->hiddenusername->Value=$result['username'];
@@ -157,6 +162,13 @@ class CUser extends MainPageSA {
         $this->cmbEditRoles->DataSource=$listroles;   
 		$this->cmbEditRoles->Text=$result['page'];		        
         $this->cmbEditRoles->DataBind();     
+        
+        $this->createObj('DMaster');
+        $listuptd=$this->DMaster->getListUPTD();
+        $this->cmbEditUPTD->DataSource=$listuptd;
+        $this->cmbEditUPTD->Text=$result['iduptd'];
+        $this->cmbEditUPTD->DataBind();
+        
         if ($id == 1) {
             $this->txtEditUsername->Enabled=false;
             $this->cmbEditRoles->Enabled=false;
@@ -168,15 +180,21 @@ class CUser extends MainPageSA {
             $id=$this->hiddenuserid->Value;
             $username=$this->txtEditUsername->Text;            
             $alamatemail=$this->txtEditAlamatEmail->Text;            
-            $page=$this->cmbEditRoles->Text;           
-            $active=$this->cmbEditStatus->Text;
+            $page=$this->cmbEditRoles->Text;   
+            $iduptd=0;
+            if ($page == 'ad') {
+                $iduptd=$this->cmbEditUPTD->Text;
+                $active=$iduptd == 'none' ? 0 :$this->cmbEditStatus->Text;
+            }else{
+                $active=$this->cmbEditStatus->Text;
+            }                        
             if ($this->txtEditPassword->Text == '') {
-                $str = "UPDATE user SET username='$username',page='$page',email='$alamatemail',active=$active WHERE userid=$id";
+                $str = "UPDATE user SET username='$username',page='$page',email='$alamatemail',iduptd='$iduptd',active=$active WHERE userid=$id";
             }else {
                 $data=$this->Pengguna->createHashPassword($this->txtEditPassword->Text);
                 $salt=$data['salt'];
                 $password=$data['password'];
-                $str = "UPDATE user SET username='$username',userpassword='$password',salt='$salt',page='$page',email='$alamatemail',active=$active WHERE userid=$id";
+                $str = "UPDATE user SET username='$username',userpassword='$password',salt='$salt',page='$page',email='$alamatemail',iduptd='$iduptd',active=$active WHERE userid=$id";
             }
             $this->DB->updateRecord($str);           
             $this->redirect('setting.User',true);
