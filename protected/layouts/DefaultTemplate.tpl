@@ -48,7 +48,7 @@
     </nav>
     <!-- end navbar-header --> 
     <nav class="navbar-default navbar-static-side" role="navigation">
-        <com:TPanel Visible="<%=$this->Page->Pengguna->getTipeUser()=='sa'%>">        
+        <div class="sidebar-collapse">
             <ul class="nav" id="side-menu">                
                 <li>
                     <a href="<%=$this->Page->constructUrl('Home',true)%>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
@@ -57,7 +57,7 @@
                     <a href="#"><i class="fa fa-book fa-fw"></i> Data Master<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="<%=$this->Page->constructUrl('dmaster.UPTD',true)%>">UPTD<%=$this->Page->showUPTD==true?'<span class="fa fa-eye child-menu-selected"></span>':''%></a>
+                            <a href="<%=$this->Page->constructUrl('dmaster.UPDT',true)%>">UPTD<%=$this->Page->showUPDT==true?'<span class="fa fa-eye child-menu-selected"></span>':''%></a>
                         </li>                        
                         <li>
                             <a href="<%=$this->Page->constructUrl('dmaster.Pemohon',true)%>">Pemohon <%=$this->Page->showPemohon==true?'<span class="fa fa-eye child-menu-selected"></span>':''%></a>
@@ -90,14 +90,7 @@
                 </li>
             </ul>
             <!-- /#side-menu -->
-        </com:TPanel>
-        <com:TPanel Visible="<%=$this->Page->Pengguna->getTipeUser()=='ad'%>">
-            <ul class="nav" id="side-menu">                
-                <li>
-                    <a href="<%=$this->Page->constructUrl('Home',true)%>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-                </li>  
-            </ul>
-        </com:TPanel>
+        </div>
         <!-- /.sidebar-collapse -->
     </nav>
     <!-- /.navbar-static-side -->

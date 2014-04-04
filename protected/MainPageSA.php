@@ -2,9 +2,9 @@
 
 class MainPageSA extends MainPage {  
     /**     
-     * show page UPTD  [dmaster]
+     * show page UPDT  [dmaster]
      */
-    public $showUPTD=false;    
+    public $showUPDT=false;    
     /**     
      * show page cache [setting]
      */

@@ -21,13 +21,10 @@ class MainPage extends TPage {
 	*/
 	public $TGL;	  
     /**
-	* Object Variable "User"	
+	* Object Variable "User"
+	*
 	*/
 	public $Pengguna;  
-    /**
-	* Object Variable "Data Master"	
-	*/
-	public $DMaster;  
     /**     
      * show page dmaster
      */
@@ -175,16 +172,6 @@ class MainPage extends TPage {
         }
         $url="$url.$page";
         return $this->Service->constructUrL($url,$param);
-    }
-    /**
-     * digunakan untuk membuat berbagai macam object
-     */
-    public function createObj ($nama_object) {
-        switch (strtolower($nama_object)) {
-            case 'dmaster' :
-                $this->DMaster = $this->getLogic('DMaster');
-            break;
-        }
     }
 }
 ?>

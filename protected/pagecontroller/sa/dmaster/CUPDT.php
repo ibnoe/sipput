@@ -1,10 +1,10 @@
 <?php
 prado::using ('Application.MainPageSA');
-class CPermohonanBaru extends MainPageSA {
+class CUPDT extends MainPageSA {
 	public function onLoad($param) {		
 		parent::onLoad($param);		
-        $this->showPerizinan=true;
-        $this->showPermohonanBaru=true;        
+        $this->showDMaster=true;
+        $this->showUPDT=true;        
 		if (!$this->IsPostBack&&!$this->IsCallBack) {
             if (!isset($_SESSION['currentPageUPDT'])||$_SESSION['currentPageUPDT']['page_name']!='sa.dmaster.UPDT') {
                 $_SESSION['currentPageUPDT']=array('page_name'=>'sa.dmaster.UPDT','page_num'=>0,'search'=>false);	                
@@ -88,7 +88,7 @@ class CPermohonanBaru extends MainPageSA {
                 $dataitem['none']='-------------- Seluruh UPDT --------------';    
                 $this->Application->Cache->set('listupdt',$dataitem);
             }
-            $this->redirect('sa.dmaster.UPDT');
+            $this->redirect('dmaster.UPDT',true);
         }
 	}
     public function editRecord ($sender,$param) {		
@@ -118,7 +118,7 @@ class CPermohonanBaru extends MainPageSA {
                 $dataitem['none']='-------------- Seluruh UPDT Kerja --------------';    
                 $this->Application->Cache->set('listupdt',$dataitem);
             }
-            $this->redirect('sa.dmaster.UPDT');
+            $this->redirect('dmaster.UPDT',true);
         }
 	}
     public function deleteRecord ($sender,$param) {
@@ -131,7 +131,7 @@ class CPermohonanBaru extends MainPageSA {
                 $this->Application->Cache->set('listupdt',$dataitem);
             }
             $this->DB->query('COMMIT');
-            $this->redirect('sa.dmaster.UPDT');					
+            $this->redirect('dmaster.UPDT',true);					
         }else{
             $this->DB->query('ROLLBACK');
         }

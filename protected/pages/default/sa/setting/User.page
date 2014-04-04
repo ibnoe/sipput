@@ -99,9 +99,9 @@
                             </prop:ClientSide.OnValidationSuccess>
                         </com:TRequiredFieldValidator>  
                     </div>
-                    <div class="form-group" id="divTxtAddUPTD">
-                        <label>UPTD (Dipilih jika roles admin)</label>
-                        <com:TDropDownList ID="cmbAddUPTD" AutoPostBack="false" CssClass="form-control" Width="400px"/>                            
+                    <div class="form-group" id="divTxtAddUPDT">
+                        <label>UPDT (Dipilih jika roles admin)</label>
+                        <com:TDropDownList ID="cmbAddUPDT" AutoPostBack="false" CssClass="form-control" Width="650px"/>                            
                     </div>
                 </div>
                 <div class="panel-footer">
@@ -213,9 +213,9 @@
                             </prop:ClientSide.OnValidationSuccess>
                         </com:TRequiredFieldValidator>  
                     </div>
-                    <div class="form-group" id="divTxtEditUPTD">
-                        <label>UPTD (Dipilih jika roles admin)</label>
-                        <com:TDropDownList ID="cmbEditUPTD" AutoPostBack="false" CssClass="form-control" Width="650px"/>                            
+                    <div class="form-group" id="divTxtEditUPDT">
+                        <label>UPDT (Dipilih jika roles admin)</label>
+                        <com:TDropDownList ID="cmbEditUPDT" AutoPostBack="false" CssClass="form-control" Width="650px"/>                            
                     </div>
                     <div class="form-group">
                         <label>Status</label>                                                 
@@ -259,7 +259,7 @@
                             <label>Roles</label>                        
                             <com:TActiveDropDownList ID="cmbRoles" CssClass="form-control" OnSelectedIndexChanged="changeRoles" Width="150px;">                                                                                                                                       
                                 <prop:ClientSide.OnPreDispatch>
-                                    $('loading').show();                                             
+                                    $('notyfy_container_top').show();                                             
                                     $('<%=$this->cmbRoles->ClientId%>').disabled='disabled';						
                                 </prop:ClientSide.OnPreDispatch>
                                 <prop:ClientSide.OnLoading>
@@ -267,7 +267,7 @@
                                 </prop:ClientSide.OnLoading>
                                 <prop:ClientSide.OnComplete>																	
                                     $('<%=$this->cmbRoles->ClientId%>').disabled='';						                                            
-                                    $('loading').hide(); 
+                                    $('notyfy_container_top').hide(); 
                                 </prop:ClientSide.OnComplete>
                             </com:TActiveDropDownList>                             
                         </div>

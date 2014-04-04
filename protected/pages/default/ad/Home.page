@@ -1,4 +1,0 @@
-<%@ Title="Dashboard" %>
-<com:TContent ID="moduleheader">
-    <i class="fa fa-dashboard"></i> DASHBOARD
-</com:TContent>

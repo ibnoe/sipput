@@ -1,9 +1,0 @@
-<%@ Title="Perizinan - Permohonan Perpanjangan" %>
-<com:TContent ID="moduleheader">
-    <i class="fa fa-ticket"></i> PERMOHONAN PERPANJANGAN
-</com:TContent>
-<com:TContent ID="maincontent">    
-    <com:TPanel Visible="<%= $this->getDefaultProcess(false) %>">  
-        
-    </com:TPanel>    
-</com:TContent>
