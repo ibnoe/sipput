@@ -1,0 +1,27 @@
+<%@ Title="Perizinan - Permohonan Baru IUP" %>
+<com:TContent ID="moduleheader">
+    <i class="fa fa-ticket"></i> PERMOHONAN BARU IZIN USAHA PERIKANAN (IUP)
+</com:TContent>
+<com:TContent ID="maincontent">    
+    <com:TPanel Visible="<%= $this->getDefaultProcess(false) %>" CssClass="row">  
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading-process">                        
+                    <h3 class="panel-title">
+                        <i class="fa fa-ticket"></i>
+                        Jenis Izin Usaha
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <li class="list-group-item"><a href="<%=$this->constructUrl('perizinan.AddSIPI',true)%>">Izin Usaha Perikanan Bidang Penangkapan Ikan (SIPI)</a></li>
+                        <li class="list-group-item"><a href="<%=$this->constructUrl('perizinan.AddSIKPI',true)%>">Izin Usaha Perikanan Bidang Pengangkutan Ikan (SIKPI)</a></li>
+                        <li class="list-group-item"><a href="<%=$this->constructUrl('perizinan.AddSIKPPI',true)%>">Izin Usaha Perikanan Bidang Pengumpulan dan Penangkapan Ikan (SIKPPI)</a></li>
+                        <li class="list-group-item">Izin Usaha Perikanan Bidang Budidaya Perikanan</li>
+                        <li class="list-group-item">Izin Usaha Perikanan Bidang Pengolahan Perikanan</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </com:TPanel>    
+</com:TContent>

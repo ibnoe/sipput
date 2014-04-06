@@ -124,22 +124,7 @@
                     <div class="form-group" id="divNPWPPemohon">
                         <label>No. NPWP Pemohon</label>
                         <com:TTextBox ID="txtAddNoNPWPPemohon" CssClass="form-control" Width="200px" Attributes.PlaceHolder="Nomor NPWP Pemohon" Attributes.OnKeyUp="formatangka(this,true)" />                        
-                    </div>
-                    <div class="form-group" id="divCmbAddUPTD">
-                        <label>UPTD (Unit Pelaksana Teknis Dinas)</label>
-                        <div class="radio" style="padding-left:0px">
-                            <com:TDropDownList ID="cmbAddUPTD" AutoPostBack="false" CssClass="chosen-with-diselect" Width="250px;" />                                                                                                        
-                            <com:TRequiredFieldValidator ID="FieldAddUPTDValidator" InitialValue="none" ControlToValidate="cmbAddUPTD" Display="Dynamic" ErrorMessage="Pilih UPTD Tempat Pemohon Mendaftar" ValidationGroup="addPemohon" FocusOnError="true" CssClass="has-error help-block">				
-                                <prop:ClientSide.OnValidationError>
-                                    $('divCmbAddUPTD').addClassName('has-error');
-                                    jQuery('#<%=$this->FieldAddUPTDValidator->ClientID%>').removeAttr('style');
-                                </prop:ClientSide.OnValidationError>
-                                <prop:ClientSide.OnValidationSuccess>
-                                    $('divCmbAddUPTD').removeClassName('has-error');
-                                </prop:ClientSide.OnValidationSuccess>
-                            </com:TRequiredFieldValidator>
-                        </div>
-                    </div>
+                    </div>                    
                 </div>
             </com:TWizardStep>
             <com:TWizardStep Title="Data Perusahaan" AllowReturn="false">                    
@@ -323,11 +308,7 @@
                             <div class="row">
                                 <div class="col-md-3"><strong>NPWP Pemohon:</strong></div>                                
                                 <div class="col-md-9"><%=$this->txtAddNoNPWPPemohon->Text%></div>
-                            </div> 
-                            <div class="row">
-                                <div class="col-md-3"><strong>Unit Pelaksana Teknis Dinas(UPTD):</strong></div>                                
-                                <div class="col-md-9"><%=$this->DMaster->getUPTName($this->cmbAddUPTD->Text)%></div>
-                            </div> 
+                            </div>                            
                         </div>
                         <div class="tab-pane fade" id="profilperusahaan">
                             <h4>&nbsp;</h4>
@@ -425,24 +406,7 @@
                                 </div>  
                             </div>
                             <div class="col-lg-6">
-                                <div class="form-group" id="divCmbUPTD">
-                                    <label>UPTD (Unit Pelaksana Teknis Dinas)</label>
-                                    <div class="radio" style="padding-left:0px">
-                                        <com:TDropDownList ID="cmbUPTD" AutoPostBack="false" CssClass="chosen-with-diselect" Width="250px;" />                                                                            
-                                        <com:TActiveLinkButton ID="btnFilter" CssClass="btn btn-outline btn-default" Text="<i class='fa fa-mail-forward'></i>" OnClick="filterUPTD" ValidationGroup="FilterUPTD">
-                                            <prop:ClientSide.OnPreDispatch>
-                                                $('loading').show();                                                 
-                                            </prop:ClientSide.OnPreDispatch>
-                                            <prop:ClientSide.OnLoading>
-                                                $('<%=$this->btnFilter->ClientId%>').disabled='disabled';						
-                                            </prop:ClientSide.OnLoading>
-                                            <prop:ClientSide.OnComplete>																	
-                                                $('<%=$this->btnFilter->ClientId%>').disabled='';						                                                	                                                
-                                                $('loading').hide(); 
-                                            </prop:ClientSide.OnComplete>
-                                        </com:TActiveLinkButton>        
-                                    </div>
-                                </div>                                
+                                
                             </div>
                         </div>                        
                     </div>                    
@@ -485,7 +449,7 @@
                                         <th style="width:18px" class="text-center">NO</th>
                                         <th width="70">KODE</th>
                                         <th width="270" class="text-center">NAMA</th>                        
-                                        <th class="text-center">UPT</th>
+                                        <th class="text-center">ALAMAT</th>
                                         <th width="110" class="text-center">TELP.</th>
                                         <th width="100" class="text-center">TGL. DAFTAR</th>
                                         <th width="130" class="text-center">AKSI</th>							
@@ -498,7 +462,7 @@
                                     <td><%#$this->DataItem['no']%></td>
                                     <td><%#$this->DataItem['RecNoPem']%></td>	
                                     <td><%#$this->DataItem['NmPem']%></td>											                   
-                                    <td><%#$this->DataItem['nama_uptd']%></td>
+                                    <td><%#$this->DataItem['AlmtPem']%></td>
                                     <td><%#$this->DataItem['TelpPem']%></td>                                    
                                     <td class="text-center"><%#$this->Page->TGL->tanggal('d/m/Y',$this->DataItem['DateAdded'])%></td> 
                                     <td class="text-center"> 
@@ -523,7 +487,7 @@
                                     <td><%#$this->DataItem['no']%></td>
                                     <td><%#$this->DataItem['RecNoPem']%></td>	
                                     <td><%#$this->DataItem['NmPem']%></td>											                   
-                                    <td><%#$this->DataItem['nama_uptd']%></td>
+                                    <td><%#$this->DataItem['AlmtPem']%></td>
                                     <td><%#$this->DataItem['TelpPem']%></td>                                    
                                     <td class="text-center"><%#$this->Page->TGL->tanggal('d/m/Y',$this->DataItem['DateAdded'])%></td> 
                                     <td class="text-center"> 

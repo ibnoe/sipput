@@ -121,6 +121,7 @@ class CUPTD extends MainPageSA {
         $iduptd=$this->getDataKeyField($sender,$this->RepeaterS);
         $this->DB->query('BEGIN');
         if ($this->DB->deleteRecord("uptd WHERE iduptd='$iduptd'")) {    
+            $this->DB->updateRecord("UPDATE pemohon SET iduptd=0 WHERE iduptd=$iduptd");
             $this->DB->updateRecord("UPDATE user SET iduptd=0,active=0 WHERE iduptd=$iduptd");
             if ($this->Application->Cache) {
                 $this->Application->Cache->delete('listuptd');

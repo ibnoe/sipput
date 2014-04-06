@@ -96,6 +96,26 @@
                 <li>
                     <a href="<%=$this->Page->constructUrl('Home',true)%>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                 </li>  
+                <li<%=$this->Page->showDMaster==true ? ' class="active"':''%>>
+                    <a href="#"><i class="fa fa-book fa-fw"></i> Data Master<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">                        
+                        <li>
+                            <a href="<%=$this->Page->constructUrl('dmaster.Pemohon',true)%>">Pemohon <%=$this->Page->showPemohon==true?'<span class="fa fa-eye child-menu-selected"></span>':''%></a>
+                        </li>                        
+                    </ul>
+                    <!-- /.nav-second-level -->
+                </li>
+                <li<%=$this->Page->showPerizinan==true ? ' class="active"':''%>>
+                    <a href="#"><i class="fa fa-tasks fa-fw"></i> Perizinan<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">                                                
+                        <li>
+                            <a href="<%=$this->Page->constructUrl('perizinan.PermohonanBaru',true)%>">Permohonan Baru <%=$this->Page->showPermohonanBaru==true?'<span class="fa fa-eye child-menu-selected"></span>':''%></a>
+                        </li>                        
+                        <li>
+                            <a href="<%=$this->Page->constructUrl('perizinan.PermohonanPerpanjangan',true)%>">Permohonan Perpan. <%=$this->Page->showPermohonanPerpanjangan==true?'<span class="fa fa-eye child-menu-selected"></span>':''%></a>
+                        </li>                        
+                    </ul>
+                </li>
             </ul>
         </com:TPanel>
         <!-- /.sidebar-collapse -->

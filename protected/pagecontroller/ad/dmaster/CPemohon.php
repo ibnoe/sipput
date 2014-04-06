@@ -7,19 +7,10 @@ class CPemohon extends MainPageSA {
         $this->showPemohon=true;        
         $this->createObj('DMaster');
 		if (!$this->IsPostBack&&!$this->IsCallBack) {
-            if (!isset($_SESSION['currentPagePemohon'])||$_SESSION['currentPagePemohon']['page_name']!='sa.dmaster.Pemohon') {
-                $_SESSION['currentPagePemohon']=array('page_name'=>'sa.dmaster.Pemohon','page_num'=>0,'search'=>false,'iduptd'=>'none');	                
-            }        
-            $_SESSION['currentPagePemohon']['search']=false;            
-            $listuptd=$this->DMaster->getListUPTD();
-            $this->cmbUPTD->DataSource=$listuptd;
-            $this->cmbUPTD->Text=$_SESSION['currentPagePemohon']['iduptd'];
-            $this->cmbUPTD->DataBind(); 
-            
-            $this->cmbAddUPTD->DataSource=$listuptd;
-            $this->cmbAddUPTD->Text=$_SESSION['currentPagePemohon']['iduptd'];
-            $this->cmbAddUPTD->DataBind(); 
-            
+            if (!isset($_SESSION['currentPagePemohon'])||$_SESSION['currentPagePemohon']['page_name']!='ad.dmaster.Pemohon') {
+                $_SESSION['currentPagePemohon']=array('page_name'=>'ad.dmaster.Pemohon','page_num'=>0,'search'=>false,'iduptd'=>$this->Pengguna->getDataUser('iduptd'));	                
+            }       
+            $_SESSION['currentPagePemohon']['search']=false;                        
             $this->populateData();
 		}
 	}    
@@ -42,26 +33,23 @@ class CPemohon extends MainPageSA {
 	}
     private function populateData ($search=false) {    
         $iduptd=$_SESSION['currentPagePemohon']['iduptd'];
-        if ($search) {
-            $str_iduptd=$iduptd=='none'?'':" AND p.iduptd=$iduptd";
-            $str = "SELECT RecNoPem,NmPem,KtpPem,TelpPem,Foto,nama_uptd,DateAdded FROM pemohon p LEFT JOIN uptd ON (uptd.iduptd=p.iduptd)";
+        $str = "SELECT RecNoPem,NmPem,KtpPem,AlmtPem,TelpPem,Foto,DateAdded FROM pemohon WHERE iduptd=$iduptd";
+        if ($search) {                        
             $txtsearch=$this->txtKriteria->Text;
             switch ($this->cmbKriteria->Text) {
                 case 'kode' :
-                    $cluasa="WHERE RecNoPem='$txtsearch' $str_iduptd";
-                    $jumlah_baris=$this->DB->getCountRowsOfTable ("pemohon $cluasa $str_iduptd",'RecNoPem');
+                    $cluasa=" AND RecNoPem='$txtsearch'";
+                    $jumlah_baris=$this->DB->getCountRowsOfTable ("pemohon WHERE iduptd=$iduptd $cluasa",'RecNoPem');
                     $str = "$str $cluasa";
                 break;
                 case 'nama_pemohon' :
-                    $cluasa="WHERE NmPem  LIKE '%$txtsearch%' $str_iduptd";
-                    $jumlah_baris=$this->DB->getCountRowsOfTable ("pemohon $cluasa $str_iduptd",'RecNoPem');
+                    $cluasa=" AND NmPem  LIKE '%$txtsearch%'";
+                    $jumlah_baris=$this->DB->getCountRowsOfTable ("pemohon WHERE iduptd=$iduptd $cluasa",'RecNoPem');
                     $str = "$str $cluasa";
                 break;
             }
-        }else {
-            $str_iduptd=$iduptd=='none'?'':" WHERE p.iduptd=$iduptd";
-            $str = "SELECT RecNoPem,NmPem,KtpPem,TelpPem,Foto,nama_uptd,DateAdded FROM pemohon p LEFT JOIN uptd ON (uptd.iduptd=p.iduptd)$str_iduptd";
-            $jumlah_baris=$this->DB->getCountRowsOfTable ("pemohon$str_iduptd",'RecNoPem');			
+        }else {                        
+            $jumlah_baris=$this->DB->getCountRowsOfTable ("pemohon WHERE iduptd=$iduptd",'RecNoPem');			
         }
         $this->RepeaterS->CurrentPageIndex=$_SESSION['currentPagePemohon']['page_num'];		
 		$this->RepeaterS->VirtualItemCount=$jumlah_baris;
@@ -74,7 +62,7 @@ class CPemohon extends MainPageSA {
 		}
 		if ($limit <= 0) {$offset=0;$limit=10;$_SESSION['currentPagePemohon']['page_num']=0;}
         $str = "$str ORDER BY DateAdded DESC LIMIT $offset,$limit";        
-		$this->DB->setFieldTable(array('RecNoPem','NmPem','KtpPem','TelpPem','Foto','nama_uptd','DateAdded'));
+        $this->DB->setFieldTable(array('RecNoPem','NmPem','KtpPem','AlmtPem','TelpPem','Foto','DateAdded'));
 		$r=$this->DB->getRecord($str,$offset+1);        
 		$this->RepeaterS->DataSource=$r;
 		$this->RepeaterS->dataBind();      		
@@ -126,7 +114,7 @@ class CPemohon extends MainPageSA {
             $alamat_pemohon=$this->txtAddAlamatPemohon->Text;
             $npwp_pemohon=$this->txtAddNoNPWPPemohon->Text;
             $notelp_pemohon=$this->txtAddNoTelp->Text;     
-            $iduptd=$this->cmbAddUPTD->Text;
+            $iduptd=$_SESSION['currentPagePemohon']['iduptd'];
             $path_userimages=$this->path_userimages->Value;
             
             $str = "INSERT INTO pemohon (RecNoPem,NmPem,KtpPem,AlmtPem,TelpPem,NpwpPem,Foto,Status,iduptd,DateAdded,DateModified) VALUES ('$kode_pemohon','$nama_pemohon','$no_ktp_pemohon','$alamat_pemohon','$notelp_pemohon','$npwp_pemohon','$path_userimages','$status_pemohon','$iduptd',NOW(),NOW())";

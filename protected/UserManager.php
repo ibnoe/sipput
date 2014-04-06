@@ -34,8 +34,8 @@ class UserManager extends TAuthManager {
 	*/
 	public function getDataUser () {				
 		$username=$this->username;		
-        $str = "SELECT userid,username,userpassword,salt,nama,mobile_phone,email,page,active,logintime FROM user WHERE username='$username' AND active=1";
-        $this->db->setFieldTable (array('userid','username','userpassword','salt','nama','mobile_phone','email','page','active','logintime'));							
+        $str = "SELECT userid,username,userpassword,salt,nama,mobile_phone,email,page,u.iduptd,nama_uptd,active,logintime FROM user u LEFT JOIN uptd ON (uptd.iduptd=u.iduptd) WHERE username='$username' AND active=1";
+        $this->db->setFieldTable (array('userid','username','userpassword','salt','nama','mobile_phone','email','page','iduptd','nama_uptd','active','','logintime'));							
         $r = $this->db->getRecord($str);				
         $dataUser=$r[1];	
         $dataUser['logintime']=date('Y-m-d H:m:s');

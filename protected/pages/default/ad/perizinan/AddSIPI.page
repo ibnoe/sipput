@@ -1,0 +1,167 @@
+<%@ Title="Perizinan - PERMOHONAN BARU IZIN USAHA PERIKANAN (IUP)" %>
+<com:TContent ID="moduleheader">
+    <i class="fa fa-ticket"></i> PERMOHONAN BARU IZIN USAHA PERIKANAN (IUP)
+</com:TContent>
+<com:TContent ID="csscontent">
+    <link rel="stylesheet" type="text/css" href="<%=$this->page->theme->baseUrl%>/js/plugins/chosen-bootstrap/chosen.min.css" />
+</com:TContent>
+<com:TContent ID="maincontent">    
+    <com:TPanel Visible="<%= $this->getDefaultProcess(false) %>" CssClass="row">          
+        <com:TWizard ID="newsipiwizard" 
+            CssClass="col-lg-12"
+            ShowSideBar="false"                              
+            StepStyle.CssClass="panel panel-primary"
+            NavigationStyle.CssClass="btn-group btn-group-justified"
+            OnCompleteButtonClick="addNewSIPICompleted" 
+            OnNextButtonClick="processNextButton">
+            <prop:StartNavigationTemplate>                    
+                <com:TLinkButton Text="Next" CommandName="NextStep" ValidationGroup="addSIPI" CssClass="btn btn-default" />                    
+            </prop:StartNavigationTemplate>
+            <prop:StepNavigationTemplate>                
+                <com:TLinkButton Text="Next" CommandName="NextStep" ValidationGroup="addSIPI" CssClass="btn btn-default" />                
+            </prop:StepNavigationTemplate>
+            <prop:FinishNavigationTemplate>
+                <com:TLinkButton Text="Complete" CommandName="Complete" ValidationGroup="addSIPI" CssClass="btn btn-default" />                
+            </prop:FinishNavigationTemplate>
+            <com:TWizardStep ID="tahap1" Title="Download Dokumen" AllowReturn="false"> 
+                <div class="panel-heading-process">
+                    <h3 class='panel-title'>
+                        <i class='fa fa-plus'></i>
+                        TAMBAH SIPI (SURAT IZIN PENANGKPAN IKAN) - TAHAP I
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <p class="text-primary">
+                        Proses ini di lakukan di UPT dimana Pemohon mengajukan permohonan pembuatan Izin Usaha Perikanan (IUP).
+                    </p>
+                    <blockquote>
+                        Download Form Isian Standar Permohonan Baru Model A.1 dan Model A.2; serahkan kepada Pemohon untuk di isi, dan kemudian Pemohon menyerahkan Kembali ke petugas di UPT tempat dimana Pemohon mengajukan permohonan dengan melengkapi persyaratan permohonan sebagaimana tertera pada form Model A.1 dan Model A.2
+                        <small>         
+                            Download: 
+                            <cite title="Model A1"><a href="#">Model A.1</a> | <a href="#">Model A.2</a></cite>
+                        </small>
+                    </blockquote>             
+                    <div class="form-group" id="divCmbAddPemohon">
+                        <label>Pemohon</label>
+                        <div class="radio" style="padding-left:0px">
+                            <com:TDropDownList ID="cmbAddPemohon" AutoPostBack="false" CssClass="chosen-with-diselect" Width="250px;" />                                                                                                        
+                            <com:TRequiredFieldValidator ID="FieldAddPemohonValidator" InitialValue="none" ControlToValidate="cmbAddPemohon" Display="Dynamic" ErrorMessage="Pilih Pemohon" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">				
+                                <prop:ClientSide.OnValidationError>
+                                    $('divCmbAddPemohon').addClassName('has-error');
+                                    jQuery('#<%=$this->FieldAddPemohonValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('divCmbAddPemohon').removeClassName('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>
+                        </div>
+                    </div>
+                </div>
+            </com:TWizardStep>
+            <com:TWizardStep ID="tahap2" Title="Isi Formulir Model A.1" AllowReturn="true"> 
+                <div class="panel-heading-process">
+                    <h3 class='panel-title'>
+                        <i class='fa fa-plus'></i>
+                        TAMBAH SIPI (SURAT IZIN PENANGKPAN IKAN) - TAHAP II
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>Status Pemohon</label>
+                        <div class="radio">
+                            <label>
+                                <com:TRadioButton ID="rdAddStatusPemohonPerorangan" Checked="true" GroupName="AddStatusPemohon" Enabled="false" /> Perorangan                                 
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <com:TRadioButton ID="rdAddStatusPemohonPerusahaan" GroupName="AddStatusPemohon" Enabled="false" /> Perusahaan
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group" id="divKodePemohon">
+                        <label>Kode Pemohon</label>
+                        <com:TActiveTextBox ID="txtAddKodePemohon" Columns="4" MaxLength="4" Attributes.OnKeyUp="formatangka(this,true)" CssClass="form-control" Width="70px" Attributes.PlaceHolder="kode" />			                            
+                        <com:TRequiredFieldValidator ID="FieldAddKodeValidator" ControlToValidate="txtAddKodePemohon" Display="Dynamic" ErrorMessage="Isi Kode Pemohon" ValidationGroup="addPemohon" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divKodePemohon').addClassName('has-error');
+                                jQuery('#<%=$this->FieldAddKodeValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divKodePemohon').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>
+                        <com:TCustomValidator ID="addKodePemohon" ControlToValidate="txtAddKodePemohon" Display="Dynamic" OnServerValidate="checkId" ValidationGroup="addPemohon" ErrorMessage="Kode Pemohon Yang Anda Inputkan Sudah Ada" FocusOnError="true" CssClass="has-error help-block">
+                            <prop:ClientSide.OnValidationError>
+                                $('divKodePemohon').addClassName('has-error');
+                                jQuery('#<%=$this->addKodePemohon->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divKodePemohon').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TCustomValidator>                        
+                    </div>
+                    <div class="form-group" id="divNamaPemohon">
+                        <label>Nama Pemohon</label>
+                        <com:TTextBox ID="txtAddNamaPemohon" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Nama Pemohon" />
+                        <com:TRequiredFieldValidator ID="FieldAddNamaPemohonValidator" ControlToValidate="txtAddNamaPemohon" Display="Dynamic" ErrorMessage="Isi Nama Pemohon" ValidationGroup="addPemohon" FocusOnError="true" CssClass="has-error help-block">				
+                            <prop:ClientSide.OnValidationError>
+                                $('divNamaPemohon').addClassName('has-error');
+                                jQuery('#<%=$this->FieldAddNamaPemohonValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divNamaPemohon').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>
+                    </div>
+                    <div class="form-group" id="divKTPPemohon">
+                        <label>No. KTP Pemohon</label>
+                        <com:TTextBox ID="txtAddNoKTP" CssClass="form-control" Width="200px" Attributes.PlaceHolder="Nomor KTP Pemohon" Attributes.OnKeyUp="formatangka(this,true)" />
+                        <com:TRequiredFieldValidator ID="FieldAddNoKTPValidator" ControlToValidate="txtAddNoKTP" Display="Dynamic" ErrorMessage="Isi Nomor KTP Pemohon" ValidationGroup="addPemohon" FocusOnError="true" CssClass="has-error help-block">
+                            <prop:ClientSide.OnValidationError>
+                                $('divKTPPemohon').addClassName('has-error');
+                                jQuery('#<%=$this->FieldAddNoKTPValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divKTPPemohon').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>
+                    </div>                    
+                    <div class="form-group" id="divAlamatPemohon">
+                        <label>Alamat</label>
+                        <com:TTextBox ID="txtAddAlamatPemohon" CssClass="form-control" Width="450px" Attributes.PlaceHolder="Alamat Pemohon" />
+                        <com:TRequiredFieldValidator ID="FieldAddAlamatPemohonValidator" ControlToValidate="txtAddAlamatPemohon" Display="Dynamic" ErrorMessage="Isi Alamat Pemohon" ValidationGroup="addPemohon" FocusOnError="true" CssClass="has-error help-block">
+                            <prop:ClientSide.OnValidationError>
+                                $('divAlamatPemohon').addClassName('has-error');
+                                jQuery('#<%=$this->FieldAddAlamatPemohonValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divAlamatPemohon').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>
+                    </div>
+                    <div class="form-group" id="divNoTelp">
+                        <label>No. Telp Pemohon</label>
+                        <com:TTextBox ID="txtAddNoTelp" CssClass="form-control" Width="130px" Attributes.PlaceHolder="Nomor Telp Pemohon" Attributes.OnKeyUp="formatangka(this,true)" />
+                        <com:TRequiredFieldValidator ID="FieldAddNoTelpValidator" ControlToValidate="txtAddNoTelp" Display="Dynamic" ErrorMessage="Isi Nomor Telp Pemohon" ValidationGroup="addPemohon" FocusOnError="true" CssClass="has-error help-block">
+                            <prop:ClientSide.OnValidationError>
+                                $('divNoTelp').addClassName('has-error');
+                                jQuery('#<%=$this->FieldAddNoTelpValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divNoTelp').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>
+                    </div>     
+                    <div class="form-group" id="divNPWPPemohon">
+                        <label>No. NPWP Pemohon</label>
+                        <com:TTextBox ID="txtAddNoNPWPPemohon" CssClass="form-control" Width="200px" Attributes.PlaceHolder="Nomor NPWP Pemohon" Attributes.OnKeyUp="formatangka(this,true)" />                        
+                    </div>
+                </div>                
+            </com:TWizardStep>
+        </com:TWizard>
+    </com:TPanel>    
+</com:TContent>
+<com:TContent ID="jscontent">
+<script type="text/javascript" src="<%=$this->page->theme->baseUrl%>/js/plugins/chosen-bootstrap/chosen.jquery.min.js"></script>
+</com:TContent>
