@@ -1,0 +1,58 @@
+<%@ Title="Data Master - Jenis Izin Usaha" %>
+<com:TContent ID="moduleheader">
+    <i class="fa fa-anchor"></i> Jenis Izin Usaha
+</com:TContent>
+<com:TContent ID="maincontent">        
+    <com:TPanel Visible="<%= $this->getDefaultProcess(false) %>" CssClass="row">          
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">                        
+                    <h3 class="panel-title">
+                        <i class="fa fa-anchor"></i>
+                        Jenis Izin Usaha
+                    </h3>
+                </div>
+                <div class="panel-body">                   
+                    <com:TActiveRepeater ID="RepeaterS" DataKeyField="RecNoIzin">
+                        <prop:HeaderTemplate>			
+                            <table class="table table-striped table-bordered table-hover">	
+                                <thead>
+                                <tr>                                                                
+                                    <th style="width:18px" class="text-center">NO</th>
+                                    <th width="120">KODE JENIS</th>
+                                    <th class="text-center">NAMA JENIS</th>                                                            
+                                </tr>								
+                                </thead>
+                                <tbody>
+                        </prop:HeaderTemplate>
+                        <prop:ItemTemplate>
+                            <tr>			                                
+                                <td><%#$this->DataItem['no']%></td>
+                                <td><%#$this->DataItem['InsIzin']%></td>	
+                                <td><%#$this->DataItem['NmIzin']%></td>											                                                   
+                            </tr>
+                        </prop:ItemTemplate>				
+                        <prop:AlternatingItemTemplate>
+                            <tr>			                                
+                                <td><%#$this->DataItem['no']%></td>
+                                <td><%#$this->DataItem['InsIzin']%></td>	
+                                <td><%#$this->DataItem['NmIzin']%></td>											                                                   
+                            </tr>
+                        </prop:AlternatingItemTemplate>
+                        <prop:FooterTemplate>               
+                            </tbody>
+                            </table>
+                        </prop:FooterTemplate>	
+                        <prop:EmptyTemplate>                                                                                    
+                            <div class="alert alert-warning">
+                                <button class="close" data-dismiss="alert">×</button>
+                                <p>Tidak ada UPTD yang terdaftar</p>
+                            </div>                            
+                        </prop:EmptyTemplate>
+                    </com:TActiveRepeater>                    
+                    <%include Application.CustomPaging%>
+                </div>
+            </div>
+        </div>               
+    </com:TPanel>    
+</com:TContent>

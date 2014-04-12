@@ -81,81 +81,27 @@
                     </div>
                     <div class="form-group" id="divKodePemohon">
                         <label>Kode Pemohon</label>
-                        <com:TActiveTextBox ID="txtAddKodePemohon" Columns="4" MaxLength="4" Attributes.OnKeyUp="formatangka(this,true)" CssClass="form-control" Width="70px" Attributes.PlaceHolder="kode" />			                            
-                        <com:TRequiredFieldValidator ID="FieldAddKodeValidator" ControlToValidate="txtAddKodePemohon" Display="Dynamic" ErrorMessage="Isi Kode Pemohon" ValidationGroup="addPemohon" FocusOnError="true" CssClass="has-error help-block">			
-                            <prop:ClientSide.OnValidationError>
-                                $('divKodePemohon').addClassName('has-error');
-                                jQuery('#<%=$this->FieldAddKodeValidator->ClientID%>').removeAttr('style');
-                            </prop:ClientSide.OnValidationError>
-                            <prop:ClientSide.OnValidationSuccess>
-                                $('divKodePemohon').removeClassName('has-error');
-                            </prop:ClientSide.OnValidationSuccess>
-                        </com:TRequiredFieldValidator>
-                        <com:TCustomValidator ID="addKodePemohon" ControlToValidate="txtAddKodePemohon" Display="Dynamic" OnServerValidate="checkId" ValidationGroup="addPemohon" ErrorMessage="Kode Pemohon Yang Anda Inputkan Sudah Ada" FocusOnError="true" CssClass="has-error help-block">
-                            <prop:ClientSide.OnValidationError>
-                                $('divKodePemohon').addClassName('has-error');
-                                jQuery('#<%=$this->addKodePemohon->ClientID%>').removeAttr('style');
-                            </prop:ClientSide.OnValidationError>
-                            <prop:ClientSide.OnValidationSuccess>
-                                $('divKodePemohon').removeClassName('has-error');
-                            </prop:ClientSide.OnValidationSuccess>
-                        </com:TCustomValidator>                        
+                        <com:TTextBox ID="txtAddKodePemohon" Columns="4" MaxLength="4" CssClass="form-control" Width="70px" Attributes.PlaceHolder="kode" Enabled="false" />			                                                             
                     </div>
                     <div class="form-group" id="divNamaPemohon">
                         <label>Nama Pemohon</label>
-                        <com:TTextBox ID="txtAddNamaPemohon" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Nama Pemohon" />
-                        <com:TRequiredFieldValidator ID="FieldAddNamaPemohonValidator" ControlToValidate="txtAddNamaPemohon" Display="Dynamic" ErrorMessage="Isi Nama Pemohon" ValidationGroup="addPemohon" FocusOnError="true" CssClass="has-error help-block">				
-                            <prop:ClientSide.OnValidationError>
-                                $('divNamaPemohon').addClassName('has-error');
-                                jQuery('#<%=$this->FieldAddNamaPemohonValidator->ClientID%>').removeAttr('style');
-                            </prop:ClientSide.OnValidationError>
-                            <prop:ClientSide.OnValidationSuccess>
-                                $('divNamaPemohon').removeClassName('has-error');
-                            </prop:ClientSide.OnValidationSuccess>
-                        </com:TRequiredFieldValidator>
+                        <com:TTextBox ID="txtAddNamaPemohon" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Nama Pemohon" Enabled="false" />                        
                     </div>
                     <div class="form-group" id="divKTPPemohon">
                         <label>No. KTP Pemohon</label>
-                        <com:TTextBox ID="txtAddNoKTP" CssClass="form-control" Width="200px" Attributes.PlaceHolder="Nomor KTP Pemohon" Attributes.OnKeyUp="formatangka(this,true)" />
-                        <com:TRequiredFieldValidator ID="FieldAddNoKTPValidator" ControlToValidate="txtAddNoKTP" Display="Dynamic" ErrorMessage="Isi Nomor KTP Pemohon" ValidationGroup="addPemohon" FocusOnError="true" CssClass="has-error help-block">
-                            <prop:ClientSide.OnValidationError>
-                                $('divKTPPemohon').addClassName('has-error');
-                                jQuery('#<%=$this->FieldAddNoKTPValidator->ClientID%>').removeAttr('style');
-                            </prop:ClientSide.OnValidationError>
-                            <prop:ClientSide.OnValidationSuccess>
-                                $('divKTPPemohon').removeClassName('has-error');
-                            </prop:ClientSide.OnValidationSuccess>
-                        </com:TRequiredFieldValidator>
+                        <com:TTextBox ID="txtAddNoKTP" CssClass="form-control" Width="200px" Attributes.PlaceHolder="Nomor KTP Pemohon" Enabled="false" />                        
                     </div>                    
                     <div class="form-group" id="divAlamatPemohon">
                         <label>Alamat</label>
-                        <com:TTextBox ID="txtAddAlamatPemohon" CssClass="form-control" Width="450px" Attributes.PlaceHolder="Alamat Pemohon" />
-                        <com:TRequiredFieldValidator ID="FieldAddAlamatPemohonValidator" ControlToValidate="txtAddAlamatPemohon" Display="Dynamic" ErrorMessage="Isi Alamat Pemohon" ValidationGroup="addPemohon" FocusOnError="true" CssClass="has-error help-block">
-                            <prop:ClientSide.OnValidationError>
-                                $('divAlamatPemohon').addClassName('has-error');
-                                jQuery('#<%=$this->FieldAddAlamatPemohonValidator->ClientID%>').removeAttr('style');
-                            </prop:ClientSide.OnValidationError>
-                            <prop:ClientSide.OnValidationSuccess>
-                                $('divAlamatPemohon').removeClassName('has-error');
-                            </prop:ClientSide.OnValidationSuccess>
-                        </com:TRequiredFieldValidator>
+                        <com:TTextBox ID="txtAddAlamatPemohon" CssClass="form-control" Width="450px" Attributes.PlaceHolder="Alamat Pemohon" Enabled="false" />                        
                     </div>
                     <div class="form-group" id="divNoTelp">
                         <label>No. Telp Pemohon</label>
-                        <com:TTextBox ID="txtAddNoTelp" CssClass="form-control" Width="130px" Attributes.PlaceHolder="Nomor Telp Pemohon" Attributes.OnKeyUp="formatangka(this,true)" />
-                        <com:TRequiredFieldValidator ID="FieldAddNoTelpValidator" ControlToValidate="txtAddNoTelp" Display="Dynamic" ErrorMessage="Isi Nomor Telp Pemohon" ValidationGroup="addPemohon" FocusOnError="true" CssClass="has-error help-block">
-                            <prop:ClientSide.OnValidationError>
-                                $('divNoTelp').addClassName('has-error');
-                                jQuery('#<%=$this->FieldAddNoTelpValidator->ClientID%>').removeAttr('style');
-                            </prop:ClientSide.OnValidationError>
-                            <prop:ClientSide.OnValidationSuccess>
-                                $('divNoTelp').removeClassName('has-error');
-                            </prop:ClientSide.OnValidationSuccess>
-                        </com:TRequiredFieldValidator>
+                        <com:TTextBox ID="txtAddNoTelp" CssClass="form-control" Width="130px" Attributes.PlaceHolder="Nomor Telp Pemohon" Enabled="false" />                       
                     </div>     
                     <div class="form-group" id="divNPWPPemohon">
                         <label>No. NPWP Pemohon</label>
-                        <com:TTextBox ID="txtAddNoNPWPPemohon" CssClass="form-control" Width="200px" Attributes.PlaceHolder="Nomor NPWP Pemohon" Attributes.OnKeyUp="formatangka(this,true)" />                        
+                        <com:TTextBox ID="txtAddNoNPWPPemohon" CssClass="form-control" Width="200px" Attributes.PlaceHolder="Nomor NPWP Pemohon" Enabled="false" />                        
                     </div>
                 </div>                
             </com:TWizardStep>

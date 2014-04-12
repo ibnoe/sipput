@@ -6,6 +6,10 @@ class MainPageSA extends MainPage {
      */
     public $showUPTD=false;    
     /**     
+     * show page Jenis Usaha [dmaster]
+     */
+    public $showJenisIzinUsaha=false;    
+    /**     
      * show page cache [setting]
      */
     public $showUser=false;

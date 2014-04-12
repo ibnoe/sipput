@@ -5,7 +5,12 @@
 *
 */
 prado::using ('Application.logic.Logic_Global');
-class Logic_DMaster extends Logic_Global {    
+class Logic_DMaster extends Logic_Global { 
+    /**
+     * Nomor ID Pemohon
+     * @var integer
+     */
+    protected $RecNoPem=null;
     /**
      * data pemohon     
      */
@@ -13,6 +18,16 @@ class Logic_DMaster extends Logic_Global {
 	public function __construct ($db) {
 		parent::__construct ($db);	                
 	}	
+    /**
+     * setter NIP
+     * @param type $nip integer
+     */
+    public function setRecNoPem ($id,$load=false,$mode=0) {
+        $this->RecNoPem=$id;
+        if ($load){
+            $this->getDataPemohon($mode);
+        }
+    }
     /**
      * digunakan untuk mendapatkan daftar uptd
      */
@@ -62,8 +77,19 @@ class Logic_DMaster extends Logic_Global {
     /**
      * digunakan untuk mendapatkan data pemohon
      */
-    public function getDataPemohon () {
-        
+    public function getDataPemohon ($mode) {
+        $result=array();		
+        $id=$this->RecNoPem;
+        switch($mode) {
+			case 0 :
+                $str = "SELECT RecNoPem,NmPem,KtpPem,AlmtPem,TelpPem,NpwpPem,Foto,Status,p.iduptd,uptd.nama_uptd,active,DateAdded FROM pemohon p LEFT JOIN uptd ON (uptd.iduptd=p.iduptd) WHERE RecNoPem=$id";
+                $this->db->setFieldTable(array('RecNoPem','NmPem','KtpPem','AlmtPem','TelpPem','NpwpPem','Foto','Status','iduptd','nama_uptd','active','DateAdded'));
+                $r=$this->db->getRecord($str);
+                $result=isset($r[1])?$r[1]:array();
+            break;
+        }
+        $this->DataPemohon=$result;
+        return $result;
     }
 }
 ?>

@@ -55,7 +55,10 @@
                 </li>                
                 <li<%=$this->Page->showDMaster==true ? ' class="active"':''%>>
                     <a href="#"><i class="fa fa-book fa-fw"></i> Data Master<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
+                    <ul class="nav nav-second-level">                                             
+                        <li>
+                            <a href="<%=$this->Page->constructUrl('dmaster.JenisIzinUsaha',true)%>">Jenis Izin Usaha<%=$this->Page->showJenisIzinUsaha==true?'<span class="fa fa-eye child-menu-selected"></span>':''%></a>
+                        </li>                        
                         <li>
                             <a href="<%=$this->Page->constructUrl('dmaster.UPTD',true)%>">UPTD<%=$this->Page->showUPTD==true?'<span class="fa fa-eye child-menu-selected"></span>':''%></a>
                         </li>                        
