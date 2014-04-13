@@ -69,7 +69,7 @@ class CBidangIzinUsaha extends MainPageSA {
 			$limit=$itemcount-$offset;
 		}
 		if ($limit < 0) {$offset=0;$limit=10;$_SESSION['currentPageBidangIzinUsaha']['page_num']=0;}
-        $str = "$str LIMIT $offset,$limit";        
+        $str = "$str ORDER BY bin.RecNoIzin LIMIT $offset,$limit";        
 		$this->DB->setFieldTable(array('idbidangizin','InsIzin','InsBidang','NmBidang','enabled'));
 		$r=$this->DB->getRecord($str);                    
 		$this->RepeaterS->DataSource=$r;

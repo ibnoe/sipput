@@ -63,6 +63,9 @@
                             <a href="<%=$this->Page->constructUrl('dmaster.BidangIzinUsaha',true)%>">Bidang Izin Usaha<%=$this->Page->showBidangIzinUsaha==true?'<span class="fa fa-eye child-menu-selected"></span>':''%></a>
                         </li>                        
                         <li>
+                            <a href="<%=$this->Page->constructUrl('dmaster.JenisAlat',true)%>">Jenis Alat<%=$this->Page->showJenisAlat==true?'<span class="fa fa-eye child-menu-selected"></span>':''%></a>
+                        </li>                        
+                        <li>
                             <a href="<%=$this->Page->constructUrl('dmaster.UPTD',true)%>">UPTD<%=$this->Page->showUPTD==true?'<span class="fa fa-eye child-menu-selected"></span>':''%></a>
                         </li>                        
                         <li>

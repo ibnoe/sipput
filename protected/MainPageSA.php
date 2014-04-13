@@ -14,6 +14,10 @@ class MainPageSA extends MainPage {
      */
     public $showBidangIzinUsaha=false;
     /**     
+     * show page Jenis Alat [dmaster]
+     */
+    public $showJenisAlat=false; 
+    /**     
      * show page cache [setting]
      */
     public $showUser=false;
