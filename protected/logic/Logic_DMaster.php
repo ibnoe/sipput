@@ -15,6 +15,10 @@ class Logic_DMaster extends Logic_Global {
      * data pemohon     
      */
     public $DataPemohon;
+    /**
+     * data perusahaan pemohon
+     */
+    public $DataPerusahaanPemohon;
 	public function __construct ($db) {
 		parent::__construct ($db);	                
 	}	
@@ -66,6 +70,43 @@ class Logic_DMaster extends Logic_Global {
         }
     }
     /**
+     * digunakan untuk mendapatkan daftar jenis izin usaha
+     */
+    public function getListJenisIzinUsaha () {
+        if ($this->Application->Cache) {            
+            $dataitem=$this->Application->Cache->get('listizinusaha');            
+            if (!isset($dataitem['none'])) {                
+                $dataitem=$this->getList('jenisizinusaha WHERE enabled=1',array('RecNoIzin','InsIzin'),'RecNoIzin',null,1);
+                $dataitem['none']='- Seluruh Jenis Izin Usaha -';    
+                $this->Application->Cache->set('listizinusaha',$dataitem);
+            }
+        }else {                        
+            $dataitem=$this->getList('jenisizinusaha WHERE enabled=1',array('RecNoIzin','InsIzin'),'nama_uptd',null,1);
+            $dataitem['none']='- Seluruh Jenis Izin Usaha -';    
+        }
+        return $dataitem;        
+    }   
+    /**
+     * digunakan untuk memperoleh nama jenis izin
+     */
+    public function getJenisUsaha ($RecNoIzin,$fromcache=true) {
+        if ($fromcache) {
+            if ($this->Application->Cache) {
+                $dataitem=$this->Application->Cache->get('listizinusaha');
+                if (!isset($dataitem['none'])) {
+                    $dataitem=$this->getListJenisIzinUsaha();
+                }            
+                return $dataitem[$RecNoIzin];
+            }else{
+                $dataitem=$this->getList("jenisizinusaha WHERE RecNoIzin=$RecNoIzin",array('InsIzin'),'InsIzin');            
+                return $dataitem[1]['InsIzin'];
+            }        
+        }else {
+            $dataitem=$this->getList("jenisizinusaha WHERE RecNoIzin=$RecNoIzin",array('InsIzin'),'InsIzin');            
+            return $dataitem[1]['InsIzin'];
+        }
+    }
+    /**
      * digunakan untuk mendapatkan daftar pemohon
      */
     public function getListPemohon ($iduptd=null,$active=1) {        
@@ -89,6 +130,26 @@ class Logic_DMaster extends Logic_Global {
             break;
         }
         $this->DataPemohon=$result;
+        return $result;
+    }
+    /**
+     * digunakan untuk mendapatkan data perusahaan pemohon
+     */
+    public function getDataPerusahaan ($mode) {
+        $result=array();		
+        $id=$this->RecNoPem;
+        switch($mode) {
+			case 0 :
+                $str = "SELECT IdCom,NmCom,RecStsCom FROM perusahaan WHERE RecNoPem=$id";
+                $this->db->setFieldTable(array('IdCom','NmCom','RecStsCom'));
+                $r=$this->db->getRecord($str);
+                $result=array('none'=>' ');
+                while (list($k,$v)=each($r)) {
+                    $result[$v['IdCom']]=$v['NmCom'] . " ({$v['RecStsCom']})";
+                }
+            break;
+        }
+        $this->DataPerusahaanPemohon=$result;
         return $result;
     }
 }

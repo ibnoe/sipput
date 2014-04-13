@@ -1,7 +1,6 @@
 <?php
 prado::using ('Application.MainPageSA');
-class CAddSIPI extends MainPageSA {
-    
+class CAddSIPI extends MainPageSA {    
 	public function onLoad($param) {		
 		parent::onLoad($param);		
         $this->showPerizinan=true;
@@ -16,23 +15,48 @@ class CAddSIPI extends MainPageSA {
             $this->cmbAddPemohon->DataBind();
 		}
 	}
-    public function processNextButton($sender,$param) {        
-		if ($param->CurrentStepIndex ==0) {            
-            $RecNoPem=$this->cmbAddPemohon->Text;
-            $this->DMaster->setRecNoPem($RecNoPem,true);
-            $datapemohon=$this->DMaster->DataPemohon;              
-            if ($datapemohon['Status']=='perorangan')
-                $this->rdAddStatusPemohonPerorangan->Checked=true;
-            else
-                $this->rdAddStatusPemohonPerusahaan->Checked=true;
-            
-            $this->txtAddKodePemohon->Text=$datapemohon['RecNoPem'];
-            $this->txtAddNamaPemohon->Text=$datapemohon['NmPem'];
-            $this->txtAddNoKTP->Text=$datapemohon['KtpPem'];
-            $this->txtAddAlamatPemohon->Text=$datapemohon['AlmtPem'];
-            $this->txtAddNoTelp->Text=$datapemohon['TelpPem'];
-            $this->txtAddNoNPWPPemohon->Text=$datapemohon['NpwpPem'];            
-		}
+    
+    public function processNextButton($sender,$param) {
+        $RecNoPem=$this->cmbAddPemohon->Text;
+        $this->DMaster->setRecNoPem($RecNoPem,true);  
+		if ($param->CurrentStepIndex ==1) {            
+            if ($this->DMaster->DataPemohon['Status']=='perorangan') {                
+                $this->newpemohonwizard->ActiveStepIndex=3; 
+            }else{
+                $this->DMaster->setRecNoPem($RecNoPem);
+                $this->cmbAddDaftarPerusahaan->DataSource=$this->DMaster->getDataPerusahaan (0);
+                $this->cmbAddDaftarPerusahaan->DataBind();
+            }
+        }
 	}
+    public function changePerusahaanPemohon ($sender,$param) {
+        $id=$this->cmbAddDaftarPerusahaan->Text;
+        $str = "SELECT RecStsCom, NmCom, NoAkte, TglAkte, NPWPCom, AlmtCom, TelCom, FaxComp, AlmtComCab FROM perusahaan WHERE IdCom='$id'";
+        $this->DB->setFieldTable(array('RecStsCom','NmCom','NoAkte','TglAkte','NPWPCom','AlmtCom','TelCom','FaxComp','AlmtComCab'));
+        $r=$this->DB->getRecord($str);     
+        if (isset($r[1])) {
+            $this->hiddenidperusahaan->Value=$id;
+            $this->lblStatusPerusahaan->Text=$r[1]['RecStsCom'];                            
+            $this->lblNamaPerusahaan->Text=$r[1]['NmCom'];
+            $this->lblNoAktePerusahaan->Text=$r[1]['NoAkte'];
+            $this->lblTglAktePendirianPerusahaan->Text=$this->TGL->tanggal('d F Y',$r[1]['TglAkte']);
+            $this->lblNoNPWPPerusahaan->Text=$r[1]['NPWPCom'];
+            $this->lblAlamatPerusahaan->Text=$r[1]['AlmtCom'];
+            $this->lblNoTelpPerusahaan->Text=$r[1]['TelCom'];
+            $this->lblNoFaxPerusahaan->Text=$r[1]['FaxComp'];
+            $this->lblAlamatKantorCabangPerusahaan->Text=$r[1]['AlmtComCab'];              
+        }else {
+            $this->hiddenidperusahaan->Value='';
+            $this->lblStatusPerusahaan->Text='-';
+            $this->lblNamaPerusahaan->Text='-';
+            $this->lblNoAktePerusahaan->Text='-';
+            $this->lblTglAktePendirianPerusahaan->Text='-';
+            $this->lblNoNPWPPerusahaan->Text='-';
+            $this->lblAlamatPerusahaan->Text='-';
+            $this->lblNoTelpPerusahaan->Text='-';
+            $this->lblNoFaxPerusahaan->Text='-';
+            $this->lblAlamatKantorCabangPerusahaan->Text='-';
+        }
+    }
 }
 		

@@ -70,40 +70,171 @@
                         <label>Status Pemohon</label>
                         <div class="radio">
                             <label>
-                                <com:TRadioButton ID="rdAddStatusPemohonPerorangan" Checked="true" GroupName="AddStatusPemohon" Enabled="false" /> Perorangan                                 
+                                <%=$this->DMaster->DataPemohon['Status']=='perorangan'?'PEORANGAN':'PERUSAHAAN'%>
                             </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <com:TRadioButton ID="rdAddStatusPemohonPerusahaan" GroupName="AddStatusPemohon" Enabled="false" /> Perusahaan
-                            </label>
-                        </div>
+                        </div>                        
                     </div>
                     <div class="form-group" id="divKodePemohon">
                         <label>Kode Pemohon</label>
-                        <com:TTextBox ID="txtAddKodePemohon" Columns="4" MaxLength="4" CssClass="form-control" Width="70px" Attributes.PlaceHolder="kode" Enabled="false" />			                                                             
+                        <div class="radio">
+                            <label>
+                                <%=$this->DMaster->DataPemohon['RecNoPem']%>
+                            </label>
+                        </div>    
                     </div>
                     <div class="form-group" id="divNamaPemohon">
                         <label>Nama Pemohon</label>
-                        <com:TTextBox ID="txtAddNamaPemohon" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Nama Pemohon" Enabled="false" />                        
+                        <div class="radio">
+                            <label>
+                                <%=$this->DMaster->DataPemohon['NmPem']%>
+                            </label>
+                        </div>    
                     </div>
                     <div class="form-group" id="divKTPPemohon">
                         <label>No. KTP Pemohon</label>
-                        <com:TTextBox ID="txtAddNoKTP" CssClass="form-control" Width="200px" Attributes.PlaceHolder="Nomor KTP Pemohon" Enabled="false" />                        
+                        <div class="radio">
+                            <label>
+                                <%=$this->DMaster->DataPemohon['KtpPem']%>
+                            </label>
+                        </div> 
                     </div>                    
                     <div class="form-group" id="divAlamatPemohon">
                         <label>Alamat</label>
-                        <com:TTextBox ID="txtAddAlamatPemohon" CssClass="form-control" Width="450px" Attributes.PlaceHolder="Alamat Pemohon" Enabled="false" />                        
+                        <div class="radio">
+                            <label>
+                                <%=$this->DMaster->DataPemohon['AlmtPem']%>
+                            </label>
+                        </div> 
                     </div>
                     <div class="form-group" id="divNoTelp">
                         <label>No. Telp Pemohon</label>
-                        <com:TTextBox ID="txtAddNoTelp" CssClass="form-control" Width="130px" Attributes.PlaceHolder="Nomor Telp Pemohon" Enabled="false" />                       
+                        <div class="radio">
+                            <label>
+                                <%=$this->DMaster->DataPemohon['TelpPem']%>
+                            </label>
+                        </div> 
                     </div>     
                     <div class="form-group" id="divNPWPPemohon">
                         <label>No. NPWP Pemohon</label>
-                        <com:TTextBox ID="txtAddNoNPWPPemohon" CssClass="form-control" Width="200px" Attributes.PlaceHolder="Nomor NPWP Pemohon" Enabled="false" />                        
+                        <div class="radio">
+                            <label>
+                                <%=$this->DMaster->DataPemohon['NpwpPem']%>
+                            </label>
+                        </div> 
                     </div>
                 </div>                
+            </com:TWizardStep>
+            <com:TWizardStep ID="tahap3" Title="Isi Formulir Model A.2 - Pilih Perusahaan" AllowReturn="true">
+                <div class="panel-heading-process">
+                    <h3 class='panel-title'>
+                        <i class='fa fa-plus'></i>
+                        TAMBAH SIPI (SURAT IZIN PENANGKPAN IKAN) - TAHAP III
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group" ids="divPilihPerusahaan">
+                        <com:TActiveHiddenField ID="hiddenidperusahaan" />
+                        <label>Daftar Perusahaan</label>
+                        <com:TActiveDropDownList ID="cmbAddDaftarPerusahaan" OnSelectedIndexChanged="changePerusahaanPemohon" CssClass="form-control" Width="450px">
+                            <prop:ClientSide.OnPreDispatch>
+                                $('loading').show();                                             
+                                $('<%=$this->cmbAddDaftarPerusahaan->ClientId%>').disabled='disabled';						
+                            </prop:ClientSide.OnPreDispatch>
+                            <prop:ClientSide.OnLoading>
+                                $('<%=$this->cmbAddDaftarPerusahaan->ClientId%>').disabled='disabled';						
+                            </prop:ClientSide.OnLoading>
+                            <prop:ClientSide.OnComplete>																	
+                                $('<%=$this->cmbAddDaftarPerusahaan->ClientId%>').disabled='';						                                            
+                                $('loading').hide(); 
+                            </prop:ClientSide.OnComplete>
+                        </com:TActiveDropDownList>
+                        <com:TRequiredFieldValidator ID="FieldAddPerusahaanValidator" ControlToValidate="hiddenidperusahaan" Display="Dynamic" ErrorMessage="Pilih Perusahaan" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block" />				                                                    
+                    </div>
+                    <div class="form-group">
+                        <label>Status Perusahaan</label>
+                        <div class="radio">
+                            <label>
+                                <com:TActiveLabel ID="lblStatusPerusahaan" Text="-" />
+                            </label>
+                        </div>                        
+                    </div>     
+                    <div class="form-group" id="divNamaPerusahaan">
+                        <label>Nama Perusahaan</label>
+                        <div class="radio">
+                            <label>
+                                <com:TActiveLabel ID="lblNamaPerusahaan" Text="-" />
+                            </label>
+                        </div>  
+                    </div>
+                    <div class="form-group" id="divNoAktePerusahaan">
+                        <label>Nomor Akte Pendirian Perusahaan</label>
+                        <div class="radio">
+                            <label>
+                                <com:TActiveLabel ID="lblNoAktePerusahaan" Text="-" />
+                            </label>
+                        </div>  
+                    </div>
+                    <div class="form-group">
+                        <label>Tanggal Akte Pendirian Perusahaan</label>
+                        <div class="radio">
+                            <label>
+                                <com:TActiveLabel ID="lblTglAktePendirianPerusahaan" Text="-" />
+                            </label>
+                        </div>  
+                    </div>
+                    <div class="form-group" id="divNPWPPerusahaan">
+                        <label>No. NPWP Perusahaan</label>
+                        <div class="radio">
+                            <label>
+                                <com:TActiveLabel ID="lblNoNPWPPerusahaan" Text="-" />
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group" id="divAlamatPerusahaan">
+                        <label>Alamat Perusahaan</label>
+                        <div class="radio">
+                            <label>
+                                <com:TActiveLabel ID="lblAlamatPerusahaan" Text="-" />
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group" id="divNoTelpPerusahaan">
+                        <label>No. Telp Perusahaan</label>
+                        <div class="radio">
+                            <label>
+                                <com:TActiveLabel ID="lblNoTelpPerusahaan" Text="-" />
+                            </label>
+                        </div>
+                    </div>     
+                    <div class="form-group">
+                        <label>No. Fax Perusahaan</label>
+                        <div class="radio">
+                            <label>
+                                <com:TActiveLabel ID="lblNoFaxPerusahaan" Text="-" />
+                            </label>
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <label>Alamat Kantor Cabang</label>
+                        <div class="radio">
+                            <label>
+                                <com:TActiveLabel ID="lblAlamatKantorCabangPerusahaan" Text="-" />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </com:TWizardStep>
+            <com:TWizardStep ID="tahap4" Title="Isi Formulir Model A.2 - Pilih Jenis Usaha" AllowReturn="true">
+                <div class="panel-heading-process">
+                    <h3 class='panel-title'>
+                        <i class='fa fa-plus'></i>
+                        TAMBAH SIPI (SURAT IZIN PENANGKPAN IKAN) - TAHAP IV
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    
+                </div>
             </com:TWizardStep>
         </com:TWizard>
     </com:TPanel>    

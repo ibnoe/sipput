@@ -10,6 +10,10 @@ class MainPageSA extends MainPage {
      */
     public $showJenisIzinUsaha=false;    
     /**     
+     * show page Bidang Usaha [dmaster]
+     */
+    public $showBidangIzinUsaha=false;
+    /**     
      * show page cache [setting]
      */
     public $showUser=false;
