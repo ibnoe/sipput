@@ -69,7 +69,7 @@
                 <div class="panel-heading-process">                        
                     <h3 class="panel-title">
                         <i class="fa fa-pencil"></i>
-                        UBAH USER
+                        UBAH JENIS ALAT
                     </h3>
                 </div>
                 <div class="panel-body">                                                                                     
@@ -182,7 +182,7 @@
                     </div>
                     <div class="panel-body">
                         <p class="text-right">
-                            <com:TLinkButton ID="add" CssClass="btn btn-outline btn-primary" Text="<i class='fa fa-plus'></i>" Attributes.Title="Tambah User" OnClick="addProcess" CausesValidation="false" />
+                            <com:TLinkButton ID="add" CssClass="btn btn-outline btn-primary" Text="<i class='fa fa-plus'></i>" Attributes.Title="Tambah Jenis Alat" OnClick="addProcess" CausesValidation="false" />
                         </p>
                         <com:TActiveRepeater ID="RepeaterS" DataKeyField="RecNoJns" AllowPaging="true" PageSize="10" AllowCustomPaging="true">
                             <prop:HeaderTemplate>			
@@ -229,7 +229,7 @@
                                     <td><%#$this->DataItem['NmJenisAlat']%></td>
                                     <td class="text-center"><i class="fa <%=$this->DataItem['enabled']==true?'fa-check-circle':'fa-times-circle'%>"></i></td>
                                     <td class="text-center">                                                 
-                                        <com:TLinkButton CausesValidation="false" CssClass="btn btn-info" Text="<i class='fa fa-pencil'></i>" Attributes.Title="Ubah Jenis Alat Izin" OnClick="Page.editRecord" />                                                                                                      
+                                        <com:TLinkButton CausesValidation="false" CssClass="btn btn-info" Text="<i class='fa fa-pencil'></i>" Attributes.Title="Ubah Jenis Alat Izin" OnClick="Page.editRecord" />
                                         <com:TActiveLinkButton ID="btnDelete" CausesValidation="false" CssClass="btn btn-danger" Attributes.Title="Hapus Jenis Alat Izin" Text="<i class='fa fa-times'></i>" OnClick="Page.deleteRecord" Attributes.OnClick="if(!confirm('Anda ingin menghapus jenis alat ini ?')) return false;">              
                                             <prop:ClientSide.OnPreDispatch>
                                                 $('loading').show();                                             

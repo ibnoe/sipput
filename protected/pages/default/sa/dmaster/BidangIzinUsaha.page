@@ -82,7 +82,7 @@
                 <div class="panel-heading-process">                        
                     <h3 class="panel-title">
                         <i class="fa fa-pencil"></i>
-                        UBAH USER
+                        UBAH BIDANG IZIN USAHA
                     </h3>
                 </div>
                 <div class="panel-body">
@@ -222,7 +222,7 @@
                     </div>
                     <div class="panel-body">
                         <p class="text-right">
-                            <com:TLinkButton ID="add" CssClass="btn btn-outline btn-primary" Text="<i class='fa fa-plus'></i>" Attributes.Title="Tambah User" OnClick="addProcess" CausesValidation="false" />
+                            <com:TLinkButton ID="add" CssClass="btn btn-outline btn-primary" Text="<i class='fa fa-plus'></i>" Attributes.Title="Tambah Bidan Izin Usaha" OnClick="addProcess" CausesValidation="false" />
                         </p>
                         <com:TActiveRepeater ID="RepeaterS" DataKeyField="idbidangizin" AllowPaging="true" PageSize="10" AllowCustomPaging="true">
                             <prop:HeaderTemplate>			
