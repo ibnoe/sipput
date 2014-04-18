@@ -16,7 +16,7 @@ class CAddSIPI extends MainPageSA {
 		}
 	}
     
-    public function processNextButton($sender,$param) {
+    public function processNextButton($sender,$param) {        
         $RecNoPem=$this->cmbAddPemohon->Text;
         $this->DMaster->setRecNoPem($RecNoPem,true);  
 		if ($param->CurrentStepIndex ==1) {            
@@ -27,7 +27,16 @@ class CAddSIPI extends MainPageSA {
                 $this->cmbAddDaftarPerusahaan->DataSource=$this->DMaster->getDataPerusahaan (0);
                 $this->cmbAddDaftarPerusahaan->DataBind();
             }
+        }elseif ($param->CurrentStepIndex ==2) {
+            $this->cmbAddJenisBidangUsaha->DataSource=$this->DMaster->getBidangBidangIzinUsaha(1);
+            $this->cmbAddJenisBidangUsaha->dataBind();
+            
+            $areapenangkapan=$this->DMaster->getList('areapenangkapan WHERE enabled=1',array('RecNoArea','AreaTangkap'),'AreaTangkap',null,1);
+            $areapenangkapan['none']=' - Area/Daerah Penangkapan -';
+            $this->cmbAddAreaPenangkapan->DataSource=$areapenangkapan;
+            $this->cmbAddAreaPenangkapan->dataBind();
         }
+        
 	}
     public function changePerusahaanPemohon ($sender,$param) {
         $id=$this->cmbAddDaftarPerusahaan->Text;

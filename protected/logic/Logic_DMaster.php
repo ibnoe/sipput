@@ -107,6 +107,19 @@ class Logic_DMaster extends Logic_Global {
         }
     }
     /**
+     * digunakan untuk memperoleh daftar bidang izin usaha
+     */
+    public function getBidangBidangIzinUsaha ($RecNoIzin) {
+        $str = "SELECT idbidangizin,InsBidang,NmBidang FROM bidangizinusaha WHERE RecNoIzin='$RecNoIzin'";
+        $this->db->setFieldTable(array('idbidangizin','InsBidang','NmBidang'));
+        $r=$this->db->getRecord($str);
+        $result=array('none'=>'- Daftar Bidang Izin Usaha -');
+        while (list($k,$v)=each($r)) {
+            $result[$v['idbidangizin']]=$v['InsBidang']. ' ('.$v['NmBidang'].')';
+        }
+        return $result;
+    }
+    /**
      * digunakan untuk mendapatkan daftar pemohon
      */
     public function getListPemohon ($iduptd=null,$active=1) {        

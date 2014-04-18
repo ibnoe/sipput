@@ -74,7 +74,7 @@ class MainPage extends TPage {
                 $page=$datauser['page'];
                 $currentPage=explode('.',$currentPage);	                
                 if ($currentPage[1] != $page) {					                                                 
-                    $this->redirect("Home");
+                    $this->redirect("$page.Home");
                 }
             }
 		}		    
