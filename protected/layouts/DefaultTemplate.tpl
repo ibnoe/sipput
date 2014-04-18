@@ -66,6 +66,9 @@
                             <a href="<%=$this->Page->constructUrl('dmaster.JenisAlat',true)%>">Jenis Alat<%=$this->Page->showJenisAlat==true?'<span class="fa fa-eye child-menu-selected"></span>':''%></a>
                         </li>                        
                         <li>
+                            <a href="<%=$this->Page->constructUrl('dmaster.AreaPenangkapan',true)%>">Area Penangkapan<%=$this->Page->showAreaPenangkapan==true?'<span class="fa fa-eye child-menu-selected"></span>':''%></a>
+                        </li>                        
+                        <li>
                             <a href="<%=$this->Page->constructUrl('dmaster.UPTD',true)%>">UPTD<%=$this->Page->showUPTD==true?'<span class="fa fa-eye child-menu-selected"></span>':''%></a>
                         </li>                        
                         <li>

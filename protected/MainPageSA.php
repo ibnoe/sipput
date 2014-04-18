@@ -18,6 +18,10 @@ class MainPageSA extends MainPage {
      */
     public $showJenisAlat=false; 
     /**     
+     * show page area penangkapan [dmaster]
+     */
+    public $showAreaPenangkapan=false; 
+    /**     
      * show page cache [setting]
      */
     public $showUser=false;
