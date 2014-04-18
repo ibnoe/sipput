@@ -4,7 +4,7 @@ class CAreaPenangkapan extends MainPageSA {
 	public function onLoad($param) {		
 		parent::onLoad($param);		        
         $this->showDMaster=true;
-        $this->showJenisAlat=true;        
+        $this->showAreaPenangkapan=true;        
 		if (!$this->IsPostBack&&!$this->IsCallBack) {
             if (!isset($_SESSION['currentPageAreaPenangkapan'])||$_SESSION['currentPageAreaPenangkapan']['page_name']!='sa.dmaster.AreaPenangkapan') {
                 $_SESSION['currentPageAreaPenangkapan']=array('page_name'=>'sa.dmaster.AreaPenangkapan','page_num'=>0,'search'=>false);												
@@ -32,7 +32,7 @@ class CAreaPenangkapan extends MainPageSA {
             switch ($this->cmbKriteria->Text) {                
                 case 'namaarea' :
                     $cluasa=" WHERE AreaTangkap LIKE '%$txtsearch%'";
-                    $jumlah_baris=$this->DB->getCountRowsOfTable ("areapenangkapan ja $cluasa",'RecNoArea');
+                    $jumlah_baris=$this->DB->getCountRowsOfTable ("areapenangkapan $cluasa",'RecNoArea');
                     $str = "$str $cluasa";
                 break;                
             }

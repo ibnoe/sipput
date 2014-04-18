@@ -57,6 +57,9 @@
                     <a href="#"><i class="fa fa-book fa-fw"></i> Data Master<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">                                             
                         <li>
+                            <a href="<%=$this->Page->constructUrl('dmaster.Satuan',true)%>">Satuan<%=$this->Page->showSatuan==true?'<span class="fa fa-eye child-menu-selected"></span>':''%></a>
+                        </li>                        
+                        <li>
                             <a href="<%=$this->Page->constructUrl('dmaster.JenisIzinUsaha',true)%>">Jenis Izin Usaha<%=$this->Page->showJenisIzinUsaha==true?'<span class="fa fa-eye child-menu-selected"></span>':''%></a>
                         </li>                        
                         <li>
@@ -64,6 +67,9 @@
                         </li>                        
                         <li>
                             <a href="<%=$this->Page->constructUrl('dmaster.JenisAlat',true)%>">Jenis Alat<%=$this->Page->showJenisAlat==true?'<span class="fa fa-eye child-menu-selected"></span>':''%></a>
+                        </li>                        
+                        <li>
+                            <a href="<%=$this->Page->constructUrl('dmaster.BahanAlat',true)%>">Bahan Alat<%=$this->Page->showBahanAlat==true?'<span class="fa fa-eye child-menu-selected"></span>':''%></a>
                         </li>                        
                         <li>
                             <a href="<%=$this->Page->constructUrl('dmaster.AreaPenangkapan',true)%>">Area Penangkapan<%=$this->Page->showAreaPenangkapan==true?'<span class="fa fa-eye child-menu-selected"></span>':''%></a>

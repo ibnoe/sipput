@@ -1,10 +1,10 @@
 <?php
 
 class MainPageSA extends MainPage {  
-    /**     
-     * show page UPTD  [dmaster]
+     /**     
+     * show page Satuan[dmaster]
      */
-    public $showUPTD=false;    
+    public $showSatuan=false;        
     /**     
      * show page Jenis Usaha [dmaster]
      */
@@ -18,9 +18,17 @@ class MainPageSA extends MainPage {
      */
     public $showJenisAlat=false; 
     /**     
+     * show page Bahan Alat [dmaster]
+     */
+    public $showBahanAlat=false; 
+    /**     
      * show page area penangkapan [dmaster]
      */
     public $showAreaPenangkapan=false; 
+    /**     
+     * show page UPTD  [dmaster]
+     */
+    public $showUPTD=false;       
     /**     
      * show page cache [setting]
      */
