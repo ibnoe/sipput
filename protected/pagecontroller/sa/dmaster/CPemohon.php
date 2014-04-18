@@ -97,8 +97,10 @@ class CPemohon extends MainPageSA {
     }
     public function checkTypeFile ($sender,$param) {
         $this->idProcess=$sender->getId()=='addFileFoto'?'add':'edit';        
-        if ($this->FileFoto->FileType!='image/png' && $this->FileFoto->FileType!='image/jpeg')            
-            $param->IsValid=false;
+        if ($this->FileFoto->HasFile) {
+            if ($this->FileFoto->FileType!='image/png' && $this->FileFoto->FileType!='image/jpeg')            
+                $param->IsValid=false;
+        }
     }
     public function processNextButton($sender,$param) {
         $this->idProcess='add';                    

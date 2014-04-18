@@ -58,7 +58,7 @@
                     </div>
                     <div class="form-group" id="divTxtAddNoSurat">
                         <label>Nomor Surat Model A.1</label>
-                        <com:TActiveTextBox ID="txtAddNomorSurat" CssClass="form-control" Width="150px" />			                            
+                        <com:TTextBox ID="txtAddNomorSurat" CssClass="form-control" Width="150px" />			                            
                         <com:TRequiredFieldValidator ID="FieldAddNomorSuratValidator" ControlToValidate="txtAddNomorSurat" Display="Dynamic" ErrorMessage="Isi Kode Pemohon" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
                                 $('divTxtAddNoSurat').addClassName('has-error');
@@ -263,7 +263,7 @@
                     </div>
                     <div class="form-group" id="divAddModalUsaha">
                         <label>Modal Usaha</label>
-                        <com:TActiveTextBox ID="txtAddModalUsaha" Attributes.OnKeyUp="formatangka(this,false)" CssClass="form-control" Width="200px" Attributes.PlaceHolder="Modal Usaha" />			                            
+                        <com:TTextBox ID="txtAddModalUsaha" Attributes.OnKeyUp="formatangka(this,false)" CssClass="form-control" Width="200px" Attributes.PlaceHolder="Modal Usaha" />			                            
                         <com:TRequiredFieldValidator ID="FieldAddModalUsahaValidator" ControlToValidate="txtAddModalUsaha" Display="Dynamic" ErrorMessage="Isi Modal Usaha" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
                                 $('divAddModalUsaha').addClassName('has-error');
@@ -291,7 +291,7 @@
                     </div>
                     <div class="form-group" id="divAddKoordinatPenangkapan">
                         <label>Koordinat/Jalur Penangkapan</label>
-                        <com:TActiveTextBox ID="txtAddKoordinatPenangkapan" CssClass="form-control" Width="230px" Attributes.PlaceHolder="Koordinat/Jalur Penangkapan" />			                            
+                        <com:TTextBox ID="txtAddKoordinatPenangkapan" CssClass="form-control" Width="230px" Attributes.PlaceHolder="Koordinat/Jalur Penangkapan" />			                            
                         <com:TRequiredFieldValidator ID="FieldAddKoordinatPenangkapanValidator" ControlToValidate="txtAddKoordinatPenangkapan" Display="Dynamic" ErrorMessage="Isi Koordinat/Jalur Penangkapan" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
                                 $('divAddKoordinatPenangkapan').addClassName('has-error');
@@ -304,7 +304,7 @@
                     </div>
                     <div class="form-group" id="divAddLokasiUsaha">
                         <label>Lokasi Usaha</label>
-                        <com:TActiveTextBox ID="txtAddLokasiUsaha" CssClass="form-control" Width="230px" Attributes.PlaceHolder="Lokasi Usaha" />			                            
+                        <com:TTextBox ID="txtAddLokasiUsaha" CssClass="form-control" Width="230px" Attributes.PlaceHolder="Lokasi Usaha" />			                            
                         <com:TRequiredFieldValidator ID="FieldAddLokasiUsahaValidator" ControlToValidate="txtAddLokasiUsaha" Display="Dynamic" ErrorMessage="Isi Lokasi Usaha" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
                                 $('divAddLokasiUsaha').addClassName('has-error');
@@ -329,6 +329,19 @@
                                 </prop:ClientSide.OnValidationSuccess>
                             </com:TRequiredFieldValidator>
                         </div>
+                    </div>
+                    <div class="form-group" id="divAddJumlahAlat">
+                        <label>Jumlah Alat Tangkap</label>
+                        <com:TTextBox ID="txtAddJumlahAlat" CssClass="form-control" Width="80px" Attributes.OnKeyUp="formatangka(this,true)"  />			                            
+                        <com:TRequiredFieldValidator ID="FieldAddJumlahAlatValidator" ControlToValidate="txtAddJumlahAlat" Display="Dynamic" ErrorMessage="Isi Jumlah Alat Tangkap" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divAddJumlahAlat').addClassName('has-error');
+                                jQuery('#<%=$this->FieldAddJumlahAlatValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divAddJumlahAlat').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
                     </div>
                 </div>
             </com:TWizardStep>

@@ -15,29 +15,37 @@ class CAddSIPI extends MainPageSA {
             $this->cmbAddPemohon->DataBind();
 		}
 	}
-    
+    private function setDataSource () {
+        $this->cmbAddJenisBidangUsaha->DataSource=$this->DMaster->getBidangBidangIzinUsaha(1);
+        $this->cmbAddJenisBidangUsaha->dataBind();
+
+        $areapenangkapan=$this->DMaster->getList('areapenangkapan WHERE enabled=1',array('RecNoArea','AreaTangkap'),'AreaTangkap',null,1);
+        $areapenangkapan['none']=' - Area/Daerah Penangkapan -';
+        $this->cmbAddAreaPenangkapan->DataSource=$areapenangkapan;
+        $this->cmbAddAreaPenangkapan->dataBind();
+
+        $jenisalat=$this->DMaster->getList('jenisalat WHERE RecNoIzin=1 AND enabled=1',array('RecNoJns','NmJenisAlat'),'NmJenisAlat',null,1);
+        $jenisalat['none']=' - Jenis Alat Penangkapan -';
+        $this->cmbAddJenisAlat->DataSource=$jenisalat;
+        $this->cmbAddJenisAlat->dataBind();
+    }
     public function processNextButton($sender,$param) {        
         $RecNoPem=$this->cmbAddPemohon->Text;
         $this->DMaster->setRecNoPem($RecNoPem,true);  
 		if ($param->CurrentStepIndex ==1) {            
             if ($this->DMaster->DataPemohon['Status']=='perorangan') {                
-                $this->newpemohonwizard->ActiveStepIndex=3; 
+                $this->newsipiwizard->ActiveStepIndex=3;
+                $this->setDataSource();
             }else{
                 $this->DMaster->setRecNoPem($RecNoPem);
                 $this->cmbAddDaftarPerusahaan->DataSource=$this->DMaster->getDataPerusahaan (0);
                 $this->cmbAddDaftarPerusahaan->DataBind();
             }
         }elseif ($param->CurrentStepIndex ==2) {
-            $this->cmbAddJenisBidangUsaha->DataSource=$this->DMaster->getBidangBidangIzinUsaha(1);
-            $this->cmbAddJenisBidangUsaha->dataBind();
-            
-            $areapenangkapan=$this->DMaster->getList('areapenangkapan WHERE enabled=1',array('RecNoArea','AreaTangkap'),'AreaTangkap',null,1);
-            $areapenangkapan['none']=' - Area/Daerah Penangkapan -';
-            $this->cmbAddAreaPenangkapan->DataSource=$areapenangkapan;
-            $this->cmbAddAreaPenangkapan->dataBind();
-        }
-        
+            $this->setDataSource();
+        }        
 	}
+    
     public function changePerusahaanPemohon ($sender,$param) {
         $id=$this->cmbAddDaftarPerusahaan->Text;
         $str = "SELECT RecStsCom, NmCom, NoAkte, TglAkte, NPWPCom, AlmtCom, TelCom, FaxComp, AlmtComCab FROM perusahaan WHERE IdCom='$id'";
