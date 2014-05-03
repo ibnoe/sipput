@@ -1,0 +1,38 @@
+<%@ Title="Setting - Cache" %>
+<com:TContent ID="moduleheader">
+    <i class="fa fa-archive"></i> Cache
+</com:TContent>
+<com:TContent ID="maincontent">
+<com:TPanel Visible="<%= $this->getDefaultProcess() %>" CssClass="row">   
+    <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">                        
+                <h3 class="panel-title">
+                    <i class="fa fa-gear"></i>
+                    Setting Cache
+                </h3>
+            </div>
+            <div class="panel-body">                
+                <com:TActiveLabel ID="message" /> 
+            </div>
+            <div class="panel-footer">
+                <com:TActiveLinkButton ID="btnClearCache" CssClass="btn btn-large btn-primary" OnClick="hapusCache">
+                    <prop:Text><i class="fa fa-eraser"></i> Hapus Cache</prop:Text>
+                    <prop:ClientSide.OnPreDispatch>
+                        $('loading').show();                                                                        
+                    </prop:ClientSide.OnPreDispatch>
+                    <prop:ClientSide.OnLoading>
+                        $('<%=$this->btnClearCache->ClientId%>').disabled='disabled';									
+                        $('<%=$this->btnClearCache->ClientId%>').addClassName='disabled';
+                    </prop:ClientSide.OnLoading>
+                    <prop:ClientSide.onComplete>
+                        $('<%=$this->btnClearCache->ClientId%>').disabled='';																								                                                    
+                        $('<%=$this->btnClearCache->ClientId%>').removeClassName='disabled';
+                        $('loading').hide();
+                    </prop:ClientSide.OnComplete>
+                </com:TActiveLinkButton>
+            </div>
+        </div>
+    </div>    
+</com:TPanel>
+</com:TContent>

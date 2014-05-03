@@ -48,9 +48,9 @@
     </nav>
     <!-- end navbar-header --> 
     <nav class="navbar-default navbar-static-side" role="navigation">
-        <com:TPanel Visible="<%=$this->Page->Pengguna->getTipeUser()=='sa'%>">        
+        <com:TLiteral Visible="<%=$this->Page->Pengguna->getTipeUser()=='sa'%>">        
             <ul class="nav" id="side-menu">                
-                <li>
+                <li<%=$this->Page->showDashboard==true ? ' class="active"':''%>>
                     <a href="<%=$this->Page->constructUrl('Home',true)%>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                 </li>                
                 <li<%=$this->Page->showDMaster==true ? ' class="active"':''%>>
@@ -108,7 +108,7 @@
                 </li>
             </ul>
             <!-- /#side-menu -->
-        </com:TPanel>
+        </com:TLiteral>
         <com:TPanel Visible="<%=$this->Page->Pengguna->getTipeUser()=='ad'%>">
             <ul class="nav" id="side-menu">                
                 <li>
@@ -135,7 +135,7 @@
                     </ul>
                 </li>
             </ul>
-        </com:TPanel>
+        </com:TLiteral>
         <!-- /.sidebar-collapse -->
     </nav>
     <!-- /.navbar-static-side -->

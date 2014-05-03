@@ -5,31 +5,20 @@
 *
 */
 prado::using ('Application.logic.Logic_Global');
-class Logic_DMaster extends Logic_Global { 
-    /**
-     * Nomor ID Pemohon
-     * @var integer
-     */
-    protected $RecNoPem=null;
-    /**
-     * data pemohon     
-     */
-    public $DataPemohon;
-    /**
-     * data perusahaan pemohon
-     */
-    public $DataPerusahaanPemohon;
+class Logic_DMaster extends Logic_Global {     
+    
 	public function __construct ($db) {
 		parent::__construct ($db);	                
-	}	
+	}	    
     /**
-     * setter NIP
-     * @param type $nip integer
+     * digunakan untuk mendapatkan daftar kode jenis alat
      */
-    public function setRecNoPem ($id,$load=false,$mode=0) {
-        $this->RecNoPem=$id;
-        if ($load){
-            $this->getDataPemohon($mode);
+    public function getKodeJenisAlat ($id=null) {        
+        $kodejenisalat=array('none'=>' ','budidaya'=>'BUDI DAYA','tangkap'=>'ALAT TANGKAP','olahan'=>'OLAHAN','jeniskapal'=>'JENIS KAPAL','tipekapal'=>'TIPE KAPAL');
+        if ($id===NULL) {
+            return $kodejenisalat;
+        }else{
+            return $kodejenisalat[$id];
         }
     }
     /**
@@ -40,12 +29,12 @@ class Logic_DMaster extends Logic_Global {
             $dataitem=$this->Application->Cache->get('listuptd');            
             if (!isset($dataitem['none'])) {
                 $dataitem=$this->getList('uptd WHERE enabled=1',array('iduptd','nama_uptd'),'nama_uptd',null,1);
-                $dataitem['none']='-------------- Seluruh UPTD --------------';    
+                $dataitem['none']='Pilih UPTD';    
                 $this->Application->Cache->set('listuptd',$dataitem);
             }
         }else {                        
             $dataitem=$this->getList('uptd WHERE enabled=1',array('iduptd','nama_uptd'),'nama_uptd',null,1);
-            $dataitem['none']='-------------- Seluruh UPTD --------------';            
+            $dataitem['none']='Pilih UPTD';            
         }
         return $dataitem;        
     }   
@@ -77,12 +66,12 @@ class Logic_DMaster extends Logic_Global {
             $dataitem=$this->Application->Cache->get('listizinusaha');            
             if (!isset($dataitem['none'])) {                
                 $dataitem=$this->getList('jenisizinusaha WHERE enabled=1',array('RecNoIzin','InsIzin'),'RecNoIzin',null,1);
-                $dataitem['none']='- Seluruh Jenis Izin Usaha -';    
+                $dataitem['none']='Pilih Jenis Izin Usaha';    
                 $this->Application->Cache->set('listizinusaha',$dataitem);
             }
         }else {                        
             $dataitem=$this->getList('jenisizinusaha WHERE enabled=1',array('RecNoIzin','InsIzin'),'nama_uptd',null,1);
-            $dataitem['none']='- Seluruh Jenis Izin Usaha -';    
+            $dataitem['none']='Pilih Jenis Izin Usaha';    
         }
         return $dataitem;        
     }   
@@ -113,57 +102,17 @@ class Logic_DMaster extends Logic_Global {
         $str = "SELECT idbidangizin,InsBidang,NmBidang FROM bidangizinusaha WHERE RecNoIzin='$RecNoIzin'";
         $this->db->setFieldTable(array('idbidangizin','InsBidang','NmBidang'));
         $r=$this->db->getRecord($str);
-        $result=array('none'=>'- Daftar Bidang Izin Usaha -');
+        $result=array('none'=>'Pilih Bidang Izin Usaha');
         while (list($k,$v)=each($r)) {
             $result[$v['idbidangizin']]=$v['InsBidang']. ' ('.$v['NmBidang'].')';
         }
         return $result;
-    }
+    }   
     /**
-     * digunakan untuk mendapatkan daftar pemohon
+     * digunakan untuk membuat nomor register kapal
      */
-    public function getListPemohon ($iduptd=null,$active=1) {        
-        $str_iduptd=$iduptd==null?'':"AND iduptd=$iduptd";
-        $dataitem=$this->getList("pemohon WHERE active=$active $str_iduptd",array('RecNoPem','NmPem'),'NmPem',null,1);
-        $dataitem['none']='-------------- Seluruh Pemohon --------------';    
-        return $dataitem;
-    }
-    /**
-     * digunakan untuk mendapatkan data pemohon
-     */
-    public function getDataPemohon ($mode) {
-        $result=array();		
-        $id=$this->RecNoPem;
-        switch($mode) {
-			case 0 :
-                $str = "SELECT RecNoPem,NmPem,KtpPem,AlmtPem,TelpPem,NpwpPem,Foto,Status,p.iduptd,uptd.nama_uptd,active,DateAdded FROM pemohon p LEFT JOIN uptd ON (uptd.iduptd=p.iduptd) WHERE RecNoPem=$id";
-                $this->db->setFieldTable(array('RecNoPem','NmPem','KtpPem','AlmtPem','TelpPem','NpwpPem','Foto','Status','iduptd','nama_uptd','active','DateAdded'));
-                $r=$this->db->getRecord($str);
-                $result=isset($r[1])?$r[1]:array();
-            break;
-        }
-        $this->DataPemohon=$result;
-        return $result;
-    }
-    /**
-     * digunakan untuk mendapatkan data perusahaan pemohon
-     */
-    public function getDataPerusahaan ($mode) {
-        $result=array();		
-        $id=$this->RecNoPem;
-        switch($mode) {
-			case 0 :
-                $str = "SELECT IdCom,NmCom,RecStsCom FROM perusahaan WHERE RecNoPem=$id";
-                $this->db->setFieldTable(array('IdCom','NmCom','RecStsCom'));
-                $r=$this->db->getRecord($str);
-                $result=array('none'=>' ');
-                while (list($k,$v)=each($r)) {
-                    $result[$v['IdCom']]=$v['NmCom'] . " ({$v['RecStsCom']})";
-                }
-            break;
-        }
-        $this->DataPerusahaanPemohon=$result;
-        return $result;
+    public function createNomorRegisterKapal() {
+        
     }
 }
 ?>

@@ -1,0 +1,1124 @@
+<%@ Title="Data Master - Kapal" %>
+<com:TContent ID="moduleheader">
+    <i class="fa fa-anchor"></i> Kapal
+</com:TContent>
+<com:TContent ID="csscontent">
+    <link rel="stylesheet" type="text/css" href="<%=$this->page->theme->baseUrl%>/js/plugins/chosen-bootstrap/chosen.min.css" />
+</com:TContent>
+<com:TContent ID="maincontent">
+    <com:TPanel Visible="<%= $this->getAddProcess(false) %>" CssClass="row">
+        <com:TWizard ID="newkapalwizard" 
+            CssClass="col-lg-12"
+            ShowSideBar="false"                              
+            StepStyle.CssClass="panel panel-primary"
+            NavigationStyle.CssClass="btn-group btn-group-justified"
+            OnCompleteButtonClick="addNewKapalCompleted" 
+            OnNextButtonClick="processNextButton">
+            <prop:StartNavigationTemplate>                    
+                <com:TLinkButton Text="Next" CommandName="NextStep" ValidationGroup="addKapal" CssClass="btn btn-default" />                    
+            </prop:StartNavigationTemplate>
+            <prop:StepNavigationTemplate>                
+                <com:TLinkButton CausesValidation="False" CommandName="PreviousStep" Text="Previous" CssClass="btn btn-default" />               
+                <com:TLinkButton Text="Next" CommandName="NextStep" ValidationGroup="addKapal" CssClass="btn btn-default" />                                
+            </prop:StepNavigationTemplate>
+            <prop:FinishNavigationTemplate>
+                <com:TLinkButton Text="Complete" CommandName="Complete" ValidationGroup="addKapal" CssClass="btn btn-default" />                
+            </prop:FinishNavigationTemplate>
+            <com:TWizardStep ID="tahap1" Title="PEMILIK KAPAL" AllowReturn="false">
+                <div class="panel-heading-process">
+                    <h3 class='panel-title'>
+                        <i class='fa fa-plus'></i>
+                        PEMILIK KAPAL
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group" id="divCmbAddPemohon">
+                        <label>Pilih Pemohon :</label>
+                        <div class="radio" style="padding-left:0px">
+                            <com:TDropDownList ID="cmbAddPemohon" AutoPostBack="false" CssClass="form-control chosen" Width="350px;" />                                                                                                        
+                            <com:TRequiredFieldValidator ID="FieldAddPemohonValidator" InitialValue="none" ControlToValidate="cmbAddPemohon" Display="Dynamic" ErrorMessage="Pilih Pemohon" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">				
+                                <prop:ClientSide.OnValidationError>
+                                    $('divCmbAddPemohon').addClassName('has-error');
+                                    jQuery('#<%=$this->FieldAddPemohonValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('divCmbAddPemohon').removeClassName('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>
+                        </div>
+                    </div>
+                </div>
+            </com:TWizardStep>
+            <com:TWizardStep ID="tahap2" Title="DATA KAPAL" AllowReturn="true">
+                <div class="panel-heading-process">
+                    <h3 class='panel-title'>
+                        <i class='fa fa-plus'></i>
+                        DATA KAPAL
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group" id="divAddNomorRegisterKapal">
+                        <label>Nomor Register Kapal :</label>
+                        <com:TTextBox ID="txtAddNomorRegisterKapal" CssClass="form-control" Width="200px" Attributes.PlaceHolder="Nomor Register Kapal" />			                            
+                        <com:TRequiredFieldValidator ID="FieldAddNomorRegisterKapalValidator" ControlToValidate="txtAddNomorRegisterKapal" Display="Dynamic" ErrorMessage="Isi Register Kapal" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divAddNomorRegisterKapal').addClassName('has-error');
+                                jQuery('#<%=$this->FieldAddNomorRegisterKapalValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divAddNomorRegisterKapal').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>
+                    <div class="form-group" id="divAddNamaKapal">
+                        <label>Nama Kapal :</label>
+                        <com:TTextBox ID="txtAddNamaKapal" CssClass="form-control" Width="300px" Attributes.PlaceHolder="Nama Kapal" />			                            
+                        <com:TRequiredFieldValidator ID="FieldAddNamaKapalValidator" ControlToValidate="txtAddNamaKapal" Display="Dynamic" ErrorMessage="Isi Nama Kapal" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divAddNamaKapal').addClassName('has-error');
+                                jQuery('#<%=$this->FieldAddNamaKapalValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divAddNamaKapal').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>
+                    <div class="form-group" id="divAddNamaNakhoda">
+                        <label>Nama Nakhoda :</label>
+                        <com:TTextBox ID="txtAddNamaNakhoda" CssClass="form-control" Width="300px" Attributes.PlaceHolder="Nama Nakhoda" />			                            
+                        <com:TRequiredFieldValidator ID="FieldAddNamaNakhodaValidator" ControlToValidate="txtAddNamaNakhoda" Display="Dynamic" ErrorMessage="Isi Nama Nakhoda" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divAddNamaNakhoda').addClassName('has-error');
+                                jQuery('#<%=$this->FieldAddNamaNakhodaValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divAddNamaNakhoda').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>
+                    <div class="form-group" id="divAddPanjangKapal">
+                        <label>Panjang Maksimal Kapal (m) :</label>
+                        <com:TTextBox ID="txtAddPanjangKapal" CssClass="form-control" Width="80px" Attributes.OnKeyUp="formatangka(this,true)"  />			                            
+                        <com:TRequiredFieldValidator ID="FieldAddPanjangKapalValidator" ControlToValidate="txtAddPanjangKapal" Display="Dynamic" ErrorMessage="Isi Panjang Kapal" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divAddPanjangKapal').addClassName('has-error');
+                                jQuery('#<%=$this->FieldAddPanjangKapalValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divAddPanjangKapal').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>
+                    <div class="form-group" id="divAddLebarKapal">
+                        <label>Lebar Maksimal Kapal (m) :</label>
+                        <com:TTextBox ID="txtAddLebarKapal" CssClass="form-control" Width="80px" Attributes.OnKeyUp="formatangka(this,true)"  />			                            
+                        <com:TRequiredFieldValidator ID="FieldAddLebarKapalValidator" ControlToValidate="txtAddLebarKapal" Display="Dynamic" ErrorMessage="Isi Lebar Kapal" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divAddLebarKapal').addClassName('has-error');
+                                jQuery('#<%=$this->FieldAddLebarKapalValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divAddLebarKapal').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>
+                    <div class="form-group" id="divAddTinggiKapal">
+                        <label>Tinggi Maksimal Kapal (m) :</label>
+                        <com:TTextBox ID="txtAddTinggiKapal" CssClass="form-control" Width="80px" Attributes.OnKeyUp="formatangka(this,true)"  />			                            
+                        <com:TRequiredFieldValidator ID="FieldAddTinggiKapalValidator" ControlToValidate="txtAddTinggiKapal" Display="Dynamic" ErrorMessage="Isi Tinggi Kapal" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divAddTinggiKapal').addClassName('has-error');
+                                jQuery('#<%=$this->FieldAddTinggiKapalValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divAddTinggiKapal').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>
+                    <div class="form-group" id="divAddUkuranTonaseKapal">
+                        <label>Gross Ton :</label>
+                        <com:TTextBox ID="txtAddUkuranTonaseKapal" CssClass="form-control" Width="150px" Attributes.PlaceHolder="Ukuran Tonase Kapal" />			                            
+                        <com:TRequiredFieldValidator ID="FieldAddUkuranTonaseKapalValidator" ControlToValidate="txtAddUkuranTonaseKapal" Display="Dynamic" ErrorMessage="Isi Ukuran Tonase Kapal" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divAddUkuranTonaseKapal').addClassName('has-error');
+                                jQuery('#<%=$this->FieldAddUkuranTonaseKapalValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divAddUkuranTonaseKapal').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div> 
+                     <div class="form-group" id="divCmbAddBahanKapal">
+                        <label>Bahan Kapal :</label>
+                        <div class="radio" style="padding-left:0px">
+                            <com:TDropDownList ID="cmbAddBahanKapal" AutoPostBack="false" CssClass="form-control chosen" Width="250px;" />                                                                                                        
+                            <com:TRequiredFieldValidator ID="FieldAddBahanKapalValidator" InitialValue="none" ControlToValidate="cmbAddBahanKapal" Display="Dynamic" ErrorMessage="Pilih Bahan Kapal" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">				
+                                <prop:ClientSide.OnValidationError>
+                                    $('divCmbAddBahanKapal').addClassName('has-error');
+                                    jQuery('#<%=$this->FieldAddBahanKapalValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('divCmbAddBahanKapal').removeClassName('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>
+                        </div>
+                    </div>
+                    <div class="form-group" id="divAddMerekMesinInduk">
+                        <label>Merek Mesin Induk :</label>
+                        <com:TTextBox ID="txtAddMerekMesinInduk" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Merek Mesin Induk" />			                            
+                        <com:TRequiredFieldValidator ID="FieldAddMerekMesinIndukValidator" ControlToValidate="txtAddMerekMesinInduk" Display="Dynamic" ErrorMessage="Isi Merek Mesin Induk" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divAddMerekMesinInduk').addClassName('has-error');
+                                jQuery('#<%=$this->FieldAddMerekMesinIndukValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divAddMerekMesinInduk').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>
+                    <div class="form-group" id="divAddDayaMesinInduk">
+                        <label>Daya Mesin Induk (DK) :</label>
+                        <com:TTextBox ID="txtAddDayaMesinInduk" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Daya Mesin Induk" />			                            
+                        <com:TRequiredFieldValidator ID="FieldAddDayaMesinIndukValidator" ControlToValidate="txtAddDayaMesinInduk" Display="Dynamic" ErrorMessage="Isi Daya Mesin Induk" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divAddDayaMesinInduk').addClassName('has-error');
+                                jQuery('#<%=$this->FieldAddDayaMesinIndukValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divAddDayaMesinInduk').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>
+                    <div class="form-group" id="divAddRPMMesinInduk">
+                        <label>Putaran Mesin Induk (RPM) :</label>
+                        <com:TTextBox ID="txtAddRPMMesinInduk" CssClass="form-control" Width="350px" Attributes.PlaceHolder="RPM Mesin Induk" />			                            
+                        <com:TRequiredFieldValidator ID="FieldAddRPMMesinIndukValidator" ControlToValidate="txtAddRPMMesinInduk" Display="Dynamic" ErrorMessage="Isi RPM Mesin Induk" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divAddRPMMesinInduk').addClassName('has-error');
+                                jQuery('#<%=$this->FieldAddRPMMesinIndukValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divAddRPMMesinInduk').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>
+                    <div class="form-group" id="divAddNomorSeriMesinInduk">
+                        <label>Nomor Seri Mesin Induk :</label>
+                        <com:TTextBox ID="txtAddNomorSeriMesinInduk" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Nomor Seri Mesin Induk" />			                            
+                        <com:TRequiredFieldValidator ID="FieldAddNomorSeriMesinIndukValidator" ControlToValidate="txtAddNomorSeriMesinInduk" Display="Dynamic" ErrorMessage="Isi Nomor Seri Mesin Induk" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divAddNomorSeriMesinInduk').addClassName('has-error');
+                                jQuery('#<%=$this->FieldAddNomorSeriMesinIndukValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divAddNomorSeriMesinInduk').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>                    
+                    <div class="form-group" id="divAddMerekMesinBantu">
+                        <label>Merek Mesin Bantu :</label>
+                        <com:TTextBox ID="txtAddMerekMesinBantu" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Merek Mesin Bantu" />			                            
+                        <com:TRequiredFieldValidator ID="FieldAddMerekMesinBantuValidator" ControlToValidate="txtAddMerekMesinBantu" Display="Dynamic" ErrorMessage="Isi Merek Mesin Bantu" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divAddMerekMesinBantu').addClassName('has-error');
+                                jQuery('#<%=$this->FieldAddMerekMesinBantuValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divAddMerekMesinBantu').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>
+                    <div class="form-group" id="divAddDayaMesinBantu">
+                        <label>Daya Mesin Bantu (DK) :</label>
+                        <com:TTextBox ID="txtAddDayaMesinBantu" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Daya Mesin Bantu" />			                            
+                        <com:TRequiredFieldValidator ID="FieldAddDayaMesinBantuValidator" ControlToValidate="txtAddDayaMesinBantu" Display="Dynamic" ErrorMessage="Isi Daya Mesin Bantu" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divAddDayaMesinBantu').addClassName('has-error');
+                                jQuery('#<%=$this->FieldAddDayaMesinBantuValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divAddDayaMesinBantu').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>
+                    <div class="form-group" id="divAddNomorSeriMesinBantu">
+                        <label>Nomor Seri Mesin Bantu :</label>
+                        <com:TTextBox ID="txtAddNomorSeriMesinBantu" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Nomor Seri Mesin Bantu" />			                            
+                        <com:TRequiredFieldValidator ID="FieldAddNomorSeriMesinBantuValidator" ControlToValidate="txtAddNomorSeriMesinBantu" Display="Dynamic" ErrorMessage="Isi Nomor Seri Mesin Bantu" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divAddNomorSeriMesinBantu').addClassName('has-error');
+                                jQuery('#<%=$this->FieldAddNomorSeriMesinBantuValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divAddNomorSeriMesinBantu').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>                                              
+                    <div class="form-group" id="divAddMerekMesinPendingin">
+                        <label>Merek Mesin Pendingin :</label>
+                        <com:TTextBox ID="txtAddMerekMesinPendingin" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Merek Mesin Pendingin" />			                            
+                        <com:TRequiredFieldValidator ID="FieldAddMerekMesinPendinginValidator" ControlToValidate="txtAddMerekMesinPendingin" Display="Dynamic" ErrorMessage="Isi Merek Mesin Pendingin" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divAddMerekMesinPendingin').addClassName('has-error');
+                                jQuery('#<%=$this->FieldAddMerekMesinPendinginValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divAddMerekMesinPendingin').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>
+                    <div class="form-group" id="divAddNomorSeriMesinPendingin">
+                        <label>Nomor Seri Mesin Pendingin :</label>
+                        <com:TTextBox ID="txtAddNomorSeriMesinPendingin" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Nomor Seri Mesin Pendingin" />			                            
+                        <com:TRequiredFieldValidator ID="FieldAddNomorSeriMesinPendinginValidator" ControlToValidate="txtAddNomorSeriMesinPendingin" Display="Dynamic" ErrorMessage="Isi Nomor Seri Mesin Pendingin" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divAddNomorSeriMesinPendingin').addClassName('has-error');
+                                jQuery('#<%=$this->FieldAddNomorSeriMesinPendinginValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divAddNomorSeriMesinPendingin').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>                    
+                    <div class="form-group" id="divCmbAddTipeKapal">
+                        <label>Tipe Kapal :</label>
+                        <div class="radio" style="padding-left:0px">
+                            <com:TDropDownList ID="cmbAddTipeKapal" AutoPostBack="false" CssClass="form-control chosen" Width="250px;" />                                                                                                        
+                            <com:TRequiredFieldValidator ID="FieldAddTipeKapalValidator" InitialValue="none" ControlToValidate="cmbAddTipeKapal" Display="Dynamic" ErrorMessage="Pilih Jenis Kapal" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">				
+                                <prop:ClientSide.OnValidationError>
+                                    $('divCmbAddTipeKapal').addClassName('has-error');
+                                    jQuery('#<%=$this->FieldAddTipeKapalValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('divCmbAddTipeKapal').removeClassName('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>
+                        </div>
+                    </div>    
+                    <div class="form-group" id="divCmbAddJenisKapal">
+                        <label>Jenis Kapal :</label>
+                        <div class="radio" style="padding-left:0px">
+                            <com:TDropDownList ID="cmbAddJenisKapal" AutoPostBack="false" CssClass="form-control chosen" Width="250px;" />                                                                                                        
+                            <com:TRequiredFieldValidator ID="FieldAddJenisKapalValidator" InitialValue="none" ControlToValidate="cmbAddJenisKapal" Display="Dynamic" ErrorMessage="Pilih Jenis Kapal" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">				
+                                <prop:ClientSide.OnValidationError>
+                                    $('divCmbAddJenisKapal').addClassName('has-error');
+                                    jQuery('#<%=$this->FieldAddJenisKapalValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('divCmbAddJenisKapal').removeClassName('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>
+                        </div>
+                    </div>
+                    <div class="form-group" id="divAddTempatPembuatan">
+                        <label>Tempat Pembuatan :</label>
+                        <com:TTextBox ID="txtAddTempatPembuatan" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Tempat Pembuatan" />			                            
+                        <com:TRequiredFieldValidator ID="FieldAddTempatPembuatanValidator" ControlToValidate="txtAddTempatPembuatan" Display="Dynamic" ErrorMessage="Isi Tempat Pembuatan" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divAddTempatPembuatan').addClassName('has-error');
+                                jQuery('#<%=$this->FieldAddTempatPembuatanValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divAddTempatPembuatan').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>
+                    <div class="form-group">
+                        <label>Tahun Pembuatan :</label>
+                        <div class="radio" style="padding-left:0px">
+                            <com:TCustomDatePicker ID="cmbAddTahunPembuatan" DateFormat="yyyy" Culture="id" FromYear="2000" UpToYear="<%=date('Y')%>" InputMode="DropDownList" ShowCalendar="false" />
+                        </div>                        
+                    </div>
+                    <div class="form-group" id="divAddNomorPasTahunanKapaL">
+                        <label>Nomor Pas Tahunan Kapal :</label>
+                        <com:TTextBox ID="txtAddNomorPasTahunanKapaL" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Nomor Pas Tahunan Kapal" />			                            
+                        <com:TRequiredFieldValidator ID="FieldAddNomorPasTahunanKapaLValidator" ControlToValidate="txtAddNomorPasTahunanKapaL" Display="Dynamic" ErrorMessage="Isi Nomor Pas Tahunan Kapal" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divAddNomorPasTahunanKapaL').addClassName('has-error');
+                                jQuery('#<%=$this->FieldAddNomorPasTahunanKapaLValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divAddNomorPasTahunanKapaL').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>
+                    <div class="form-group" id="divAddNomorSuratUkurKapal">
+                        <label>Nomor Surat Ukur Kapal :</label>
+                        <com:TTextBox ID="txtAddNomorSuratUkurKapal" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Nomor Surat Ukur Kapal" />			                            
+                        <com:TRequiredFieldValidator ID="FieldAddNomorSuratUkurKapalValidator" ControlToValidate="txtAddNomorSuratUkurKapal" Display="Dynamic" ErrorMessage="Isi Nomor Surat Ukur Kapal" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divAddNomorSuratUkurKapal').addClassName('has-error');
+                                jQuery('#<%=$this->FieldAddNomorSuratUkurKapalValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divAddNomorSuratUkurKapal').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>
+                    <div class="form-group" id="divAddSertifikatKelaikandanPengawakan">
+                        <label>Sertifikat Kelaikan dan Pengawakan :</label>
+                        <com:TTextBox ID="txtAddSertifikatKelaikandanPengawakan" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Sertifikat Kelaikan dan Pengawakan" />			                            
+                        <com:TRequiredFieldValidator ID="FieldAddSertifikatKelaikandanPengawakanValidator" ControlToValidate="txtAddSertifikatKelaikandanPengawakan" Display="Dynamic" ErrorMessage="Isi Sertifikat Kelaikan dan Pengawakan" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divAddSertifikatKelaikandanPengawakan').addClassName('has-error');
+                                jQuery('#<%=$this->FieldAddSertifikatKelaikandanPengawakanValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divAddSertifikatKelaikandanPengawakan').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>
+                    <div class="form-group" id="divAddTandaSelarKapal">
+                        <label>Tanda Selar Kapal :</label>
+                        <com:TTextBox ID="txtAddTandaSelarKapal" CssClass="form-control" Width="250px" Attributes.PlaceHolder="Tanda Selar Kapal" />			                            
+                        <com:TRequiredFieldValidator ID="FieldAddTandaSelarKapalValidator" ControlToValidate="txtAddTandaSelarKapal" Display="Dynamic" ErrorMessage="Isi Tanda Selar Kapal" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divAddTandaSelarKapal').addClassName('has-error');
+                                jQuery('#<%=$this->FieldAddTandaSelarKapalValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divAddTandaSelarKapal').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>
+                    <div class="form-group" id="divAddBenderaKapal">
+                        <label>Bendera Kapal :</label>
+                        <com:TTextBox ID="txtAddBenderaKapal" CssClass="form-control" Width="250px" Attributes.PlaceHolder="Bendera Kapal" />			                            
+                        <com:TRequiredFieldValidator ID="FieldAddBenderaKapalValidator" ControlToValidate="txtAddBenderaKapal" Display="Dynamic" ErrorMessage="Isi Bendera Kapal" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divAddBenderaKapal').addClassName('has-error');
+                                jQuery('#<%=$this->FieldAddBenderaKapalValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divAddBenderaKapal').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>                  
+                    <div class="form-group" id="divAddMuatanBersihKapal">
+                        <label>Muatan Bersih Kapal :</label>
+                        <com:TTextBox ID="txtAddMuatanBersihKapal" CssClass="form-control" Width="150px" Attributes.PlaceHolder="Muatan Bersih Kapal" />			                            
+                        <com:TRequiredFieldValidator ID="FieldAddMuatanBersihKapalValidator" ControlToValidate="txtAddMuatanBersihKapal" Display="Dynamic" ErrorMessage="Isi Muatan Bersih Kapal" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divAddMuatanBersihKapal').addClassName('has-error');
+                                jQuery('#<%=$this->FieldAddMuatanBersihKapalValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divAddMuatanBersihKapal').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>                                                            
+                    <div class="form-group" id="divAddStatusKapal">
+                        <label>Status Kapal :</label>
+                        <com:TDropDownList ID="cmbAddStatusKapal" CssClass="form-control" Width="250px">                            
+                            <com:TListItem Value="miliksendiri" Text="Milik Sendiri" /> 
+                            <com:TListItem Value="sewa" Text="Sewa" />
+                            <com:TListItem Value="kerjasama" Text="Kerja Sama" />
+                        </com:TDropDownList>                                                                
+                    </div>                                                             
+                </div>               
+            </com:TWizardStep>
+            <com:TWizardStep ID="tahap3" Title="RISALAH KAPAL" AllowReturn="true">
+                <div class="panel-heading-process">
+                    <h3 class='panel-title'>
+                        <i class='fa fa-plus'></i>
+                        RISALAH KAPAL
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group" id="divAddNamaKapalSebelumnya">
+                        <label>Nama Kapal Sebelumnya (awal) :</label>
+                        <com:TTextBox ID="txtAddNamaKapalSebelumnya" CssClass="form-control" Width="300px" Attributes.PlaceHolder="Nama Kapal Sebelumnya" />			                                                                                            
+                        <com:TRequiredFieldValidator ID="FieldAddNamaKapalSebelumnyaValidator" ControlToValidate="txtAddNamaKapalSebelumnya" Display="Dynamic" ErrorMessage="Isi Nama Kapal Sebelumnya, kalau tidak beri tanda '-'" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divAddNamaKapalSebelumnya').addClassName('has-error');
+                                jQuery('#<%=$this->FieldAddNamaKapalSebelumnyaValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divAddNamaKapalSebelumnya').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>
+                    </div>
+                    <div class="form-group">
+                        <label>Pergantian/Balik Nama :</label>
+                        <com:TDropDownList ID="cmbAddPergantianNama" CssClass="form-control" Width="250px">                                                        
+                            <com:TListItem Value="gantinama" Text="Penggantian Nama" /> 
+                            <com:TListItem Value="baliknama" Text="Balik Nama" />                            
+                        </com:TDropDownList>                                                                
+                    </div> 
+                    <div class="form-group" id="divAddAsalBendera">
+                        <label>Asal Bendera :</label>
+                        <com:TTextBox ID="txtAddAsalBendera" CssClass="form-control" Width="250px" Attributes.PlaceHolder="Asal Bendera" />			                                                    
+                        <com:TRequiredFieldValidator ID="FieldAddAsalBenderaValidator" ControlToValidate="txtAddAsalBendera" Display="Dynamic" ErrorMessage="Isi Asal Bendera kapal" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divAddAsalBendera').addClassName('has-error');
+                                jQuery('#<%=$this->FieldAddAsalBenderaValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divAddAsalBendera').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>
+                    </div>  
+                </div>
+            </com:TWizardStep>
+            <com:TWizardStep Title="Summary" AllowReturn="true" StepType="Complete">
+                <div class="panel-heading-process">
+                    <h3 class='panel-title'>
+                        <i class='fa fa-plus'></i>
+                        SUMMARY INPUT DATA KAPAL
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    
+                </div>
+                <div class="panel-footer">
+                    <com:TActiveLinkButton ID="btnSave" CssClass="btn btn-primary" OnClick="saveData">
+                        <prop:Text><i class="fa fa-save"></i> Simpan</prop:Text>
+                        <prop:ClientSide.OnPreDispatch>
+                            $('loading').show();                                             
+                            $('<%=$this->btnSave->ClientId%>').disabled='disabled';						
+                        </prop:ClientSide.OnPreDispatch>
+                        <prop:ClientSide.OnLoading>
+                            $('<%=$this->btnSave->ClientId%>').disabled='disabled';						
+                        </prop:ClientSide.OnLoading>
+                        <prop:ClientSide.OnComplete>																	
+                            $('<%=$this->btnSave->ClientId%>').disabled='';						                                            
+                            $('loading').hide(); 
+                        </prop:ClientSide.OnComplete>
+                    </com:TActiveLinkButton>
+                </div>
+            </com:TWizardStep>        
+        </com:TWizard>                
+    </com:TPanel>    
+    <com:TPanel Visible="<%= $this->getEditProcess(false) %>" CssClass="row">
+        <com:TActiveHiddenField ID="hiddenid" />        
+        <com:TWizard ID="editkapalwizard" 
+            CssClass="col-lg-12"
+            ShowSideBar="false"                              
+            StepStyle.CssClass="panel panel-primary"
+            NavigationStyle.CssClass="btn-group btn-group-justified"
+            OnCompleteButtonClick="editKapalCompleted" 
+            OnNextButtonClick="processEditNextButton">
+            <prop:StartNavigationTemplate>                    
+                <com:TLinkButton Text="Next" CommandName="NextStep" ValidationGroup="editKapal" CssClass="btn btn-default" />                    
+            </prop:StartNavigationTemplate>
+            <prop:StepNavigationTemplate>                
+                <com:TLinkButton CausesValidation="False" CommandName="PreviousStep" Text="Previous" CssClass="btn btn-default" />               
+                <com:TLinkButton Text="Next" CommandName="NextStep" ValidationGroup="editKapal" CssClass="btn btn-default" />                                
+            </prop:StepNavigationTemplate>
+            <prop:FinishNavigationTemplate>
+                <com:TLinkButton Text="Complete" CommandName="Complete" ValidationGroup="editKapal" CssClass="btn btn-default" />                
+            </prop:FinishNavigationTemplate>
+            <com:TWizardStep ID="tahapEdit1" Title="PEMILIK KAPAL" AllowReturn="false">
+                <div class="panel-heading-process">
+                    <h3 class='panel-title'>
+                        <i class='fa fa-plus'></i>
+                        PEMILIK KAPAL
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group" id="divCmbEditPemohon">
+                        <label>Pilih Pemohon :</label>
+                        <div class="radio" style="padding-left:0px">
+                            <com:TDropDownList ID="cmbEditPemohon" AutoPostBack="false" CssClass="form-control chosen" Width="350px;" />                                                                                                        
+                            <com:TRequiredFieldValidator ID="FieldEditPemohonValidator" InitialValue="none" ControlToValidate="cmbEditPemohon" Display="Dynamic" ErrorMessage="Pilih Pemohon" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">				
+                                <prop:ClientSide.OnValidationError>
+                                    $('divCmbEditPemohon').addClassName('has-error');
+                                    jQuery('#<%=$this->FieldEditPemohonValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('divCmbEditPemohon').removeClassName('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>
+                        </div>
+                    </div>
+                </div>
+            </com:TWizardStep>
+            <com:TWizardStep ID="tahapEdit2" Title="DATA KAPAL" AllowReturn="true">
+                <div class="panel-heading-process">
+                    <h3 class='panel-title'>
+                        <i class='fa fa-plus'></i>
+                        DATA KAPAL
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group" id="divEditNomorRegisterKapal">
+                        <label>Nomor Register Kapal :</label>
+                        <com:TTextBox ID="txtEditNomorRegisterKapal" CssClass="form-control" Width="200px" Attributes.PlaceHolder="Nomor Register Kapal" />			                            
+                        <com:TRequiredFieldValidator ID="FieldEditNomorRegisterKapalValidator" ControlToValidate="txtEditNomorRegisterKapal" Display="Dynamic" ErrorMessage="Isi Register Kapal" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divEditNomorRegisterKapal').addClassName('has-error');
+                                jQuery('#<%=$this->FieldEditNomorRegisterKapalValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divEditNomorRegisterKapal').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>
+                    <div class="form-group" id="divEditNamaKapal">
+                        <label>Nama Kapal :</label>
+                        <com:TTextBox ID="txtEditNamaKapal" CssClass="form-control" Width="300px" Attributes.PlaceHolder="Nama Kapal" />			                            
+                        <com:TRequiredFieldValidator ID="FieldEditNamaKapalValidator" ControlToValidate="txtEditNamaKapal" Display="Dynamic" ErrorMessage="Isi Nama Kapal" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divEditNamaKapal').addClassName('has-error');
+                                jQuery('#<%=$this->FieldEditNamaKapalValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divEditNamaKapal').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>
+                    <div class="form-group" id="divEditNamaNakhoda">
+                        <label>Nama Nakhoda :</label>
+                        <com:TTextBox ID="txtEditNamaNakhoda" CssClass="form-control" Width="300px" Attributes.PlaceHolder="Nama Nakhoda" />			                            
+                        <com:TRequiredFieldValidator ID="FieldEditNamaNakhodaValidator" ControlToValidate="txtEditNamaNakhoda" Display="Dynamic" ErrorMessage="Isi Nama Nakhoda" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divEditNamaNakhoda').addClassName('has-error');
+                                jQuery('#<%=$this->FieldEditNamaNakhodaValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divEditNamaNakhoda').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>
+                    <div class="form-group" id="divEditPanjangKapal">
+                        <label>Panjang Maksimal Kapal (m) :</label>
+                        <com:TTextBox ID="txtEditPanjangKapal" CssClass="form-control" Width="80px" Attributes.OnKeyUp="formatangka(this,true)"  />			                            
+                        <com:TRequiredFieldValidator ID="FieldEditPanjangKapalValidator" ControlToValidate="txtEditPanjangKapal" Display="Dynamic" ErrorMessage="Isi Panjang Kapal" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divEditPanjangKapal').addClassName('has-error');
+                                jQuery('#<%=$this->FieldEditPanjangKapalValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divEditPanjangKapal').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>
+                    <div class="form-group" id="divEditLebarKapal">
+                        <label>Lebar Maksimal Kapal (m) :</label>
+                        <com:TTextBox ID="txtEditLebarKapal" CssClass="form-control" Width="80px" Attributes.OnKeyUp="formatangka(this,true)"  />			                            
+                        <com:TRequiredFieldValidator ID="FieldEditLebarKapalValidator" ControlToValidate="txtEditLebarKapal" Display="Dynamic" ErrorMessage="Isi Lebar Kapal" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divEditLebarKapal').addClassName('has-error');
+                                jQuery('#<%=$this->FieldEditLebarKapalValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divEditLebarKapal').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>
+                    <div class="form-group" id="divEditTinggiKapal">
+                        <label>Tinggi Maksimal Kapal (m) :</label>
+                        <com:TTextBox ID="txtEditTinggiKapal" CssClass="form-control" Width="80px" Attributes.OnKeyUp="formatangka(this,true)"  />			                            
+                        <com:TRequiredFieldValidator ID="FieldEditTinggiKapalValidator" ControlToValidate="txtEditTinggiKapal" Display="Dynamic" ErrorMessage="Isi Tinggi Kapal" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divEditTinggiKapal').addClassName('has-error');
+                                jQuery('#<%=$this->FieldEditTinggiKapalValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divEditTinggiKapal').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>
+                    <div class="form-group" id="divEditUkuranTonaseKapal">
+                        <label>Gross Ton :</label>
+                        <com:TTextBox ID="txtEditUkuranTonaseKapal" CssClass="form-control" Width="150px" Attributes.PlaceHolder="Ukuran Tonase Kapal" />			                            
+                        <com:TRequiredFieldValidator ID="FieldEditUkuranTonaseKapalValidator" ControlToValidate="txtEditUkuranTonaseKapal" Display="Dynamic" ErrorMessage="Isi Ukuran Tonase Kapal" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divEditUkuranTonaseKapal').addClassName('has-error');
+                                jQuery('#<%=$this->FieldEditUkuranTonaseKapalValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divEditUkuranTonaseKapal').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div> 
+                     <div class="form-group" id="divCmbEditBahanKapal">
+                        <label>Bahan Kapal :</label>
+                        <div class="radio" style="padding-left:0px">
+                            <com:TDropDownList ID="cmbEditBahanKapal" AutoPostBack="false" CssClass="form-control chosen" Width="250px;" />                                                                                                        
+                            <com:TRequiredFieldValidator ID="FieldEditBahanKapalValidator" InitialValue="none" ControlToValidate="cmbEditBahanKapal" Display="Dynamic" ErrorMessage="Pilih Bahan Kapal" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">				
+                                <prop:ClientSide.OnValidationError>
+                                    $('divCmbEditBahanKapal').addClassName('has-error');
+                                    jQuery('#<%=$this->FieldEditBahanKapalValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('divCmbEditBahanKapal').removeClassName('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>
+                        </div>
+                    </div>
+                    <div class="form-group" id="divEditMerekMesinInduk">
+                        <label>Merek Mesin Induk :</label>
+                        <com:TTextBox ID="txtEditMerekMesinInduk" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Merek Mesin Induk" />			                            
+                        <com:TRequiredFieldValidator ID="FieldEditMerekMesinIndukValidator" ControlToValidate="txtEditMerekMesinInduk" Display="Dynamic" ErrorMessage="Isi Merek Mesin Induk" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divEditMerekMesinInduk').addClassName('has-error');
+                                jQuery('#<%=$this->FieldEditMerekMesinIndukValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divEditMerekMesinInduk').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>
+                    <div class="form-group" id="divEditDayaMesinInduk">
+                        <label>Daya Mesin Induk (DK) :</label>
+                        <com:TTextBox ID="txtEditDayaMesinInduk" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Daya Mesin Induk" />			                            
+                        <com:TRequiredFieldValidator ID="FieldEditDayaMesinIndukValidator" ControlToValidate="txtEditDayaMesinInduk" Display="Dynamic" ErrorMessage="Isi Daya Mesin Induk" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divEditDayaMesinInduk').addClassName('has-error');
+                                jQuery('#<%=$this->FieldEditDayaMesinIndukValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divEditDayaMesinInduk').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>
+                    <div class="form-group" id="divEditRPMMesinInduk">
+                        <label>Putaran Mesin Induk (RPM) :</label>
+                        <com:TTextBox ID="txtEditRPMMesinInduk" CssClass="form-control" Width="350px" Attributes.PlaceHolder="RPM Mesin Induk" />			                            
+                        <com:TRequiredFieldValidator ID="FieldEditRPMMesinIndukValidator" ControlToValidate="txtEditRPMMesinInduk" Display="Dynamic" ErrorMessage="Isi RPM Mesin Induk" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divEditRPMMesinInduk').addClassName('has-error');
+                                jQuery('#<%=$this->FieldEditRPMMesinIndukValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divEditRPMMesinInduk').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>
+                    <div class="form-group" id="divEditNomorSeriMesinInduk">
+                        <label>Nomor Seri Mesin Induk :</label>
+                        <com:TTextBox ID="txtEditNomorSeriMesinInduk" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Nomor Seri Mesin Induk" />			                            
+                        <com:TRequiredFieldValidator ID="FieldEditNomorSeriMesinIndukValidator" ControlToValidate="txtEditNomorSeriMesinInduk" Display="Dynamic" ErrorMessage="Isi Nomor Seri Mesin Induk" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divEditNomorSeriMesinInduk').addClassName('has-error');
+                                jQuery('#<%=$this->FieldEditNomorSeriMesinIndukValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divEditNomorSeriMesinInduk').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>                    
+                    <div class="form-group" id="divEditMerekMesinBantu">
+                        <label>Merek Mesin Bantu :</label>
+                        <com:TTextBox ID="txtEditMerekMesinBantu" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Merek Mesin Bantu" />			                            
+                        <com:TRequiredFieldValidator ID="FieldEditMerekMesinBantuValidator" ControlToValidate="txtEditMerekMesinBantu" Display="Dynamic" ErrorMessage="Isi Merek Mesin Bantu" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divEditMerekMesinBantu').addClassName('has-error');
+                                jQuery('#<%=$this->FieldEditMerekMesinBantuValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divEditMerekMesinBantu').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>
+                    <div class="form-group" id="divEditDayaMesinBantu">
+                        <label>Daya Mesin Bantu (DK) :</label>
+                        <com:TTextBox ID="txtEditDayaMesinBantu" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Daya Mesin Bantu" />			                            
+                        <com:TRequiredFieldValidator ID="FieldEditDayaMesinBantuValidator" ControlToValidate="txtEditDayaMesinBantu" Display="Dynamic" ErrorMessage="Isi Daya Mesin Bantu" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divEditDayaMesinBantu').addClassName('has-error');
+                                jQuery('#<%=$this->FieldEditDayaMesinBantuValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divEditDayaMesinBantu').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>
+                    <div class="form-group" id="divEditNomorSeriMesinBantu">
+                        <label>Nomor Seri Mesin Bantu :</label>
+                        <com:TTextBox ID="txtEditNomorSeriMesinBantu" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Nomor Seri Mesin Bantu" />			                            
+                        <com:TRequiredFieldValidator ID="FieldEditNomorSeriMesinBantuValidator" ControlToValidate="txtEditNomorSeriMesinBantu" Display="Dynamic" ErrorMessage="Isi Nomor Seri Mesin Bantu" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divEditNomorSeriMesinBantu').addClassName('has-error');
+                                jQuery('#<%=$this->FieldEditNomorSeriMesinBantuValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divEditNomorSeriMesinBantu').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>                                              
+                    <div class="form-group" id="divEditMerekMesinPendingin">
+                        <label>Merek Mesin Pendingin :</label>
+                        <com:TTextBox ID="txtEditMerekMesinPendingin" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Merek Mesin Pendingin" />			                            
+                        <com:TRequiredFieldValidator ID="FieldEditMerekMesinPendinginValidator" ControlToValidate="txtEditMerekMesinPendingin" Display="Dynamic" ErrorMessage="Isi Merek Mesin Pendingin" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divEditMerekMesinPendingin').addClassName('has-error');
+                                jQuery('#<%=$this->FieldEditMerekMesinPendinginValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divEditMerekMesinPendingin').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>
+                    <div class="form-group" id="divEditNomorSeriMesinPendingin">
+                        <label>Nomor Seri Mesin Pendingin :</label>
+                        <com:TTextBox ID="txtEditNomorSeriMesinPendingin" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Nomor Seri Mesin Pendingin" />			                            
+                        <com:TRequiredFieldValidator ID="FieldEditNomorSeriMesinPendinginValidator" ControlToValidate="txtEditNomorSeriMesinPendingin" Display="Dynamic" ErrorMessage="Isi Nomor Seri Mesin Pendingin" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divEditNomorSeriMesinPendingin').addClassName('has-error');
+                                jQuery('#<%=$this->FieldEditNomorSeriMesinPendinginValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divEditNomorSeriMesinPendingin').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>                    
+                    <div class="form-group" id="divCmbEditTipeKapal">
+                        <label>Tipe Kapal :</label>
+                        <div class="radio" style="padding-left:0px">
+                            <com:TDropDownList ID="cmbEditTipeKapal" AutoPostBack="false" CssClass="form-control chosen" Width="250px;" />                                                                                                        
+                            <com:TRequiredFieldValidator ID="FieldEditTipeKapalValidator" InitialValue="none" ControlToValidate="cmbEditTipeKapal" Display="Dynamic" ErrorMessage="Pilih Jenis Kapal" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">				
+                                <prop:ClientSide.OnValidationError>
+                                    $('divCmbEditTipeKapal').addClassName('has-error');
+                                    jQuery('#<%=$this->FieldEditTipeKapalValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('divCmbEditTipeKapal').removeClassName('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>
+                        </div>
+                    </div>    
+                    <div class="form-group" id="divCmbEditJenisKapal">
+                        <label>Jenis Kapal :</label>
+                        <div class="radio" style="padding-left:0px">
+                            <com:TDropDownList ID="cmbEditJenisKapal" AutoPostBack="false" CssClass="form-control chosen" Width="250px;" />                                                                                                        
+                            <com:TRequiredFieldValidator ID="FieldEditJenisKapalValidator" InitialValue="none" ControlToValidate="cmbEditJenisKapal" Display="Dynamic" ErrorMessage="Pilih Jenis Kapal" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">				
+                                <prop:ClientSide.OnValidationError>
+                                    $('divCmbEditJenisKapal').addClassName('has-error');
+                                    jQuery('#<%=$this->FieldEditJenisKapalValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('divCmbEditJenisKapal').removeClassName('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>
+                        </div>
+                    </div>
+                    <div class="form-group" id="divEditTempatPembuatan">
+                        <label>Tempat Pembuatan :</label>
+                        <com:TTextBox ID="txtEditTempatPembuatan" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Tempat Pembuatan" />			                            
+                        <com:TRequiredFieldValidator ID="FieldEditTempatPembuatanValidator" ControlToValidate="txtEditTempatPembuatan" Display="Dynamic" ErrorMessage="Isi Tempat Pembuatan" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divEditTempatPembuatan').addClassName('has-error');
+                                jQuery('#<%=$this->FieldEditTempatPembuatanValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divEditTempatPembuatan').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>
+                    <div class="form-group">
+                        <label>Tahun Pembuatan :</label>
+                        <div class="radio" style="padding-left:0px">
+                            <com:TCustomDatePicker ID="cmbEditTahunPembuatan" DateFormat="yyyy" Culture="id" FromYear="2000" UpToYear="<%=date('Y')%>" InputMode="DropDownList" ShowCalendar="false" />
+                        </div>                        
+                    </div>
+                    <div class="form-group" id="divEditNomorPasTahunanKapaL">
+                        <label>Nomor Pas Tahunan Kapal :</label>
+                        <com:TTextBox ID="txtEditNomorPasTahunanKapaL" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Nomor Pas Tahunan Kapal" />			                            
+                        <com:TRequiredFieldValidator ID="FieldEditNomorPasTahunanKapaLValidator" ControlToValidate="txtEditNomorPasTahunanKapaL" Display="Dynamic" ErrorMessage="Isi Nomor Pas Tahunan Kapal" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divEditNomorPasTahunanKapaL').addClassName('has-error');
+                                jQuery('#<%=$this->FieldEditNomorPasTahunanKapaLValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divEditNomorPasTahunanKapaL').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>
+                    <div class="form-group" id="divEditNomorSuratUkurKapal">
+                        <label>Nomor Surat Ukur Kapal :</label>
+                        <com:TTextBox ID="txtEditNomorSuratUkurKapal" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Nomor Surat Ukur Kapal" />			                            
+                        <com:TRequiredFieldValidator ID="FieldEditNomorSuratUkurKapalValidator" ControlToValidate="txtEditNomorSuratUkurKapal" Display="Dynamic" ErrorMessage="Isi Nomor Surat Ukur Kapal" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divEditNomorSuratUkurKapal').addClassName('has-error');
+                                jQuery('#<%=$this->FieldEditNomorSuratUkurKapalValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divEditNomorSuratUkurKapal').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>
+                    <div class="form-group" id="divEditSertifikatKelaikandanPengawakan">
+                        <label>Sertifikat Kelaikan dan Pengawakan :</label>
+                        <com:TTextBox ID="txtEditSertifikatKelaikandanPengawakan" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Sertifikat Kelaikan dan Pengawakan" />			                            
+                        <com:TRequiredFieldValidator ID="FieldEditSertifikatKelaikandanPengawakanValidator" ControlToValidate="txtEditSertifikatKelaikandanPengawakan" Display="Dynamic" ErrorMessage="Isi Sertifikat Kelaikan dan Pengawakan" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divEditSertifikatKelaikandanPengawakan').addClassName('has-error');
+                                jQuery('#<%=$this->FieldEditSertifikatKelaikandanPengawakanValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divEditSertifikatKelaikandanPengawakan').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>
+                    <div class="form-group" id="divEditTandaSelarKapal">
+                        <label>Tanda Selar Kapal :</label>
+                        <com:TTextBox ID="txtEditTandaSelarKapal" CssClass="form-control" Width="250px" Attributes.PlaceHolder="Tanda Selar Kapal" />			                            
+                        <com:TRequiredFieldValidator ID="FieldEditTandaSelarKapalValidator" ControlToValidate="txtEditTandaSelarKapal" Display="Dynamic" ErrorMessage="Isi Tanda Selar Kapal" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divEditTandaSelarKapal').addClassName('has-error');
+                                jQuery('#<%=$this->FieldEditTandaSelarKapalValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divEditTandaSelarKapal').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>
+                    <div class="form-group" id="divEditBenderaKapal">
+                        <label>Bendera Kapal :</label>
+                        <com:TTextBox ID="txtEditBenderaKapal" CssClass="form-control" Width="250px" Attributes.PlaceHolder="Bendera Kapal" />			                            
+                        <com:TRequiredFieldValidator ID="FieldEditBenderaKapalValidator" ControlToValidate="txtEditBenderaKapal" Display="Dynamic" ErrorMessage="Isi Bendera Kapal" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divEditBenderaKapal').addClassName('has-error');
+                                jQuery('#<%=$this->FieldEditBenderaKapalValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divEditBenderaKapal').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>                  
+                    <div class="form-group" id="divEditMuatanBersihKapal">
+                        <label>Muatan Bersih Kapal :</label>
+                        <com:TTextBox ID="txtEditMuatanBersihKapal" CssClass="form-control" Width="150px" Attributes.PlaceHolder="Muatan Bersih Kapal" />			                            
+                        <com:TRequiredFieldValidator ID="FieldEditMuatanBersihKapalValidator" ControlToValidate="txtEditMuatanBersihKapal" Display="Dynamic" ErrorMessage="Isi Muatan Bersih Kapal" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divEditMuatanBersihKapal').addClassName('has-error');
+                                jQuery('#<%=$this->FieldEditMuatanBersihKapalValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divEditMuatanBersihKapal').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                            
+                    </div>                                                            
+                    <div class="form-group" id="divEditStatusKapal">
+                        <label>Status Kapal :</label>
+                        <com:TDropDownList ID="cmbEditStatusKapal" CssClass="form-control" Width="250px">                            
+                            <com:TListItem Value="miliksendiri" Text="Milik Sendiri" /> 
+                            <com:TListItem Value="sewa" Text="Sewa" />
+                            <com:TListItem Value="kerjasama" Text="Kerja Sama" />
+                        </com:TDropDownList>                                                                
+                    </div>                                                             
+                </div>               
+            </com:TWizardStep>
+            <com:TWizardStep ID="tahapEdit3" Title="RISALAH KAPAL" AllowReturn="true">
+                <div class="panel-heading-process">
+                    <h3 class='panel-title'>
+                        <i class='fa fa-plus'></i>
+                        RISALAH KAPAL
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group" id="divEditNamaKapalSebelumnya">
+                        <label>Nama Kapal Sebelumnya (awal) :</label>
+                        <com:TTextBox ID="txtEditNamaKapalSebelumnya" CssClass="form-control" Width="300px" Attributes.PlaceHolder="Nama Kapal Sebelumnya" />			                                                                                            
+                        <com:TRequiredFieldValidator ID="FieldEditNamaKapalSebelumnyaValidator" ControlToValidate="txtEditNamaKapalSebelumnya" Display="Dynamic" ErrorMessage="Isi Nama Kapal Sebelumnya, kalau tidak beri tanda '-'" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divEditNamaKapalSebelumnya').addClassName('has-error');
+                                jQuery('#<%=$this->FieldEditNamaKapalSebelumnyaValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divEditNamaKapalSebelumnya').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>
+                    </div>
+                    <div class="form-group">
+                        <label>Pergantian/Balik Nama :</label>
+                        <com:TDropDownList ID="cmbEditPergantianNama" CssClass="form-control" Width="250px">                                                        
+                            <com:TListItem Value="gantinama" Text="Penggantian Nama" /> 
+                            <com:TListItem Value="baliknama" Text="Balik Nama" />                            
+                        </com:TDropDownList>                                                                
+                    </div> 
+                    <div class="form-group" id="divEditAsalBendera">
+                        <label>Asal Bendera :</label>
+                        <com:TTextBox ID="txtEditAsalBendera" CssClass="form-control" Width="250px" Attributes.PlaceHolder="Asal Bendera" />			                                                    
+                        <com:TRequiredFieldValidator ID="FieldEditAsalBenderaValidator" ControlToValidate="txtEditAsalBendera" Display="Dynamic" ErrorMessage="Isi Asal Bendera kapal" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divEditAsalBendera').addClassName('has-error');
+                                jQuery('#<%=$this->FieldEditAsalBenderaValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divEditAsalBendera').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>
+                    </div>  
+                </div>
+            </com:TWizardStep>
+            <com:TWizardStep Title="Summary" AllowReturn="true" StepType="Complete">
+                <div class="panel-heading-process">
+                    <h3 class='panel-title'>
+                        <i class='fa fa-plus'></i>
+                        SUMMARY INPUT DATA KAPAL
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    
+                </div>
+                <div class="panel-footer">
+                    <com:TActiveLinkButton ID="btnUpdate" CssClass="btn btn-primary" OnClick="updateData">
+                        <prop:Text><i class="fa fa-save"></i> Simpan</prop:Text>
+                        <prop:ClientSide.OnPreDispatch>
+                            $('loading').show();                                             
+                            $('<%=$this->btnUpdate->ClientId%>').disabled='disabled';						
+                        </prop:ClientSide.OnPreDispatch>
+                        <prop:ClientSide.OnLoading>
+                            $('<%=$this->btnUpdate->ClientId%>').disabled='disabled';						
+                        </prop:ClientSide.OnLoading>
+                        <prop:ClientSide.OnComplete>																	
+                            $('<%=$this->btnUpdate->ClientId%>').disabled='';						                                            
+                            $('loading').hide(); 
+                        </prop:ClientSide.OnComplete>
+                    </com:TActiveLinkButton>
+                </div>
+            </com:TWizardStep>        
+        </com:TWizard>              
+    </com:TPanel>    
+    <com:TPanel Visible="<%= $this->getDefaultProcess(false) %>">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">                        
+                        <h3 class="panel-title">
+                            <i class="fa fa-search"></i>
+                            Pencarian dan Filter Data
+                        </h3>
+                    </div>
+                    <div class="panel-body">                       
+                        <div class="form-group">
+                            <label>Kriteria :</label>                        
+                            <com:TDropDownList ID="cmbKriteria" AutoPostBack="false" CssClass="form-control" Width="200px;">                                
+                                
+                            </com:TDropDownList>                              
+                        </div>
+                        <div class="form-group" id="divtxtKriteria">
+                            <label>Isi Kriteria :</label>                        
+                            <com:TTextBox ID="txtKriteria" CssClass="form-control" Width="250px;" />
+                            <com:TRequiredFieldValidator ID="spanTxtKriteriaValidator" ControlToValidate="txtKriteria" Display="Dynamic" ErrorMessage="Isi Kriteria pencarian" ValidationGroup="filterForm" FocusOnError="true" CssClass="has-error help-block">				
+                                <prop:ClientSide.OnValidationError>
+                                    $('divtxtKriteria').addClassName('has-error');
+                                    jQuery('#<%=$this->spanTxtKriteriaValidator->ClientID%>').removeAttr('style');                                
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('divtxtKriteria').removeClassName('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>                        
+                        </div>                                                        
+                    </div>
+                    <div class="panel-footer">
+                        <com:TActiveLinkButton ID="btnSearch" CssClass="btn btn-outline btn-primary" Text="<i class='fa fa-search'></i> Cari" Attributes.Title="Cari" OnClick="filterRecord" ValidationGroup="filterForm">                        
+                            <prop:ClientSide.OnPreDispatch>
+                                $('loading').show();                                             
+                                $('<%=$this->btnSearch->ClientId%>').disabled='disabled';						
+                            </prop:ClientSide.OnPreDispatch>
+                            <prop:ClientSide.OnLoading>
+                                $('<%=$this->btnSearch->ClientId%>').disabled='disabled';									                            
+                            </prop:ClientSide.OnLoading>
+                            <prop:ClientSide.onComplete>
+                                $('loading').hide();
+                                $('<%=$this->btnSearch->ClientId%>').disabled='';
+                            </prop:ClientSide.OnComplete>
+                        </com:TActiveLinkButton>
+                    </div>
+                </div>            
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <i class="fa fa-anchor"></i>
+                            Daftar Kapal
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <p class="text-right">
+                            <com:TLinkButton ID="add" CssClass="btn btn-outline btn-primary" Text="<i class='fa fa-plus'></i>" Attributes.Title="Tambah Kapal" OnClick="addProcess" CausesValidation="false" />
+                        </p>
+                        <com:TActiveRepeater ID="RepeaterS" DataKeyField="RecNoKpl" AllowPaging="true" PageSize="10" AllowCustomPaging="true">
+                            <prop:HeaderTemplate>			
+                                <table class="table table-striped table-bordered table-hover">	
+                                    <thead>
+                                    <tr>                                                                    
+                                        <th style="width:18px" class="text-center">No</th>                                        
+                                        <th class="text-center">NO. REG.</th>                                        
+                                        <th class="text-center">NAMA KAPAL</th>
+                                        <th class="text-center">NAMA PEMILIK</th>
+                                        <th class="text-center">STATUS</th>
+                                        <th width="160" class="text-center">AKSI</th>							
+                                    </tr>								
+                                    </thead>
+                                    <tbody>
+                            </prop:HeaderTemplate>
+                            <prop:ItemTemplate>
+                                <tr>                             
+                                    <td><%#$this->DataItem['no']%></td>                                    
+                                    <td><%#$this->DataItem['NoRegKpl']%></td>                                                                        
+                                    <td><%#$this->DataItem['NmKpl']%></td>
+                                    <td><%#$this->DataItem['NmPem']%></td>
+                                    <td class="text-center"><i class="fa <%=$this->DataItem['active']==true?'fa-check-circle':'fa-times-circle'%>"></i></td>
+                                    <td class="text-center">                                                 
+                                        <com:TLinkButton CausesValidation="false" CssClass="btn btn-info" Text="<i class='fa fa-pencil'></i>" Attributes.Title="Ubah Kapal" OnClick="Page.editRecord" />                                                                                                      
+                                        <com:TActiveLinkButton ID="btnDelete" CausesValidation="false" CssClass="btn btn-danger" Attributes.Title="Hapus Kapal" Text="<i class='fa fa-times'></i>" OnClick="Page.deleteRecord" Attributes.OnClick="if(!confirm('Anda ingin menghapus bahan alat ini ?')) return false;">              
+                                            <prop:ClientSide.OnPreDispatch>
+                                                $('loading').show();                                             
+                                                $('<%=$this->btnDelete->ClientId%>').disabled='disabled';						
+                                            </prop:ClientSide.OnPreDispatch>
+                                            <prop:ClientSide.OnLoading>
+                                                $('<%=$this->btnDelete->ClientId%>').disabled='disabled';									                            
+                                            </prop:ClientSide.OnLoading>
+                                            <prop:ClientSide.onComplete>
+                                                $('loading').hide();
+                                                $('<%=$this->btnDelete->ClientId%>').disabled='';
+                                            </prop:ClientSide.OnComplete>
+                                        </com:TActiveLinkButton>
+                                    </td>
+                                </tr>
+                            </prop:ItemTemplate>				
+                            <prop:AlternatingItemTemplate>
+                                <tr>                             
+                                    <td><%#$this->DataItem['no']%></td>                                    
+                                    <td><%#$this->DataItem['NoRegKpl']%></td>                                                                        
+                                    <td><%#$this->DataItem['NmKpl']%></td>
+                                    <td><%#$this->DataItem['NmPem']%></td>
+                                    <td class="text-center"><i class="fa <%=$this->DataItem['active']==true?'fa-check-circle':'fa-times-circle'%>"></i></td>
+                                    <td class="text-center">                                                 
+                                        <com:TLinkButton CausesValidation="false" CssClass="btn btn-info" Text="<i class='fa fa-pencil'></i>" Attributes.Title="Ubah Kapal" OnClick="Page.editRecord" />                                                                                                      
+                                        <com:TActiveLinkButton ID="btnDelete" CausesValidation="false" CssClass="btn btn-danger" Attributes.Title="Hapus Kapal" Text="<i class='fa fa-times'></i>" OnClick="Page.deleteRecord" Attributes.OnClick="if(!confirm('Anda ingin menghapus bahan alat ini ?')) return false;">              
+                                            <prop:ClientSide.OnPreDispatch>
+                                                $('loading').show();                                             
+                                                $('<%=$this->btnDelete->ClientId%>').disabled='disabled';						
+                                            </prop:ClientSide.OnPreDispatch>
+                                            <prop:ClientSide.OnLoading>
+                                                $('<%=$this->btnDelete->ClientId%>').disabled='disabled';									                            
+                                            </prop:ClientSide.OnLoading>
+                                            <prop:ClientSide.onComplete>
+                                                $('loading').hide();
+                                                $('<%=$this->btnDelete->ClientId%>').disabled='';
+                                            </prop:ClientSide.OnComplete>
+                                        </com:TActiveLinkButton>
+                                    </td>
+                                </tr>
+                            </prop:AlternatingItemTemplate>
+                            <prop:FooterTemplate>               
+                                </tbody>
+                                </table>
+                            </prop:FooterTemplate>	
+                            <prop:EmptyTemplate>                                                                                    
+                                <div class="alert alert-warning">
+                                    <button class="close" data-dismiss="alert">×</button>
+                                    <p>Tidak ada kapal pemohon yang terdaftar</p>
+                                </div>                            
+                            </prop:EmptyTemplate>
+                        </com:TActiveRepeater>                    
+                        <%include Application.CustomPaging%> 
+                    </div>
+                </div>
+            </div>
+        </div>            
+    </com:TPanel>    
+</div>    
+</com:TContent>
+<com:TContent ID="jscontent">
+<script type="text/javascript" src="<%=$this->page->theme->baseUrl%>/js/plugins/chosen-bootstrap/chosen.jquery.min.js"></script>
+</com:TContent>

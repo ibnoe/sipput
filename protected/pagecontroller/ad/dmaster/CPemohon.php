@@ -131,8 +131,10 @@ class CPemohon extends MainPageSA {
                     $alamat=$this->txtAddAlamatPerusahaan->Text;
                     $notelepon=$this->txtAddNoTelpPerusahaan->Text;
                     $nofax=$this->txtAddNoFaxPerusahaan->Text;
-                    $alamatcabang=$this->txtAddAlamatCabang->Text;                   
-                    $str = "INSERT INTO perusahaan (RecNoPem,RecStsCom,NmCom,NoAkte,TglAkte,NPWPCom,AlmtCom,TelCom,FaxComp,AlmtComCab) VALUES ($kode_pemohon,'$status_perusahaan','$nama_perusahaan','$no_akte','$tgl_akte','$npwp','$alamat','$notelepon','$nofax','$alamatcabang')";
+                    $alamatcabang=$this->txtAddAlamatCabang->Text; 
+                    $iduptd=$_SESSION['currentPagePemohon']['iduptd'];
+                    $nama_uptd=$this->Pengguna->getDataUser('nama_uptd');
+                    $str = "INSERT INTO perusahaan (RecNoPem,RecStsCom,NmCom,NoAkte,TglAkte,NPWPCom,AlmtCom,TelCom,FaxComp,AlmtComCab,iduptd,nama_uptd) VALUES ($kode_pemohon,'$status_perusahaan','$nama_perusahaan','$no_akte','$tgl_akte','$npwp','$alamat','$notelepon','$nofax','$alamatcabang',$iduptd,'$nama_uptd')";
                     $this->DB->insertRecord($str);                             
                 }
                 $this->DB->query('COMMIT');            

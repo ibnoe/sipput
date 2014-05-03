@@ -1,0 +1,122 @@
+<%@ Title="Data Master - Jenis Izin Usaha" %>
+<com:TContent ID="moduleheader">
+    <i class="fa fa-anchor"></i> Jenis Izin Usaha
+</com:TContent>
+<com:TContent ID="modulebreadcrumb">    
+    <li><a href="#">Data Master</a></li>
+    <li class="active">Jenis Izin Usaha</li>
+</com:TContent>
+<com:TContent ID="maincontent">        
+    <com:TPanel Visible="<%= $this->getEditProcess(false) %>" CssClass="row">
+        <com:TActiveHiddenField ID="hiddenid" />        
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading-process">                        
+                    <h3 class="panel-title">
+                        <i class="fa fa-pencil"></i>
+                        UBAH USER
+                    </h3>
+                </div>
+                <div class="panel-body">       
+                    <div class="form-group" id="divTxtEditInsIzinUsaha">
+                        <label>Inisial Izin</label>                        
+                        <com:TTextBox ID="txtEditInsIzinUsaha" CssClass="form-control" Attributes.PlaceHolder="Inisial Izin Usaha" Width="129px" />			                            
+                        <com:TRequiredFieldValidator ID="FieldEditInsIzinUsahaValidator" ControlToValidate="txtEditInsIzinUsaha" Display="Dynamic" ErrorMessage="Isi Inisial Bidang Izin Usaha" ValidationGroup="editbidangizin" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divTxtEditInsIzinUsaha').addClassName('has-error');
+                                jQuery('#<%=$this->FieldEditInsIzinUsahaValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divTxtEditInsIzinUsaha').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                         
+                    </div>
+                    <div class="form-group" id="divTxtEditNamaIzin">
+                        <label>Nama Izin</label>                        
+                        <com:TTextBox ID="txtEditNamaIzin" CssClass="form-control" Attributes.PlaceHolder="Nama Jenis Alat" Width="400px" />			                            
+                        <com:TRequiredFieldValidator ID="FieldEditNamaIzinValidator" ControlToValidate="txtEditNamaIzin" Display="Dynamic" ErrorMessage="Isi Nama Jenis Alat" ValidationGroup="editbidangizin" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divTxtEditNamaIzin').addClassName('has-error');
+                                jQuery('#<%=$this->FieldEditNamaIzinValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divTxtEditNamaIzin').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                         
+                    </div>            
+                </div>
+                <div class="panel-footer">
+                    <com:TActiveLinkButton ID="btnUpdate" CssClass="btn btn-primary" OnClick="updateData" ValidationGroup="editbidangizin">
+                        <prop:Text><i class="fa fa-save"></i> Simpan</prop:Text>
+                        <prop:ClientSide.OnPreDispatch>
+                            $('loading').show();                                             
+                            $('<%=$this->btnUpdate->ClientId%>').disabled='disabled';						
+                        </prop:ClientSide.OnPreDispatch>
+                        <prop:ClientSide.OnLoading>
+                            $('<%=$this->btnUpdate->ClientId%>').disabled='disabled';						
+                        </prop:ClientSide.OnLoading>
+                        <prop:ClientSide.OnComplete>																	
+                            $('<%=$this->btnUpdate->ClientId%>').disabled='';						                                            
+                            $('loading').hide(); 
+                        </prop:ClientSide.OnComplete>
+                    </com:TActiveLinkButton>
+                </div>
+            </div>
+        </div>
+    </com:TPanel>
+    <com:TPanel Visible="<%= $this->getDefaultProcess(false) %>" CssClass="row">          
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">                        
+                    <h3 class="panel-title">
+                        <i class="fa fa-anchor"></i>
+                        Jenis Izin Usaha
+                    </h3>
+                </div>
+                <div class="panel-body">                   
+                    <com:TActiveRepeater ID="RepeaterS" DataKeyField="RecNoIzin">
+                        <prop:HeaderTemplate>			
+                            <table class="table table-striped table-bordered table-hover">	
+                                <thead>
+                                <tr>                                                                
+                                    <th style="width:18px" class="text-center">NO</th>
+                                    <th class="text-center" width="120">KODE JENIS</th>
+                                    <th class="text-center">NAMA JENIS</th>  
+                                    <th class="text-center">AKSI</th>  
+                                </tr>								
+                                </thead>
+                                <tbody>
+                        </prop:HeaderTemplate>
+                        <prop:ItemTemplate>
+                            <tr>			                                
+                                <td><%#$this->DataItem['no']%></td>
+                                <td><%#$this->DataItem['InsIzin']%></td>	
+                                <td><%#$this->DataItem['NmIzin']%></td>											                                                   
+                                <td class="text-center"><com:TLinkButton CausesValidation="false" CssClass="btn btn-info" Text="<i class='fa fa-pencil'></i>" Attributes.Title="Ubah Jenis Alat Izin" OnClick="Page.editRecord" /></td>
+                            </tr>
+                        </prop:ItemTemplate>				
+                        <prop:AlternatingItemTemplate>
+                            <tr>			                                
+                                <td><%#$this->DataItem['no']%></td>
+                                <td><%#$this->DataItem['InsIzin']%></td>	
+                                <td><%#$this->DataItem['NmIzin']%></td>											                                                   
+                                <td class="text-center"><com:TLinkButton CausesValidation="false" CssClass="btn btn-info" Text="<i class='fa fa-pencil'></i>" Attributes.Title="Ubah Jenis Alat Izin" OnClick="Page.editRecord" /></td>
+                            </tr>
+                        </prop:AlternatingItemTemplate>
+                        <prop:FooterTemplate>               
+                            </tbody>
+                            </table>
+                        </prop:FooterTemplate>	
+                        <prop:EmptyTemplate>                                                                                    
+                            <div class="alert alert-warning">
+                                <button class="close" data-dismiss="alert">×</button>
+                                <p>Tidak ada UPTD yang terdaftar</p>
+                            </div>                            
+                        </prop:EmptyTemplate>
+                    </com:TActiveRepeater>                    
+                    <%include Application.CustomPaging%>
+                </div>
+            </div>
+        </div>               
+    </com:TPanel>    
+</com:TContent>

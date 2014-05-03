@@ -10,9 +10,21 @@ class Logic_Global extends TModule {
 	* object db
 	*/
 	protected $db;	
+    /**
+     * 
+     * data report	
+	*/
+	protected $dataReport;
 	public function __construct ($db) {
 		$this->db = $db;
 	}	
+    /**
+     * digunakan untuk mengeset data report
+     * @param type $dataReport
+     */
+    public function setDataReport ($dataReport) {
+        $this->dataReport=$dataReport;
+    }
 	/**
 	* mendapatkan lo object
 	* @return obj

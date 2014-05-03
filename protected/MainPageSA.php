@@ -2,6 +2,22 @@
 
 class MainPageSA extends MainPage {  
      /**     
+     * show page lokasi [dmaster]
+     */
+    public $showLokasi=false;
+    /**     
+     * show page lokasi Negara [dmaster]
+     */
+    public $showNegara=false;
+    /**     
+     * show page lokasi DT I [dmaster]
+     */
+    public $showDT1=false;
+    /**     
+     * show page lokasi DT II [dmaster]
+     */
+    public $showDT2=false;
+     /**     
      * show page Satuan[dmaster]
      */
     public $showSatuan=false;        
@@ -21,6 +37,10 @@ class MainPageSA extends MainPage {
      * show page Bahan Alat [dmaster]
      */
     public $showBahanAlat=false; 
+    /**     
+     * show page lokasi usaha [dmaster]
+     */
+    public $showLokasiUsaha=false; 
     /**     
      * show page area penangkapan [dmaster]
      */

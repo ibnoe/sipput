@@ -2,8 +2,7 @@
 prado::using ('Application.MainPageSA');
 class CPemohon extends MainPageSA {
 	public function onLoad($param) {		
-		parent::onLoad($param);		
-        $this->showDMaster=true;
+		parent::onLoad($param);		        
         $this->showPemohon=true;        
         $this->createObj('DMaster');
 		if (!$this->IsPostBack&&!$this->IsCallBack) {

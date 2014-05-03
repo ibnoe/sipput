@@ -2,8 +2,7 @@
 prado::using ('Application.MainPageSA');
 class CUPTD extends MainPageSA {
 	public function onLoad($param) {		
-		parent::onLoad($param);		
-        $this->showDMaster=true;
+		parent::onLoad($param);		        
         $this->showUPTD=true;        
 		if (!$this->IsPostBack&&!$this->IsCallBack) {
             if (!isset($_SESSION['currentPageUPTD'])||$_SESSION['currentPageUPTD']['page_name']!='sa.dmaster.UPTD') {

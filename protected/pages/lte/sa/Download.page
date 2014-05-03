@@ -1,0 +1,196 @@
+<%@ Title="Download" %>
+<com:TContent ID="moduleheader">
+    <i class="fa fa-download"></i> DOWNLOAD
+</com:TContent>
+<com:TContent ID="maincontent">
+    <com:TPanel Visible="<%= $this->getEditProcess(false) %>" CssClass="row">
+        <com:THiddenField ID="hiddenidfiles" />
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading-process">                        
+                    <h3 class="panel-title">
+                        <i class="fa fa-plus"></i>
+                        UBAH FILE
+                    </h3>
+                </div>
+                <div class="panel-body">                    
+                    <div class="form-group" id="divEditNamaFile">
+                        <label>Nama File</label>
+                        <com:TTextBox ID="txtEditNamaFile" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Nama File" />
+                        <com:TRequiredFieldValidator ID="FieldEditNamaFileValidator" ControlToValidate="txtEditNamaFile" Display="Dynamic" ErrorMessage="Isi Nama File" ValidationGroup="editFile" FocusOnError="true" CssClass="has-error help-block">				
+                            <prop:ClientSide.OnValidationError>
+                                $('divEditNamaFile').addClassName('has-error');
+                                jQuery('#<%=$this->FieldEditNamaFileValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divEditNamaFile').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>
+                    </div>
+                    <div class="form-group">
+                        <label>Keterangan</label>
+                        <com:TTextBox ID="txtEditKeterangan" Columns="60" CssClass="form-control" Width="450px" Attributes.PlaceHolder="Keterangan File" TextMode="MultiLine" />                        
+                    </div>                    
+                </div>
+                <div class="panel-footer">
+                    <com:TActiveLinkButton ID="btnUpdate" CssClass="btn btn-primary" OnClick="updateData" ValidationGroup="editFile">
+                        <prop:Text><i class="fa fa-save"></i> Simpan</prop:Text>                        
+                        <prop:ClientSide.OnPreDispatch>
+                            $('loading').show();                                             
+                            $('<%=$this->btnUpdate->ClientId%>').disabled='disabled';						
+                        </prop:ClientSide.OnPreDispatch>
+                        <prop:ClientSide.OnLoading>
+                            $('<%=$this->btnUpdate->ClientId%>').disabled='disabled';						
+                        </prop:ClientSide.OnLoading>
+                        <prop:ClientSide.OnComplete>																	
+                            $('<%=$this->btnUpdate->ClientId%>').disabled='';						                                            
+                            $('loading').hide(); 
+                        </prop:ClientSide.OnComplete>
+                    </com:TActiveLinkButton>
+                </div>
+            </div>
+        </div>        
+    </com:TPanel>
+    <com:TPanel Visible="<%= $this->getAddProcess(false) %>" CssClass="row">
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading-process">                        
+                    <h3 class="panel-title">
+                        <i class="fa fa-plus"></i>
+                        TAMBAH FILE
+                    </h3>
+                </div>
+                <div class="panel-body">                    
+                    <div class="form-group" id="divNamaFile">
+                        <label>Nama File</label>
+                        <com:TTextBox ID="txtAddNamaFile" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Nama File" />
+                        <com:TRequiredFieldValidator ID="FieldAddNamaFileValidator" ControlToValidate="txtAddNamaFile" Display="Dynamic" ErrorMessage="Isi Nama File" ValidationGroup="addFile" FocusOnError="true" CssClass="has-error help-block">				
+                            <prop:ClientSide.OnValidationError>
+                                $('divNamaFile').addClassName('has-error');
+                                jQuery('#<%=$this->FieldAddNamaFileValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divNamaFile').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>
+                    </div>
+                    <div class="form-group">
+                        <label>Keterangan</label>
+                        <com:TTextBox ID="txtAddKeterangan" Columns="60" CssClass="form-control" Width="450px" Attributes.PlaceHolder="Keterangan File" TextMode="MultiLine" />                        
+                    </div>                    
+                    <div class="form-group" id="divFile1">
+                        <label>UPLOAD (Maks. <%=ini_get('upload_max_filesize')%>)</label>
+                        <com:TFileUpload ID="File1" MaxFileSize="<%=$this->setup->getMaxFileSize()%>"/>
+                        <com:TRequiredFieldValidator ID="FieldAddFile1Validator" ControlToValidate="File1" Display="Dynamic" ErrorMessage="Pilih File yang Akan di Upload" ValidationGroup="addFile" CssClass="has-error help-block">				
+                            <prop:ClientSide.OnValidationError>
+                                $('divFile1').addClassName('has-error');
+                                jQuery('#<%=$this->FieldAddFile1Validator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divFile1').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>
+                    </div> 
+                </div>
+                <div class="panel-footer">
+                    <com:TLinkButton ID="btnSave" CssClass="btn btn-primary" OnClick="saveData" ValidationGroup="addFile">
+                        <prop:Text><i class="fa fa-save"></i> Simpan</prop:Text>                        
+                    </com:TLinkButton>
+                </div>
+            </div>
+        </div>        
+    </com:TPanel>
+    <com:TPanel Visible="<%= $this->getDefaultProcess(false) %>">          
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">                        
+                        <h3 class="panel-title">
+                            <i class="fa fa-download"></i>
+                            Daftar File
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <p class="text-right">                            
+                            <com:TLinkButton ID="add" CssClass="btn btn-outline btn-primary" Text="<i class='fa fa-plus'></i>" Attributes.Title="Tambah File" OnClick="setIdProcess" CausesValidation="false" />                                                                                                               
+                        </p>
+                        <com:TActiveRepeater ID="RepeaterS" DataKeyField="idfiles" AllowPaging="true" PageSize="10" AllowCustomPaging="true">
+                            <prop:HeaderTemplate>			
+                                <table class="table table-striped table-bordered table-hover">	
+                                    <thead>
+                                    <tr>                                                                
+                                        <th style="width:18px" class="text-center">NO</th>
+                                        <th class="text-center">NAMA FILE</th>
+                                        <th class="text-center">UKURAN</th>                        
+                                        <th class="text-center">KETERANGAN</th>                                        
+                                        <th width="200" class="text-center">AKSI</th>							
+                                    </tr>								
+                                    </thead>
+                                    <tbody>
+                            </prop:HeaderTemplate>
+                            <prop:ItemTemplate>
+                                <tr>			                                
+                                    <td><%#$this->DataItem['no']%></td>
+                                    <td><%#$this->DataItem['name_alias']%> [<%#$this->DataItem['name']%>]</td>	
+                                    <td><%#$this->Page->setup->formatSizeUnits($this->DataItem['size'])%></td>											                   
+                                    <td><%#$this->DataItem['note']%></td>                                    
+                                    <td class="text-center"> 
+                                        <a href="<%#$this->Page->setup->getAddress().'/'.$this->DataItem['path']%>" class="btn btn-default" Title="Download"><i class='fa fa-download'></i></a>
+                                        <com:TLinkButton CausesValidation="false" CssClass="btn btn-info" Text="<i class='fa fa-pencil'></i>" Attributes.Title="Ubah UPDT" OnClick="Page.editRecord" />                                                                                                                                              
+                                        <com:TActiveLinkButton ID="btnDeleteRecord" CausesValidation="false" ClientSide.PostState="false" CssClass="btn btn-small btn-danger" OnClick="Page.deleteRecord" Attributes.Title="Hapus UPDT" Text="<i class='fa fa-times'></i>" Attributes.OnClick="if(!confirm('Anda ingin menghapus File ini ?')) return false;" CommandParameter="<%#$this->DataItem['path']%>">
+                                            <prop:ClientSide.OnPreDispatch>
+                                                $('loading').show();                                                                                         
+                                                $('<%=$this->btnDeleteRecord->ClientId%>').disabled='disabled';									                                
+                                            </prop:ClientSide.OnPreDispatch>
+                                            <prop:ClientSide.OnLoading>
+                                                $('<%=$this->btnDeleteRecord->ClientId%>').disabled='disabled';									                                
+                                            </prop:ClientSide.OnLoading>
+                                            <prop:ClientSide.onComplete>                                            
+                                                $('loading').hide();
+                                            </prop:ClientSide.OnComplete>
+                                        </com:TActiveLinkButton>
+                                    </td>
+                                </tr>
+                            </prop:ItemTemplate>				
+                            <prop:AlternatingItemTemplate>
+                                <tr>			                                
+                                    <td><%#$this->DataItem['no']%></td>
+                                    <td><%#$this->DataItem['name_alias']%> [<%#$this->DataItem['name']%>]</td>	
+                                    <td><%#$this->Page->setup->formatSizeUnits($this->DataItem['size'])%></td>											                   
+                                    <td><%#$this->DataItem['note']%></td>                                    
+                                    <td class="text-center"> 
+                                        <a href="<%#$this->Page->setup->getAddress().'/'.$this->DataItem['path']%>" class="btn btn-default" Title="Download"><i class='fa fa-download'></i></a>
+                                        <com:TLinkButton CausesValidation="false" CssClass="btn btn-info" Text="<i class='fa fa-pencil'></i>" Attributes.Title="Ubah UPDT" OnClick="Page.editRecord" />                                                                                                                                              
+                                        <com:TActiveLinkButton ID="btnDeleteRecord" CausesValidation="false" ClientSide.PostState="false" CssClass="btn btn-small btn-danger" OnClick="Page.deleteRecord" Attributes.Title="Hapus UPDT" Text="<i class='fa fa-times'></i>" Attributes.OnClick="if(!confirm('Anda ingin menghapus File ini ?')) return false;" CommandParameter="<%#$this->DataItem['path']%>">
+                                            <prop:ClientSide.OnPreDispatch>
+                                                $('loading').show();                                                                                         
+                                                $('<%=$this->btnDeleteRecord->ClientId%>').disabled='disabled';									                                
+                                            </prop:ClientSide.OnPreDispatch>
+                                            <prop:ClientSide.OnLoading>
+                                                $('<%=$this->btnDeleteRecord->ClientId%>').disabled='disabled';									                                
+                                            </prop:ClientSide.OnLoading>
+                                            <prop:ClientSide.onComplete>                                            
+                                                $('loading').hide();
+                                            </prop:ClientSide.OnComplete>
+                                        </com:TActiveLinkButton>
+                                    </td>
+                                </tr>
+                            </prop:AlternatingItemTemplate>
+                            <prop:FooterTemplate>               
+                                </tbody>
+                                </table>
+                            </prop:FooterTemplate>	
+                            <prop:EmptyTemplate>                                                                                    
+                                <div class="alert alert-warning">
+                                    <button class="close" data-dismiss="alert">×</button>
+                                    <p>Tidak ada File</p>
+                                </div>                            
+                            </prop:EmptyTemplate>
+                        </com:TActiveRepeater>                    
+                        <%include Application.CustomPaging%>
+                    </div>
+                </div>
+            </div>
+        </div>       
+    </com:TPanel>    
+</com:TContent>

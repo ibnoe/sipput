@@ -1,0 +1,8 @@
+<%@ Title="Perizinan - Permohonan Baru IUP" %>
+<com:TContent ID="moduleheader">
+    <i class="fa fa-ticket"></i> PERMOHONAN BARU IZIN USAHA PERIKANAN (IUP)
+</com:TContent>
+<com:TContent ID="maincontent">    
+    <com:TPanel Visible="<%= $this->getDefaultProcess(false) %>">  
+    </com:TPanel>    
+</com:TContent>

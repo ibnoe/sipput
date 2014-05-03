@@ -28,30 +28,87 @@ class MainPage extends TPage {
 	* Object Variable "Data Master"	
 	*/
 	public $DMaster;  
+    /**
+	* Object Variable "Pemohon"	
+	*/
+	public $Pemohon;  
+    /**
+	* Object Variable "Perizinan"	
+	*/
+	public $Perizinan;      
+    
     /**     
      * show page dmaster
      */
-    public $showDMaster=false;
+    public $showDashboard=false;
     /**     
-     * show page perizinan
+     * show page dmaster
      */
-    public $showPerizinan=false;
+    public $showDMaster=false;        
     /**     
-     * show page pemohon [perizinan]
+     * show page pemohon [dmaster]
      */
-    public $showPemohon=false;
+    public $showPemohon=false;    
     /**     
-     * show page permohonan baru [perizinan]
+     * show page kapal [dmaster]
      */
-    public $showPermohonanBaru=false;
+    public $showKapal=false;    
+    
     /**     
-     * show page permhohonan baru [perizinan]
+     * show page perizinan baru
      */
-    public $showPermohonanPerpanjangan=false;
+    public $showPerizinanBaru=false;
+    /**     
+     * show page tambah perizinan SIPI baru [perizinan baru]
+     */
+    public $showAddIzinNewSIPI=false;
+    /**     
+     * show page tambah perizinan SIKPI baru [perizinan baru]
+     */
+    public $showAddIzinNewSIKPI=false;
+    /**     
+     * show page tambah perizinan SIKPPI baru [perizinan baru]
+     */
+    public $showAddIzinNewSIKPPI=false;
+    /**     
+     * show page tambah perizinan Budi Daya baru [perizinan baru]
+     */
+    public $showAddIzinNewBudiDaya=false;
+    /**     
+     * show page tambah perizinan Pengolahan baru [perizinan baru]
+     */
+    public $showAddIzinNewPengolahan=false;
+    
+    /**     
+     * show page perizinan baru
+     */
+    public $showDaftarPengajuan=false;
+    /**     
+     * show page tambah perizinan SIPI baru [perizinan baru]
+     */
+    public $showPengajuanSIPI=false;
+    /**     
+     * show page tambah perizinan SIKPI baru [perizinan baru]
+     */
+    public $showPengajuanSIKPI=false;
+    /**     
+     * show page tambah perizinan SIKPPI baru [perizinan baru]
+     */
+    public $showPengajuanSIKPPI=false;
+    /**     
+     * show page tambah perizinan Budi Daya baru [perizinan baru]
+     */
+    public $showPengajuanBudiDaya=false;
+    /**     
+     * show page tambah perizinan Pengolahan baru [perizinan baru]
+     */
+    public $showPengajuanPengolahan=false;
+    
     /**     
      * show page setting
      */
     public $showSetting=false;
+    
 	public function OnPreInit ($param) {	
 		parent::onPreInit ($param);
 		//instantiasi database		
@@ -59,8 +116,8 @@ class MainPage extends TPage {
         //instantiasi fungsi setup
         $this->setup = $this->getLogic('Setup');                        
         //setting templaces yang aktif
-        $this->MasterClass='Application.layouts.DefaultTemplate';		
-		$this->Theme='default';
+        $this->MasterClass='Application.layouts.LTETemplate';		
+		$this->Theme='lte';
 	}
 	public function onLoad ($param) {		
 		parent::onLoad($param);				
@@ -183,6 +240,12 @@ class MainPage extends TPage {
         switch (strtolower($nama_object)) {
             case 'dmaster' :
                 $this->DMaster = $this->getLogic('DMaster');
+            break;
+            case 'pemohon' :
+                $this->Pemohon = $this->getLogic('Pemohon');
+            break;
+            case 'perizinan' :
+                $this->Perizinan = $this->getLogic('Perizinan');
             break;
         }
     }

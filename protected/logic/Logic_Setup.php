@@ -170,5 +170,38 @@ class Logic_Setup extends Logic_Global {
     public function getDurationOutputCache () {
         return 86400;
     }        
+    /**
+	* casting ke integer	
+	*/
+	public function toInteger ($stringNumeric) {
+		return str_replace('.','',$stringNumeric);
+	}
+	/**
+	* Untuk mendapatkan uang dalam format rupiah
+	* @param angka	
+	* @return string dalam rupiah
+	*/
+	public function toRupiah($angka,$tanpa_rp=true)  {
+		if ($angka == '') {
+			$angka=0;
+		}
+		$rupiah='';
+        $angka=explode('.',$angka);
+        $bilangan=$angka[0];     
+        $pecahan=($angka[1]==''||$angka[1]=='00')?'':','.$angka[1];
+		$rp=strlen($bilangan);
+		while ($rp>3){
+			$rupiah = ".". substr($bilangan,-3). $rupiah;
+			$s=strlen($bilangan) - 3;
+			$bilangan=substr($bilangan,0,$s);
+			$rp=strlen($bilangan);
+		}
+		if ($tanpa_rp) {
+			$rupiah = $bilangan . $rupiah.$pecahan;
+		}else {
+			$rupiah = "Rp. " . $bilangan . $rupiah.$pecahan;
+		}
+		return $rupiah;
+	}
 }
 ?>
