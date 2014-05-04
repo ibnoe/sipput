@@ -4,19 +4,7 @@ class MainPageSA extends MainPage {
      /**     
      * show page lokasi [dmaster]
      */
-    public $showLokasi=false;
-    /**     
-     * show page lokasi Negara [dmaster]
-     */
-    public $showNegara=false;
-    /**     
-     * show page lokasi DT I [dmaster]
-     */
-    public $showDT1=false;
-    /**     
-     * show page lokasi DT II [dmaster]
-     */
-    public $showDT2=false;
+    public $showLokasi=false;    
      /**     
      * show page Satuan[dmaster]
      */
@@ -44,11 +32,34 @@ class MainPageSA extends MainPage {
     /**     
      * show page area penangkapan [dmaster]
      */
-    public $showAreaPenangkapan=false; 
+    public $showAreaPenangkapan=false;
+    
     /**     
-     * show page UPTD  [dmaster]
+     * show page lokasi Negara [lokasi]
      */
-    public $showUPTD=false;       
+    public $showNegara=false;
+    /**     
+     * show page lokasi DT I [lokasi]
+     */
+    public $showDT1=false;
+    /**     
+     * show page lokasi DT II [lokasi]
+     */
+    public $showDT2=false;
+    /**     
+     * show page kecamatan [lokasi]
+     */
+    public $showKecamatan=false;
+    /**     
+     * show page pelabuhan [lokasi]
+     */
+    public $showPelabuhan=false;
+    
+    /**     
+     * show page UPTD
+     */
+    public $showUPTD=false;   
+    
     /**     
      * show page cache [setting]
      */

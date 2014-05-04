@@ -9,7 +9,29 @@ class Logic_DMaster extends Logic_Global {
     
 	public function __construct ($db) {
 		parent::__construct ($db);	                
-	}	    
+	}
+    /**
+     * digunakan untuk mendapatkan daftar kode jenis alat
+     */
+    public function getSkalaPelabuhan ($id=null) {        
+        $skalapelabuhan=array('none'=>' ','lokal'=>'LOKAL/DALAM DAERAH','nasional'=>'NASIONAL/DOMESTIK','internasional'=>'INTERNASIONAL');
+        if ($id===NULL) {
+            return $skalapelabuhan;
+        }else{
+            return $skalapelabuhan[$id];
+        }
+    }
+    /**
+     * digunakan untuk mendapatkan daftar kode jenis alat
+     */
+    public function getJenisPelabuhan ($id=null) {        
+        $jenispelabuhan=array('none'=>' ','pangkalan'=>'PANGKALAN','singgah_muat'=>'SINGGAH/MUAT','tujuan'=>'TUJUAN');
+        if ($id===NULL) {
+            return $jenispelabuhan;
+        }else{
+            return $jenispelabuhan[$id];
+        }
+    }
     /**
      * digunakan untuk mendapatkan daftar kode jenis alat
      */

@@ -173,6 +173,12 @@
                             <li<%=$this->Page->showDT2==true ? ' class="active"':''%>>
                                 <a href="<%=$this->Page->constructUrl('lokasi.Kabupaten',true)%>"><i class="fa fa-angle-double-right"></i> Kabupaten</a>
                             </li>
+                            <li<%=$this->Page->showKecamatan==true ? ' class="active"':''%>>
+                                <a href="<%=$this->Page->constructUrl('lokasi.Kecamatan',true)%>"><i class="fa fa-angle-double-right"></i> Kecamatan</a>
+                            </li>
+                            <li<%=$this->Page->showPelabuhan==true ? ' class="active"':''%>>
+                                <a href="<%=$this->Page->constructUrl('lokasi.Pelabuhan',true)%>"><i class="fa fa-angle-double-right"></i> Pelabuhan</a>
+                            </li>
                         </ul>
                     </li>                    
                     <li<%=$this->Page->showUPTD==true ? ' class="active"':''%>>

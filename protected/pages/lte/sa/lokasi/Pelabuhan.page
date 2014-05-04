@@ -1,0 +1,324 @@
+<%@ Title="Lokasi - Pelabuhan" %>
+<com:TContent ID="moduleheader">
+    <i class="fa fa-road"></i> Pelabuhan
+</com:TContent>
+<com:TContent ID="modulebreadcrumb">    
+    <li><a href="#">Lokasi</a></li>
+    <li class="active">Pelabuhan</li>
+</com:TContent>
+<com:TContent ID="csscontent">
+<link rel="stylesheet" type="text/css" href="<%=$this->page->theme->baseUrl%>/js/plugins/chosen-bootstrap/chosen.min.css" />
+</com:TContent>
+<com:TContent ID="maincontent">
+    <com:TPanel Visible="<%= $this->getAddProcess(false) %>" CssClass="row">
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading-process">                        
+                    <h3 class="panel-title">
+                        <i class="fa fa-plus"></i>
+                        TAMBAH PELABUHAN
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group" id="divCmbAddJenisPelabuhan">
+                        <label>Jenis Pelabuhan :</label>
+                        <div class="radio">
+                            <com:TDropDownList ID="cmbAddJenisPelabuhan" CssClass="form-control chosen" AutoPostBack="false" Width="250px" />                                 
+                            <com:TRequiredFieldValidator ID="FieldAddJenisPelabuhanValidator" ControlToValidate="cmbAddJenisPelabuhan" InitialValue="none" Display="Dynamic" ErrorMessage="Pilih jenis pelabuhan" ValidationGroup="addpelabuhan" FocusOnError="true" CssClass="has-error help-block">				
+                                <prop:ClientSide.OnValidationError>
+                                    $('divCmbAddJenisPelabuhan').addClassName('has-error');
+                                    jQuery('#<%=$this->FieldAddJenisPelabuhanValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('divCmbAddJenisPelabuhan').removeClassName('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>  
+                        </div>
+                    </div> 
+                    <div class="form-group" id="divTxtAddNamaPelabuhan">
+                        <label>Nama Pelabuhan :</label>                        
+                        <com:TTextBox ID="txtAddNamaPelabuhan" CssClass="form-control" Attributes.PlaceHolder="Nama Pelabuhan" Width="280px" />			                            
+                        <com:TRequiredFieldValidator ID="FieldAddNamaPelabuhanValidator" ControlToValidate="txtAddNamaPelabuhan" Display="Dynamic" ErrorMessage="Isi Nama Pelabuhan" ValidationGroup="addpelabuhan" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divTxtAddNamaPelabuhan').addClassName('has-error');
+                                jQuery('#<%=$this->FieldAddNamaPelabuhanValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divTxtAddNamaPelabuhan').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                         
+                    </div>                                             
+                    <div class="form-group" id="divCmbAddSkalaPelabuhan">
+                        <label>Skala Pelabuhan :</label>
+                        <div class="radio">
+                            <com:TDropDownList ID="cmbAddSkalaPelabuhan" CssClass="form-control chosen" AutoPostBack="false" Width="250px" />                                 
+                            <com:TRequiredFieldValidator ID="FieldAddSkalaPelabuhanValidator" ControlToValidate="cmbAddSkalaPelabuhan" InitialValue="none" Display="Dynamic" ErrorMessage="Pilih skala pelabuhan" ValidationGroup="addpelabuhan" FocusOnError="true" CssClass="has-error help-block">				
+                                <prop:ClientSide.OnValidationError>
+                                    $('divCmbAddSkalaPelabuhan').addClassName('has-error');
+                                    jQuery('#<%=$this->FieldAddSkalaPelabuhanValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('divCmbAddSkalaPelabuhan').removeClassName('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>  
+                        </div>
+                    </div>             
+                </div>
+                <div class="panel-footer">
+                    <com:TActiveLinkButton ID="btnSave" CssClass="btn btn-primary" OnClick="saveData" ValidationGroup="addpelabuhan">
+                        <prop:Text><i class="fa fa-save"></i> Simpan</prop:Text>
+                        <prop:ClientSide.OnPreDispatch>
+                            $('loading').show();                                             
+                            $('<%=$this->btnSave->ClientId%>').disabled='disabled';						
+                        </prop:ClientSide.OnPreDispatch>
+                        <prop:ClientSide.OnLoading>
+                            $('<%=$this->btnSave->ClientId%>').disabled='disabled';						
+                        </prop:ClientSide.OnLoading>
+                        <prop:ClientSide.OnComplete>																	
+                            $('<%=$this->btnSave->ClientId%>').disabled='';						                                            
+                            $('loading').hide(); 
+                        </prop:ClientSide.OnComplete>
+                    </com:TActiveLinkButton>
+                </div>
+            </div>
+        </div>           
+    </com:TPanel>    
+    <com:TPanel Visible="<%= $this->getEditProcess(false) %>" CssClass="row">
+        <com:TActiveHiddenField ID="hiddenid" />        
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading-process">                        
+                    <h3 class="panel-title">
+                        <i class="fa fa-pencil"></i>
+                        UBAH PELABUHAN
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group" id="divCmbEditJenisPelabuhan">
+                        <label>Jenis Pelabuhan :</label>
+                        <div class="radio">
+                            <com:TDropDownList ID="cmbEditJenisPelabuhan" CssClass="form-control chosen" AutoPostBack="false" Width="250px" />                                 
+                            <com:TRequiredFieldValidator ID="FieldEditJenisPelabuhanValidator" ControlToValidate="cmbEditJenisPelabuhan" InitialValue="none" Display="Dynamic" ErrorMessage="Pilih jenis pelabuhan" ValidationGroup="editpelabuhan" FocusOnError="true" CssClass="has-error help-block">				
+                                <prop:ClientSide.OnValidationError>
+                                    $('divCmbEditJenisPelabuhan').addClassName('has-error');
+                                    jQuery('#<%=$this->FieldEditJenisPelabuhanValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('divCmbEditJenisPelabuhan').removeClassName('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>  
+                        </div>
+                    </div> 
+                    <div class="form-group" id="divTxtEditNamaPelabuhan">
+                        <label>Nama Pelabuhan :</label>                        
+                        <com:TTextBox ID="txtEditNamaPelabuhan" CssClass="form-control" Attributes.PlaceHolder="Nama Pelabuhan" Width="280px" />			                            
+                        <com:TRequiredFieldValidator ID="FieldEditNamaPelabuhanValidator" ControlToValidate="txtEditNamaPelabuhan" Display="Dynamic" ErrorMessage="Isi Nama Pelabuhan" ValidationGroup="editpelabuhan" FocusOnError="true" CssClass="has-error help-block">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divTxtEditNamaPelabuhan').addClassName('has-error');
+                                jQuery('#<%=$this->FieldEditNamaPelabuhanValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divTxtEditNamaPelabuhan').removeClassName('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                         
+                    </div>                                             
+                    <div class="form-group" id="divCmbEditSkalaPelabuhan">
+                        <label>Skala Pelabuhan :</label>
+                        <div class="radio">
+                            <com:TDropDownList ID="cmbEditSkalaPelabuhan" CssClass="form-control chosen" AutoPostBack="false" Width="250px" />                                 
+                            <com:TRequiredFieldValidator ID="FieldEditSkalaPelabuhanValidator" ControlToValidate="cmbEditSkalaPelabuhan" InitialValue="none" Display="Dynamic" ErrorMessage="Pilih skala pelabuhan" ValidationGroup="editpelabuhan" FocusOnError="true" CssClass="has-error help-block">				
+                                <prop:ClientSide.OnValidationError>
+                                    $('divCmbEditSkalaPelabuhan').addClassName('has-error');
+                                    jQuery('#<%=$this->FieldEditSkalaPelabuhanValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('divCmbEditSkalaPelabuhan').removeClassName('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>  
+                        </div>
+                    </div>     
+                </div>
+                <div class="panel-footer">
+                    <com:TActiveLinkButton ID="btnUpdate" CssClass="btn btn-primary" OnClick="updateData" ValidationGroup="editpelabuhan">
+                        <prop:Text><i class="fa fa-save"></i> Simpan</prop:Text>
+                        <prop:ClientSide.OnPreDispatch>
+                            $('loading').show();                                             
+                            $('<%=$this->btnUpdate->ClientId%>').disabled='disabled';						
+                        </prop:ClientSide.OnPreDispatch>
+                        <prop:ClientSide.OnLoading>
+                            $('<%=$this->btnUpdate->ClientId%>').disabled='disabled';						
+                        </prop:ClientSide.OnLoading>
+                        <prop:ClientSide.OnComplete>																	
+                            $('<%=$this->btnUpdate->ClientId%>').disabled='';						                                            
+                            $('loading').hide(); 
+                        </prop:ClientSide.OnComplete>
+                    </com:TActiveLinkButton>
+                </div>
+            </div>
+        </div>
+    </com:TPanel>    
+    <com:TPanel Visible="<%= $this->getDefaultProcess(false) %>">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">                        
+                        <h3 class="panel-title">
+                            <i class="fa fa-search"></i>
+                            Pencarian dan Filter Data
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label>Jenis Pelabuhan :</label>                        
+                            <com:TActiveDropDownList ID="cmbJenisPelabuhan" CssClass="form-control" OnSelectedIndexChanged="changeJenisPelabuhan" Width="150px;">                                                                                                                                       
+                                <prop:ClientSide.OnPreDispatch>
+                                    $('loading').show();                                             
+                                    $('<%=$this->cmbJenisPelabuhan->ClientId%>').disabled='disabled';						
+                                </prop:ClientSide.OnPreDispatch>
+                                <prop:ClientSide.OnLoading>
+                                    $('<%=$this->cmbJenisPelabuhan->ClientId%>').disabled='disabled';						
+                                </prop:ClientSide.OnLoading>
+                                <prop:ClientSide.OnComplete>																	
+                                    $('<%=$this->cmbJenisPelabuhan->ClientId%>').disabled='';						                                            
+                                    $('loading').hide(); 
+                                </prop:ClientSide.OnComplete>
+                            </com:TActiveDropDownList>                             
+                        </div>
+                        <div class="form-group">
+                            <label>Kriteria :</label>                        
+                            <com:TDropDownList ID="cmbKriteria" AutoPostBack="false" CssClass="form-control" Width="180px;">                                
+                                <com:TListItem Text="Nama Pelabuhan" value="namapelabuhan"/>                                
+                            </com:TDropDownList>                              
+                        </div>
+                        <div class="form-group" id="divtxtKriteria">
+                            <label>Isi Kriteria :</label>                        
+                            <com:TTextBox ID="txtKriteria" CssClass="form-control" Width="250px;" />
+                            <com:TRequiredFieldValidator ID="spanTxtKriteriaValidator" ControlToValidate="txtKriteria" Display="Dynamic" ErrorMessage="Isi Kriteria pencarian" ValidationGroup="filterForm" FocusOnError="true" CssClass="has-error help-block">				
+                                <prop:ClientSide.OnValidationError>
+                                    $('divtxtKriteria').addClassName('has-error');
+                                    jQuery('#<%=$this->spanTxtKriteriaValidator->ClientID%>').removeAttr('style');                                
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('divtxtKriteria').removeClassName('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>                        
+                        </div>                                                        
+                    </div>
+                    <div class="panel-footer">
+                        <com:TActiveLinkButton ID="btnSearch" CssClass="btn btn-outline btn-primary" Text="<i class='fa fa-search'></i> Cari" Attributes.Title="Cari" OnClick="filterRecord" ValidationGroup="filterForm">                        
+                            <prop:ClientSide.OnPreDispatch>
+                                $('loading').show();                                             
+                                $('<%=$this->btnSearch->ClientId%>').disabled='disabled';						
+                            </prop:ClientSide.OnPreDispatch>
+                            <prop:ClientSide.OnLoading>
+                                $('<%=$this->btnSearch->ClientId%>').disabled='disabled';									                            
+                            </prop:ClientSide.OnLoading>
+                            <prop:ClientSide.onComplete>
+                                $('loading').hide();
+                                $('<%=$this->btnSearch->ClientId%>').disabled='';
+                            </prop:ClientSide.OnComplete>
+                        </com:TActiveLinkButton>
+                    </div>
+                </div>            
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <i class="fa fa-road"></i>
+                            Daftar Pelabuhan
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <p class="text-right">
+                            <com:TLinkButton ID="add" CssClass="btn btn-outline btn-primary" Text="<i class='fa fa-plus'></i>" Attributes.Title="Tambah Pelabuhan" OnClick="addProcess" CausesValidation="false" />
+                        </p>
+                        <com:TActiveRepeater ID="RepeaterS" DataKeyField="RecNoPlbh" AllowPaging="true" PageSize="10" AllowCustomPaging="true">
+                            <prop:HeaderTemplate>			
+                                <table class="table table-striped table-bordered table-hover">	
+                                    <thead>
+                                    <tr>                                                                    
+                                        <th style="width:18px" class="text-center">No</th>
+                                        <th class="text-center">JENIS PELABUHAN</th>
+                                        <th class="text-center">NAMA PELABUHAN</th>                                                    
+                                        <th class="text-center">SKALA PELABUHAN</th>
+                                        <th class="text-center">STATUS</th>
+                                        <th width="160" class="text-center">AKSI</th>							
+                                    </tr>								
+                                    </thead>
+                                    <tbody>
+                            </prop:HeaderTemplate>
+                            <prop:ItemTemplate>
+                                <tr>                             
+                                    <td><%#$this->DataItem['no']%></td>                                    
+                                    <td><%#$this->Page->DMaster->getJenisPelabuhan($this->DataItem['JenPlbh'])%></td>
+                                    <td><%#$this->DataItem['NmPlbh']%></td>
+                                    <td><%#$this->Page->DMaster->getSkalaPelabuhan($this->DataItem['SkalaPlbh'])%></td>
+                                    <td class="text-center"><i class="fa <%=$this->DataItem['enabled']==true?'fa-check-circle':'fa-times-circle'%>"></i></td>
+                                    <td class="text-center">                                                 
+                                        <com:TLinkButton CausesValidation="false" CssClass="btn btn-info" Text="<i class='fa fa-pencil'></i>" Attributes.Title="Ubah Pelabuhan" OnClick="Page.editRecord" />                                                                                                      
+                                        <com:TActiveLinkButton ID="btnDelete" CausesValidation="false" CssClass="btn btn-danger" Attributes.Title="Hapus Pelabuhan" Text="<i class='fa fa-times'></i>" OnClick="Page.deleteRecord" Attributes.OnClick="if(!confirm('Anda ingin menghapus pelabuhan ini ?')) return false;">              
+                                            <prop:ClientSide.OnPreDispatch>
+                                                $('loading').show();                                             
+                                                $('<%=$this->btnDelete->ClientId%>').disabled='disabled';						
+                                            </prop:ClientSide.OnPreDispatch>
+                                            <prop:ClientSide.OnLoading>
+                                                $('<%=$this->btnDelete->ClientId%>').disabled='disabled';									                            
+                                            </prop:ClientSide.OnLoading>
+                                            <prop:ClientSide.onComplete>
+                                                $('loading').hide();
+                                                $('<%=$this->btnDelete->ClientId%>').disabled='';
+                                            </prop:ClientSide.OnComplete>
+                                        </com:TActiveLinkButton>
+                                    </td>
+                                </tr>
+                            </prop:ItemTemplate>				
+                            <prop:AlternatingItemTemplate>
+                                <tr>                             
+                                    <td><%#$this->DataItem['no']%></td>                                    
+                                    <td><%#$this->Page->DMaster->getJenisPelabuhan($this->DataItem['JenPlbh'])%></td>
+                                    <td><%#$this->DataItem['NmPlbh']%></td>
+                                    <td><%#$this->Page->DMaster->getSkalaPelabuhan($this->DataItem['SkalaPlbh'])%></td>
+                                    <td class="text-center"><i class="fa <%=$this->DataItem['enabled']==true?'fa-check-circle':'fa-times-circle'%>"></i></td>
+                                    <td class="text-center">                                                 
+                                        <com:TLinkButton CausesValidation="false" CssClass="btn btn-info" Text="<i class='fa fa-pencil'></i>" Attributes.Title="Ubah Pelabuhan" OnClick="Page.editRecord" />                                                                                                      
+                                        <com:TActiveLinkButton ID="btnDelete" CausesValidation="false" CssClass="btn btn-danger" Attributes.Title="Hapus Pelabuhan" Text="<i class='fa fa-times'></i>" OnClick="Page.deleteRecord" Attributes.OnClick="if(!confirm('Anda ingin menghapus pelabuhan ini ?')) return false;">              
+                                            <prop:ClientSide.OnPreDispatch>
+                                                $('loading').show();                                             
+                                                $('<%=$this->btnDelete->ClientId%>').disabled='disabled';						
+                                            </prop:ClientSide.OnPreDispatch>
+                                            <prop:ClientSide.OnLoading>
+                                                $('<%=$this->btnDelete->ClientId%>').disabled='disabled';									                            
+                                            </prop:ClientSide.OnLoading>
+                                            <prop:ClientSide.onComplete>
+                                                $('loading').hide();
+                                                $('<%=$this->btnDelete->ClientId%>').disabled='';
+                                            </prop:ClientSide.OnComplete>
+                                        </com:TActiveLinkButton>
+                                    </td>
+                                </tr>
+                            </prop:AlternatingItemTemplate>
+                            <prop:FooterTemplate>               
+                                </tbody>
+                                </table>
+                            </prop:FooterTemplate>	
+                            <prop:EmptyTemplate>                                                                                    
+                                <div class="alert alert-warning">
+                                    <button class="close" data-dismiss="alert">×</button>
+                                    <p>Tidak ada pelabuhan yang terdaftar</p>
+                                </div>                            
+                            </prop:EmptyTemplate>
+                        </com:TActiveRepeater>                    
+                        <%include Application.CustomPaging%> 
+                    </div>
+                </div>
+            </div>
+        </div>            
+    </com:TPanel>    
+</div>    
+</com:TContent>
+<com:TContent ID="jscontent">
+<script type="text/javascript" src="<%=$this->page->theme->baseUrl%>/js/plugins/chosen-bootstrap/chosen.jquery.min.js"></script>
+</com:TContent>
