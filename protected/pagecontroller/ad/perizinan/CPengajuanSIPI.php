@@ -58,13 +58,13 @@ class CPengajuanSIPI extends MainPageSA {
         $this->redirect('perizinan.PengajuanSIPI',true);					        
     }
     public function printOut ($sender,$param) {        
-        $recnosiup=$this->getDataKeyField($sender,$this->RepeaterS);        
+//        $recnosiup=$this->getDataKeyField($sender,$this->RepeaterS);        
         $dataReport['outputmode']='pdf';
         $dataReport['recnosiup']=$recnosiup;
         $dataReport['linkoutput']=$this->linkOutput;        
         $this->Pemohon->setDataReport($dataReport);
         $this->Pemohon->printFormPemeriksaanFisikKapal($recnosiup,'pdf');
-        $this->modalPrintOut->show();
+//        $this->modalPrintOut->show();
     }
 }
 		

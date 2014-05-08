@@ -105,6 +105,31 @@ class MainPage extends TPage {
     public $showPengajuanPengolahan=false;
     
     /**     
+     * show page perizinan baru
+     */
+    public $showDaftarIzin=false;
+    /**     
+     * show page tambah perizinan SIPI baru [perizinan baru]
+     */
+    public $showDaftarSIPI=false;
+    /**     
+     * show page tambah perizinan SIKPI baru [perizinan baru]
+     */
+    public $showDaftarSIKPI=false;
+    /**     
+     * show page tambah perizinan SIKPPI baru [perizinan baru]
+     */
+    public $showDaftarSIKPPI=false;
+    /**     
+     * show page tambah perizinan Budi Daya baru [perizinan baru]
+     */
+    public $showDaftarBudiDaya=false;
+    /**     
+     * show page tambah perizinan Pengolahan baru [perizinan baru]
+     */
+    public $showDaftarPengolahan=false;
+    
+    /**     
      * show page setting
      */
     public $showSetting=false;

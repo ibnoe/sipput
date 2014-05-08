@@ -304,6 +304,30 @@
                             </li>                            
                         </ul>
                     </li>
+                    <li class="treeview<%=$this->Page->showDaftarIzin==true ? ' active':''%>">
+                        <a href="#">
+                            <i class="fa fa-tasks"></i>
+                            <span>Daftar Izin</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li<%=$this->Page->showDaftarSIPI==true ? ' class="active"':''%>>
+                                <a href="<%=$this->Page->constructUrl('perizinan.DaftarSIPI',true)%>"><i class="fa fa-angle-double-right"></i> SIPI</a>                                
+                            </li>                            
+                            <li<%=$this->Page->showDaftarSIKPI==true ? ' class="active"':''%>>
+                                <a href="<%=$this->Page->constructUrl('perizinan.DaftarSIKPI',true)%>"><i class="fa fa-angle-double-right"></i> SIKPI</a>
+                            </li>                            
+                            <li<%=$this->Page->showDaftarSIKPPI==true ? ' class="active"':''%>>
+                                <a href="<%=$this->Page->constructUrl('perizinan.DaftarSIKPPI',true)%>"><i class="fa fa-angle-double-right"></i> SIKPPI</a>
+                            </li>                            
+                            <li<%=$this->Page->showDaftarBudiDaya==true ? ' class="active"':''%>>
+                                <a href="<%=$this->Page->constructUrl('perizinan.DaftarBudiDaya',true)%>"><i class="fa fa-angle-double-right"></i> Budi Daya</a>
+                            </li>                            
+                            <li<%=$this->Page->showDaftarPengolahan==true ? ' class="active"':''%>>
+                                <a href="<%=$this->Page->constructUrl('perizinan.DaftarPengolahan',true)%>"><i class="fa fa-angle-double-right"></i> Pengolahan</a>
+                            </li>                            
+                        </ul>
+                    </li>
                 </ul>
             </com:TLiteral>
         </section>

@@ -24,7 +24,7 @@ class Logic_Pemohon extends Logic_Global {
      */
     public $report;
 	public function __construct ($db) {
-		parent::__construct ($db);	                
+		parent::__construct ($db);	            
         $this->report = $this->getLogic('Report');
 	}
     /**
@@ -90,12 +90,16 @@ class Logic_Pemohon extends Logic_Global {
         switch ($this->dataReport['outputmode']) {
             case 'pdf' :
                 $this->report->setMode('pdf'); 
-                $this->report->setHeader();
-                
+                $this->report->rpt->AddPage();
+                                
+                $row=6;
+                $this->report->rpt->setXY(3,$row);
+                $this->report->rpt->Cell (0,5,'DAFTAR ISIAN PEMERIKSAAN FISIK KAPAL PERIKANAN',1,0,'C');
                 
             break;
         }
-        $this->report->printOut($this->dataReport['recnosiup']);
+//        $this->report->printOut($this->dataReport['recnosiup']);
+        $this->report->printOut(1);
         $this->report->setLink($this->dataReport['linkoutput'],'Form Pemeriksaan Fisik Kapal');
     }
 }

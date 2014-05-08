@@ -1,6 +1,6 @@
-<%@ Title="Perizinan - DAFTAR PENGAJUAN SIPI" %>
+<%@ Title="Perizinan - DAFTAR SIPI" %>
 <com:TContent ID="moduleheader">
-    <i class="fa fa-ticket"></i> DAFTAR PENGAJUAN SIPI
+    <i class="fa fa-ticket"></i> DAFTAR SIPI
 </com:TContent>
 <com:TContent ID="csscontent">
     <link rel="stylesheet" type="text/css" href="<%=$this->page->theme->baseUrl%>/js/plugins/chosen-bootstrap/chosen.min.css" />
@@ -17,34 +17,7 @@
                         </div>
                     </div>
                     <div class="box-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Jenis Pengajuan:</label>
-                                    <div class="input-group col-xs-5">
-                                        <com:TActiveDropDownList ID="cmbJenisPengajuan" OnSelectedIndexChanged="changeStatusPengajuan" CssClass="form-control">
-                                            <com:TListItem Value="none" Text="SELURUH JENIS" />
-                                            <com:TListItem Value="baru" Text="BARU" />
-                                            <com:TListItem Value="perpanjangan" Text="PERPANJANGAN" />
-                                            <prop:ClientSide.OnPreDispatch>
-                                                $('loading').show();                                             
-                                                $('<%=$this->cmbJenisPengajuan->ClientId%>').disabled='disabled';						
-                                            </prop:ClientSide.OnPreDispatch>
-                                            <prop:ClientSide.OnLoading>
-                                                $('<%=$this->cmbJenisPengajuan->ClientId%>').disabled='disabled';						
-                                            </prop:ClientSide.OnLoading>
-                                            <prop:ClientSide.OnComplete>																	
-                                                $('<%=$this->cmbJenisPengajuan->ClientId%>').disabled='';						                                            
-                                                $('loading').hide(); 
-                                            </prop:ClientSide.OnComplete>
-                                        </com:TActiveDropDownList>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                
-                            </div>
-                        </div>                        
+                        
                     </div>
                 </div>
             </div>
@@ -53,7 +26,7 @@
             <div class="col-md-12">
                 <div class="box box-solid box-primary">
                     <div class="box-header">
-                        <h3 class="box-title"><i class="fa fa-ticket"></i> Daftar Pengajuan SIPI <com:TActiveLabel ID="labelDaftarPengajuan" /></h3>
+                        <h3 class="box-title"><i class="fa fa-ticket"></i> Daftar SIPI</h3>
                         <div class="box-tools pull-right">
                             
                         </div>
@@ -182,7 +155,7 @@
                 </div>
             </div>
         </div>
-    </com:TPanel>    
+    </com:TPanel>
 </com:TContent>
 <com:TContent ID="jscontent">
 <script type="text/javascript" src="<%=$this->page->theme->baseUrl%>/js/plugins/chosen-bootstrap/chosen.jquery.min.js"></script>

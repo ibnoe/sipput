@@ -185,20 +185,8 @@ class Logic_Report extends Logic_Global {
             case 'pdf' :
                 //cetak logo                
                 $this->rpt->AddPage();
-                $this->setHeaderLogo();
-                
-				$this->rpt->SetFont ('helvetica','B',16);
-				$this->rpt->setXY(15,5);
-				$this->rpt->Cell (0,5,$name,0,0,'C');				
-                
-				$this->rpt->SetFont ('helvetica','B',12);
-				$this->rpt->setXY(15,17);
-				$this->rpt->Cell (0,3,$address,0,0,'C');
-                
-				$this->rpt->setXY(15,23);                
-				$this->rpt->Cell (0,3,"Telp. $telephone, Fax. $fax",0,0,'C');                               
-				$this->rpt->setXY(6,30);
-                $this->rpt->Cell (0,3,'','B',0,'C');
+                $this->setHeaderLogo();              
+				
 				$this->currentRow=30;
 			break;
 		}		
