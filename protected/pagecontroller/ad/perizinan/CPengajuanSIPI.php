@@ -30,7 +30,7 @@ class CPengajuanSIPI extends MainPageSA {
     protected function populateData ($search=false) {
         $iduptd=$_SESSION['currentPagePengajuanSIPI']['iduptd'];
         $str_stastuspermohonan=$_SESSION['currentPagePengajuanSIPI']['jenispengajuan']=='none'?'':"AND JnsDtSIUP='{$_SESSION['currentPagePengajuanSIPI']['jenispengajuan']}'";
-        $str = "SELECT s.RecNoSiup,JnsDtSIUP,NoRegSiup,NmPem,NoSrtSiup,TglSrtSiup,date_added FROM siup s LEFT JOIN siup_data_pemohon sdp ON (sdp.RecNoSiup=s.RecNoSiup) WHERE RecNoIzin=1 AND iduptd=$iduptd $str_stastuspermohonan";
+        $str = "SELECT s.RecNoSiup,JnsDtSIUP,NoRegSiup,NmPem,NoSrtSiup,TglSrtSiup,StatusSiup,date_added FROM siup s LEFT JOIN siup_data_pemohon sdp ON (sdp.RecNoSiup=s.RecNoSiup) WHERE RecNoIzin=1 AND (StatusSiup='registered' OR StatusSiup='verified')  AND iduptd=$iduptd $str_stastuspermohonan";
         if ($search) {
             
         }else{
@@ -47,7 +47,7 @@ class CPengajuanSIPI extends MainPageSA {
 		}
 		if ($limit <= 0) {$offset=0;$limit=10;$_SESSION['currentPagePengajuanSIPI']['page_num']=0;}
         $str = "$str ORDER BY date_added DESC LIMIT $offset,$limit";        
-        $this->DB->setFieldTable(array('RecNoSiup','NmPem','JnsDtSIUP','NoRegSiup','NoSrtSiup','TglSrtSiup','date_added'));
+        $this->DB->setFieldTable(array('RecNoSiup','NmPem','JnsDtSIUP','NoRegSiup','NoSrtSiup','TglSrtSiup','StatusSiup','date_added'));
 		$r=$this->DB->getRecord($str,$offset+1);        
 		$this->RepeaterS->DataSource=$r;
 		$this->RepeaterS->dataBind();      		
@@ -57,8 +57,19 @@ class CPengajuanSIPI extends MainPageSA {
         $this->DB->deleteRecord("siup WHERE RecNoSiup='$id'");        
         $this->redirect('perizinan.PengajuanSIPI',true);					        
     }
+    public function viewVerifikasiPengajuan ($sender,$param) {
+        $this->idProcess='add';
+        $id=$this->getDataKeyField($sender,$this->RepeaterS);
+        $this->hiddenid->Value=$id;
+    }
+    public function verifikasiData ($sender,$param) {
+        $id=$this->hiddenid->Value;
+        $str = "UPDATE siup SET StatusSiup='verified' WHERE RecNoSiup=$id";
+        $this->DB->updateRecord($str);
+        $this->redirect('perizinan.PengajuanSIPI', true);
+    }
     public function printOut ($sender,$param) {        
-//        $recnosiup=$this->getDataKeyField($sender,$this->RepeaterS);        
+        $recnosiup=$this->getDataKeyField($sender,$this->RepeaterS);        
         $dataReport['outputmode']='pdf';
         $dataReport['recnosiup']=$recnosiup;
         $dataReport['linkoutput']=$this->linkOutput;        
@@ -66,5 +77,6 @@ class CPengajuanSIPI extends MainPageSA {
         $this->Pemohon->printFormPemeriksaanFisikKapal($recnosiup,'pdf');
 //        $this->modalPrintOut->show();
     }
+    
 }
 		

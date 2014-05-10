@@ -12,7 +12,7 @@ class CJenisAlat extends MainPageSA {
 			}     
             $_SESSION['currentPageJenisAlat']['search']=false;
             $listkodejenis=$this->DMaster->getKodeJenisAlat();
-            $listkodejenis['none']='All';
+            $listkodejenis['none']='All';            
             $this->cmbJenisAlat->DataSource=$listkodejenis;
             $this->cmbJenisAlat->Text=$_SESSION['currentPageJenisAlat']['kodejenis'];
             $this->cmbJenisAlat->DataBind();

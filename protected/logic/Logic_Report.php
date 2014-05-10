@@ -99,7 +99,7 @@ class Logic_Report extends Logic_Global {
 	*
 	*/
 	public function setHeaderLogo () {
-		$headerLogo=BASEPATH.$this->setup->getSettingValue('config_logo');
+		$headerLogo=BASEPATH.$this->setup->getSettingValue('config_logo');       
 		switch ($this->driver) {
             case 'excel2003' :
                 //drawing
@@ -130,17 +130,17 @@ class Logic_Report extends Logic_Global {
 				$drawing->getShadow()->setVisible(true);
 				$drawing->getShadow()->setDirection(45);
 				$drawing->setWorksheet($this->rpt->getActiveSheet());
-			break;			
-            case 'pdf' :									
-				$this->rpt->Image($headerLogo,10,6,34,27);
-			break;
+			break;			            
 		}		
 	}
     /**
 	* digunakan untuk mencetak header 
 	*
 	*/
-	public function setHeader ($endColumn=null,$alignment=null,$columnHeader='C') {			
+	public function setHeaderSertifikat ($nama_sertifikat,$endColumn=null,$alignment=null,$columnHeader='C') {			
+        $headerLogo=BASEPATH.$this->setup->getSettingValue('config_logo');
+        $nama_dinas=strtoupper($this->setup->getSettingValue('config_nama_dinas'));
+        $nama_kabupaten=  strtoupper($this->setup->getSettingValue('config_nama_kabupaten'));
 		switch ($this->driver) {
 			case 'excel2003' :
 			case 'excel2007' :	
@@ -182,12 +182,28 @@ class Logic_Report extends Logic_Global {
 											);				
 				$this->currentRow=$row;
 			break;	
-            case 'pdf' :
-                //cetak logo                
+            case 'pdf' :                              
                 $this->rpt->AddPage();
-                $this->setHeaderLogo();              
+                
+                $row=6;
+                $this->rpt->SetFont ('helvetica','B',10);
+                $this->rpt->setXY(5,$row);
+                $this->rpt->Cell (20,5,$nama_sertifikat,0,0,'L');
+                $this->rpt->Cell (180,5,$nama_sertifikat,0,0,'R');
+                
+                $row+=15;
+                $this->rpt->Image($headerLogo,90,$row,34,27); 
+                
+                $row+=28;
+                $this->rpt->SetFont ('helvetica','B',12);
+                $this->rpt->setXY(3,$row);
+                $this->rpt->Cell (203,5,$nama_dinas,0,0,'C');
+                $row+=5;
+                $this->rpt->setXY(3,$row);
+                $this->rpt->Cell (203,5,$nama_kabupaten,0,0,'C');
+                
+                $this->currentRow=64;
 				
-				$this->currentRow=30;
 			break;
 		}		
 	}	

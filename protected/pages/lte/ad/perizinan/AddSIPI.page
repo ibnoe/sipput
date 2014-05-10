@@ -434,7 +434,31 @@
                     </div>                   
                 </div>            
             </com:TWizardStep>
-            <com:TWizardStep ID="tahap6" Title="Isi Formulir Model A.2 - TENAGA KERJA" AllowReturn="true">
+            <com:TWizardStep ID="tahap6" Title="Isi Formulir Model A.2 - KETERANGAN MENGENAI KAPAL" AllowReturn="true">
+                <div class="panel-heading-process">
+                    <h3 class='panel-title'>
+                        <i class='fa fa-plus'></i>
+                        TAMBAH SIPI (SURAT IZIN PENANGKAPAN IKAN) - KETERANGAN MENGENAI KAPAL
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <com:TActiveDropDownList ID="cmbAddKapal" CssClass="form-control chosen" Width="450px">
+                        <prop:ClientSide.OnPreDispatch>
+                            $('loading').show();                                             
+                            $('<%=$this->cmbAddKapal->ClientId%>').disabled='disabled';						
+                        </prop:ClientSide.OnPreDispatch>
+                        <prop:ClientSide.OnLoading>
+                            $('<%=$this->cmbAddKapal->ClientId%>').disabled='disabled';						
+                        </prop:ClientSide.OnLoading>
+                        <prop:ClientSide.OnComplete>																	
+                            $('<%=$this->cmbAddKapal->ClientId%>').disabled='';						                                            
+                            $('loading').hide(); 
+                        </prop:ClientSide.OnComplete>
+                    </com:TActiveDropDownList>
+                    <com:TRequiredFieldValidator ID="FieldAddKapalValidator" ControlToValidate="cmbAddKapal" Display="Dynamic" ErrorMessage="Pilih Kapal" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block" />				                                                    
+                </div>
+            </com:TWizardStep>
+            <com:TWizardStep ID="tahap7" Title="Isi Formulir Model A.2 - TENAGA KERJA" AllowReturn="true">
                 <div class="panel-heading-process">
                     <h3 class='panel-title'>
                         <i class='fa fa-plus'></i>
@@ -459,7 +483,7 @@
                     </div>                 
                 </div>
             </com:TWizardStep>
-            <com:TWizardStep ID="tahap7" Title="Isi Formulir Model A.2 - PEMBAGIAN HASIL USAHA" AllowReturn="true">
+            <com:TWizardStep ID="tahap8" Title="Isi Formulir Model A.2 - PEMBAGIAN HASIL USAHA" AllowReturn="true">
                 <div class="panel-heading-process">
                     <h3 class='panel-title'>
                         <i class='fa fa-plus'></i>
@@ -491,7 +515,7 @@
                     </div>
                 </div>
             </com:TWizardStep>
-            <com:TWizardStep ID="tahap8" Title="Isi Formulir Model A.2 - RENCANA HASIL PEMASARAN" AllowReturn="true">
+            <com:TWizardStep ID="tahap9" Title="Isi Formulir Model A.2 - RENCANA HASIL PEMASARAN" AllowReturn="true">
                 <div class="panel-heading-process">
                     <h3 class='panel-title'>
                         <i class='fa fa-plus'></i>

@@ -30,7 +30,7 @@ class CAddSIPI extends MainPageSA {
         $this->cmbAddLokasiUsaha->DataSource=$lokasiusaha;
         $this->cmbAddLokasiUsaha->dataBind();
         
-        $jenisalat=$this->DMaster->getList('jenisalat WHERE RecNoIzin=1 AND enabled=1',array('RecNoJns','NmJenisAlat'),'NmJenisAlat',null,1);
+        $jenisalat=$this->DMaster->getList("jenisalat WHERE KdJns='tangkap' AND enabled=1",array('RecNoJns','NmJenisAlat'),'NmJenisAlat',null,1);
         $jenisalat['none']='Pilih Jenis Alat Penangkapan';
         $this->cmbAddJenisAlat->DataSource=$jenisalat;
         $this->cmbAddJenisAlat->dataBind();
@@ -55,6 +55,11 @@ class CAddSIPI extends MainPageSA {
             }
         }elseif ($param->CurrentStepIndex ==2) {
             $this->setDataSource();
+        }elseif ($param->CurrentStepIndex == 4) {
+            $listkapal = $this->DMaster->getList("kapal WHERE active=1 AND RecNoPem=$RecNoPem",array('RecNoKpl','NmKpl'),'NmKpl',null,1);
+            $listkapal['none']='Pilih Kapal Pemohon';
+            $this->cmbAddKapal->DataSource=$listkapal;
+            $this->cmbAddKapal->DataBind();
         }
 	}    
     public function changePerusahaanPemohon ($sender,$param) {
@@ -115,7 +120,7 @@ class CAddSIPI extends MainPageSA {
                     $this->DB->insertRecord($str);
                 }else {
                     //insert siup_data_pemohon
-                    $str="INSERT INTO siup_data_pemohon (RecNoSiup,NmPem,KtpPem,AlmtPem,TelpPem,NpwpPem,Foto) SELECT '$recnosiup',NmPem,KtpPem,AlmtPem,TelpPem,NpwpPem,Foto FROM pemohon WHERE RecNoPem=$NoRecPem";
+                    $str="INSERT INTO siup_data_pemohon (RecNoSiup,NmPem,KtpPem,AlmtPem,TelpPem,NpwpPem,Foto,Status) SELECT '$recnosiup',NmPem,KtpPem,AlmtPem,TelpPem,NpwpPem,Foto,Status FROM pemohon WHERE RecNoPem=$NoRecPem";
                     $this->DB->insertRecord($str);
                     //insert siup_data_perusahaan
                     $idcom=$this->cmbAddDaftarPerusahaan->Text;
@@ -125,13 +130,14 @@ class CAddSIPI extends MainPageSA {
                 
                 //insert data bup
                 $idbidangizin=$this->cmbAddJenisBidangUsaha->Text; 
-                $str = "INSERT INTO bup (RecNoBup,RecNoSiup,idbidangizin,JnsDtBUP,NoRegBup,NoSrtBup,TglSrtBup,date_added,date_modified) VALUES (NULL,$recnosiup,$idbidangizin,'baru','{$noregsiup['noreg']}','$no_surat','$tgl_surat',NOW(),NOW())";
+                $str = "INSERT INTO bup (RecNoBup,RecNoSiup,idbidangizin,JnsDtBUP,NoRegBup,NoSrtBup,TglSrtBup,StatusSiup,date_added,date_modified) VALUES (NULL,$recnosiup,$idbidangizin,'baru','{$noregsiup['noreg']}','$no_surat','$tgl_surat','registered',NOW(),NOW())";
                 $this->DB->insertRecord($str);                
                 
                 $recnobup=$this->DB->getLastInsertID ();
                 $recnoarea=$this->cmbAddAreaPenangkapan->Text;
+                $recnokpl=$this->cmbAddKapal->Text;
                 $koordinatpenangkapan=addslashes($this->txtAddKoordinatPenangkapan->Text);
-                $str = "INSERT INTO relasi_sipi (idrelasi_sipi,RecNoBup,RecNoKpl,RecNoArea,KoordTkp) VALUES (NULL,$recnobup,'',$recnoarea,'$koordinatpenangkapan')";                
+                $str = "INSERT INTO relasi_sipi (idrelasi_sipi,RecNoBup,RecNoKpl,RecNoArea,KoordTkp) VALUES (NULL,$recnobup,'$recnokpl',$recnoarea,'$koordinatpenangkapan')";                
                 $this->DB->insertRecord($str);   
                 
                 $recnojns=$this->cmbAddJenisAlat->Text;

@@ -437,8 +437,7 @@ class Logic_Pemohon extends Logic_Global {
                 
             break;
         }
-//        $this->report->printOut($this->dataReport['recnosiup']);
-        $this->report->printOut(1);
+        $this->report->printOut($this->dataReport['recnosiup']);        
         $this->report->setLink($this->dataReport['linkoutput'],'Form Pemeriksaan Fisik Kapal');
     }
 }
