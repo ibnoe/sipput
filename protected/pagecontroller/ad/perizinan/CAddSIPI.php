@@ -14,9 +14,7 @@ class CAddSIPI extends MainPageSA {
             $listpemohon=$this->Pemohon->getListPemohon($_SESSION['currentPageAddSIPI']['iduptd']);
             $this->cmbAddPemohon->DataSource=$listpemohon;            
             $this->cmbAddPemohon->DataBind();  
-            
-            $this->cmbAddJenisBidangUsaha->DataSource=$this->DMaster->getBidangBidangIzinUsaha(1);
-            $this->cmbAddJenisBidangUsaha->dataBind();
+           
 		}
 	}
     private function setDataSource () {
@@ -110,17 +108,18 @@ class CAddSIPI extends MainPageSA {
             $noregsiup=$this->Perizinan->createNewNoRegSIUP($iduptd);
             $modalsiup=$this->setup->toInteger($this->txtAddModalUsaha->Text); 
             $recnolokasi=addslashes($this->cmbAddLokasiUsaha->Text);
-            $str = "INSERT INTO siup (RecNoSiup,iduptd,nama_uptd,RecNoIzin,JnsDtSIUP,NoRegSiup,NoUrutSiup,NoSrtSiup,TglSrtSiup,JnsDtPemSIUP,RecNoPem,ModalSiup,RecNoLokasi,date_added,date_modified) VALUES (NULL,$iduptd,'$nama_uptd',1,'baru','{$noregsiup['noreg']}','{$noregsiup['nourut']}','$no_surat','$tgl_surat','$statuspemohon','$NoRecPem','$modalsiup','$recnolokasi',NOW(),NOW())";
+            $str = "INSERT INTO siup (RecNoSiup,iduptd,nama_uptd,RecNoIzin,JnsDtSIUP,NoRegSiup,NoUrutSiup,NoSrtSiup,TglSrtSiup,JnsDtPemSIUP,RecNoPem,ModalSiup,RecNoLokasi,StatusSiup,date_added,date_modified) VALUES (NULL,$iduptd,'$nama_uptd',1,'baru','{$noregsiup['noreg']}','{$noregsiup['nourut']}','$no_surat','$tgl_surat','$statuspemohon','$NoRecPem','$modalsiup','$recnolokasi','registered',NOW(),NOW())";
+            $this->DB->query('BEGIN');
             if ($this->DB->insertRecord($str)) {
                 //insert pemohon{                
                 $recnosiup=$this->DB->getLastInsertID ();
                 if ($statuspemohon == 'perorangan') {
                     //insert siup_data_pemohon
-                    $str="INSERT INTO siup_data_pemohon (RecNoSiup,NmPem,KtpPem,AlmtPem,TelpPem,NpwpPem,Foto) SELECT '$recnosiup',NmPem,KtpPem,AlmtPem,TelpPem,NpwpPem,Foto FROM pemohon WHERE RecNoPem=$NoRecPem";
+                    $str="INSERT INTO siup_data_pemohon (RecNoSiup,RecNoPem,NmPem,KtpPem,AlmtPem,TelpPem,NpwpPem,iduptd,nama_uptd,Foto) SELECT '$recnosiup',RecNoPem,NmPem,KtpPem,AlmtPem,TelpPem,NpwpPem,iduptd,nama_uptd,Foto FROM pemohon WHERE RecNoPem=$NoRecPem";
                     $this->DB->insertRecord($str);
                 }else {
                     //insert siup_data_pemohon
-                    $str="INSERT INTO siup_data_pemohon (RecNoSiup,NmPem,KtpPem,AlmtPem,TelpPem,NpwpPem,Foto,Status) SELECT '$recnosiup',NmPem,KtpPem,AlmtPem,TelpPem,NpwpPem,Foto,Status FROM pemohon WHERE RecNoPem=$NoRecPem";
+                    $str="INSERT INTO siup_data_pemohon (RecNoSiup,RecNoPem,NmPem,KtpPem,AlmtPem,TelpPem,NpwpPem,Foto,Status) SELECT '$recnosiup',NmPem,KtpPem,AlmtPem,TelpPem,NpwpPem,Foto,Status FROM pemohon WHERE RecNoPem=$NoRecPem";
                     $this->DB->insertRecord($str);
                     //insert siup_data_perusahaan
                     $idcom=$this->cmbAddDaftarPerusahaan->Text;
@@ -128,9 +127,8 @@ class CAddSIPI extends MainPageSA {
                     $this->DB->insertRecord($str);
                 }    
                 
-                //insert data bup
-                $idbidangizin=$this->cmbAddJenisBidangUsaha->Text; 
-                $str = "INSERT INTO bup (RecNoBup,RecNoSiup,idbidangizin,JnsDtBUP,NoRegBup,NoSrtBup,TglSrtBup,StatusSiup,date_added,date_modified) VALUES (NULL,$recnosiup,$idbidangizin,'baru','{$noregsiup['noreg']}','$no_surat','$tgl_surat','registered',NOW(),NOW())";
+                //insert data bup                
+                $str = "INSERT INTO bup (RecNoBup,RecNoSiup,JnsDtBUP,NoRegBup,NoSrtBup,TglSrtBup,StatusBup,date_added,date_modified) VALUES (NULL,$recnosiup,'baru','{$noregsiup['noreg']}','$no_surat','$tgl_surat','registered',NOW(),NOW())";
                 $this->DB->insertRecord($str);                
                 
                 $recnobup=$this->DB->getLastInsertID ();

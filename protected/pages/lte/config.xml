@@ -5,7 +5,7 @@
 		<module id="auth" class="TAuthManager" UserManager="otorisasi_user" LoginPage="lte.Login" />
 	</modules>
 	<authorization>
-		<allow roles="superadmin" />		        
+		<allow roles="superadmin" />		                
         <allow roles="admin" />
         <allow roles="pejabat" />
         <allow roles="user" />
@@ -13,6 +13,6 @@
 		<deny users="*" />		
 	</authorization>
 	<parameters>
-		<parameter id="NewUserRoles" value="superadmin,admin,pejabat,user,pemohon" />
+		<parameter id="NewUserRoles" value="superadmin,tatausaha,admin,pejabat,user,pemohon" />
 	</parameters>
 </configuration>

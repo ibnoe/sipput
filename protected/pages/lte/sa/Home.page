@@ -5,3 +5,6 @@
 <com:TContent ID="modulebreadcrumb">    
     <li class="active">Dashboard</li>
 </com:TContent>
+<com:TContent ID="maincontent">
+
+</com:TContent>

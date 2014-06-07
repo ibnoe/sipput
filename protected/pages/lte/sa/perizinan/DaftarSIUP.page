@@ -1,6 +1,6 @@
-<%@ Title="Perizinan - DAFTAR SIUP" %>
+<%@ Title="Perizinan - SURAT IZIN USAHA PERIKANAN" %>
 <com:TContent ID="moduleheader">
-    <i class="fa fa-ticket"></i> DAFTAR SIUP
+    <i class="fa fa-file"></i> SURAT IZIN USAHA PERIKANAN (SIUP)
 </com:TContent>
 <com:TContent ID="csscontent">
     <link rel="stylesheet" type="text/css" href="<%=$this->page->theme->baseUrl%>/js/plugins/chosen-bootstrap/chosen.min.css" />
@@ -13,11 +13,37 @@
                     <div class="box-header">
                         <h3 class="box-title"><i class="fa fa-search"></i> Filter dan Pencarian</h3>
                         <div class="box-tools pull-right">
-                            
+                            <button data-widget="collapse" class="btn btn-info btn-sm" onclick="JavaScript:return false;">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                            <button data-widget="remove" class="btn btn-info btn-sm" onclick="JavaScript:return false;">
+                                <i class="fa fa-times"></i>
+                            </button>
                         </div>
                     </div>
                     <div class="box-body">
-                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group" id="divCmbUPTD">
+                                    <label class="col-sm-2 control-label">UPTD </label>
+                                    <div class="col-xs-5">
+                                        <com:TDropDownList ID="cmbUPTD" AutoPostBack="false" CssClass="form-control chosen"/>                                                                                                                    
+                                    </div>
+                                    <com:TActiveLinkButton ID="btnFilter" CssClass="btn btn-outline btn-default" Text="<i class='fa fa-mail-forward'></i>" OnClick="filterUPTD" ValidationGroup="FilterUPTD">
+                                        <prop:ClientSide.OnPreDispatch>
+                                            $('loading').show();                                                 
+                                        </prop:ClientSide.OnPreDispatch>
+                                        <prop:ClientSide.OnLoading>
+                                            $('<%=$this->btnFilter->ClientId%>').disabled='disabled';						
+                                        </prop:ClientSide.OnLoading>
+                                        <prop:ClientSide.OnComplete>																	
+                                            $('<%=$this->btnFilter->ClientId%>').disabled='';						                                                	                                                
+                                            $('loading').hide(); 
+                                        </prop:ClientSide.OnComplete>
+                                    </com:TActiveLinkButton>        
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -26,116 +52,75 @@
             <div class="col-md-12">
                 <div class="box box-solid box-primary">
                     <div class="box-header">
-                        <h3 class="box-title"><i class="fa fa-ticket"></i> Daftar SIUP</h3>
+                        <h3 class="box-title"><i class="fa fa-file"></i> Daftar SURAT IZIN USAHA PERIKANAN</h3>
                         <div class="box-tools pull-right">
-                            
+                            <button data-widget="collapse" class="btn btn-primary btn-sm" onclick="JavaScript:return false;">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                            <button data-widget="remove" class="btn btn-primary btn-sm" onclick="JavaScript:return false;">
+                                <i class="fa fa-times"></i>
+                            </button>
                         </div>
                     </div>
-                    <div class="box-body">
-                        <p class="text-right">
-                            <com:TActiveLinkButton ID="btnPrintOut" CssClass="btn btn-primary" OnClick="printOut">
-                                <prop:Text><i class="fa fa-print"></i> Cetak</prop:Text>
-                                <prop:ClientSide.OnPreDispatch>
-                                    $('loading').show();                                             
-                                    $('<%=$this->btnPrintOut->ClientId%>').disabled='disabled';						
-                                </prop:ClientSide.OnPreDispatch>
-                                <prop:ClientSide.OnLoading>
-                                    $('<%=$this->btnPrintOut->ClientId%>').disabled='disabled';						
-                                </prop:ClientSide.OnLoading>
-                                <prop:ClientSide.OnComplete>																	
-                                    $('<%=$this->btnPrintOut->ClientId%>').disabled='';						                                            
-                                    $('loading').hide(); 
-                                </prop:ClientSide.OnComplete>
-                            </com:TActiveLinkButton>
-                            <com:TActiveHyperLink ID="linkOutput" />
-                        </p>
+                    <div class="box-body">                        
                         <com:TActiveRepeater ID="RepeaterS" DataKeyField="RecNoSiup" AllowPaging="true" PageSize="10" AllowCustomPaging="true">
                             <prop:HeaderTemplate>			
-                                <table class="table table-striped">	                                    
+                                <table class="table table-bordered">	                                    
                                     <tbody>
                                     <tr>                                                                
                                         <th style="width:18px" class="text-center">NO</th>
-                                        <th class="text-center">NO. REGISTRASI</th>
-                                        <th class="text-center">NAMA PEMOHON</th>                        
-                                        <th class="text-center">JENIS <br />PERMOHONAN</th>                                                                                                        
-                                        <th class="text-center">TGL. DAFTAR</th>
+                                        <th style="width:230px" class="text-center">NO. SIUP</th>
+                                        <th class="text-center">NAMA PEMOHON <br />PERUSAHAAN</th>
+                                        <th class="text-center">UPTD</th>
+                                        <th class="text-center">IZIN USAHA</th>
                                         <th class="text-center">AKSI</th>							
                                     </tr>								                                                                        
                             </prop:HeaderTemplate>
                             <prop:ItemTemplate>
                                 <tr>			                                
                                     <td><%#$this->DataItem['no']%></td>
-                                    <td class="text-center"><%#$this->DataItem['NoRegSiup']%></td>	
+                                    <td class="text-center"><%#$this->DataItem['NoSiup']%></td>	                                    
                                     <td><%#$this->DataItem['NmPem']%></td>
-                                    <td class="text-center"><span class="label label-primary"><%#strtoupper($this->DataItem['JnsDtSIUP'])%></span></td>
-                                    <td class="text-center"><%#$this->Page->TGL->tanggal('d/m/Y',$this->DataItem['date_added'])%></td> 
+                                    <td><%#$this->DataItem['nama_uptd']%></td>	                                    
+                                    <td class="text-center"><%#$this->DataItem['InsIzin']%></td>
                                     <td class="text-center">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-default btn-flat">Aksi</button>
-                                            <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
-                                                <span class="caret"></span>
-                                                <span class="sr-only">Toggle Dropdown</span>
-                                            </button>
-                                            <ul class="dropdown-menu text-left" role="menu">
-                                                <li>
-                                                    <com:TLinkButton CausesValidation="false" Text="Ubah Pengajuan" Attributes.Title="Ubah Pengajuan" OnClick="Page.editRecord" />
-                                                </li>
-                                                <li>
-                                                    <com:TActiveLinkButton ID="btnDeleteRecord" CausesValidation="false" ClientSide.PostState="false" OnClick="Page.deleteRecord" Attributes.Title="Hapus Pengajuan" Text="Hapus Pengajuan" Attributes.OnClick="if(!confirm('Anda ingin menghapus permohonan SIUP ini ?')) return false;">
-                                                        <prop:ClientSide.OnPreDispatch>
-                                                            $('loading').show();                                                                                         
-                                                            $('<%=$this->btnDeleteRecord->ClientId%>').disabled='disabled';									                                
-                                                        </prop:ClientSide.OnPreDispatch>
-                                                        <prop:ClientSide.OnLoading>
-                                                            $('<%=$this->btnDeleteRecord->ClientId%>').disabled='disabled';									                                
-                                                        </prop:ClientSide.OnLoading>
-                                                        <prop:ClientSide.onComplete>                                            
-                                                            $('loading').hide();
-                                                        </prop:ClientSide.OnComplete>
-                                                    </com:TActiveLinkButton>
-                                                </li>                                                
-                                                <li class="divider"></li>
-                                                <li>
-                                                    <com:TActiveLinkButton ID="btnPrintFormStandarPemeriksaanFisikKapal" CausesValidation="false" ClientSide.PostState="false" OnClick="Page.printOut" Attributes.Title="Print Form Pemeriksaan Fisik Kapal" Text="Print Form <br />Pemeriksaan <br />Fisik Kapal">
-                                                        <prop:ClientSide.OnPreDispatch>
-                                                            $('loading').show();                                                                                         
-                                                            $('<%=$this->btnPrintFormStandarPemeriksaanFisikKapal->ClientId%>').disabled='disabled';									                                
-                                                        </prop:ClientSide.OnPreDispatch>
-                                                        <prop:ClientSide.OnLoading>
-                                                            $('<%=$this->btnPrintFormStandarPemeriksaanFisikKapal->ClientId%>').disabled='disabled';									                                
-                                                        </prop:ClientSide.OnLoading>
-                                                        <prop:ClientSide.onComplete>                                            
-                                                            $('loading').hide();
-                                                        </prop:ClientSide.OnComplete>
-                                                    </com:TActiveLinkButton>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                        <com:TActiveLinkButton ID="btnPrintOut" CausesValidation="false" CssClass="btn bg-olive btn-sm" Attributes.Title="Print SIUP" Text="<i class='fa fa-print'></i>" OnClick="Page.printOut" CommandParameter="eventFromRepeater">              
+                                            <prop:ClientSide.OnPreDispatch>
+                                                $('loading').show();                                             
+                                                $('<%=$this->btnPrintOut->ClientId%>').disabled='disabled';						
+                                            </prop:ClientSide.OnPreDispatch>
+                                            <prop:ClientSide.OnLoading>
+                                                $('<%=$this->btnPrintOut->ClientId%>').disabled='disabled';									                            
+                                            </prop:ClientSide.OnLoading>
+                                            <prop:ClientSide.onComplete>
+                                                $('loading').hide();
+                                                $('<%=$this->btnPrintOut->ClientId%>').disabled='';
+                                            </prop:ClientSide.OnComplete>
+                                        </com:TActiveLinkButton>
                                     </td>
                                 </tr>
                             </prop:ItemTemplate>				
                             <prop:AlternatingItemTemplate>
                                 <tr>			                                
                                     <td><%#$this->DataItem['no']%></td>
-                                    <td class="text-center"><%#$this->DataItem['NoRegSiup']%></td>	
+                                    <td class="text-center"><%#$this->DataItem['NoSiup']%></td>	                                    
                                     <td><%#$this->DataItem['NmPem']%></td>
-                                    <td class="text-center"><span class="label label-primary"><%#strtoupper($this->DataItem['JnsDtSIUP'])%></span></td>											                                                                                           
-                                    <td class="text-center"><%#$this->Page->TGL->tanggal('d/m/Y',$this->DataItem['date_added'])%></td> 
-                                    <td class="text-center"> 
-                                        <com:TLinkButton CausesValidation="false" CssClass="btn btn-info btn-sm" Text="<i class='fa fa-pencil'></i>" Attributes.Title="Ubah Pemohon" OnClick="Page.editRecord" />                                                                                                                                              
-                                        <com:TActiveLinkButton ID="btnDeleteRecord" CausesValidation="false" ClientSide.PostState="false" CssClass="btn btn-danger btn-sm" OnClick="Page.deleteRecord" Attributes.Title="Hapus Pemohon" Text="<i class='fa fa-times'></i>" Attributes.OnClick="if(!confirm('Anda ingin menghapus permohonan SIUP ini ?')) return false;">
+                                    <td><%#$this->DataItem['nama_uptd']%></td>	                                    
+                                    <td class="text-center"><%#$this->DataItem['InsIzin']%></td>
+                                    <td class="text-center">
+                                        <com:TActiveLinkButton ID="btnPrintOut" CausesValidation="false" CssClass="btn bg-olive btn-sm" Attributes.Title="Print SIUP" Text="<i class='fa fa-print'></i>" OnClick="Page.printOut" CommandParameter="eventFromRepeater">              
                                             <prop:ClientSide.OnPreDispatch>
-                                                $('loading').show();                                                                                         
-                                                $('<%=$this->btnDeleteRecord->ClientId%>').disabled='disabled';									                                
+                                                $('loading').show();                                             
+                                                $('<%=$this->btnPrintOut->ClientId%>').disabled='disabled';						
                                             </prop:ClientSide.OnPreDispatch>
                                             <prop:ClientSide.OnLoading>
-                                                $('<%=$this->btnDeleteRecord->ClientId%>').disabled='disabled';									                                
+                                                $('<%=$this->btnPrintOut->ClientId%>').disabled='disabled';									                            
                                             </prop:ClientSide.OnLoading>
-                                            <prop:ClientSide.onComplete>                                            
+                                            <prop:ClientSide.onComplete>
                                                 $('loading').hide();
+                                                $('<%=$this->btnPrintOut->ClientId%>').disabled='';
                                             </prop:ClientSide.OnComplete>
                                         </com:TActiveLinkButton>
-                                        
                                     </td>
                                 </tr>
                             </prop:AlternatingItemTemplate>
@@ -144,10 +129,18 @@
                                 </table>
                             </prop:FooterTemplate>	
                             <prop:EmptyTemplate>                                                                                    
-                                <div class="alert alert-warning">
-                                    <button class="close" data-dismiss="alert">×</button>
-                                    <p>Tidak ada pengajuan SIUP yang baru atau perpanjangan.</p>
-                                </div>                            
+                                <div class="box box-danger">
+                                    <div class="box-header">
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="alert alert-warning alert-dismissable">
+                                            <i class="fa fa-warning"></i>                                            
+                                            <b>Peringatan!</b>
+                                            Tidak ada SIUP yang terdaftar
+                                        </div>
+                                    </div>
+                                </div>               
+                                
                             </prop:EmptyTemplate>
                         </com:TActiveRepeater>                    
                         <%include Application.CustomPaging%>                    
@@ -156,6 +149,7 @@
             </div>
         </div>
     </com:TPanel>
+    <%include Application.layouts.ModalPrintOut%>
 </com:TContent>
 <com:TContent ID="jscontent">
 <script type="text/javascript" src="<%=$this->page->theme->baseUrl%>/js/plugins/chosen-bootstrap/chosen.jquery.min.js"></script>

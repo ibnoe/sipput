@@ -32,13 +32,23 @@ class Logic_Penanggalan extends Logic_Global {
         if (is_object($date)){            
             $tgl=$date;
         }else {
-            if ($date === null)
-                $tgl = new DateTime ('now',new DateTimeZone('Asia/Jakarta'));
-            else
-                $tgl = new DateTime ($date,new DateTimeZone('Asia/Jakarta'));
+            if ($date === null) {
+                $tgl = new DateTime('now', new DateTimeZone('Asia/Jakarta'));
+            }else {
+                $tgl = new DateTime($date, new DateTimeZone('Asia/Jakarta'));
+            }
         }		
         $result = str_replace($this->dayName, $this->namaHari, $tgl->format ($format));
         return str_replace($this->monthName, $this->namaBulan, $result);
-	}   	 
+	}   
+    /**
+     * digunakan untuk mendapatkan tanggal pada tahun depan
+     */
+    public function getDateNextYear ($currentdate,$sumyear,$format) {
+        $date = new DateTime($currentdate,new DateTimeZone('Asia/Jakarta'));
+        $date->add(new DateInterval("P{$sumyear}Y"));        
+        $result = str_replace($this->dayName, $this->namaHari, $date->format ($format));
+        return str_replace($this->monthName, $this->namaBulan, $result);        
+    }
 }
 ?>

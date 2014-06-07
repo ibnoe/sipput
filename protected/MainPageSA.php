@@ -12,11 +12,7 @@ class MainPageSA extends MainPage {
     /**     
      * show page Jenis Usaha [dmaster]
      */
-    public $showJenisIzinUsaha=false;    
-    /**     
-     * show page Bidang Usaha [dmaster]
-     */
-    public $showBidangIzinUsaha=false;
+    public $showJenisIzinUsaha=false;       
     /**     
      * show page Jenis Alat [dmaster]
      */

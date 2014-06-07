@@ -138,6 +138,11 @@ class MainPage extends TPage {
      */
     public $showSetting=false;
     
+    /**
+     *
+     * @var type digunakan untuk menyimpan data pengajuan
+     */
+    public $dataPengajuan;    
 	public function OnPreInit ($param) {	
 		parent::onPreInit ($param);
 		//instantiasi database		

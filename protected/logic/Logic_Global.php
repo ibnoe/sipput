@@ -161,6 +161,16 @@ class Logic_Global extends TModule {
 			return $arr;
 		}
 	}	
-	
+	/**     
+     * status kepemilikan kapal
+     */
+    public function getStatusKepemilikanKapal ($id=null) {        
+        $status=array('miliksendiri'=>'MILIK SENDIRI','sewa'=>'SEWA','kerjasama'=>'KERJA SAMA');
+        if ($id === null) {
+            return $status;     
+        }else {
+            return $status[$id];     
+        }        
+    }
 }
 ?>

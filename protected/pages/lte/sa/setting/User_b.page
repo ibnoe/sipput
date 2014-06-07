@@ -277,15 +277,6 @@
                             <com:TDropDownList ID="cmbEditUPTD" AutoPostBack="false" CssClass="form-control chosen"/>                            
                         </div>                        
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Status :</label>
-                        <div class="col-xs-2">
-                            <com:TDropDownList ID="cmbEditStatus" CssClass="form-control">
-                                <com:TListItem Value="1" Text="Aktif" />
-                                <com:TListItem Value="0" Text="Tidak Aktif" />
-                            </com:TDropDownList>
-                        </div>
-                    </div>
                 </div>
                 <div class="box-footer">
                     <div class="form-group">

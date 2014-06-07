@@ -4,5 +4,8 @@ class Home extends CHome {
 	public function onLoad($param) {		
 		parent::onLoad($param);		            		        
 	}   
+    public function openModal ($sender,$param) {
+        $this->modalPrintOut->show();
+    }
 }
 ?>		

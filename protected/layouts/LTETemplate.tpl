@@ -103,7 +103,7 @@
         </div><!--end navbar-right -->
     </nav>
 </header>
-<com:TForm Attributes.roles="form">
+<com:TForm Attributes.roles="form" Attributes.class="form-horizontal">
 <div class="wrapper row-offcanvas row-offcanvas-left">
     <!-- Left side column. contains the logo and sidebar -->
     <aside class="left-side sidebar-offcanvas">                
@@ -139,22 +139,13 @@
                             </li>
                             <li<%=$this->Page->showJenisIzinUsaha==true ? ' class="active"':''%>>
                                 <a href="<%=$this->Page->constructUrl('dmaster.JenisIzinUsaha',true)%>"><i class="fa fa-angle-double-right"></i> Jenis Izin Usaha</a>
-                            </li>
-                            <li<%=$this->Page->showBidangIzinUsaha==true ? ' class="active"':''%>>
-                                <a href="<%=$this->Page->constructUrl('dmaster.BidangIzinUsaha',true)%>"><i class="fa fa-angle-double-right"></i> Bidang Izin Usaha</a>
-                            </li>                        
+                            </li>                                                  
                             <li<%=$this->Page->showJenisAlat==true ? ' class="active"':''%>>
                                 <a href="<%=$this->Page->constructUrl('dmaster.JenisAlat',true)%>"><i class="fa fa-angle-double-right"></i> Jenis Alat</a>
                             </li>                        
                             <li<%=$this->Page->showBahanAlat==true ? ' class="active"':''%>>
                                 <a href="<%=$this->Page->constructUrl('dmaster.BahanAlat',true)%>"><i class="fa fa-angle-double-right"></i> Bahan Alat</a>
-                            </li>                        
-                            <li<%=$this->Page->showLokasiUsaha==true ? ' class="active"':''%>>
-                                <a href="<%=$this->Page->constructUrl('dmaster.LokasiUsaha',true)%>"><i class="fa fa-angle-double-right"></i> Lokasi Usaha</a>
-                            </li>                        
-                            <li<%=$this->Page->showAreaPenangkapan==true ? ' class="active"':''%>>
-                                <a href="<%=$this->Page->constructUrl('dmaster.AreaPenangkapan',true)%>"><i class="fa fa-angle-double-right"></i> Area Penangkapan</a>
-                            </li>                                                                
+                            </li>                     
                         </ul>
                     </li>
                     <li class="treeview<%=$this->Page->showLokasi==true ? ' active':''%>">
@@ -163,34 +154,40 @@
                             <span>Lokasi</span>
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
-                        <ul class="treeview-menu">
-                            <li<%=$this->Page->showNegara==true ? ' class="active"':''%>>
-                                <a href="<%=$this->Page->constructUrl('lokasi.Negara',true)%>"><i class="fa fa-angle-double-right"></i> Negara</a>
-                            </li>
-                            <li<%=$this->Page->showDT1==true ? ' class="active"':''%>>
-                                <a href="<%=$this->Page->constructUrl('lokasi.Provinsi',true)%>"><i class="fa fa-angle-double-right"></i> Provinsi</a>
-                            </li>
-                            <li<%=$this->Page->showDT2==true ? ' class="active"':''%>>
-                                <a href="<%=$this->Page->constructUrl('lokasi.Kabupaten',true)%>"><i class="fa fa-angle-double-right"></i> Kabupaten</a>
-                            </li>
-                            <li<%=$this->Page->showKecamatan==true ? ' class="active"':''%>>
-                                <a href="<%=$this->Page->constructUrl('lokasi.Kecamatan',true)%>"><i class="fa fa-angle-double-right"></i> Kecamatan</a>
-                            </li>
+                        <ul class="treeview-menu">                                                        
+                            <li<%=$this->Page->showAreaPenangkapan==true ? ' class="active"':''%>>
+                                <a href="<%=$this->Page->constructUrl('lokasi.AreaPenangkapan',true)%>"><i class="fa fa-angle-double-right"></i> Area Penangkapan</a>
+                            </li> 
                             <li<%=$this->Page->showPelabuhan==true ? ' class="active"':''%>>
                                 <a href="<%=$this->Page->constructUrl('lokasi.Pelabuhan',true)%>"><i class="fa fa-angle-double-right"></i> Pelabuhan</a>
                             </li>
+                            <li<%=$this->Page->showLokasiUsaha==true ? ' class="active"':''%>>
+                                <a href="<%=$this->Page->constructUrl('lokasi.LokasiUsaha',true)%>"><i class="fa fa-angle-double-right"></i> Lokasi Usaha</a>
+                            </li>                                                                                    
                         </ul>
                     </li>                    
                     <li<%=$this->Page->showUPTD==true ? ' class="active"':''%>>
-                        <a href="<%=$this->Page->constructUrl('dmaster.UPTD',true)%>">
+                        <a href="<%=$this->Page->constructUrl('UPTD',true)%>">
                             <i class="fa fa-building-o"></i> <span>UPTD</span>
                         </a>              
                     </li>
                     <li<%=$this->Page->showPemohon==true ? ' class="active"':''%>>
-                        <a href="<%=$this->Page->constructUrl('dmaster.Pemohon',true)%>">
+                        <a href="<%=$this->Page->constructUrl('Pemohon',true)%>">
                             <i class="fa fa-user-md"></i> <span>Pemohon</span>   
                         </a>
-                    </li>                   
+                    </li>    
+                    <li class="treeview<%=$this->Page->showDaftarPengajuan==true ? ' active':''%>">
+                        <a href="#">
+                            <i class="fa fa-tasks"></i>
+                            <span>Daftar Pengajuan</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li<%=$this->Page->showPengajuanSIPI==true ? ' class="active"':''%>>
+                                <a href="<%=$this->Page->constructUrl('perizinan.PengajuanSIPI',true)%>"><i class="fa fa-angle-double-right"></i> SIPI</a>                                
+                            </li>                                                        
+                        </ul>
+                    </li>
                     <li class="treeview<%=$this->Page->showDaftarIzin==true ? ' active':''%>">
                         <a href="#">
                             <i class="fa fa-tasks"></i>
@@ -203,19 +200,7 @@
                             </li>                            
                             <li<%=$this->Page->showDaftarSIPI==true ? ' class="active"':''%>>
                                 <a href="<%=$this->Page->constructUrl('perizinan.DaftarSIPI',true)%>"><i class="fa fa-angle-double-right"></i> SIPI</a>                                
-                            </li>                            
-                            <li<%=$this->Page->showDaftarSIKPI==true ? ' class="active"':''%>>
-                                <a href="<%=$this->Page->constructUrl('perizinan.DaftarSIKPI',true)%>"><i class="fa fa-angle-double-right"></i> SIKPI</a>
-                            </li>                            
-                            <li<%=$this->Page->showDaftarSIKPPI==true ? ' class="active"':''%>>
-                                <a href="<%=$this->Page->constructUrl('perizinan.DaftarSIKPPI',true)%>"><i class="fa fa-angle-double-right"></i> SIKPPI</a>
-                            </li>                            
-                            <li<%=$this->Page->showDaftarBudiDaya==true ? ' class="active"':''%>>
-                                <a href="<%=$this->Page->constructUrl('perizinan.DaftarBudiDaya',true)%>"><i class="fa fa-angle-double-right"></i> Budi Daya</a>
-                            </li>                            
-                            <li<%=$this->Page->showDaftarPengolahan==true ? ' class="active"':''%>>
-                                <a href="<%=$this->Page->constructUrl('perizinan.DaftarPengolahan',true)%>"><i class="fa fa-angle-double-right"></i> Pengolahan</a>
-                            </li>                            
+                            </li>                                                        
                         </ul>
                     </li>
                     <li class="treeview<%=$this->Page->showSetting==true ? ' active':''%>">
@@ -236,7 +221,7 @@
                     </li>
                     <!-- sidebar menu: : style can be found in sidebar.less --> 
                 </ul>
-            </com:TLiteral>
+            </com:TLiteral>            
             <com:TLiteral Visible="<%=$this->Page->Pengguna->getTipeUser()=='ad'%>">
                 <ul class="sidebar-menu">
                     <li<%=$this->Page->showDashboard==true ? ' class="active"':''%>>
@@ -250,14 +235,16 @@
                             <span>Data Master</span>
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
-                        <ul class="treeview-menu">                                                   
-                            <li<%=$this->Page->showPemohon==true ? ' class="active"':''%>>
-                                <a href="<%=$this->Page->constructUrl('dmaster.Pemohon',true)%>"><i class="fa fa-angle-double-right"></i> Pemohon</a>
-                            </li>
+                        <ul class="treeview-menu">                                                                               
                             <li<%=$this->Page->showKapal==true ? ' class="active"':''%>>
                                 <a href="<%=$this->Page->constructUrl('dmaster.Kapal',true)%>"><i class="fa fa-angle-double-right"></i> Kapal</a>
                             </li>
                         </ul>
+                    </li>
+                    <li<%=$this->Page->showPemohon==true ? ' class="active"':''%>>
+                        <a href="<%=$this->Page->constructUrl('Pemohon',true)%>">
+                            <i class="fa fa-user-md"></i> <span>Pemohon</span>
+                        </a>
                     </li>
                     <li class="treeview<%=$this->Page->showPerizinanBaru==true ? ' active':''%>">
                         <a href="#">
@@ -268,19 +255,7 @@
                         <ul class="treeview-menu">
                             <li<%=$this->Page->showAddIzinNewSIPI==true ? ' class="active"':''%>>
                                 <a href="<%=$this->Page->constructUrl('perizinan.AddSIPI',true)%>"><i class="fa fa-angle-double-right"></i> SIPI<small class="badge pull-right bg-green">new</small></a>                                
-                            </li>                            
-                            <li<%=$this->Page->showAddIzinNewSIKPI==true ? ' class="active"':''%>>
-                                <a href="<%=$this->Page->constructUrl('perizinan.AddSIKPI',true)%>"><i class="fa fa-angle-double-right"></i> SIKPI<small class="badge pull-right bg-green">new</small></a>
-                            </li>                            
-                            <li<%=$this->Page->showAddIzinNewSIKPPI==true ? ' class="active"':''%>>
-                                <a href="<%=$this->Page->constructUrl('perizinan.AddSIKPPI',true)%>"><i class="fa fa-angle-double-right"></i> SIKPPI<small class="badge pull-right bg-green">new</small></a>
-                            </li>                            
-                            <li<%=$this->Page->showAddIzinNewBudiDaya==true ? ' class="active"':''%>>
-                                <a href="<%=$this->Page->constructUrl('perizinan.AddBudiDaya',true)%>"><i class="fa fa-angle-double-right"></i> Budi Daya<small class="badge pull-right bg-green">new</small></a>
-                            </li>                            
-                            <li<%=$this->Page->showAddIzinNewPengolahan==true ? ' class="active"':''%>>
-                                <a href="<%=$this->Page->constructUrl('perizinan.AddPengolahan',true)%>"><i class="fa fa-angle-double-right"></i> Pengolahan<small class="badge pull-right bg-green">new</small></a>
-                            </li>                            
+                            </li>                                                        
                         </ul>
                     </li>
                     <li class="treeview<%=$this->Page->showDaftarPengajuan==true ? ' active':''%>">
@@ -292,19 +267,7 @@
                         <ul class="treeview-menu">
                             <li<%=$this->Page->showPengajuanSIPI==true ? ' class="active"':''%>>
                                 <a href="<%=$this->Page->constructUrl('perizinan.PengajuanSIPI',true)%>"><i class="fa fa-angle-double-right"></i> SIPI</a>                                
-                            </li>                            
-                            <li<%=$this->Page->showPengajuanSIKPI==true ? ' class="active"':''%>>
-                                <a href="<%=$this->Page->constructUrl('perizinan.PengajuanSIKPI',true)%>"><i class="fa fa-angle-double-right"></i> SIKPI</a>
-                            </li>                            
-                            <li<%=$this->Page->showPengajuanSIKPPI==true ? ' class="active"':''%>>
-                                <a href="<%=$this->Page->constructUrl('perizinan.PengajuanSIKPPI',true)%>"><i class="fa fa-angle-double-right"></i> SIKPPI</a>
-                            </li>                            
-                            <li<%=$this->Page->showPengajuanBudiDaya==true ? ' class="active"':''%>>
-                                <a href="<%=$this->Page->constructUrl('perizinan.PengajuanBudiDaya',true)%>"><i class="fa fa-angle-double-right"></i> Budi Daya</a>
-                            </li>                            
-                            <li<%=$this->Page->showPengajuanPengolahan==true ? ' class="active"':''%>>
-                                <a href="<%=$this->Page->constructUrl('perizinan.PengajuanPengolahan',true)%>"><i class="fa fa-angle-double-right"></i> Pengolahan</a>
-                            </li>                            
+                            </li>                                                        
                         </ul>
                     </li>                    
                 </ul>

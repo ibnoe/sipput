@@ -10,7 +10,7 @@
         <com:TWizard ID="newsipiwizard" 
             CssClass="col-lg-12"
             ShowSideBar="false"                              
-            StepStyle.CssClass="panel panel-primary"
+            StepStyle.CssClass="box box-solid box-primary"
             NavigationStyle.CssClass="btn-group btn-group-justified"
             OnCompleteButtonClick="addNewSIPICompleted" 
             OnNextButtonClick="processNextButton">
@@ -25,27 +25,25 @@
                 <com:TLinkButton Text="Complete" CommandName="Complete" ValidationGroup="addSIPI" CssClass="btn btn-default" />                
             </prop:FinishNavigationTemplate>
             <com:TWizardStep ID="tahap1" Title="DATA SURAT PERMOHONAN" AllowReturn="true"> 
-                <div class="panel-heading-process">
-                    <h3 class='panel-title'>
+                <div class="box-header">
+                    <h3 class='box-title'>
                         <i class='fa fa-plus'></i>
                         TAMBAH SIPI (SURAT IZIN PENANGKAPAN IKAN) - DATA SURAT PERMOHONAN
                     </h3>
+                    <div class="box-tools pull-right">
+                        <button data-widget="collapse" class="btn btn-primary btn-sm" onclick="JavaScript:return false;">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <button data-widget="remove" class="btn btn-primary btn-sm" onclick="pageredirect('<%=$this->constructUrl('perizinan.AddSIPI',true)%>');return false;">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="panel-body">
-                    <p class="text-primary">
-                        Proses ini di lakukan di UPT dimana Pemohon mengajukan permohonan pembuatan Izin Usaha Perikanan (IUP).
-                    </p>
-                    <blockquote>
-                        Download Form Isian Standar Permohonan Baru Model A.1 dan Model A.2; serahkan kepada Pemohon untuk di isi, dan kemudian Pemohon menyerahkan Kembali ke petugas di UPT tempat dimana Pemohon mengajukan permohonan dengan melengkapi persyaratan permohonan sebagaimana tertera pada form Model A.1 dan Model A.2
-                        <small>         
-                            Download: 
-                            <cite title="Model A1"><a href="#">Model A.1</a> | <a href="#">Model A.2</a></cite>
-                        </small>
-                    </blockquote>             
+                <div class="box-body">                                 
                     <div class="form-group" id="divCmbAddPemohon">
-                        <label>Pilih Pemohon :</label>
-                        <div class="radio" style="padding-left:0px">
-                            <com:TDropDownList ID="cmbAddPemohon" AutoPostBack="false" CssClass="form-control chosen" Width="350px;" />                                                                                                        
+                        <label class="col-sm-2 control-label">Pilih Pemohon</label>
+                        <div class="col-xs-4">
+                            <com:TDropDownList ID="cmbAddPemohon" AutoPostBack="false" CssClass="form-control chosen"/>                                                                                                        
                             <com:TRequiredFieldValidator ID="FieldAddPemohonValidator" InitialValue="none" ControlToValidate="cmbAddPemohon" Display="Dynamic" ErrorMessage="Pilih Pemohon" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">				
                                 <prop:ClientSide.OnValidationError>
                                     $('divCmbAddPemohon').addClassName('has-error');
@@ -55,236 +53,252 @@
                                     $('divCmbAddPemohon').removeClassName('has-error');
                                 </prop:ClientSide.OnValidationSuccess>
                             </com:TRequiredFieldValidator>
-                        </div>
+                        </div>                        
                     </div>
                     <div class="form-group" id="divTxtAddNoSurat">
-                        <label>Masukan No. Surat Permohononan Model A.1 yang Diajukan Oleh Pemohon :</label>
-                        <com:TTextBox ID="txtAddNomorSurat" CssClass="form-control" Width="150px" />			                            
-                        <com:TRequiredFieldValidator ID="FieldAddNomorSuratValidator" ControlToValidate="txtAddNomorSurat" Display="Dynamic" ErrorMessage="Isi Kode Pemohon" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">			
-                            <prop:ClientSide.OnValidationError>
-                                $('divTxtAddNoSurat').addClassName('has-error');
-                                jQuery('#<%=$this->FieldAddNomorSuratValidator->ClientID%>').removeAttr('style');
-                            </prop:ClientSide.OnValidationError>
-                            <prop:ClientSide.OnValidationSuccess>
-                                $('divTxtAddNoSurat').removeClassName('has-error');
-                            </prop:ClientSide.OnValidationSuccess>
-                        </com:TRequiredFieldValidator>
-                    </div>
-                    <div class="form-group">
-                        <label>Pilih Tanggal Surat Permohonan Model A.1 yang Diajukan Oleh Pemohon :</label>
-                        <div class="input-group">                            
-                            <com:TCustomDatePicker ID="cmbAddTanggalSurat" DateFormat="dd-MMM-yyyy" Culture="id" FromYear="2014" UpToYear="<%=date('Y')%>" InputMode="DropDownList"/>
-                        </div>                        
-                    </div>              
-                    <div class="form-group" id="divCmbAddJenisBidangUsaha">
-                        <label>Pilih Jenis Bidang Usaha yang Dikehendaki :</label>
-                        <div class="radio" style="padding-left:0px">
-                            <com:TDropDownList ID="cmbAddJenisBidangUsaha" AutoPostBack="false" CssClass="form-control chosen-with-diselect" Width="350px;" />                                                                                                        
-                            <com:TRequiredFieldValidator ID="FieldAddJenisBidangUsahaValidator" InitialValue="none" ControlToValidate="cmbAddJenisBidangUsaha" Display="Dynamic" ErrorMessage="Pilih Jenis Bidang Usaha" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">				
+                        <label class="col-sm-2 control-label">No. Surat Permohononan Model A.1</label>
+                        <div class="col-sm-10">
+                            <com:TTextBox ID="txtAddNomorSurat" CssClass="form-control" Width="150px" Attributes.PlaceHolder="No. Surat" />			                            
+                            <com:TRequiredFieldValidator ID="FieldAddNomorSuratValidator" ControlToValidate="txtAddNomorSurat" Display="Dynamic" ErrorMessage="Isi Nomor surat Model A.1" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">			
                                 <prop:ClientSide.OnValidationError>
-                                    $('divCmbAddJenisBidangUsaha').addClassName('has-error');
-                                    jQuery('#<%=$this->FieldAddJenisBidangUsahaValidator->ClientID%>').removeAttr('style');
+                                    $('divTxtAddNoSurat').addClassName('has-error');
+                                    jQuery('#<%=$this->FieldAddNomorSuratValidator->ClientID%>').removeAttr('style');
                                 </prop:ClientSide.OnValidationError>
                                 <prop:ClientSide.OnValidationSuccess>
-                                    $('divCmbAddJenisBidangUsaha').removeClassName('has-error');
+                                    $('divTxtAddNoSurat').removeClassName('has-error');
                                 </prop:ClientSide.OnValidationSuccess>
                             </com:TRequiredFieldValidator>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Pilih Tanggal Surat Permohonan Model A.1 yang Diajukan Oleh Pemohon</label>
+                        <div class="col-sm-10">                            
+                            <com:TCustomDatePicker ID="cmbAddTanggalSurat" DateFormat="dd-MMMM-yyyy" Culture="id" FromYear="2014" UpToYear="<%=date('Y')%>" InputMode="DropDownList"/>
+                        </div>                        
+                    </div>                                  
                     <div class="form-group" id="divAddModalUsaha">
-                        <label>Sebutkan Banyaknya Modal Usaha :</label>
-                        <com:TTextBox ID="txtAddModalUsaha" Attributes.OnKeyUp="formatangka(this,false)" CssClass="form-control" Width="200px" Attributes.PlaceHolder="Modal Usaha" />			                            
-                        <com:TRequiredFieldValidator ID="FieldAddModalUsahaValidator" ControlToValidate="txtAddModalUsaha" Display="Dynamic" ErrorMessage="Isi Modal Usaha" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">			
-                            <prop:ClientSide.OnValidationError>
-                                $('divAddModalUsaha').addClassName('has-error');
-                                jQuery('#<%=$this->FieldAddModalUsahaValidator->ClientID%>').removeAttr('style');
-                            </prop:ClientSide.OnValidationError>
-                            <prop:ClientSide.OnValidationSuccess>
-                                $('divAddModalUsaha').removeClassName('has-error');
-                            </prop:ClientSide.OnValidationSuccess>
-                        </com:TRequiredFieldValidator>                                            
+                        <label class="col-sm-2 control-label">Sebutkan Banyaknya Modal Usaha</label>
+                        <div class="col-xs-3">
+                            <com:TTextBox ID="txtAddModalUsaha" Attributes.OnKeyUp="formatangka(this,false)" CssClass="form-control" Attributes.PlaceHolder="Modal Usaha" />			                            
+                            <com:TRequiredFieldValidator ID="FieldAddModalUsahaValidator" ControlToValidate="txtAddModalUsaha" Display="Dynamic" ErrorMessage="Isi Modal Usaha" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">			
+                                <prop:ClientSide.OnValidationError>
+                                    $('divAddModalUsaha').addClassName('has-error');
+                                    jQuery('#<%=$this->FieldAddModalUsahaValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('divAddModalUsaha').removeClassName('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>                                            
+                        </div>
                     </div>
                 </div>
             </com:TWizardStep>
             <com:TWizardStep ID="tahap2" Title="BIODATA PEMOHON" AllowReturn="true"> 
-                <div class="panel-heading-process">
-                    <h3 class='panel-title'>
+                <div class="box-header">
+                    <h3 class='box-title'>
                         <i class='fa fa-plus'></i>
                         TAMBAH SIPI (SURAT IZIN PENANGKAPAN IKAN) - BIODATA PEMOHON
                     </h3>
+                    <div class="box-tools pull-right">
+                        <button data-widget="collapse" class="btn btn-primary btn-sm" onclick="JavaScript:return false;">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <button data-widget="remove" class="btn btn-primary btn-sm" onclick="pageredirect('<%=$this->constructUrl('perizinan.AddSIPI',true)%>');return false;">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="panel-body">
+                <div class="box-body">
                     <div class="form-group">
-                        <label>Status Pemohon</label>
-                        <div class="radio">
-                            <label>
+                        <label class="col-sm-2 control-label">Status Pemohon</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static">
                                 <%=$this->Pemohon->DataPemohon['Status']=='perorangan'?'PEORANGAN':'PERUSAHAAN'%>
+
                                 <com:THiddenField ID="hiddenstatuspemohon" Value="<%=$this->Pemohon->DataPemohon['Status']%>" />
-                            </label>
+                            </p>
                         </div>                        
                     </div>
                     <div class="form-group" id="divKodePemohon">
-                        <label>Kode Pemohon</label>
-                        <div class="radio">
-                            <label>
+                        <label class="col-sm-2 control-label">Kode Pemohon</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static">
                                 <%=$this->Pemohon->DataPemohon['RecNoPem']%>
-                            </label>
+                            </p>
                         </div>    
                     </div>
                     <div class="form-group" id="divNamaPemohon">
-                        <label>Nama Pemohon</label>
-                        <div class="radio">
-                            <label>
+                        <label class="col-sm-2 control-label">Nama Pemohon</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static">
                                 <%=$this->Pemohon->DataPemohon['NmPem']%>
-                            </label>
+                            </p>
                         </div>    
                     </div>
                     <div class="form-group" id="divKTPPemohon">
-                        <label>No. KTP Pemohon</label>
-                        <div class="radio">
-                            <label>
+                        <label class="col-sm-2 control-label">No. KTP Pemohon</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static">
                                 <%=$this->Pemohon->DataPemohon['KtpPem']%>
-                            </label>
+                            </p>
                         </div> 
                     </div>                    
                     <div class="form-group" id="divAlamatPemohon">
-                        <label>Alamat</label>
-                        <div class="radio">
-                            <label>
+                        <label class="col-sm-2 control-label">Alamat</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static">
                                 <%=$this->Pemohon->DataPemohon['AlmtPem']%>
-                            </label>
+                            </p>
                         </div> 
                     </div>
                     <div class="form-group" id="divNoTelp">
-                        <label>No. Telp Pemohon</label>
-                        <div class="radio">
-                            <label>
+                        <label class="col-sm-2 control-label">No. Telp Pemohon</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static">
                                 <%=$this->Pemohon->DataPemohon['TelpPem']%>
-                            </label>
+                            </p>
                         </div> 
                     </div>     
                     <div class="form-group" id="divNPWPPemohon">
-                        <label>No. NPWP Pemohon</label>
-                        <div class="radio">
-                            <label>
+                        <label class="col-sm-2 control-label">No. NPWP Pemohon</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static">
                                 <%=$this->Pemohon->DataPemohon['NpwpPem']%>
-                            </label>
+                            </p>
                         </div> 
                     </div>
                 </div>                
             </com:TWizardStep>
             <com:TWizardStep ID="tahap3" Title="Isi Formulir Model A.2 - Pilih Perusahaan" AllowReturn="true">
-                <div class="panel-heading-process">
-                    <h3 class='panel-title'>
+                <div class="box-header">
+                    <h3 class='box-title'>
                         <i class='fa fa-plus'></i>
                         TAMBAH SIPI (SURAT IZIN PENANGKAPAN IKAN) - PERUSAHAAN PEMOHON
                     </h3>
+                    <div class="box-tools pull-right">
+                        <button data-widget="collapse" class="btn btn-primary btn-sm" onclick="JavaScript:return false;">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <button data-widget="remove" class="btn btn-primary btn-sm" onclick="pageredirect('<%=$this->constructUrl('perizinan.AddSIPI',true)%>');return false;">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="panel-body">
-                    <div class="form-group" ids="divPilihPerusahaan">
-                        <com:TActiveHiddenField ID="hiddenidperusahaan" />
-                        <label>Daftar Perusahaan</label>
-                        <com:TActiveDropDownList ID="cmbAddDaftarPerusahaan" OnSelectedIndexChanged="changePerusahaanPemohon" CssClass="form-control" Width="450px">
-                            <prop:ClientSide.OnPreDispatch>
-                                $('loading').show();                                             
-                                $('<%=$this->cmbAddDaftarPerusahaan->ClientId%>').disabled='disabled';						
-                            </prop:ClientSide.OnPreDispatch>
-                            <prop:ClientSide.OnLoading>
-                                $('<%=$this->cmbAddDaftarPerusahaan->ClientId%>').disabled='disabled';						
-                            </prop:ClientSide.OnLoading>
-                            <prop:ClientSide.OnComplete>																	
-                                $('<%=$this->cmbAddDaftarPerusahaan->ClientId%>').disabled='';						                                            
-                                $('loading').hide(); 
-                            </prop:ClientSide.OnComplete>
-                        </com:TActiveDropDownList>
-                        <com:TRequiredFieldValidator ID="FieldAddPerusahaanValidator" ControlToValidate="hiddenidperusahaan" Display="Dynamic" ErrorMessage="Pilih Perusahaan" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block" />				                                                    
+                <div class="box-body">
+                    <com:TActiveHiddenField ID="hiddenidperusahaan" />
+                    <div class="form-group" ids="divPilihPerusahaan">                        
+                        <label class="col-sm-2 control-label">Daftar Perusahaan</label>
+                        <div class="col-xs-4">
+                            <com:TActiveDropDownList ID="cmbAddDaftarPerusahaan" OnSelectedIndexChanged="changePerusahaanPemohon" CssClass="form-control" >
+                                <prop:ClientSide.OnPreDispatch>
+                                    $('loading').show();                                             
+                                    $('<%=$this->cmbAddDaftarPerusahaan->ClientId%>').disabled='disabled';						
+                                </prop:ClientSide.OnPreDispatch>
+                                <prop:ClientSide.OnLoading>
+                                    $('<%=$this->cmbAddDaftarPerusahaan->ClientId%>').disabled='disabled';						
+                                </prop:ClientSide.OnLoading>
+                                <prop:ClientSide.OnComplete>																	
+                                    $('<%=$this->cmbAddDaftarPerusahaan->ClientId%>').disabled='';						                                            
+                                    $('loading').hide(); 
+                                </prop:ClientSide.OnComplete>
+                            </com:TActiveDropDownList>
+                            <com:TRequiredFieldValidator ID="FieldAddPerusahaanValidator" ControlToValidate="hiddenidperusahaan" Display="Dynamic" ErrorMessage="Pilih Perusahaan" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block" />				                                                    
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label>Status Perusahaan</label>
-                        <div class="radio">
-                            <label>
+                        <label class="col-sm-2 control-label">Status Perusahaan</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static">
                                 <com:TActiveLabel ID="lblStatusPerusahaan" Text="-" />
-                            </label>
+                            </p>
                         </div>                        
                     </div>     
                     <div class="form-group" id="divNamaPerusahaan">
-                        <label>Nama Perusahaan</label>
-                        <div class="radio">
-                            <label>
+                        <label class="col-sm-2 control-label">Nama Perusahaan</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static">
                                 <com:TActiveLabel ID="lblNamaPerusahaan" Text="-" />
-                            </label>
+                            </p>
                         </div>  
                     </div>
                     <div class="form-group" id="divNoAktePerusahaan">
-                        <label>Nomor Akte Pendirian Perusahaan</label>
-                        <div class="radio">
-                            <label>
+                        <label class="col-sm-2 control-label">Nomor Akte Pendirian Perusahaan</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static">
                                 <com:TActiveLabel ID="lblNoAktePerusahaan" Text="-" />
-                            </label>
+                            </p>
                         </div>  
                     </div>
                     <div class="form-group">
-                        <label>Tanggal Akte Pendirian Perusahaan</label>
-                        <div class="radio">
-                            <label>
+                        <label class="col-sm-2 control-label">Tanggal Akte Pendirian Perusahaan</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static">
                                 <com:TActiveLabel ID="lblTglAktePendirianPerusahaan" Text="-" />
-                            </label>
+                            </p>
                         </div>  
                     </div>
                     <div class="form-group" id="divNPWPPerusahaan">
-                        <label>No. NPWP Perusahaan</label>
-                        <div class="radio">
-                            <label>
+                        <label class="col-sm-2 control-label">No. NPWP Perusahaan</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static">
                                 <com:TActiveLabel ID="lblNoNPWPPerusahaan" Text="-" />
-                            </label>
+                            </p>
                         </div>
                     </div>
                     <div class="form-group" id="divAlamatPerusahaan">
-                        <label>Alamat Perusahaan</label>
-                        <div class="radio">
-                            <label>
+                        <label class="col-sm-2 control-label">Alamat Perusahaan</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static">
                                 <com:TActiveLabel ID="lblAlamatPerusahaan" Text="-" />
-                            </label>
+                            </p>
                         </div>
                     </div>
                     <div class="form-group" id="divNoTelpPerusahaan">
-                        <label>No. Telp Perusahaan</label>
-                        <div class="radio">
-                            <label>
+                        <label class="col-sm-2 control-label">No. Telp Perusahaan</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static">
                                 <com:TActiveLabel ID="lblNoTelpPerusahaan" Text="-" />
-                            </label>
+                            </p>
                         </div>
                     </div>     
                     <div class="form-group">
-                        <label>No. Fax Perusahaan</label>
-                        <div class="radio">
-                            <label>
+                        <label class="col-sm-2 control-label">No. Fax Perusahaan</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static">
                                 <com:TActiveLabel ID="lblNoFaxPerusahaan" Text="-" />
-                            </label>
+                            </p>
                         </div>
                     </div> 
                     <div class="form-group">
-                        <label>Alamat Kantor Cabang</label>
-                        <div class="radio">
-                            <label>
+                        <label class="col-sm-2 control-label">Alamat Kantor Cabang</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static">
                                 <com:TActiveLabel ID="lblAlamatKantorCabangPerusahaan" Text="-" />
-                            </label>
+                            </p>
                         </div>
                     </div>
                 </div>
                 </div>
             </com:TWizardStep>
             <com:TWizardStep ID="tahap4" Title="Isi Formulir Model A.2 - DAERAH USAHA" AllowReturn="true">
-                <div class="panel-heading-process">
-                    <h3 class='panel-title'>
+                <div class="box-header">
+                    <h3 class='box-title'>
                         <i class='fa fa-plus'></i>
                         TAMBAH SIPI (SURAT IZIN PENANGKAPAN IKAN) - DAERAH USAHA
                     </h3>
+                    <div class="box-tools pull-right">
+                        <button data-widget="collapse" class="btn btn-primary btn-sm" onclick="JavaScript:return false;">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <button data-widget="remove" class="btn btn-primary btn-sm" onclick="pageredirect('<%=$this->constructUrl('perizinan.AddSIPI',true)%>');return false;">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="panel-body">                    
+                <div class="box-body">                    
                     <div class="form-group" id="divCmbAddAreaPenangkapan">
-                        <label>Daerah Penangkapan (SIPI) :</label>
-                        <div class="input-group col-xs-3">
+                        <label class="col-sm-2 control-label">Daerah Penangkapan</label>
+                        <div class="col-xs-3">
                             <com:TDropDownList ID="cmbAddAreaPenangkapan" AutoPostBack="false" CssClass="form-control chosen" />                                                                                                        
                             <com:TRequiredFieldValidator ID="FieldAddAreaPenangkapanValidator" InitialValue="none" ControlToValidate="cmbAddAreaPenangkapan" Display="Dynamic" ErrorMessage="Pilih Area/Daerah Penangkapan" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">				
                                 <prop:ClientSide.OnValidationError>
@@ -298,23 +312,23 @@
                         </div>
                     </div>
                     <div class="form-group" id="divAddKoordinatPenangkapan">
-                        <label>Koordinat/Jalur Penangkapan (SIPI) :</label>
-                        <div class="input-group col-xs-2">
+                        <label class="col-sm-2 control-label">Koordinat/Jalur Penangkapan</label>
+                        <div class="col-xs-2">
                             <com:TTextBox ID="txtAddKoordinatPenangkapan" CssClass="form-control" Attributes.PlaceHolder="Koordinat/Jalur" />			                            
-                        </div>
-                        <com:TRequiredFieldValidator ID="FieldAddKoordinatPenangkapanValidator" ControlToValidate="txtAddKoordinatPenangkapan" Display="Dynamic" ErrorMessage="Isi Koordinat/Jalur Penangkapan" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">			
-                            <prop:ClientSide.OnValidationError>
-                                $('divAddKoordinatPenangkapan').addClassName('has-error');
-                                jQuery('#<%=$this->FieldAddKoordinatPenangkapanValidator->ClientID%>').removeAttr('style');
-                            </prop:ClientSide.OnValidationError>
-                            <prop:ClientSide.OnValidationSuccess>
-                                $('divAddKoordinatPenangkapan').removeClassName('has-error');
-                            </prop:ClientSide.OnValidationSuccess>
-                        </com:TRequiredFieldValidator>                                            
+                            <com:TRequiredFieldValidator ID="FieldAddKoordinatPenangkapanValidator" ControlToValidate="txtAddKoordinatPenangkapan" Display="Dynamic" ErrorMessage="Isi Koordinat/Jalur Penangkapan" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">			
+                                <prop:ClientSide.OnValidationError>
+                                    $('divAddKoordinatPenangkapan').addClassName('has-error');
+                                    jQuery('#<%=$this->FieldAddKoordinatPenangkapanValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('divAddKoordinatPenangkapan').removeClassName('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>
+                        </div>                                                                    
                     </div>
                     <div class="form-group" id="divAddLokasiUsaha">
-                        <label>Lokasi Usaha :</label>
-                        <div class="input-group col-xs-2">
+                        <label class="col-sm-2 control-label">Lokasi Usaha</label>
+                        <div class="col-xs-3">
                             <com:TDropDownList ID="cmbAddLokasiUsaha" AutoPostBack="false" CssClass="form-control chosen" />                                                                                                        			                            
                             <com:TRequiredFieldValidator ID="FieldAddLokasiUsahaValidator" InitialValue="none" ControlToValidate="cmbAddLokasiUsaha" Display="Dynamic" ErrorMessage="Isi Lokasi Usaha" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">			
                                 <prop:ClientSide.OnValidationError>
@@ -330,17 +344,25 @@
                 </div>
             </com:TWizardStep>
             <com:TWizardStep ID="tahap5" Title="Isi Formulir Model A.2 - Keterangan Kapan" AllowReturn="true">
-                <div class="panel-heading-process">
-                    <h3 class='panel-title'>
+                <div class="box-header">
+                    <h3 class='box-title'>
                         <i class='fa fa-plus'></i>
                         TAMBAH SIPI (SURAT IZIN PENANGKAPAN IKAN) - ALAT TANGKAP
                     </h3>
+                    <div class="box-tools pull-right">
+                        <button data-widget="collapse" class="btn btn-primary btn-sm" onclick="JavaScript:return false;">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <button data-widget="remove" class="btn btn-primary btn-sm" onclick="pageredirect('<%=$this->constructUrl('perizinan.AddSIPI',true)%>');return false;">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="panel-body">
+                <div class="box-body">
                     <div class="form-group" id="divCmbAddJenisAlatTangkap">
-                        <label>Jenis Alat :</label>
-                        <div class="radio" style="padding-left:0px">
-                            <com:TDropDownList ID="cmbAddJenisAlat" AutoPostBack="false" CssClass="chosen-with-diselect" Width="250px;" />                                                                                                        
+                        <label class="col-sm-2 control-label">Jenis Alat</label>
+                        <div class="col-xs-3">
+                            <com:TDropDownList ID="cmbAddJenisAlat" AutoPostBack="false" CssClass="form-control chosen" />                                                                                                        
                             <com:TRequiredFieldValidator ID="FieldAddJenisAlatValidator" InitialValue="none" ControlToValidate="cmbAddJenisAlat" Display="Dynamic" ErrorMessage="Pilih Jenis Alat Penangkapan" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">				
                                 <prop:ClientSide.OnValidationError>
                                     $('divCmbAddJenisAlatTangkap').addClassName('has-error');
@@ -353,22 +375,24 @@
                         </div>
                     </div>
                     <div class="form-group" id="divAddJumlahAlat">
-                        <label>Jumlah Alat :</label>
-                        <com:TTextBox ID="txtAddJumlahAlat" CssClass="form-control" Width="80px" Attributes.OnKeyUp="formatangka(this,true)"  />			                            
-                        <com:TRequiredFieldValidator ID="FieldAddJumlahAlatValidator" ControlToValidate="txtAddJumlahAlat" Display="Dynamic" ErrorMessage="Isi Jumlah Alat Tangkap" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">			
-                            <prop:ClientSide.OnValidationError>
-                                $('divAddJumlahAlat').addClassName('has-error');
-                                jQuery('#<%=$this->FieldAddJumlahAlatValidator->ClientID%>').removeAttr('style');
-                            </prop:ClientSide.OnValidationError>
-                            <prop:ClientSide.OnValidationSuccess>
-                                $('divAddJumlahAlat').removeClassName('has-error');
-                            </prop:ClientSide.OnValidationSuccess>
-                        </com:TRequiredFieldValidator>                                            
+                        <label class="col-sm-2 control-label">Jumlah Alat</label>
+                        <div class="col-xs-2">
+                            <com:TTextBox ID="txtAddJumlahAlat" CssClass="form-control" Attributes.OnKeyUp="formatangka(this,true)"  />			                            
+                            <com:TRequiredFieldValidator ID="FieldAddJumlahAlatValidator" ControlToValidate="txtAddJumlahAlat" Display="Dynamic" ErrorMessage="Isi Jumlah Alat Tangkap" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">			
+                                <prop:ClientSide.OnValidationError>
+                                    $('divAddJumlahAlat').addClassName('has-error');
+                                    jQuery('#<%=$this->FieldAddJumlahAlatValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('divAddJumlahAlat').removeClassName('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>                                            
+                        </div>
                     </div>
                     <div class="form-group" id="divCmbAddBahanAlat">
-                        <label>Bahan Alat :</label>
-                        <div class="radio" style="padding-left:0px">
-                            <com:TDropDownList ID="cmbAddBahanAlat" AutoPostBack="false" CssClass="chosen-with-diselect" Width="250px;" />                                                                                                        
+                        <label class="col-sm-2 control-label">Bahan Alat</label>
+                        <div class="col-xs-3">
+                            <com:TDropDownList ID="cmbAddBahanAlat" AutoPostBack="false" CssClass="form-control chosen" />                                                                                                        
                             <com:TRequiredFieldValidator ID="FieldAddBahanAlatValidator" InitialValue="none" ControlToValidate="cmbAddBahanAlat" Display="Dynamic" ErrorMessage="Pilih Bahan Alat Tangkap dan Budidaya" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">				
                                 <prop:ClientSide.OnValidationError>
                                     $('divCmbAddBahanAlat').addClassName('has-error');
@@ -381,93 +405,130 @@
                         </div>
                     </div>
                     <div class="form-group" id="divAddUkuranPanjangAlat">
-                        <label>Ukuran Panjang :</label>
-                        <com:TTextBox ID="txtAddUkuranPanjangAlat" CssClass="form-control" Width="80px" Attributes.OnKeyUp="formatangka(this,true)"  />			                            
-                        <com:TRequiredFieldValidator ID="FieldAddUkuranPanjangAlatValidator" ControlToValidate="txtAddUkuranPanjangAlat" Display="Dynamic" ErrorMessage="Isi Ukuran Panjang Alat Tangkap" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">			
-                            <prop:ClientSide.OnValidationError>
-                                $('divAddUkuranPanjangAlat').addClassName('has-error');
-                                jQuery('#<%=$this->FieldAddUkuranPanjangAlatValidator->ClientID%>').removeAttr('style');
-                            </prop:ClientSide.OnValidationError>
-                            <prop:ClientSide.OnValidationSuccess>
-                                $('divAddUkuranPanjangAlat').removeClassName('has-error');
-                            </prop:ClientSide.OnValidationSuccess>
-                        </com:TRequiredFieldValidator>                                            
+                        <label class="col-sm-2 control-label">Ukuran Panjang</label>
+                        <div class="col-xs-2">
+                            <com:TTextBox ID="txtAddUkuranPanjangAlat" CssClass="form-control" Attributes.OnKeyUp="formatangka(this,true)"  />			                            
+                            <com:TRequiredFieldValidator ID="FieldAddUkuranPanjangAlatValidator" ControlToValidate="txtAddUkuranPanjangAlat" Display="Dynamic" ErrorMessage="Isi Ukuran Panjang Alat Tangkap" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">			
+                                <prop:ClientSide.OnValidationError>
+                                    $('divAddUkuranPanjangAlat').addClassName('has-error');
+                                    jQuery('#<%=$this->FieldAddUkuranPanjangAlatValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('divAddUkuranPanjangAlat').removeClassName('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>                                            
+                        </div>
                     </div>
                     <div class="form-group" id="divAddUkuranLebarAlat">
-                        <label>Ukuran Lebar : </label>
-                        <com:TTextBox ID="txtAddUkuranLebarAlat" CssClass="form-control" Width="80px" Attributes.OnKeyUp="formatangka(this,true)"  />			                            
-                        <com:TRequiredFieldValidator ID="FieldAddUkuranLebarAlatValidator" ControlToValidate="txtAddUkuranLebarAlat" Display="Dynamic" ErrorMessage="Isi Ukuran Lebar Alat Tangkap" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">			
-                            <prop:ClientSide.OnValidationError>
-                                $('divAddUkuranLebarAlat').addClassName('has-error');
-                                jQuery('#<%=$this->FieldAddUkuranLebarAlatValidator->ClientID%>').removeAttr('style');
-                            </prop:ClientSide.OnValidationError>
-                            <prop:ClientSide.OnValidationSuccess>
-                                $('divAddUkuranLebarAlat').removeClassName('has-error');
-                            </prop:ClientSide.OnValidationSuccess>
-                        </com:TRequiredFieldValidator>                                            
+                        <label class="col-sm-2 control-label">Ukuran Lebar </label>
+                        <div class="col-xs-2">
+                            <com:TTextBox ID="txtAddUkuranLebarAlat" CssClass="form-control" Attributes.OnKeyUp="formatangka(this,true)"  />			                            
+                            <com:TRequiredFieldValidator ID="FieldAddUkuranLebarAlatValidator" ControlToValidate="txtAddUkuranLebarAlat" Display="Dynamic" ErrorMessage="Isi Ukuran Lebar Alat Tangkap" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">			
+                                <prop:ClientSide.OnValidationError>
+                                    $('divAddUkuranLebarAlat').addClassName('has-error');
+                                    jQuery('#<%=$this->FieldAddUkuranLebarAlatValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('divAddUkuranLebarAlat').removeClassName('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>                                            
+                        </div>
                     </div>
                     <div class="form-group" id="divAddUkuranTinggiAlat">
-                        <label>Ukuran Tinggi :</label>
-                        <com:TTextBox ID="txtAddUkuranTinggiAlat" CssClass="form-control" Width="80px" Attributes.OnKeyUp="formatangka(this,true)"  />			                            
-                        <com:TRequiredFieldValidator ID="FieldAddUkuranTinggiAlatValidator" ControlToValidate="txtAddUkuranTinggiAlat" Display="Dynamic" ErrorMessage="Isi Ukuran Tinggi Alat Tangkap" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">			
-                            <prop:ClientSide.OnValidationError>
-                                $('divAddUkuranTinggiAlat').addClassName('has-error');
-                                jQuery('#<%=$this->FieldAddUkuranTinggiAlatValidator->ClientID%>').removeAttr('style');
-                            </prop:ClientSide.OnValidationError>
-                            <prop:ClientSide.OnValidationSuccess>
-                                $('divAddUkuranTinggiAlat').removeClassName('has-error');
-                            </prop:ClientSide.OnValidationSuccess>
-                        </com:TRequiredFieldValidator>                                            
+                        <label class="col-sm-2 control-label">Ukuran Tinggi</label>
+                        <div class="col-xs-2">
+                            <com:TTextBox ID="txtAddUkuranTinggiAlat" CssClass="form-control" Attributes.OnKeyUp="formatangka(this,true)"  />			                            
+                            <com:TRequiredFieldValidator ID="FieldAddUkuranTinggiAlatValidator" ControlToValidate="txtAddUkuranTinggiAlat" Display="Dynamic" ErrorMessage="Isi Ukuran Tinggi Alat Tangkap" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">			
+                                <prop:ClientSide.OnValidationError>
+                                    $('divAddUkuranTinggiAlat').addClassName('has-error');
+                                    jQuery('#<%=$this->FieldAddUkuranTinggiAlatValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('divAddUkuranTinggiAlat').removeClassName('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>                                            
+                        </div>
                     </div>
                     <div class="form-group" id="divAddUkuranSizeMataAlat">
-                        <label>Ukuran Size Mata : </label>
-                        <com:TTextBox ID="txtAddUkuranSizeMataAlat" CssClass="form-control" Width="80px" Attributes.OnKeyUp="formatangka(this,true)"  />			                            
-                        <com:TRequiredFieldValidator ID="FieldAddUkuranSizeMataAlatValidator" ControlToValidate="txtAddUkuranSizeMataAlat" Display="Dynamic" ErrorMessage="Isi Ukuran Size Mata Alat Tangkap" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">			
-                            <prop:ClientSide.OnValidationError>
-                                $('divAddUkuranSizeMataAlat').addClassName('has-error');
-                                jQuery('#<%=$this->FieldAddUkuranSizeMataAlatValidator->ClientID%>').removeAttr('style');
-                            </prop:ClientSide.OnValidationError>
-                            <prop:ClientSide.OnValidationSuccess>
-                                $('divAddUkuranSizeMataAlat').removeClassName('has-error');
-                            </prop:ClientSide.OnValidationSuccess>
-                        </com:TRequiredFieldValidator>                                            
+                        <label class="col-sm-2 control-label">Ukuran Size Mata </label>
+                        <div class="col-xs-2">
+                            <com:TTextBox ID="txtAddUkuranSizeMataAlat" CssClass="form-control" Attributes.OnKeyUp="formatangka(this,true)"  />			                            
+                            <com:TRequiredFieldValidator ID="FieldAddUkuranSizeMataAlatValidator" ControlToValidate="txtAddUkuranSizeMataAlat" Display="Dynamic" ErrorMessage="Isi Ukuran Size Mata Alat Tangkap" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">			
+                                <prop:ClientSide.OnValidationError>
+                                    $('divAddUkuranSizeMataAlat').addClassName('has-error');
+                                    jQuery('#<%=$this->FieldAddUkuranSizeMataAlatValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('divAddUkuranSizeMataAlat').removeClassName('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>                                            
+                        </div>
                     </div>                   
                 </div>            
             </com:TWizardStep>
             <com:TWizardStep ID="tahap6" Title="Isi Formulir Model A.2 - KETERANGAN MENGENAI KAPAL" AllowReturn="true">
-                <div class="panel-heading-process">
-                    <h3 class='panel-title'>
+                <div class="box-header">
+                    <h3 class='box-title'>
                         <i class='fa fa-plus'></i>
                         TAMBAH SIPI (SURAT IZIN PENANGKAPAN IKAN) - KETERANGAN MENGENAI KAPAL
                     </h3>
+                    <div class="box-tools pull-right">
+                        <button data-widget="collapse" class="btn btn-primary btn-sm" onclick="JavaScript:return false;">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <button data-widget="remove" class="btn btn-primary btn-sm" onclick="pageredirect('<%=$this->constructUrl('perizinan.AddSIPI',true)%>');return false;">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="panel-body">
-                    <com:TActiveDropDownList ID="cmbAddKapal" CssClass="form-control chosen" Width="450px">
-                        <prop:ClientSide.OnPreDispatch>
-                            $('loading').show();                                             
-                            $('<%=$this->cmbAddKapal->ClientId%>').disabled='disabled';						
-                        </prop:ClientSide.OnPreDispatch>
-                        <prop:ClientSide.OnLoading>
-                            $('<%=$this->cmbAddKapal->ClientId%>').disabled='disabled';						
-                        </prop:ClientSide.OnLoading>
-                        <prop:ClientSide.OnComplete>																	
-                            $('<%=$this->cmbAddKapal->ClientId%>').disabled='';						                                            
-                            $('loading').hide(); 
-                        </prop:ClientSide.OnComplete>
-                    </com:TActiveDropDownList>
-                    <com:TRequiredFieldValidator ID="FieldAddKapalValidator" ControlToValidate="cmbAddKapal" Display="Dynamic" ErrorMessage="Pilih Kapal" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block" />				                                                    
+                <div class="box-body">
+                    <div class="form-group" id="divCmbAddKapal">
+                        <label class="col-sm-2 control-label">Pilih Kapal</label>
+                        <div class="col-xs-3">
+                            <com:TActiveDropDownList ID="cmbAddKapal" CssClass="form-control chosen">
+                                <prop:ClientSide.OnPreDispatch>
+                                    $('loading').show();                                             
+                                    $('<%=$this->cmbAddKapal->ClientId%>').disabled='disabled';						
+                                </prop:ClientSide.OnPreDispatch>
+                                <prop:ClientSide.OnLoading>
+                                    $('<%=$this->cmbAddKapal->ClientId%>').disabled='disabled';						
+                                </prop:ClientSide.OnLoading>
+                                <prop:ClientSide.OnComplete>																	
+                                    $('<%=$this->cmbAddKapal->ClientId%>').disabled='';						                                            
+                                    $('loading').hide(); 
+                                </prop:ClientSide.OnComplete>
+                            </com:TActiveDropDownList>
+                            <com:TRequiredFieldValidator ID="FieldAddKapalValidator" ControlToValidate="cmbAddKapal" Display="Dynamic" ErrorMessage="Pilih Kapal" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">				                                                    
+                                <prop:ClientSide.OnValidationError>
+                                    $('divCmbAddKapal').addClassName('has-error');
+                                    jQuery('#<%=$this->FieldAddKapalValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('divCmbAddKapal').removeClassName('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>
+                        </div>
+                    </div>
                 </div>
             </com:TWizardStep>
             <com:TWizardStep ID="tahap7" Title="Isi Formulir Model A.2 - TENAGA KERJA" AllowReturn="true">
-                <div class="panel-heading-process">
-                    <h3 class='panel-title'>
+                <div class="box-header">
+                    <h3 class='box-title'>
                         <i class='fa fa-plus'></i>
                         TAMBAH SIPI (SURAT IZIN PENANGKAPAN IKAN) - TENAGA KERJA
                     </h3>
+                    <div class="box-tools pull-right">
+                        <button data-widget="collapse" class="btn btn-primary btn-sm" onclick="JavaScript:return false;">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <button data-widget="remove" class="btn btn-primary btn-sm" onclick="pageredirect('<%=$this->constructUrl('perizinan.AddSIPI',true)%>');return false;">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="panel-body">
+                <div class="box-body">
                     <div class="form-group" id="divAddJumlahTenagaKerja">
-                        <label>Berapa Banyak Tenaga Kerja yang Digunakan :</label>
+                        <label class="col-sm-2 control-label">Jumlah Tenaga Kerja</label>
                         <div class="input-group col-xs-1">
                             <com:TTextBox ID="txtAddJumlahTenagaKerja" CssClass="form-control" Attributes.PlaceHolder="Jumlah" Attributes.OnKeyUp="formatangka(this,false)" />			                            
                         </div>
@@ -484,80 +545,104 @@
                 </div>
             </com:TWizardStep>
             <com:TWizardStep ID="tahap8" Title="Isi Formulir Model A.2 - PEMBAGIAN HASIL USAHA" AllowReturn="true">
-                <div class="panel-heading-process">
-                    <h3 class='panel-title'>
+                <div class="box-header">
+                    <h3 class='box-title'>
                         <i class='fa fa-plus'></i>
                         TAMBAH SIPI (SURAT IZIN PENANGKAPAN IKAN) - RENCANA PEMBAGIAN HASIL USAHA   
                     </h3>
+                    <div class="box-tools pull-right">
+                        <button data-widget="collapse" class="btn btn-primary btn-sm" onclick="JavaScript:return false;">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <button data-widget="remove" class="btn btn-primary btn-sm" onclick="pageredirect('<%=$this->constructUrl('perizinan.AddSIPI',true)%>');return false;">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="panel-body">
+                <div class="box-body">
                     <div class="alert alert-info alert-dismissable">
                         <i class="fa fa-info"></i>                        
                         <b>Jelaskan cara pembagian hasil usaha.</b>                        
                     </div>
                     <div class="form-group">
-                        <label>Bagi Hasil :</label>
-                        <div class="input-group col-xs-7">
+                        <label class="col-sm-2 control-label">Bagi Hasil</label>
+                        <div class="col-xs-7">
                             <com:TTextBox ID="txtAddPembagianHasilUsahaBagiHasil" CssClass="form-control" Attributes.PlaceHolder="Bagi Hasil" TextMode="MultiLine" />			                                                    
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Upah :</label>
-                        <div class="input-group col-xs-7">
+                        <label class="col-sm-2 control-label">Upah</label>
+                        <div class="col-xs-7">
                             <com:TTextBox ID="txtAddPembagianHasilUsahaUpah" CssClass="form-control" Attributes.PlaceHolder="Upah" TextMode="MultiLine" />			                                                    
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Gaji :</label>
-                        <div class="input-group col-xs-7">
+                        <label class="col-sm-2 control-label">Gaji</label>
+                        <div class="col-xs-7">
                             <com:TTextBox ID="txtAddPembagianHasilUsahaGaji" CssClass="form-control" Attributes.PlaceHolder="Gaji" TextMode="MultiLine" />			                                                    
                         </div>
                     </div>
                 </div>
             </com:TWizardStep>
             <com:TWizardStep ID="tahap9" Title="Isi Formulir Model A.2 - RENCANA HASIL PEMASARAN" AllowReturn="true">
-                <div class="panel-heading-process">
-                    <h3 class='panel-title'>
+                <div class="box-header">
+                    <h3 class='box-title'>
                         <i class='fa fa-plus'></i>
                         TAMBAH SIPI (SURAT IZIN PENANGKAPAN IKAN) - RENCANA HASIL PEMASARAN  
                     </h3>
+                    <div class="box-tools pull-right">
+                        <button data-widget="collapse" class="btn btn-primary btn-sm" onclick="JavaScript:return false;">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <button data-widget="remove" class="btn btn-primary btn-sm" onclick="pageredirect('<%=$this->constructUrl('perizinan.AddSIPI',true)%>');return false;">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="panel-body">
+                <div class="box-body">
                     <div class="alert alert-info alert-dismissable">
                         <i class="fa fa-info"></i>                        
                         <b>Rencana Pemasaran hasil Usaha Perikanan (sebut nama tempat dan nama yang menerima hasil tersebut)</b>                        
                     </div>
                     <div class="form-group">
-                        <label>Lokal/Dalam Daerah :</label>
-                        <div class="input-group col-xs-7">
+                        <label class="col-sm-2 control-label">Lokal/Dalam Daerah</label>
+                        <div class="col-xs-7">
                             <com:TTextBox ID="txtAddPemasaranHasilUsahaLokal" CssClass="form-control" Attributes.PlaceHolder="Lokal/Dalam Daerah" TextMode="MultiLine" />			                                                    
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Nasional/Domestik :</label>
-                        <div class="input-group col-xs-7">
+                        <label class="col-sm-2 control-label">Nasional/Domestik</label>
+                        <div class="col-xs-7">
                             <com:TTextBox ID="txtAddPemasaranHasilUsahaDomestik" CssClass="form-control" Attributes.PlaceHolder="Nasional/Domestik" TextMode="MultiLine" />			                                                    
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Internasional :</label>
-                        <div class="input-group col-xs-7">
+                        <label class="col-sm-2 control-label">Internasional</label>
+                        <div class="col-xs-7">
                             <com:TTextBox ID="txtAddPemasaranHasilUsahaInternasional" CssClass="form-control" Attributes.PlaceHolder="Internasional" TextMode="MultiLine" />			                                                    
                         </div>
                     </div>
                 </div>
             </com:TWizardStep>
             <com:TWizardStep Title="Summary" AllowReturn="true" StepType="Complete">
-                <div class="panel-heading-process">
-                    <h3 class='panel-title'>
+                <div class="box-header">
+                    <h3 class='box-title'>
                         <i class='fa fa-plus'></i>
                         TAMBAH SIPI (SURAT IZIN PENANGKAPAN IKAN) - SUMMARY INPUT
                     </h3>
+                    <div class="box-tools pull-right">
+                        <button data-widget="collapse" class="btn btn-primary btn-sm" onclick="JavaScript:return false;">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <button data-widget="remove" class="btn btn-primary btn-sm" onclick="pageredirect('<%=$this->constructUrl('perizinan.AddSIPI',true)%>');return false;">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="panel-body">
+                <div class="box-body">
                     
                 </div>
-                <div class="panel-footer">
+                <div class="box-footer">
                     <com:TActiveLinkButton ID="btnSave" CssClass="btn btn-primary" OnClick="saveData">
                         <prop:Text><i class="fa fa-save"></i> Simpan</prop:Text>
                         <prop:ClientSide.OnPreDispatch>

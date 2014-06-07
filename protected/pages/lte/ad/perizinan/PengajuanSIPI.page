@@ -5,46 +5,102 @@
 <com:TContent ID="csscontent">
     <link rel="stylesheet" type="text/css" href="<%=$this->page->theme->baseUrl%>/js/plugins/chosen-bootstrap/chosen.min.css" />
 </com:TContent>
+<com:TContent ID="modulebreadcrumb">    
+    <li><a href="#">Daftar Pengajuan</a></li>
+    <li class="active">SIPI</li>
+</com:TContent>
 <com:TContent ID="maincontent">
     <com:THiddenField ID="hiddenid" />
-    <com:TPanel Visible="<%= $this->getAddProcess(false) %>">            
+    <com:TPanel Visible="<%= $this->getViewProcess(false) %>">       
+        <%include Application.pages.lte.DataPemohon%>            
         <div class="row">
-            <div class="col-md-12">
-                <div class="box box-solid box-primary">
-                    <div class="box-header">
-                        <h3 class="box-title"><i class="fa fa-ticket"></i> Verifikasi Pengajuan SIPI</h3>
-                        <div class="box-tools pull-right">
-                            <button data-widget="collapse" class="btn btn-primary btn-sm" onclick="JavaScript:return false;">
-                                <i class="fa fa-minus"></i>
-                            </button>
-                            <button data-widget="remove" class="btn btn-primary btn-sm" onclick="JavaScript:return false;">
-                                <i class="fa fa-times"></i>
-                            </button>
+            <div class="col-md-12">            
+                <com:TActiveMultiView ID="MultiView" OnActiveViewChanged="viewChanged">                            
+                    <com:TView ID="ViewVerifikasiData">
+                        <div class="nav-tabs-custom">
+                            <%include Application.pages.lte.ad.perizinan.TabMenuPengajuan%>
+                            <div class="tab-content">
+                                <div class="tab-pane active">
+                                    <h3>Kelengkapan Persyaratan Permohonan BUKU KAPAL</h3>
+                                    <com:TCheckBoxList ID="listSyaratPermohonanBUKUKAPAL">
+                                        <com:TListItem Value="model_a_1" Text="&nbsp;Model A.1" />
+                                        <com:TListItem Value="model_a_2" Text="&nbsp;Model A.2" />
+                                        <com:TListItem Value="foto_kapal" Text="&nbsp;Foto Kapal" />
+                                        <com:TListItem Value="fc_ktp" Text="&nbsp;Foto Copy Kartu Tanda Penduduk (KTP) Pemohon" />
+                                        <com:TListItem Value="materai_6000" Text="&nbsp;Materai Rp. 6000" />
+                                        <com:TListItem Value="pas_tahunan" Text="&nbsp;Pas Tahunan (Pas Kecil dari Dinas Perhubungan/Pas Besar dari Sahbandar)" />
+                                        <com:TListItem Value="surat_pengantar" Text="&nbsp;Surat Pengantar dari Kepala UPT. Dinas Kelautan dan Perikanan Kabupaten Bintan Kecamatan" />                            
+                                    </com:TCheckBoxList>
+                                    <h3>Kelengkapan Persyaratan Permohonan SIUP</h3>
+                                    <com:TCheckBoxList ID="listSyaratPermohonanSIUP">
+                                        <com:TListItem Value="model_a_1" Text="&nbsp;Model A.1 Bermaterai Rp. 6000" />
+                                        <com:TListItem Value="model_a_2" Text="&nbsp;Model A.2" />                            
+                                        <com:TListItem Value="fc_ktp" Text="&nbsp;Foto Copy Kartu Tanda Penduduk (KTP) Pemohon" />
+                                        <com:TListItem Value="foto_kapal" Text="&nbsp;Pas Foto 3 x 4 4(empat) lembar" />
+                                        <com:TListItem Value="materai_6000" Text="&nbsp;Materai Rp. 6000" />
+                                        <com:TListItem Value="pemeriksaan_fisik" Text="&nbsp;Permohonan Pemeriksaan Fisik Usaha" />
+                                        <com:TListItem Value="hasil_pemeriksaan_fisik" Text="&nbsp;Surat hasil Pemeriksaan Fisik dari Petugas Pemeriksa Fisik" />
+                                        <com:TListItem Value="pas_tahunan" Text="&nbsp;Pas Tahunan (Pas Kecil dari Dinas Perhubungan/Pas Besar dari Sahbandar)" />
+                                        <com:TListItem Value="pembayaran_retribusi" Text="&nbsp;Bukti Pembayaran Retribusi Pemasaran/Penjualan hasil usaha perikanan" />
+                                        <com:TListItem Value="pernyataan_keabsahan" Text="&nbsp;Surat Pernyataan Keabsahan Dokumen bermaterai Rp. 6000" />
+                                        <com:TListItem Value="surat_pengantar" Text="&nbsp;Surat Pengantar dari Kepala UPT. Dinas Kelautan dan Perikanan Kabupaten Bintan Kecamatan" />                            
+                                    </com:TCheckBoxList>
+                                    <h3>Kelengkapan Persyaratan Permohonan SIPI</h3>
+                                    <com:TCheckBoxList ID="listSyaratPermohonanSIPI">
+                                        <com:TListItem Value="model_a_2" Text="&nbsp;Model A.2" />
+                                        <com:TListItem Value="pas_kecil" Text="&nbsp;Salinan Pas Kecil Kapal Penangkap Ikan" />
+                                        <com:TListItem Value="sertifikat_kelaikan" Text="&nbsp;Salinan Sertifikat Kelaikan dan Pengawakan Kapal Penangkap Ikan." />
+                                        <com:TListItem Value="pemeriksaan_fisik" Text="&nbsp;Permohonan Pemeriksaan Fisik Kapal Perikanan" /> 
+                                        <com:TListItem Value="hasil_pemeriksaan_fisik" Text="&nbsp;Surat hasil Pemeriksaan Fisik Kapal Perikanan dari Petugas Pemeriksa Fisik" />
+                                        <com:TListItem Value="pernyataan_keabsahan" Text="&nbsp;Surat Pernyataan Keabsahan Dokumen bermaterai Rp. 6000" />
+                                        <com:TListItem Value="materai_6000" Text="&nbsp;Materai Rp. 6000" />
+                                        <com:TListItem Value="surat_pengantar" Text="&nbsp;Surat Pengantar dari Kepala UPT. Dinas Kelautan dan Perikanan Kabupaten Bintan Kecamatan " />                                                        
+                                    </com:TCheckBoxList>
+                                    <com:TActiveLinkButton ID="btnVerifikasi" CssClass="btn btn-primary" OnClick="verifikasiData">
+                                        <prop:Text><i class="fa fa-save"></i> Verifikasi</prop:Text>
+                                        <prop:ClientSide.OnPreDispatch>
+                                            $('loading').show();                                             
+                                            $('<%=$this->btnVerifikasi->ClientId%>').disabled='disabled';						
+                                        </prop:ClientSide.OnPreDispatch>
+                                        <prop:ClientSide.OnLoading>
+                                            $('<%=$this->btnVerifikasi->ClientId%>').disabled='disabled';						
+                                        </prop:ClientSide.OnLoading>
+                                        <prop:ClientSide.OnComplete>																	
+                                            $('<%=$this->btnVerifikasi->ClientId%>').disabled='';						                                            
+                                            $('loading').hide(); 
+                                        </prop:ClientSide.OnComplete>
+                                    </com:TActiveLinkButton>
+                                </div><!-- /.tab-pane -->                            
+                            </div><!-- /.tab-content -->
                         </div>
-                    </div>
-                    <div class="box-body">
-                        
-                    </div>
-                    <div class="box-footer">
-                        <com:TActiveLinkButton ID="btnVerifikasi" CssClass="btn btn-primary" OnClick="verifikasiData">
-                        <prop:Text><i class="fa fa-save"></i> Verifikasi</prop:Text>
-                        <prop:ClientSide.OnPreDispatch>
-                            $('loading').show();                                             
-                            $('<%=$this->btnVerifikasi->ClientId%>').disabled='disabled';						
-                        </prop:ClientSide.OnPreDispatch>
-                        <prop:ClientSide.OnLoading>
-                            $('<%=$this->btnVerifikasi->ClientId%>').disabled='disabled';						
-                        </prop:ClientSide.OnLoading>
-                        <prop:ClientSide.OnComplete>																	
-                            $('<%=$this->btnVerifikasi->ClientId%>').disabled='';						                                            
-                            $('loading').hide(); 
-                        </prop:ClientSide.OnComplete>
-                    </com:TActiveLinkButton>
-                    </div>
-                </div>
-            </div>
+                    </com:TView>    
+                    <com:TView ID="ViewApprovalPengajuan">
+                        <div class="nav-tabs-custom">
+                            <%include Application.pages.lte.ad.perizinan.TabMenuPengajuan%>
+                            <div class="tab-content">
+                                <div class="tab-pane active">
+                                    <com:TActiveLinkButton ID="btnApproval" CssClass="btn btn-primary" OnClick="approvalData">
+                                        <prop:Text><i class="fa fa-save"></i> Approve</prop:Text>
+                                        <prop:ClientSide.OnPreDispatch>
+                                            $('loading').show();                                             
+                                            $('<%=$this->btnApproval->ClientId%>').disabled='disabled';						
+                                        </prop:ClientSide.OnPreDispatch>
+                                        <prop:ClientSide.OnLoading>
+                                            $('<%=$this->btnApproval->ClientId%>').disabled='disabled';						
+                                        </prop:ClientSide.OnLoading>
+                                        <prop:ClientSide.OnComplete>																	
+                                            $('<%=$this->btnApproval->ClientId%>').disabled='';						                                            
+                                            $('loading').hide(); 
+                                        </prop:ClientSide.OnComplete>
+                                    </com:TActiveLinkButton> 
+                                </div><!-- /.tab-pane -->                            
+                            </div><!-- /.tab-content -->
+                        </div>
+                    </com:TView>    
+                </com:TActiveMultiView>                            
+            </div>        
         </div>
-    </com:TPanel>
+    </com:TPanel>    
     <com:TPanel Visible="<%= $this->getDefaultProcess(false) %>">
         <div class="row">
             <div class="col-md-12">
@@ -52,14 +108,19 @@
                     <div class="box-header">
                         <h3 class="box-title"><i class="fa fa-search"></i> Filter dan Pencarian</h3>
                         <div class="box-tools pull-right">
-                            
+                            <button data-widget="collapse" class="btn btn-info btn-sm" onclick="JavaScript:return false;">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                            <button data-widget="remove" class="btn btn-info btn-sm" onclick="JavaScript:return false;">
+                                <i class="fa fa-times"></i>
+                            </button>
                         </div>
                     </div>
                     <div class="box-body">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Jenis Pengajuan:</label>
+                                    <label class="col-sm-4 control-label">Jenis Pengajuan :</label>
                                     <div class="input-group col-xs-5">
                                         <com:TActiveDropDownList ID="cmbJenisPengajuan" OnSelectedIndexChanged="changeStatusPengajuan" CssClass="form-control">
                                             <com:TListItem Value="none" Text="SELURUH JENIS" />
@@ -76,7 +137,7 @@
                                                 $('<%=$this->cmbJenisPengajuan->ClientId%>').disabled='';						                                            
                                                 $('loading').hide(); 
                                             </prop:ClientSide.OnComplete>
-                                        </com:TActiveDropDownList>
+                                        </com:TActiveDropDownList>                                    
                                     </div>
                                 </div>
                             </div>
@@ -94,22 +155,24 @@
                     <div class="box-header">
                         <h3 class="box-title"><i class="fa fa-ticket"></i> Daftar Pengajuan SIPI <com:TActiveLabel ID="labelDaftarPengajuan" /></h3>
                         <div class="box-tools pull-right">
-                            
+                            <button data-widget="collapse" class="btn btn-primary btn-sm" onclick="JavaScript:return false;">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                            <button data-widget="remove" class="btn btn-primary btn-sm" onclick="JavaScript:return false;">
+                                <i class="fa fa-times"></i>
+                            </button>
                         </div>
                     </div>
-                    <div class="box-body">
-                        <p class="text-right">                            
-                            <com:TActiveHyperLink ID="linkOutput" />
-                        </p>
-                        <com:TActiveRepeater ID="RepeaterS" DataKeyField="RecNoSiup" AllowPaging="true" PageSize="10" AllowCustomPaging="true">
+                    <div class="box-body">                        
+                        <com:TActiveRepeater ID="RepeaterS" DataKeyField="RecNoBup" AllowPaging="true" PageSize="10" AllowCustomPaging="true">
                             <prop:HeaderTemplate>			
                                 <table class="table table-striped">	                                    
                                     <tbody>
                                     <tr>                                                                
                                         <th style="width:18px" class="text-center">NO</th>
                                         <th class="text-center">NO. REGISTRASI</th>
-                                        <th class="text-center">NAMA PEMOHON</th>                        
-                                        <th class="text-center">JENIS <br />PERMOHONAN</th>                                                                                                        
+                                        <th class="text-center">NAMA PEMOHON<br />PERUSAHAAN/PEMOHON</th>                        
+                                        <th class="text-center">JENIS <br />PERMOHONAN</th>                                                                                                                                                
                                         <th class="text-center">TGL. DAFTAR</th>
                                         <th class="text-center">STATUS</th>
                                         <th class="text-center">AKSI</th>							
@@ -120,57 +183,23 @@
                                     <td><%#$this->DataItem['no']%></td>
                                     <td class="text-center"><%#$this->DataItem['NoRegSiup']%></td>	
                                     <td><%#$this->DataItem['NmPem']%></td>
-                                    <td class="text-center"><span class="label label-primary"><%#strtoupper($this->DataItem['JnsDtSIUP'])%></span></td>
+                                    <td class="text-center"><span class="label label-primary"><%#strtoupper($this->DataItem['JnsDtSIUP'])%></span></td>                                    
                                     <td class="text-center"><%#$this->Page->TGL->tanggal('d/m/Y',$this->DataItem['date_added'])%></td> 
-                                    <td class="text-center"><span class="label <%#$this->DataItem['StatusSiup']=='registered'?'label-warning':'label-success'%>"><%#$this->DataItem['StatusSiup']%></span></td>
+                                    <td class="text-center"><span class="label <%#$this->DataItem['StatusBup']=='registered'?'label-warning':'label-success'%>"><%#$this->DataItem['StatusBup']%></span></td>                                    
                                     <td class="text-center">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-default btn-flat">Aksi</button>
-                                            <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
-                                                <span class="caret"></span>
-                                                <span class="sr-only">Toggle Dropdown</span>
-                                            </button>
-                                            <ul class="dropdown-menu text-left" role="menu">
-                                                <li>
-                                                    <com:TLinkButton CausesValidation="false" Text="Ubah Pengajuan" Attributes.Title="Ubah Pengajuan" OnClick="Page.editRecord" />
-                                                </li>
-                                                <li>
-                                                    <com:TActiveLinkButton ID="btnDeleteRecord" CausesValidation="false" ClientSide.PostState="false" OnClick="Page.deleteRecord" Attributes.Title="Hapus Pengajuan" Text="Hapus Pengajuan" Attributes.OnClick="if(!confirm('Anda ingin menghapus permohonan SIPI ini ?')) return false;">
-                                                        <prop:ClientSide.OnPreDispatch>
-                                                            $('loading').show();                                                                                         
-                                                            $('<%=$this->btnDeleteRecord->ClientId%>').disabled='disabled';									                                
-                                                        </prop:ClientSide.OnPreDispatch>
-                                                        <prop:ClientSide.OnLoading>
-                                                            $('<%=$this->btnDeleteRecord->ClientId%>').disabled='disabled';									                                
-                                                        </prop:ClientSide.OnLoading>
-                                                        <prop:ClientSide.onComplete>                                            
-                                                            $('loading').hide();
-                                                        </prop:ClientSide.OnComplete>
-                                                    </com:TActiveLinkButton>
-                                                </li>                                                
-                                                <li>
-                                                    <com:TLinkButton ID="btnVerifikasi" CausesValidation="false" OnClick="Page.viewVerifikasiPengajuan" Attributes.Title="Verifikasi Pengajuan" Text="Verifikasi">
-                                                        
-                                                    </com:TLinkButton>
-                                                </li>                                                
-                                                <li class="divider"></li>
-                                                <li>
-                                                    <com:TActiveLinkButton ID="btnPrintFormStandarPemeriksaanFisikKapal" CausesValidation="false" ClientSide.PostState="false" OnClick="Page.printOut" Attributes.Title="Print Form Pemeriksaan Fisik Kapal" Text="Print Form <br />Pemeriksaan <br />Fisik Kapal">
-                                                        <prop:ClientSide.OnPreDispatch>
-                                                            $('loading').show();                                                                                         
-                                                            $('<%=$this->btnPrintFormStandarPemeriksaanFisikKapal->ClientId%>').disabled='disabled';									                                
-                                                        </prop:ClientSide.OnPreDispatch>
-                                                        <prop:ClientSide.OnLoading>
-                                                            $('<%=$this->btnPrintFormStandarPemeriksaanFisikKapal->ClientId%>').disabled='disabled';									                                
-                                                        </prop:ClientSide.OnLoading>
-                                                        <prop:ClientSide.onComplete>                                            
-                                                            $('loading').hide();
-                                                        </prop:ClientSide.OnComplete>
-                                                    </com:TActiveLinkButton>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </td>
+                                        <com:TActiveLinkButton ID="btnDetail" CausesValidation="false" ClientSide.PostState="false" OnClick="Page.viewDetailPengajuan" Attributes.Title="Detail Pengajuan" Text="<i class='fa fa-wrench'></i> Detail" CommandParameter="<%#$this->DataItem['RecNoSiup']%>" CssClass="btn btn-info bg-purple btn-sm">                                                                                                            
+                                            <prop:ClientSide.OnPreDispatch>
+                                                $('loading').show();                                                                                         
+                                                $('<%=$this->btnDetail->ClientId%>').disabled='disabled';									                                
+                                            </prop:ClientSide.OnPreDispatch>
+                                            <prop:ClientSide.OnLoading>
+                                                $('<%=$this->btnDetail->ClientId%>').disabled='disabled';									                                
+                                            </prop:ClientSide.OnLoading>
+                                            <prop:ClientSide.onComplete>                                            
+                                                $('loading').hide();
+                                            </prop:ClientSide.OnComplete>
+                                        </com:TActiveLinkButton>
+                                    </td>                                   
                                 </tr>
                             </prop:ItemTemplate>				
                             <prop:AlternatingItemTemplate>
@@ -178,56 +207,22 @@
                                     <td><%#$this->DataItem['no']%></td>
                                     <td class="text-center"><%#$this->DataItem['NoRegSiup']%></td>	
                                     <td><%#$this->DataItem['NmPem']%></td>
-                                    <td class="text-center"><span class="label label-primary"><%#strtoupper($this->DataItem['JnsDtSIUP'])%></span></td>
+                                    <td class="text-center"><span class="label label-primary"><%#strtoupper($this->DataItem['JnsDtSIUP'])%></span></td>                                    
                                     <td class="text-center"><%#$this->Page->TGL->tanggal('d/m/Y',$this->DataItem['date_added'])%></td> 
-                                    <td class="text-center"><span class="label label-warning"><%#$this->DataItem['StatusSiup']%></span></td>
+                                    <td class="text-center"><span class="label label-warning"><%#$this->DataItem['StatusBup']%></span></td>                                    
                                     <td class="text-center">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-default btn-flat">Aksi</button>
-                                            <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
-                                                <span class="caret"></span>
-                                                <span class="sr-only">Toggle Dropdown</span>
-                                            </button>
-                                            <ul class="dropdown-menu text-left" role="menu">
-                                                <li>
-                                                    <com:TLinkButton CausesValidation="false" Text="Ubah Pengajuan" Attributes.Title="Ubah Pengajuan" OnClick="Page.editRecord" />
-                                                </li>
-                                                <li>
-                                                    <com:TActiveLinkButton ID="btnDeleteRecord" CausesValidation="false" ClientSide.PostState="false" OnClick="Page.deleteRecord" Attributes.Title="Hapus Pengajuan" Text="Hapus Pengajuan" Attributes.OnClick="if(!confirm('Anda ingin menghapus permohonan SIPI ini ?')) return false;">
-                                                        <prop:ClientSide.OnPreDispatch>
-                                                            $('loading').show();                                                                                         
-                                                            $('<%=$this->btnDeleteRecord->ClientId%>').disabled='disabled';									                                
-                                                        </prop:ClientSide.OnPreDispatch>
-                                                        <prop:ClientSide.OnLoading>
-                                                            $('<%=$this->btnDeleteRecord->ClientId%>').disabled='disabled';									                                
-                                                        </prop:ClientSide.OnLoading>
-                                                        <prop:ClientSide.onComplete>                                            
-                                                            $('loading').hide();
-                                                        </prop:ClientSide.OnComplete>
-                                                    </com:TActiveLinkButton>
-                                                </li>                                                
-                                                <li>
-                                                    <com:TLinkButton ID="btnVerifikasi" CausesValidation="false" OnClick="Page.viewVerifikasiPengajuan" Attributes.Title="Verifikasi Pengajuan" Text="Verifikasi">
-                                                        
-                                                    </com:TLinkButton>
-                                                </li>                                                
-                                                <li class="divider"></li>
-                                                <li>
-                                                    <com:TActiveLinkButton ID="btnPrintFormStandarPemeriksaanFisikKapal" CausesValidation="false" ClientSide.PostState="false" OnClick="Page.printOut" Attributes.Title="Print Form Pemeriksaan Fisik Kapal" Text="Print Form <br />Pemeriksaan <br />Fisik Kapal">
-                                                        <prop:ClientSide.OnPreDispatch>
-                                                            $('loading').show();                                                                                         
-                                                            $('<%=$this->btnPrintFormStandarPemeriksaanFisikKapal->ClientId%>').disabled='disabled';									                                
-                                                        </prop:ClientSide.OnPreDispatch>
-                                                        <prop:ClientSide.OnLoading>
-                                                            $('<%=$this->btnPrintFormStandarPemeriksaanFisikKapal->ClientId%>').disabled='disabled';									                                
-                                                        </prop:ClientSide.OnLoading>
-                                                        <prop:ClientSide.onComplete>                                            
-                                                            $('loading').hide();
-                                                        </prop:ClientSide.OnComplete>
-                                                    </com:TActiveLinkButton>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                        <com:TActiveLinkButton ID="btnDetail" CausesValidation="false" ClientSide.PostState="false" OnClick="Page.viewDetailPengajuan" Attributes.Title="Detail Pengajuan" Text="<i class='fa fa-wrench'></i> Detail" CommandParameter="<%#$this->DataItem['RecNoSiup']%>" CssClass="btn btn-info bg-purple btn-sm">                                                                                                            
+                                            <prop:ClientSide.OnPreDispatch>
+                                                $('loading').show();                                                                                         
+                                                $('<%=$this->btnDetail->ClientId%>').disabled='disabled';									                                
+                                            </prop:ClientSide.OnPreDispatch>
+                                            <prop:ClientSide.OnLoading>
+                                                $('<%=$this->btnDetail->ClientId%>').disabled='disabled';									                                
+                                            </prop:ClientSide.OnLoading>
+                                            <prop:ClientSide.onComplete>                                            
+                                                $('loading').hide();
+                                            </prop:ClientSide.OnComplete>
+                                        </com:TActiveLinkButton>
                                     </td>
                                 </tr>
                             </prop:AlternatingItemTemplate>
@@ -235,11 +230,18 @@
                                 </tbody>
                                 </table>
                             </prop:FooterTemplate>	
-                            <prop:EmptyTemplate>                                                                                    
-                                <div class="alert alert-warning">
-                                    <button class="close" data-dismiss="alert">×</button>
-                                    <p>Tidak ada pengajuan SIPI yang baru atau perpanjangan.</p>
-                                </div>                            
+                            <prop:EmptyTemplate>                                                                                                                    
+                                <div class="box box-danger">
+                                    <div class="box-header">
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="alert alert-warning alert-dismissable">
+                                            <i class="fa fa-warning"></i>                                            
+                                            <b>Peringatan!</b>
+                                            Tidak ada pengajuan SIPI yang baru atau perpanjangan.
+                                        </div>
+                                    </div>
+                                </div>
                             </prop:EmptyTemplate>
                         </com:TActiveRepeater>                    
                         <%include Application.CustomPaging%>                    
@@ -248,6 +250,7 @@
             </div>
         </div>
     </com:TPanel>    
+    <%include Application.layouts.ModalPrintOut%>
 </com:TContent>
 <com:TContent ID="jscontent">
 <script type="text/javascript" src="<%=$this->page->theme->baseUrl%>/js/plugins/chosen-bootstrap/chosen.jquery.min.js"></script>

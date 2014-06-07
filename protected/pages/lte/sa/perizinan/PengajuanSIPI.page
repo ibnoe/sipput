@@ -1,0 +1,319 @@
+<%@ Title="Perizinan - DAFTAR PENGAJUAN SIPI" %>
+<com:TContent ID="moduleheader">
+    <i class="fa fa-ticket"></i> DAFTAR PENGAJUAN SIPI
+</com:TContent>
+<com:TContent ID="csscontent">
+    <link rel="stylesheet" type="text/css" href="<%=$this->page->theme->baseUrl%>/js/plugins/chosen-bootstrap/chosen.min.css" />
+</com:TContent>
+<com:TContent ID="modulebreadcrumb">    
+    <li><a href="#">Daftar Pengajuan</a></li>
+    <li class="active">SIPI</li>
+</com:TContent>
+<com:TContent ID="maincontent">
+    <com:THiddenField ID="hiddenid" />
+    <com:TPanel Visible="<%= $this->getViewProcess(false) %>">       
+        <%include Application.pages.lte.DataPemohon%>            
+        <div class="row">
+            <div class="col-md-12">            
+                <com:TActiveMultiView ID="MultiView" OnActiveViewChanged="viewChanged">                            
+                    <com:TView ID="ViewPersetujuanSIUP">
+                        <div class="nav-tabs-custom">
+                            <%include Application.pages.lte.sa.perizinan.TabMenuPengajuan%>
+                            <div class="tab-content">
+                                <div class="tab-pane active">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="box">
+                                                <div class="box-body">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2 control-label">NO. SIUP</label>
+                                                        <div class="col-xs-3">
+                                                            <com:TActiveTextBox ID="txtNoSIUP" CssClass="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2 control-label">Mulai Masa Berlaku</label>
+                                                        <div class="col-xs-5">
+                                                           <com:TActiveCustomDatePicker ID="cmbMulaiBerlakuSIUP" DateFormat="dd-MMMM-yyyy" Culture="id" FromYear="2000" UpToYear="<%=date('Y')%>" InputMode="DropDownList" OnCallBack="changeMasaBerlakuSIUP" /> 
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2 control-label">Selesai Masa Berlaku</label>
+                                                        <div class="col-xs-5">
+                                                           <com:TActiveCustomDatePicker ID="cmbSelesaiBerlakuSIUP" DateFormat="dd-MMMM-yyyy" Culture="id" FromYear="2000" InputMode="DropDownList" Enabled="false" ShowCalendar="false" /> 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="box-footer">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-offset-2 col-sm-10">
+                                                            <com:TActiveLinkButton ID="btnSaveSIUP" CssClass="btn btn-primary" OnClick="saveDataSIUP">
+                                                                <prop:Text><i class="fa fa-save"></i> Simpan</prop:Text>
+                                                                <prop:ClientSide.OnPreDispatch>
+                                                                    $('loading').show();                                             
+                                                                    $('<%=$this->btnSaveSIUP->ClientId%>').disabled='disabled';						
+                                                                </prop:ClientSide.OnPreDispatch>
+                                                                <prop:ClientSide.OnLoading>
+                                                                    $('<%=$this->btnSaveSIUP->ClientId%>').disabled='disabled';						
+                                                                </prop:ClientSide.OnLoading>
+                                                                <prop:ClientSide.OnComplete>																	
+                                                                    $('<%=$this->btnSaveSIUP->ClientId%>').disabled='';						                                            
+                                                                    $('loading').hide(); 
+                                                                </prop:ClientSide.OnComplete>
+                                                            </com:TActiveLinkButton>
+                                                            <com:TActiveLinkButton ID="btnSetujuiSIUP" CssClass="btn btn-warning" OnClick="setujuiPengajuanSIUP">
+                                                                <prop:Text><i class="fa fa-check"></i> Setujui</prop:Text>
+                                                                <prop:ClientSide.OnPreDispatch>
+                                                                    $('loading').show();                                             
+                                                                    $('<%=$this->btnSetujuiSIUP->ClientId%>').disabled='disabled';						
+                                                                </prop:ClientSide.OnPreDispatch>
+                                                                <prop:ClientSide.OnLoading>
+                                                                    $('<%=$this->btnSetujuiSIUP->ClientId%>').disabled='disabled';						
+                                                                </prop:ClientSide.OnLoading>
+                                                                <prop:ClientSide.OnComplete>																	
+                                                                    $('<%=$this->btnSetujuiSIUP->ClientId%>').disabled='';						                                            
+                                                                    $('loading').hide(); 
+                                                                </prop:ClientSide.OnComplete>
+                                                            </com:TActiveLinkButton>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                    </div>                                    
+                                </div><!-- /.tab-pane -->                            
+                            </div><!-- /.tab-content -->
+                        </div>
+                    </com:TView>           
+                    <com:TView ID="ViewPersetujuanSIPI">
+                        <div class="nav-tabs-custom">
+                            <%include Application.pages.lte.sa.perizinan.TabMenuPengajuan%>
+                            <div class="tab-content">
+                                <div class="tab-pane active">
+                                     <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="box">
+                                                <div class="box-body">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2 control-label">NO. SIUP</label>
+                                                        <div class="col-sm-10">
+                                                            <p class="form-control-static">
+                                                                <com:TLiteral ID="literalNoSiup" />
+                                                                <com:TActiveHiddenField ID="hiddennosiup" />
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2 control-label">NO. SIPI</label>
+                                                        <div class="col-xs-3">
+                                                            <com:TActiveTextBox ID="txtNoSIPI" CssClass="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2 control-label">Mulai Masa Berlaku</label>
+                                                        <div class="col-xs-5">
+                                                           <com:TActiveCustomDatePicker ID="cmbMulaiBerlakuSIPI" DateFormat="dd-MMMM-yyyy" Culture="id" FromYear="2000" UpToYear="<%=date('Y')%>" InputMode="DropDownList" OnCallBack="changeMasaBerlaku" /> 
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2 control-label">Selesai Masa Berlaku</label>
+                                                        <div class="col-xs-5">
+                                                           <com:TActiveCustomDatePicker ID="cmbSelesaiBerlakuSIPI" DateFormat="dd-MMMM-yyyy" Culture="id" FromYear="2000" InputMode="DropDownList" OnCallBack="changeMasaBerlaku" Enabled="false" ShowCalendar="false" /> 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="box-footer">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-offset-2 col-sm-10">
+                                                            <com:TActiveLinkButton ID="btnSaveSIPI" CssClass="btn btn-primary" OnClick="saveDataSIPI">
+                                                                <prop:Text><i class="fa fa-save"></i> Simpan</prop:Text>
+                                                                <prop:ClientSide.OnPreDispatch>
+                                                                    $('loading').show();                                             
+                                                                    $('<%=$this->btnSaveSIPI->ClientId%>').disabled='disabled';						
+                                                                </prop:ClientSide.OnPreDispatch>
+                                                                <prop:ClientSide.OnLoading>
+                                                                    $('<%=$this->btnSaveSIPI->ClientId%>').disabled='disabled';						
+                                                                </prop:ClientSide.OnLoading>
+                                                                <prop:ClientSide.OnComplete>																	
+                                                                    $('<%=$this->btnSaveSIPI->ClientId%>').disabled='';						                                            
+                                                                    $('loading').hide(); 
+                                                                </prop:ClientSide.OnComplete>
+                                                            </com:TActiveLinkButton>
+                                                            <com:TActiveLinkButton ID="btnSetujuiSIPI" CssClass="btn btn-warning" OnClick="setujuiPengajuanSIPI">
+                                                                <prop:Text><i class="fa fa-check"></i> Setujui</prop:Text>
+                                                                <prop:ClientSide.OnPreDispatch>
+                                                                    $('loading').show();                                             
+                                                                    $('<%=$this->btnSetujuiSIPI->ClientId%>').disabled='disabled';						
+                                                                </prop:ClientSide.OnPreDispatch>
+                                                                <prop:ClientSide.OnLoading>
+                                                                    $('<%=$this->btnSetujuiSIPI->ClientId%>').disabled='disabled';						
+                                                                </prop:ClientSide.OnLoading>
+                                                                <prop:ClientSide.OnComplete>																	
+                                                                    $('<%=$this->btnSetujuiSIPI->ClientId%>').disabled='';						                                            
+                                                                    $('loading').hide(); 
+                                                                </prop:ClientSide.OnComplete>
+                                                            </com:TActiveLinkButton>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </com:TView>
+                </com:TActiveMultiView>                            
+            </div>        
+        </div>
+    </com:TPanel>    
+    <com:TPanel Visible="<%= $this->getDefaultProcess(false) %>">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-solid box-info">
+                    <div class="box-header">
+                        <h3 class="box-title"><i class="fa fa-search"></i> Filter dan Pencarian</h3>
+                        <div class="box-tools pull-right">
+                            <button data-widget="collapse" class="btn btn-info btn-sm" onclick="JavaScript:return false;">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                            <button data-widget="remove" class="btn btn-info btn-sm" onclick="JavaScript:return false;">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Jenis Pengajuan :</label>
+                                    <div class="input-group col-xs-5">
+                                        <com:TActiveDropDownList ID="cmbJenisPengajuan" OnSelectedIndexChanged="changeStatusPengajuan" CssClass="form-control">
+                                            <com:TListItem Value="none" Text="SELURUH JENIS" />
+                                            <com:TListItem Value="baru" Text="BARU" />
+                                            <com:TListItem Value="perpanjangan" Text="PERPANJANGAN" />
+                                            <prop:ClientSide.OnPreDispatch>
+                                                $('loading').show();                                             
+                                                $('<%=$this->cmbJenisPengajuan->ClientId%>').disabled='disabled';						
+                                            </prop:ClientSide.OnPreDispatch>
+                                            <prop:ClientSide.OnLoading>
+                                                $('<%=$this->cmbJenisPengajuan->ClientId%>').disabled='disabled';						
+                                            </prop:ClientSide.OnLoading>
+                                            <prop:ClientSide.OnComplete>																	
+                                                $('<%=$this->cmbJenisPengajuan->ClientId%>').disabled='';						                                            
+                                                $('loading').hide(); 
+                                            </prop:ClientSide.OnComplete>
+                                        </com:TActiveDropDownList>                                    
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-solid box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title"><i class="fa fa-ticket"></i> Daftar Pengajuan SIPI <com:TActiveLabel ID="labelDaftarPengajuan" /></h3>
+                        <div class="box-tools pull-right">
+                            <button data-widget="collapse" class="btn btn-primary btn-sm" onclick="JavaScript:return false;">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                            <button data-widget="remove" class="btn btn-primary btn-sm" onclick="JavaScript:return false;">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body">                        
+                        <com:TActiveRepeater ID="RepeaterS" DataKeyField="RecNoBup" AllowPaging="true" PageSize="10" AllowCustomPaging="true">
+                            <prop:HeaderTemplate>			
+                                <table class="table table-bordered">	                                    
+                                    <tbody>
+                                    <tr>                                                                
+                                        <th style="width:18px" class="text-center">NO</th>
+                                        <th class="text-center">NO. REGISTRASI</th>
+                                        <th class="text-center">NAMA PEMOHON<br />PERUSAHAAN/PEMOHON</th>                                                                                                                                                                                                                
+                                        <th class="text-center">TGL. DAFTAR</th>
+                                        <th class="text-center">STATUS</th>
+                                        <th class="text-center">AKSI</th>							
+                                    </tr>								                                                                        
+                            </prop:HeaderTemplate>
+                            <prop:ItemTemplate>
+                                <tr>			                                
+                                    <td><%#$this->DataItem['no']%></td>
+                                    <td class="text-center"><%#$this->DataItem['NoRegSiup']%> <span class="label label-primary"><%#strtoupper($this->DataItem['JnsDtSIUP'])%></span></td>	
+                                    <td><%#$this->DataItem['NmPem']%></td>                                    
+                                    <td class="text-center"><%#$this->Page->TGL->tanggal('d/m/Y',$this->DataItem['date_added'])%></td> 
+                                    <td class="text-center"><span class="label <%#$this->DataItem['StatusBup']=='registered'?'label-warning':'label-success'%>"><%#$this->DataItem['StatusBup']%></span></td>                                    
+                                    <td class="text-center">
+                                        <com:TActiveLinkButton ID="btnDetail" CausesValidation="false" ClientSide.PostState="false" OnClick="Page.viewDetailPengajuan" Attributes.Title="Detail Pengajuan" Text="<i class='fa fa-wrench'></i> Detail" CommandParameter="<%#$this->DataItem['RecNoSiup']%>" CssClass="btn btn-info bg-purple btn-sm">                                                                                                            
+                                            <prop:ClientSide.OnPreDispatch>
+                                                $('loading').show();                                                                                         
+                                                $('<%=$this->btnDetail->ClientId%>').disabled='disabled';									                                
+                                            </prop:ClientSide.OnPreDispatch>
+                                            <prop:ClientSide.OnLoading>
+                                                $('<%=$this->btnDetail->ClientId%>').disabled='disabled';									                                
+                                            </prop:ClientSide.OnLoading>
+                                            <prop:ClientSide.onComplete>                                            
+                                                $('loading').hide();
+                                            </prop:ClientSide.OnComplete>
+                                        </com:TActiveLinkButton>
+                                    </td>
+                                </tr>
+                            </prop:ItemTemplate>				
+                            <prop:AlternatingItemTemplate>
+                                <tr>			                                
+                                    <td><%#$this->DataItem['no']%></td>
+                                    <td class="text-center"><%#$this->DataItem['NoRegSiup']%> <span class="label label-primary"><%#strtoupper($this->DataItem['JnsDtSIUP'])%></span></td>	
+                                    <td><%#$this->DataItem['NmPem']%></td>                                    
+                                    <td class="text-center"><%#$this->Page->TGL->tanggal('d/m/Y',$this->DataItem['date_added'])%></td> 
+                                    <td class="text-center"><span class="label <%#$this->DataItem['StatusBup']=='registered'?'label-warning':'label-success'%>"><%#$this->DataItem['StatusBup']%></span></td>                                    
+                                    <td class="text-center">
+                                        <com:TActiveLinkButton ID="btnDetail" CausesValidation="false" ClientSide.PostState="false" OnClick="Page.viewDetailPengajuan" Attributes.Title="Detail Pengajuan" Text="<i class='fa fa-wrench'></i> Detail" CommandParameter="<%#$this->DataItem['RecNoSiup']%>" CssClass="btn btn-info bg-purple btn-sm">                                                                                                            
+                                            <prop:ClientSide.OnPreDispatch>
+                                                $('loading').show();                                                                                         
+                                                $('<%=$this->btnDetail->ClientId%>').disabled='disabled';									                                
+                                            </prop:ClientSide.OnPreDispatch>
+                                            <prop:ClientSide.OnLoading>
+                                                $('<%=$this->btnDetail->ClientId%>').disabled='disabled';									                                
+                                            </prop:ClientSide.OnLoading>
+                                            <prop:ClientSide.onComplete>                                            
+                                                $('loading').hide();
+                                            </prop:ClientSide.OnComplete>
+                                        </com:TActiveLinkButton>
+                                    </td>
+                                </tr>
+                            </prop:AlternatingItemTemplate>
+                            <prop:FooterTemplate>               
+                                </tbody>
+                                </table>
+                            </prop:FooterTemplate>	
+                            <prop:EmptyTemplate>                                                                                                                    
+                                <div class="box box-danger">
+                                    <div class="box-header">
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="alert alert-warning alert-dismissable">
+                                            <i class="fa fa-warning"></i>                                            
+                                            <b>Peringatan!</b>
+                                            Tidak ada pengajuan SIPI yang baru atau perpanjangan.
+                                        </div>
+                                    </div>
+                                </div>
+                            </prop:EmptyTemplate>
+                        </com:TActiveRepeater>                    
+                        <%include Application.CustomPaging%>                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </com:TPanel>        
+</com:TContent>
+<com:TContent ID="jscontent">
+<script type="text/javascript" src="<%=$this->page->theme->baseUrl%>/js/plugins/chosen-bootstrap/chosen.jquery.min.js"></script>
+</com:TContent>

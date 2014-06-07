@@ -29,7 +29,7 @@ class Autorisasi extends TModule implements IUserManager {
                 case 'sa' :
                     $roles='superadmin';
                     $bool=false;
-                break;
+                break;              
                 case 'ad' :
                     $roles='admin';
                     $bool=false;

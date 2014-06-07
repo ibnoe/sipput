@@ -10,7 +10,7 @@
         <com:TWizard ID="newkapalwizard" 
             CssClass="col-lg-12"
             ShowSideBar="false"                              
-            StepStyle.CssClass="panel panel-primary"
+            StepStyle.CssClass="box box-solid box-primary"
             NavigationStyle.CssClass="btn-group btn-group-justified"
             OnCompleteButtonClick="addNewKapalCompleted" 
             OnNextButtonClick="processNextButton">
@@ -25,17 +25,25 @@
                 <com:TLinkButton Text="Complete" CommandName="Complete" ValidationGroup="addKapal" CssClass="btn btn-default" />                
             </prop:FinishNavigationTemplate>
             <com:TWizardStep ID="tahap1" Title="PEMILIK KAPAL" AllowReturn="false">
-                <div class="panel-heading-process">
-                    <h3 class='panel-title'>
+                <div class="box-header">
+                    <h3 class='box-title'>
                         <i class='fa fa-plus'></i>
-                        PEMILIK KAPAL
+                        KAPAL - PEMILIK KAPAL
                     </h3>
+                    <div class="box-tools pull-right">
+                        <button data-widget="collapse" class="btn btn-primary btn-sm" onclick="JavaScript:return false;">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <button class="btn btn-primary btn-sm" onclick="pageredirect('<%=$this->constructUrl('dmaster.Kapal',true)%>');return false;">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="panel-body">
+                <div class="box-body">
                     <div class="form-group" id="divCmbAddPemohon">
-                        <label>Pilih Pemohon :</label>
-                        <div class="radio" style="padding-left:0px">
-                            <com:TDropDownList ID="cmbAddPemohon" AutoPostBack="false" CssClass="form-control chosen" Width="350px;" />                                                                                                        
+                        <label class="col-sm-2 control-label">Pilih Pemohon </label>
+                        <div class="col-sm-4">
+                            <com:TDropDownList ID="cmbAddPemohon" AutoPostBack="false" CssClass="form-control chosen" />                                                                                                        
                             <com:TRequiredFieldValidator ID="FieldAddPemohonValidator" InitialValue="none" ControlToValidate="cmbAddPemohon" Display="Dynamic" ErrorMessage="Pilih Pemohon" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">				
                                 <prop:ClientSide.OnValidationError>
                                     $('divCmbAddPemohon').addClassName('has-error');
@@ -45,6 +53,9 @@
                                     $('divCmbAddPemohon').removeClassName('has-error');
                                 </prop:ClientSide.OnValidationSuccess>
                             </com:TRequiredFieldValidator>
+                        </div>
+                        <div class="radio" style="padding-left:0px">
+                            
                         </div>
                     </div>
                 </div>
@@ -58,7 +69,7 @@
                 </div>
                 <div class="panel-body">
                     <div class="form-group" id="divAddNomorRegisterKapal">
-                        <label>Nomor Register Kapal :</label>
+                        <label class="col-sm-3 control-label">Nomor Register Kapal </label>
                         <com:TTextBox ID="txtAddNomorRegisterKapal" CssClass="form-control" Width="200px" Attributes.PlaceHolder="Nomor Register Kapal" />			                            
                         <com:TRequiredFieldValidator ID="FieldAddNomorRegisterKapalValidator" ControlToValidate="txtAddNomorRegisterKapal" Display="Dynamic" ErrorMessage="Isi Register Kapal" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -71,7 +82,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>
                     <div class="form-group" id="divAddNamaKapal">
-                        <label>Nama Kapal :</label>
+                        <label class="col-sm-3 control-label">Nama Kapal </label>
                         <com:TTextBox ID="txtAddNamaKapal" CssClass="form-control" Width="300px" Attributes.PlaceHolder="Nama Kapal" />			                            
                         <com:TRequiredFieldValidator ID="FieldAddNamaKapalValidator" ControlToValidate="txtAddNamaKapal" Display="Dynamic" ErrorMessage="Isi Nama Kapal" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -84,7 +95,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>
                     <div class="form-group" id="divAddNamaNakhoda">
-                        <label>Nama Nakhoda :</label>
+                        <label class="col-sm-3 control-label">Nama Nakhoda </label>
                         <com:TTextBox ID="txtAddNamaNakhoda" CssClass="form-control" Width="300px" Attributes.PlaceHolder="Nama Nakhoda" />			                            
                         <com:TRequiredFieldValidator ID="FieldAddNamaNakhodaValidator" ControlToValidate="txtAddNamaNakhoda" Display="Dynamic" ErrorMessage="Isi Nama Nakhoda" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -97,7 +108,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>
                     <div class="form-group" id="divAddPanjangKapal">
-                        <label>Panjang Maksimal Kapal (m) :</label>
+                        <label class="col-sm-3 control-label">Panjang Maksimal Kapal (m) </label>
                         <com:TTextBox ID="txtAddPanjangKapal" CssClass="form-control" Width="80px" Attributes.OnKeyUp="formatangka(this,true)"  />			                            
                         <com:TRequiredFieldValidator ID="FieldAddPanjangKapalValidator" ControlToValidate="txtAddPanjangKapal" Display="Dynamic" ErrorMessage="Isi Panjang Kapal" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -110,7 +121,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>
                     <div class="form-group" id="divAddLebarKapal">
-                        <label>Lebar Maksimal Kapal (m) :</label>
+                        <label class="col-sm-3 control-label">Lebar Maksimal Kapal (m) </label>
                         <com:TTextBox ID="txtAddLebarKapal" CssClass="form-control" Width="80px" Attributes.OnKeyUp="formatangka(this,true)"  />			                            
                         <com:TRequiredFieldValidator ID="FieldAddLebarKapalValidator" ControlToValidate="txtAddLebarKapal" Display="Dynamic" ErrorMessage="Isi Lebar Kapal" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -123,7 +134,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>
                     <div class="form-group" id="divAddTinggiKapal">
-                        <label>Tinggi Maksimal Kapal (m) :</label>
+                        <label class="col-sm-3 control-label">Tinggi Maksimal Kapal (m) </label>
                         <com:TTextBox ID="txtAddTinggiKapal" CssClass="form-control" Width="80px" Attributes.OnKeyUp="formatangka(this,true)"  />			                            
                         <com:TRequiredFieldValidator ID="FieldAddTinggiKapalValidator" ControlToValidate="txtAddTinggiKapal" Display="Dynamic" ErrorMessage="Isi Tinggi Kapal" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -136,7 +147,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>
                     <div class="form-group" id="divAddUkuranTonaseKapal">
-                        <label>Gross Ton :</label>
+                        <label class="col-sm-3 control-label">Gross Ton </label>
                         <com:TTextBox ID="txtAddUkuranTonaseKapal" CssClass="form-control" Width="150px" Attributes.PlaceHolder="Ukuran Tonase Kapal" />			                            
                         <com:TRequiredFieldValidator ID="FieldAddUkuranTonaseKapalValidator" ControlToValidate="txtAddUkuranTonaseKapal" Display="Dynamic" ErrorMessage="Isi Ukuran Tonase Kapal" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -149,7 +160,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div> 
                      <div class="form-group" id="divCmbAddBahanKapal">
-                        <label>Bahan Kapal :</label>
+                        <label class="col-sm-3 control-label">Bahan Kapal </label>
                         <div class="radio" style="padding-left:0px">
                             <com:TDropDownList ID="cmbAddBahanKapal" AutoPostBack="false" CssClass="form-control chosen" Width="250px;" />                                                                                                        
                             <com:TRequiredFieldValidator ID="FieldAddBahanKapalValidator" InitialValue="none" ControlToValidate="cmbAddBahanKapal" Display="Dynamic" ErrorMessage="Pilih Bahan Kapal" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">				
@@ -164,7 +175,7 @@
                         </div>
                     </div>
                     <div class="form-group" id="divAddMerekMesinInduk">
-                        <label>Merek Mesin Induk :</label>
+                        <label class="col-sm-3 control-label">Merek Mesin Induk </label>
                         <com:TTextBox ID="txtAddMerekMesinInduk" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Merek Mesin Induk" />			                            
                         <com:TRequiredFieldValidator ID="FieldAddMerekMesinIndukValidator" ControlToValidate="txtAddMerekMesinInduk" Display="Dynamic" ErrorMessage="Isi Merek Mesin Induk" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -177,7 +188,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>
                     <div class="form-group" id="divAddDayaMesinInduk">
-                        <label>Daya Mesin Induk (DK) :</label>
+                        <label class="col-sm-3 control-label">Daya Mesin Induk (DK) </label>
                         <com:TTextBox ID="txtAddDayaMesinInduk" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Daya Mesin Induk" />			                            
                         <com:TRequiredFieldValidator ID="FieldAddDayaMesinIndukValidator" ControlToValidate="txtAddDayaMesinInduk" Display="Dynamic" ErrorMessage="Isi Daya Mesin Induk" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -190,7 +201,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>
                     <div class="form-group" id="divAddRPMMesinInduk">
-                        <label>Putaran Mesin Induk (RPM) :</label>
+                        <label class="col-sm-3 control-label">Putaran Mesin Induk (RPM) </label>
                         <com:TTextBox ID="txtAddRPMMesinInduk" CssClass="form-control" Width="350px" Attributes.PlaceHolder="RPM Mesin Induk" />			                            
                         <com:TRequiredFieldValidator ID="FieldAddRPMMesinIndukValidator" ControlToValidate="txtAddRPMMesinInduk" Display="Dynamic" ErrorMessage="Isi RPM Mesin Induk" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -203,7 +214,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>
                     <div class="form-group" id="divAddNomorSeriMesinInduk">
-                        <label>Nomor Seri Mesin Induk :</label>
+                        <label class="col-sm-3 control-label">Nomor Seri Mesin Induk </label>
                         <com:TTextBox ID="txtAddNomorSeriMesinInduk" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Nomor Seri Mesin Induk" />			                            
                         <com:TRequiredFieldValidator ID="FieldAddNomorSeriMesinIndukValidator" ControlToValidate="txtAddNomorSeriMesinInduk" Display="Dynamic" ErrorMessage="Isi Nomor Seri Mesin Induk" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -216,7 +227,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>                    
                     <div class="form-group" id="divAddMerekMesinBantu">
-                        <label>Merek Mesin Bantu :</label>
+                        <label class="col-sm-3 control-label">Merek Mesin Bantu </label>
                         <com:TTextBox ID="txtAddMerekMesinBantu" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Merek Mesin Bantu" />			                            
                         <com:TRequiredFieldValidator ID="FieldAddMerekMesinBantuValidator" ControlToValidate="txtAddMerekMesinBantu" Display="Dynamic" ErrorMessage="Isi Merek Mesin Bantu" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -229,7 +240,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>
                     <div class="form-group" id="divAddDayaMesinBantu">
-                        <label>Daya Mesin Bantu (DK) :</label>
+                        <label class="col-sm-3 control-label">Daya Mesin Bantu (DK) </label>
                         <com:TTextBox ID="txtAddDayaMesinBantu" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Daya Mesin Bantu" />			                            
                         <com:TRequiredFieldValidator ID="FieldAddDayaMesinBantuValidator" ControlToValidate="txtAddDayaMesinBantu" Display="Dynamic" ErrorMessage="Isi Daya Mesin Bantu" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -242,7 +253,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>
                     <div class="form-group" id="divAddNomorSeriMesinBantu">
-                        <label>Nomor Seri Mesin Bantu :</label>
+                        <label class="col-sm-3 control-label">Nomor Seri Mesin Bantu </label>
                         <com:TTextBox ID="txtAddNomorSeriMesinBantu" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Nomor Seri Mesin Bantu" />			                            
                         <com:TRequiredFieldValidator ID="FieldAddNomorSeriMesinBantuValidator" ControlToValidate="txtAddNomorSeriMesinBantu" Display="Dynamic" ErrorMessage="Isi Nomor Seri Mesin Bantu" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -255,7 +266,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>                                              
                     <div class="form-group" id="divAddMerekMesinPendingin">
-                        <label>Merek Mesin Pendingin :</label>
+                        <label class="col-sm-3 control-label">Merek Mesin Pendingin </label>
                         <com:TTextBox ID="txtAddMerekMesinPendingin" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Merek Mesin Pendingin" />			                            
                         <com:TRequiredFieldValidator ID="FieldAddMerekMesinPendinginValidator" ControlToValidate="txtAddMerekMesinPendingin" Display="Dynamic" ErrorMessage="Isi Merek Mesin Pendingin" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -268,7 +279,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>
                     <div class="form-group" id="divAddNomorSeriMesinPendingin">
-                        <label>Nomor Seri Mesin Pendingin :</label>
+                        <label class="col-sm-3 control-label">Nomor Seri Mesin Pendingin </label>
                         <com:TTextBox ID="txtAddNomorSeriMesinPendingin" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Nomor Seri Mesin Pendingin" />			                            
                         <com:TRequiredFieldValidator ID="FieldAddNomorSeriMesinPendinginValidator" ControlToValidate="txtAddNomorSeriMesinPendingin" Display="Dynamic" ErrorMessage="Isi Nomor Seri Mesin Pendingin" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -281,7 +292,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>                    
                     <div class="form-group" id="divCmbAddTipeKapal">
-                        <label>Tipe Kapal :</label>
+                        <label class="col-sm-3 control-label">Tipe Kapal </label>
                         <div class="radio" style="padding-left:0px">
                             <com:TDropDownList ID="cmbAddTipeKapal" AutoPostBack="false" CssClass="form-control chosen" Width="250px;" />                                                                                                        
                             <com:TRequiredFieldValidator ID="FieldAddTipeKapalValidator" InitialValue="none" ControlToValidate="cmbAddTipeKapal" Display="Dynamic" ErrorMessage="Pilih Jenis Kapal" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">				
@@ -296,7 +307,7 @@
                         </div>
                     </div>    
                     <div class="form-group" id="divCmbAddJenisKapal">
-                        <label>Jenis Kapal :</label>
+                        <label class="col-sm-3 control-label">Jenis Kapal </label>
                         <div class="radio" style="padding-left:0px">
                             <com:TDropDownList ID="cmbAddJenisKapal" AutoPostBack="false" CssClass="form-control chosen" Width="250px;" />                                                                                                        
                             <com:TRequiredFieldValidator ID="FieldAddJenisKapalValidator" InitialValue="none" ControlToValidate="cmbAddJenisKapal" Display="Dynamic" ErrorMessage="Pilih Jenis Kapal" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">				
@@ -311,7 +322,7 @@
                         </div>
                     </div>
                     <div class="form-group" id="divAddTempatPembuatan">
-                        <label>Tempat Pembuatan :</label>
+                        <label class="col-sm-3 control-label">Tempat Pembuatan </label>
                         <com:TTextBox ID="txtAddTempatPembuatan" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Tempat Pembuatan" />			                            
                         <com:TRequiredFieldValidator ID="FieldAddTempatPembuatanValidator" ControlToValidate="txtAddTempatPembuatan" Display="Dynamic" ErrorMessage="Isi Tempat Pembuatan" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -324,13 +335,13 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>
                     <div class="form-group">
-                        <label>Tahun Pembuatan :</label>
+                        <label class="col-sm-3 control-label">Tahun Pembuatan </label>
                         <div class="radio" style="padding-left:0px">
                             <com:TCustomDatePicker ID="cmbAddTahunPembuatan" DateFormat="yyyy" Culture="id" FromYear="2000" UpToYear="<%=date('Y')%>" InputMode="DropDownList" ShowCalendar="false" />
                         </div>                        
                     </div>
                     <div class="form-group" id="divAddNomorPasTahunanKapaL">
-                        <label>Nomor Pas Tahunan Kapal :</label>
+                        <label class="col-sm-3 control-label">Nomor Pas Tahunan Kapal </label>
                         <com:TTextBox ID="txtAddNomorPasTahunanKapaL" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Nomor Pas Tahunan Kapal" />			                            
                         <com:TRequiredFieldValidator ID="FieldAddNomorPasTahunanKapaLValidator" ControlToValidate="txtAddNomorPasTahunanKapaL" Display="Dynamic" ErrorMessage="Isi Nomor Pas Tahunan Kapal" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -343,7 +354,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>
                     <div class="form-group" id="divAddNomorSuratUkurKapal">
-                        <label>Nomor Surat Ukur Kapal :</label>
+                        <label class="col-sm-3 control-label">Nomor Surat Ukur Kapal </label>
                         <com:TTextBox ID="txtAddNomorSuratUkurKapal" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Nomor Surat Ukur Kapal" />			                            
                         <com:TRequiredFieldValidator ID="FieldAddNomorSuratUkurKapalValidator" ControlToValidate="txtAddNomorSuratUkurKapal" Display="Dynamic" ErrorMessage="Isi Nomor Surat Ukur Kapal" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -356,7 +367,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>
                     <div class="form-group" id="divAddSertifikatKelaikandanPengawakan">
-                        <label>Sertifikat Kelaikan dan Pengawakan :</label>
+                        <label class="col-sm-3 control-label">Sertifikat Kelaikan dan Pengawakan </label>
                         <com:TTextBox ID="txtAddSertifikatKelaikandanPengawakan" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Sertifikat Kelaikan dan Pengawakan" />			                            
                         <com:TRequiredFieldValidator ID="FieldAddSertifikatKelaikandanPengawakanValidator" ControlToValidate="txtAddSertifikatKelaikandanPengawakan" Display="Dynamic" ErrorMessage="Isi Sertifikat Kelaikan dan Pengawakan" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -369,7 +380,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>
                     <div class="form-group" id="divAddTandaSelarKapal">
-                        <label>Tanda Selar Kapal :</label>
+                        <label class="col-sm-3 control-label">Tanda Selar Kapal </label>
                         <com:TTextBox ID="txtAddTandaSelarKapal" CssClass="form-control" Width="250px" Attributes.PlaceHolder="Tanda Selar Kapal" />			                            
                         <com:TRequiredFieldValidator ID="FieldAddTandaSelarKapalValidator" ControlToValidate="txtAddTandaSelarKapal" Display="Dynamic" ErrorMessage="Isi Tanda Selar Kapal" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -382,7 +393,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>
                     <div class="form-group" id="divAddBenderaKapal">
-                        <label>Bendera Kapal :</label>
+                        <label class="col-sm-3 control-label">Bendera Kapal </label>
                         <com:TTextBox ID="txtAddBenderaKapal" CssClass="form-control" Width="250px" Attributes.PlaceHolder="Bendera Kapal" />			                            
                         <com:TRequiredFieldValidator ID="FieldAddBenderaKapalValidator" ControlToValidate="txtAddBenderaKapal" Display="Dynamic" ErrorMessage="Isi Bendera Kapal" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -395,7 +406,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>                  
                     <div class="form-group" id="divAddMuatanBersihKapal">
-                        <label>Muatan Bersih Kapal :</label>
+                        <label class="col-sm-3 control-label">Muatan Bersih Kapal </label>
                         <com:TTextBox ID="txtAddMuatanBersihKapal" CssClass="form-control" Width="150px" Attributes.PlaceHolder="Muatan Bersih Kapal" />			                            
                         <com:TRequiredFieldValidator ID="FieldAddMuatanBersihKapalValidator" ControlToValidate="txtAddMuatanBersihKapal" Display="Dynamic" ErrorMessage="Isi Muatan Bersih Kapal" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -408,7 +419,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>                                                            
                     <div class="form-group" id="divAddStatusKapal">
-                        <label>Status Kapal :</label>
+                        <label class="col-sm-3 control-label">Status Kapal </label>
                         <com:TDropDownList ID="cmbAddStatusKapal" CssClass="form-control" Width="250px">                            
                             <com:TListItem Value="miliksendiri" Text="Milik Sendiri" /> 
                             <com:TListItem Value="sewa" Text="Sewa" />
@@ -426,7 +437,7 @@
                 </div>
                 <div class="panel-body">
                     <div class="form-group" id="divAddNamaKapalSebelumnya">
-                        <label>Nama Kapal Sebelumnya (awal) :</label>
+                        <label class="col-sm-3 control-label">Nama Kapal Sebelumnya (awal) </label>
                         <com:TTextBox ID="txtAddNamaKapalSebelumnya" CssClass="form-control" Width="300px" Attributes.PlaceHolder="Nama Kapal Sebelumnya" />			                                                                                            
                         <com:TRequiredFieldValidator ID="FieldAddNamaKapalSebelumnyaValidator" ControlToValidate="txtAddNamaKapalSebelumnya" Display="Dynamic" ErrorMessage="Isi Nama Kapal Sebelumnya, kalau tidak beri tanda '-'" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -439,14 +450,14 @@
                         </com:TRequiredFieldValidator>
                     </div>
                     <div class="form-group">
-                        <label>Pergantian/Balik Nama :</label>
+                        <label class="col-sm-3 control-label">Pergantian/Balik Nama </label>
                         <com:TDropDownList ID="cmbAddPergantianNama" CssClass="form-control" Width="250px">                                                        
                             <com:TListItem Value="gantinama" Text="Penggantian Nama" /> 
                             <com:TListItem Value="baliknama" Text="Balik Nama" />                            
                         </com:TDropDownList>                                                                
                     </div> 
                     <div class="form-group" id="divAddAsalBendera">
-                        <label>Asal Bendera :</label>
+                        <label class="col-sm-3 control-label">Asal Bendera </label>
                         <com:TTextBox ID="txtAddAsalBendera" CssClass="form-control" Width="250px" Attributes.PlaceHolder="Asal Bendera" />			                                                    
                         <com:TRequiredFieldValidator ID="FieldAddAsalBenderaValidator" ControlToValidate="txtAddAsalBendera" Display="Dynamic" ErrorMessage="Isi Asal Bendera kapal" ValidationGroup="addKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -517,7 +528,7 @@
                 </div>
                 <div class="panel-body">
                     <div class="form-group" id="divCmbEditPemohon">
-                        <label>Pilih Pemohon :</label>
+                        <label class="col-sm-3 control-label">Pilih Pemohon </label>
                         <div class="radio" style="padding-left:0px">
                             <com:TDropDownList ID="cmbEditPemohon" AutoPostBack="false" CssClass="form-control chosen" Width="350px;" />                                                                                                        
                             <com:TRequiredFieldValidator ID="FieldEditPemohonValidator" InitialValue="none" ControlToValidate="cmbEditPemohon" Display="Dynamic" ErrorMessage="Pilih Pemohon" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">				
@@ -542,7 +553,7 @@
                 </div>
                 <div class="panel-body">
                     <div class="form-group" id="divEditNomorRegisterKapal">
-                        <label>Nomor Register Kapal :</label>
+                        <label class="col-sm-3 control-label">Nomor Register Kapal </label>
                         <com:TTextBox ID="txtEditNomorRegisterKapal" CssClass="form-control" Width="200px" Attributes.PlaceHolder="Nomor Register Kapal" />			                            
                         <com:TRequiredFieldValidator ID="FieldEditNomorRegisterKapalValidator" ControlToValidate="txtEditNomorRegisterKapal" Display="Dynamic" ErrorMessage="Isi Register Kapal" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -555,7 +566,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>
                     <div class="form-group" id="divEditNamaKapal">
-                        <label>Nama Kapal :</label>
+                        <label class="col-sm-3 control-label">Nama Kapal </label>
                         <com:TTextBox ID="txtEditNamaKapal" CssClass="form-control" Width="300px" Attributes.PlaceHolder="Nama Kapal" />			                            
                         <com:TRequiredFieldValidator ID="FieldEditNamaKapalValidator" ControlToValidate="txtEditNamaKapal" Display="Dynamic" ErrorMessage="Isi Nama Kapal" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -568,7 +579,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>
                     <div class="form-group" id="divEditNamaNakhoda">
-                        <label>Nama Nakhoda :</label>
+                        <label class="col-sm-3 control-label">Nama Nakhoda </label>
                         <com:TTextBox ID="txtEditNamaNakhoda" CssClass="form-control" Width="300px" Attributes.PlaceHolder="Nama Nakhoda" />			                            
                         <com:TRequiredFieldValidator ID="FieldEditNamaNakhodaValidator" ControlToValidate="txtEditNamaNakhoda" Display="Dynamic" ErrorMessage="Isi Nama Nakhoda" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -581,7 +592,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>
                     <div class="form-group" id="divEditPanjangKapal">
-                        <label>Panjang Maksimal Kapal (m) :</label>
+                        <label class="col-sm-3 control-label">Panjang Maksimal Kapal (m) </label>
                         <com:TTextBox ID="txtEditPanjangKapal" CssClass="form-control" Width="80px" Attributes.OnKeyUp="formatangka(this,true)"  />			                            
                         <com:TRequiredFieldValidator ID="FieldEditPanjangKapalValidator" ControlToValidate="txtEditPanjangKapal" Display="Dynamic" ErrorMessage="Isi Panjang Kapal" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -594,7 +605,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>
                     <div class="form-group" id="divEditLebarKapal">
-                        <label>Lebar Maksimal Kapal (m) :</label>
+                        <label class="col-sm-3 control-label">Lebar Maksimal Kapal (m) </label>
                         <com:TTextBox ID="txtEditLebarKapal" CssClass="form-control" Width="80px" Attributes.OnKeyUp="formatangka(this,true)"  />			                            
                         <com:TRequiredFieldValidator ID="FieldEditLebarKapalValidator" ControlToValidate="txtEditLebarKapal" Display="Dynamic" ErrorMessage="Isi Lebar Kapal" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -607,7 +618,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>
                     <div class="form-group" id="divEditTinggiKapal">
-                        <label>Tinggi Maksimal Kapal (m) :</label>
+                        <label class="col-sm-3 control-label">Tinggi Maksimal Kapal (m) </label>
                         <com:TTextBox ID="txtEditTinggiKapal" CssClass="form-control" Width="80px" Attributes.OnKeyUp="formatangka(this,true)"  />			                            
                         <com:TRequiredFieldValidator ID="FieldEditTinggiKapalValidator" ControlToValidate="txtEditTinggiKapal" Display="Dynamic" ErrorMessage="Isi Tinggi Kapal" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -620,7 +631,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>
                     <div class="form-group" id="divEditUkuranTonaseKapal">
-                        <label>Gross Ton :</label>
+                        <label class="col-sm-3 control-label">Gross Ton </label>
                         <com:TTextBox ID="txtEditUkuranTonaseKapal" CssClass="form-control" Width="150px" Attributes.PlaceHolder="Ukuran Tonase Kapal" />			                            
                         <com:TRequiredFieldValidator ID="FieldEditUkuranTonaseKapalValidator" ControlToValidate="txtEditUkuranTonaseKapal" Display="Dynamic" ErrorMessage="Isi Ukuran Tonase Kapal" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -633,7 +644,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div> 
                      <div class="form-group" id="divCmbEditBahanKapal">
-                        <label>Bahan Kapal :</label>
+                        <label class="col-sm-3 control-label">Bahan Kapal </label>
                         <div class="radio" style="padding-left:0px">
                             <com:TDropDownList ID="cmbEditBahanKapal" AutoPostBack="false" CssClass="form-control chosen" Width="250px;" />                                                                                                        
                             <com:TRequiredFieldValidator ID="FieldEditBahanKapalValidator" InitialValue="none" ControlToValidate="cmbEditBahanKapal" Display="Dynamic" ErrorMessage="Pilih Bahan Kapal" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">				
@@ -648,7 +659,7 @@
                         </div>
                     </div>
                     <div class="form-group" id="divEditMerekMesinInduk">
-                        <label>Merek Mesin Induk :</label>
+                        <label class="col-sm-3 control-label">Merek Mesin Induk </label>
                         <com:TTextBox ID="txtEditMerekMesinInduk" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Merek Mesin Induk" />			                            
                         <com:TRequiredFieldValidator ID="FieldEditMerekMesinIndukValidator" ControlToValidate="txtEditMerekMesinInduk" Display="Dynamic" ErrorMessage="Isi Merek Mesin Induk" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -661,7 +672,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>
                     <div class="form-group" id="divEditDayaMesinInduk">
-                        <label>Daya Mesin Induk (DK) :</label>
+                        <label class="col-sm-3 control-label">Daya Mesin Induk (DK) </label>
                         <com:TTextBox ID="txtEditDayaMesinInduk" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Daya Mesin Induk" />			                            
                         <com:TRequiredFieldValidator ID="FieldEditDayaMesinIndukValidator" ControlToValidate="txtEditDayaMesinInduk" Display="Dynamic" ErrorMessage="Isi Daya Mesin Induk" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -674,7 +685,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>
                     <div class="form-group" id="divEditRPMMesinInduk">
-                        <label>Putaran Mesin Induk (RPM) :</label>
+                        <label class="col-sm-3 control-label">Putaran Mesin Induk (RPM) </label>
                         <com:TTextBox ID="txtEditRPMMesinInduk" CssClass="form-control" Width="350px" Attributes.PlaceHolder="RPM Mesin Induk" />			                            
                         <com:TRequiredFieldValidator ID="FieldEditRPMMesinIndukValidator" ControlToValidate="txtEditRPMMesinInduk" Display="Dynamic" ErrorMessage="Isi RPM Mesin Induk" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -687,7 +698,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>
                     <div class="form-group" id="divEditNomorSeriMesinInduk">
-                        <label>Nomor Seri Mesin Induk :</label>
+                        <label class="col-sm-3 control-label">Nomor Seri Mesin Induk </label>
                         <com:TTextBox ID="txtEditNomorSeriMesinInduk" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Nomor Seri Mesin Induk" />			                            
                         <com:TRequiredFieldValidator ID="FieldEditNomorSeriMesinIndukValidator" ControlToValidate="txtEditNomorSeriMesinInduk" Display="Dynamic" ErrorMessage="Isi Nomor Seri Mesin Induk" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -700,7 +711,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>                    
                     <div class="form-group" id="divEditMerekMesinBantu">
-                        <label>Merek Mesin Bantu :</label>
+                        <label class="col-sm-3 control-label">Merek Mesin Bantu </label>
                         <com:TTextBox ID="txtEditMerekMesinBantu" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Merek Mesin Bantu" />			                            
                         <com:TRequiredFieldValidator ID="FieldEditMerekMesinBantuValidator" ControlToValidate="txtEditMerekMesinBantu" Display="Dynamic" ErrorMessage="Isi Merek Mesin Bantu" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -713,7 +724,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>
                     <div class="form-group" id="divEditDayaMesinBantu">
-                        <label>Daya Mesin Bantu (DK) :</label>
+                        <label class="col-sm-3 control-label">Daya Mesin Bantu (DK) </label>
                         <com:TTextBox ID="txtEditDayaMesinBantu" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Daya Mesin Bantu" />			                            
                         <com:TRequiredFieldValidator ID="FieldEditDayaMesinBantuValidator" ControlToValidate="txtEditDayaMesinBantu" Display="Dynamic" ErrorMessage="Isi Daya Mesin Bantu" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -726,7 +737,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>
                     <div class="form-group" id="divEditNomorSeriMesinBantu">
-                        <label>Nomor Seri Mesin Bantu :</label>
+                        <label class="col-sm-3 control-label">Nomor Seri Mesin Bantu </label>
                         <com:TTextBox ID="txtEditNomorSeriMesinBantu" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Nomor Seri Mesin Bantu" />			                            
                         <com:TRequiredFieldValidator ID="FieldEditNomorSeriMesinBantuValidator" ControlToValidate="txtEditNomorSeriMesinBantu" Display="Dynamic" ErrorMessage="Isi Nomor Seri Mesin Bantu" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -739,7 +750,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>                                              
                     <div class="form-group" id="divEditMerekMesinPendingin">
-                        <label>Merek Mesin Pendingin :</label>
+                        <label class="col-sm-3 control-label">Merek Mesin Pendingin </label>
                         <com:TTextBox ID="txtEditMerekMesinPendingin" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Merek Mesin Pendingin" />			                            
                         <com:TRequiredFieldValidator ID="FieldEditMerekMesinPendinginValidator" ControlToValidate="txtEditMerekMesinPendingin" Display="Dynamic" ErrorMessage="Isi Merek Mesin Pendingin" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -752,7 +763,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>
                     <div class="form-group" id="divEditNomorSeriMesinPendingin">
-                        <label>Nomor Seri Mesin Pendingin :</label>
+                        <label class="col-sm-3 control-label">Nomor Seri Mesin Pendingin </label>
                         <com:TTextBox ID="txtEditNomorSeriMesinPendingin" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Nomor Seri Mesin Pendingin" />			                            
                         <com:TRequiredFieldValidator ID="FieldEditNomorSeriMesinPendinginValidator" ControlToValidate="txtEditNomorSeriMesinPendingin" Display="Dynamic" ErrorMessage="Isi Nomor Seri Mesin Pendingin" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -765,7 +776,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>                    
                     <div class="form-group" id="divCmbEditTipeKapal">
-                        <label>Tipe Kapal :</label>
+                        <label class="col-sm-3 control-label">Tipe Kapal </label>
                         <div class="radio" style="padding-left:0px">
                             <com:TDropDownList ID="cmbEditTipeKapal" AutoPostBack="false" CssClass="form-control chosen" Width="250px;" />                                                                                                        
                             <com:TRequiredFieldValidator ID="FieldEditTipeKapalValidator" InitialValue="none" ControlToValidate="cmbEditTipeKapal" Display="Dynamic" ErrorMessage="Pilih Jenis Kapal" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">				
@@ -780,7 +791,7 @@
                         </div>
                     </div>    
                     <div class="form-group" id="divCmbEditJenisKapal">
-                        <label>Jenis Kapal :</label>
+                        <label class="col-sm-3 control-label">Jenis Kapal </label>
                         <div class="radio" style="padding-left:0px">
                             <com:TDropDownList ID="cmbEditJenisKapal" AutoPostBack="false" CssClass="form-control chosen" Width="250px;" />                                                                                                        
                             <com:TRequiredFieldValidator ID="FieldEditJenisKapalValidator" InitialValue="none" ControlToValidate="cmbEditJenisKapal" Display="Dynamic" ErrorMessage="Pilih Jenis Kapal" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">				
@@ -795,7 +806,7 @@
                         </div>
                     </div>
                     <div class="form-group" id="divEditTempatPembuatan">
-                        <label>Tempat Pembuatan :</label>
+                        <label class="col-sm-3 control-label">Tempat Pembuatan </label>
                         <com:TTextBox ID="txtEditTempatPembuatan" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Tempat Pembuatan" />			                            
                         <com:TRequiredFieldValidator ID="FieldEditTempatPembuatanValidator" ControlToValidate="txtEditTempatPembuatan" Display="Dynamic" ErrorMessage="Isi Tempat Pembuatan" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -808,13 +819,13 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>
                     <div class="form-group">
-                        <label>Tahun Pembuatan :</label>
+                        <label class="col-sm-3 control-label">Tahun Pembuatan </label>
                         <div class="radio" style="padding-left:0px">
                             <com:TCustomDatePicker ID="cmbEditTahunPembuatan" DateFormat="yyyy" Culture="id" FromYear="2000" UpToYear="<%=date('Y')%>" InputMode="DropDownList" ShowCalendar="false" />
                         </div>                        
                     </div>
                     <div class="form-group" id="divEditNomorPasTahunanKapaL">
-                        <label>Nomor Pas Tahunan Kapal :</label>
+                        <label class="col-sm-3 control-label">Nomor Pas Tahunan Kapal </label>
                         <com:TTextBox ID="txtEditNomorPasTahunanKapaL" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Nomor Pas Tahunan Kapal" />			                            
                         <com:TRequiredFieldValidator ID="FieldEditNomorPasTahunanKapaLValidator" ControlToValidate="txtEditNomorPasTahunanKapaL" Display="Dynamic" ErrorMessage="Isi Nomor Pas Tahunan Kapal" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -827,7 +838,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>
                     <div class="form-group" id="divEditNomorSuratUkurKapal">
-                        <label>Nomor Surat Ukur Kapal :</label>
+                        <label class="col-sm-3 control-label">Nomor Surat Ukur Kapal </label>
                         <com:TTextBox ID="txtEditNomorSuratUkurKapal" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Nomor Surat Ukur Kapal" />			                            
                         <com:TRequiredFieldValidator ID="FieldEditNomorSuratUkurKapalValidator" ControlToValidate="txtEditNomorSuratUkurKapal" Display="Dynamic" ErrorMessage="Isi Nomor Surat Ukur Kapal" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -840,7 +851,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>
                     <div class="form-group" id="divEditSertifikatKelaikandanPengawakan">
-                        <label>Sertifikat Kelaikan dan Pengawakan :</label>
+                        <label class="col-sm-3 control-label">Sertifikat Kelaikan dan Pengawakan </label>
                         <com:TTextBox ID="txtEditSertifikatKelaikandanPengawakan" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Sertifikat Kelaikan dan Pengawakan" />			                            
                         <com:TRequiredFieldValidator ID="FieldEditSertifikatKelaikandanPengawakanValidator" ControlToValidate="txtEditSertifikatKelaikandanPengawakan" Display="Dynamic" ErrorMessage="Isi Sertifikat Kelaikan dan Pengawakan" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -853,7 +864,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>
                     <div class="form-group" id="divEditTandaSelarKapal">
-                        <label>Tanda Selar Kapal :</label>
+                        <label class="col-sm-3 control-label">Tanda Selar Kapal </label>
                         <com:TTextBox ID="txtEditTandaSelarKapal" CssClass="form-control" Width="250px" Attributes.PlaceHolder="Tanda Selar Kapal" />			                            
                         <com:TRequiredFieldValidator ID="FieldEditTandaSelarKapalValidator" ControlToValidate="txtEditTandaSelarKapal" Display="Dynamic" ErrorMessage="Isi Tanda Selar Kapal" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -866,7 +877,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>
                     <div class="form-group" id="divEditBenderaKapal">
-                        <label>Bendera Kapal :</label>
+                        <label class="col-sm-3 control-label">Bendera Kapal </label>
                         <com:TTextBox ID="txtEditBenderaKapal" CssClass="form-control" Width="250px" Attributes.PlaceHolder="Bendera Kapal" />			                            
                         <com:TRequiredFieldValidator ID="FieldEditBenderaKapalValidator" ControlToValidate="txtEditBenderaKapal" Display="Dynamic" ErrorMessage="Isi Bendera Kapal" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -879,7 +890,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>                  
                     <div class="form-group" id="divEditMuatanBersihKapal">
-                        <label>Muatan Bersih Kapal :</label>
+                        <label class="col-sm-3 control-label">Muatan Bersih Kapal </label>
                         <com:TTextBox ID="txtEditMuatanBersihKapal" CssClass="form-control" Width="150px" Attributes.PlaceHolder="Muatan Bersih Kapal" />			                            
                         <com:TRequiredFieldValidator ID="FieldEditMuatanBersihKapalValidator" ControlToValidate="txtEditMuatanBersihKapal" Display="Dynamic" ErrorMessage="Isi Muatan Bersih Kapal" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -892,7 +903,7 @@
                         </com:TRequiredFieldValidator>                                            
                     </div>                                                            
                     <div class="form-group" id="divEditStatusKapal">
-                        <label>Status Kapal :</label>
+                        <label class="col-sm-3 control-label">Status Kapal </label>
                         <com:TDropDownList ID="cmbEditStatusKapal" CssClass="form-control" Width="250px">                            
                             <com:TListItem Value="miliksendiri" Text="Milik Sendiri" /> 
                             <com:TListItem Value="sewa" Text="Sewa" />
@@ -910,7 +921,7 @@
                 </div>
                 <div class="panel-body">
                     <div class="form-group" id="divEditNamaKapalSebelumnya">
-                        <label>Nama Kapal Sebelumnya (awal) :</label>
+                        <label class="col-sm-3 control-label">Nama Kapal Sebelumnya (awal) </label>
                         <com:TTextBox ID="txtEditNamaKapalSebelumnya" CssClass="form-control" Width="300px" Attributes.PlaceHolder="Nama Kapal Sebelumnya" />			                                                                                            
                         <com:TRequiredFieldValidator ID="FieldEditNamaKapalSebelumnyaValidator" ControlToValidate="txtEditNamaKapalSebelumnya" Display="Dynamic" ErrorMessage="Isi Nama Kapal Sebelumnya, kalau tidak beri tanda '-'" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -923,14 +934,14 @@
                         </com:TRequiredFieldValidator>
                     </div>
                     <div class="form-group">
-                        <label>Pergantian/Balik Nama :</label>
+                        <label class="col-sm-3 control-label">Pergantian/Balik Nama </label>
                         <com:TDropDownList ID="cmbEditPergantianNama" CssClass="form-control" Width="250px">                                                        
                             <com:TListItem Value="gantinama" Text="Penggantian Nama" /> 
                             <com:TListItem Value="baliknama" Text="Balik Nama" />                            
                         </com:TDropDownList>                                                                
                     </div> 
                     <div class="form-group" id="divEditAsalBendera">
-                        <label>Asal Bendera :</label>
+                        <label class="col-sm-3 control-label">Asal Bendera </label>
                         <com:TTextBox ID="txtEditAsalBendera" CssClass="form-control" Width="250px" Attributes.PlaceHolder="Asal Bendera" />			                                                    
                         <com:TRequiredFieldValidator ID="FieldEditAsalBenderaValidator" ControlToValidate="txtEditAsalBendera" Display="Dynamic" ErrorMessage="Isi Asal Bendera kapal" ValidationGroup="editKapal" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -975,49 +986,64 @@
     </com:TPanel>    
     <com:TPanel Visible="<%= $this->getDefaultProcess(false) %>">
         <div class="row">
-            <div class="col-lg-12">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">                        
-                        <h3 class="panel-title">
+            <div class="col-md-12">
+                <div class="box box-solid box-info">
+                    <div class="box-header">                        
+                        <h3 class="box-title">
                             <i class="fa fa-search"></i>
                             Pencarian dan Filter Data
                         </h3>
+                        <div class="box-tools pull-right">
+                            <button data-widget="collapse" class="btn btn-info btn-sm" onclick="JavaScript:return false;">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                            <button data-widget="remove" class="btn btn-info btn-sm" onclick="JavaScript:return false;">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
                     </div>
-                    <div class="panel-body">                       
+                    <div class="box-body">                       
                         <div class="form-group">
-                            <label>Kriteria :</label>                        
-                            <com:TDropDownList ID="cmbKriteria" AutoPostBack="false" CssClass="form-control" Width="200px;">                                
-                                
-                            </com:TDropDownList>                              
+                            <label class="col-sm-2 control-label">Kriteria </label>                        
+                            <div class="col-sm-4">
+                                <com:TDropDownList ID="cmbKriteria" AutoPostBack="false" CssClass="form-control">
+                                </com:TDropDownList>                              
+                            </div>
                         </div>
                         <div class="form-group" id="divtxtKriteria">
-                            <label>Isi Kriteria :</label>                        
-                            <com:TTextBox ID="txtKriteria" CssClass="form-control" Width="250px;" />
-                            <com:TRequiredFieldValidator ID="spanTxtKriteriaValidator" ControlToValidate="txtKriteria" Display="Dynamic" ErrorMessage="Isi Kriteria pencarian" ValidationGroup="filterForm" FocusOnError="true" CssClass="has-error help-block">				
-                                <prop:ClientSide.OnValidationError>
-                                    $('divtxtKriteria').addClassName('has-error');
-                                    jQuery('#<%=$this->spanTxtKriteriaValidator->ClientID%>').removeAttr('style');                                
-                                </prop:ClientSide.OnValidationError>
-                                <prop:ClientSide.OnValidationSuccess>
-                                    $('divtxtKriteria').removeClassName('has-error');
-                                </prop:ClientSide.OnValidationSuccess>
-                            </com:TRequiredFieldValidator>                        
+                            <label class="col-sm-2 control-label">Isi Kriteria </label>                                                    
+                            <div class="col-sm-3">
+                                <com:TTextBox ID="txtKriteria" CssClass="form-control" />
+                                <com:TRequiredFieldValidator ID="spanTxtKriteriaValidator" ControlToValidate="txtKriteria" Display="Dynamic" ErrorMessage="Isi Kriteria pencarian" ValidationGroup="filterForm" FocusOnError="true" CssClass="has-error help-block">				
+                                    <prop:ClientSide.OnValidationError>
+                                        $('divtxtKriteria').addClassName('has-error');
+                                        jQuery('#<%=$this->spanTxtKriteriaValidator->ClientID%>').removeAttr('style');                                
+                                    </prop:ClientSide.OnValidationError>
+                                    <prop:ClientSide.OnValidationSuccess>
+                                        $('divtxtKriteria').removeClassName('has-error');
+                                    </prop:ClientSide.OnValidationSuccess>
+                                </com:TRequiredFieldValidator>                        
+                            </div>
                         </div>                                                        
                     </div>
-                    <div class="panel-footer">
-                        <com:TActiveLinkButton ID="btnSearch" CssClass="btn btn-outline btn-primary" Text="<i class='fa fa-search'></i> Cari" Attributes.Title="Cari" OnClick="filterRecord" ValidationGroup="filterForm">                        
-                            <prop:ClientSide.OnPreDispatch>
-                                $('loading').show();                                             
-                                $('<%=$this->btnSearch->ClientId%>').disabled='disabled';						
-                            </prop:ClientSide.OnPreDispatch>
-                            <prop:ClientSide.OnLoading>
-                                $('<%=$this->btnSearch->ClientId%>').disabled='disabled';									                            
-                            </prop:ClientSide.OnLoading>
-                            <prop:ClientSide.onComplete>
-                                $('loading').hide();
-                                $('<%=$this->btnSearch->ClientId%>').disabled='';
-                            </prop:ClientSide.OnComplete>
-                        </com:TActiveLinkButton>
+                    <div class="box-footer">
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <com:TActiveLinkButton ID="btnSearch" CssClass="btn btn-outline btn-primary" Text="<i class='fa fa-search'></i> Cari" Attributes.Title="Cari" OnClick="filterRecord" ValidationGroup="filterForm">                        
+                                    <prop:ClientSide.OnPreDispatch>
+                                        $('loading').show();                                             
+                                        $('<%=$this->btnSearch->ClientId%>').disabled='disabled';						
+                                    </prop:ClientSide.OnPreDispatch>
+                                    <prop:ClientSide.OnLoading>
+                                        $('<%=$this->btnSearch->ClientId%>').disabled='disabled';									                            
+                                    </prop:ClientSide.OnLoading>
+                                    <prop:ClientSide.onComplete>
+                                        $('loading').hide();
+                                        $('<%=$this->btnSearch->ClientId%>').disabled='';
+                                    </prop:ClientSide.OnComplete>
+                                </com:TActiveLinkButton>
+                            </div>
+                        </div>
                     </div>
                 </div>            
             </div>
@@ -1033,11 +1059,11 @@
                     </div>
                     <div class="panel-body">
                         <p class="text-right">
-                            <com:TLinkButton ID="add" CssClass="btn btn-outline btn-primary" Text="<i class='fa fa-plus'></i>" Attributes.Title="Tambah Kapal" OnClick="addProcess" CausesValidation="false" />
+                            <com:TLinkButton ID="add" CssClass="btn btn-app" Text="<i class='fa fa-plus'></i> Tambah" Attributes.Title="Tambah Kapal" OnClick="addProcess" CausesValidation="false" />
                         </p>
                         <com:TActiveRepeater ID="RepeaterS" DataKeyField="RecNoKpl" AllowPaging="true" PageSize="10" AllowCustomPaging="true">
                             <prop:HeaderTemplate>			
-                                <table class="table table-striped table-bordered table-hover">	
+                                <table class="table table-bordered">	
                                     <thead>
                                     <tr>                                                                    
                                         <th style="width:18px" class="text-center">No</th>                                        
@@ -1052,14 +1078,14 @@
                             </prop:HeaderTemplate>
                             <prop:ItemTemplate>
                                 <tr>                             
-                                    <td><%#$this->DataItem['no']%></td>                                    
-                                    <td><%#$this->DataItem['NoRegKpl']%></td>                                                                        
+                                    <td class="text-center"><%#$this->DataItem['no']%></td>                                    
+                                    <td class="text-center"><%#$this->DataItem['NoRegKpl']%></td>                                                                        
                                     <td><%#$this->DataItem['NmKpl']%></td>
                                     <td><%#$this->DataItem['NmPem']%></td>
                                     <td class="text-center"><i class="fa <%=$this->DataItem['active']==true?'fa-check-circle':'fa-times-circle'%>"></i></td>
                                     <td class="text-center">                                                 
-                                        <com:TLinkButton CausesValidation="false" CssClass="btn btn-info" Text="<i class='fa fa-pencil'></i>" Attributes.Title="Ubah Kapal" OnClick="Page.editRecord" />                                                                                                      
-                                        <com:TActiveLinkButton ID="btnDelete" CausesValidation="false" CssClass="btn btn-danger" Attributes.Title="Hapus Kapal" Text="<i class='fa fa-times'></i>" OnClick="Page.deleteRecord" Attributes.OnClick="if(!confirm('Anda ingin menghapus bahan alat ini ?')) return false;">              
+                                        <com:TLinkButton CausesValidation="false" CssClass="btn bg-olive btn-sm" Text="<i class='fa fa-pencil'></i>" Attributes.Title="Ubah Kapal" OnClick="Page.editRecord" />                                                                                                      
+                                        <com:TActiveLinkButton ID="btnDelete" CausesValidation="false" CssClass="btn btn-danger btn-sm" Attributes.Title="Hapus Kapal" Text="<i class='fa fa-times'></i>" OnClick="Page.deleteRecord" Attributes.OnClick="if(!confirm('Anda ingin menghapus bahan alat ini ?')) return false;">              
                                             <prop:ClientSide.OnPreDispatch>
                                                 $('loading').show();                                             
                                                 $('<%=$this->btnDelete->ClientId%>').disabled='disabled';						
@@ -1077,14 +1103,14 @@
                             </prop:ItemTemplate>				
                             <prop:AlternatingItemTemplate>
                                 <tr>                             
-                                    <td><%#$this->DataItem['no']%></td>                                    
-                                    <td><%#$this->DataItem['NoRegKpl']%></td>                                                                        
+                                    <td class="text-center"><%#$this->DataItem['no']%></td>                                    
+                                    <td class="text-center"><%#$this->DataItem['NoRegKpl']%></td>                                                                        
                                     <td><%#$this->DataItem['NmKpl']%></td>
                                     <td><%#$this->DataItem['NmPem']%></td>
                                     <td class="text-center"><i class="fa <%=$this->DataItem['active']==true?'fa-check-circle':'fa-times-circle'%>"></i></td>
                                     <td class="text-center">                                                 
-                                        <com:TLinkButton CausesValidation="false" CssClass="btn btn-info" Text="<i class='fa fa-pencil'></i>" Attributes.Title="Ubah Kapal" OnClick="Page.editRecord" />                                                                                                      
-                                        <com:TActiveLinkButton ID="btnDelete" CausesValidation="false" CssClass="btn btn-danger" Attributes.Title="Hapus Kapal" Text="<i class='fa fa-times'></i>" OnClick="Page.deleteRecord" Attributes.OnClick="if(!confirm('Anda ingin menghapus bahan alat ini ?')) return false;">              
+                                        <com:TLinkButton CausesValidation="false" CssClass="btn bg-olive btn-sm" Text="<i class='fa fa-pencil'></i>" Attributes.Title="Ubah Kapal" OnClick="Page.editRecord" />                                                                                                      
+                                        <com:TActiveLinkButton ID="btnDelete" CausesValidation="false" CssClass="btn btn-danger btn-sm" Attributes.Title="Hapus Kapal" Text="<i class='fa fa-times'></i>" OnClick="Page.deleteRecord" Attributes.OnClick="if(!confirm('Anda ingin menghapus bahan alat ini ?')) return false;">              
                                             <prop:ClientSide.OnPreDispatch>
                                                 $('loading').show();                                             
                                                 $('<%=$this->btnDelete->ClientId%>').disabled='disabled';						

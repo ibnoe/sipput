@@ -15,7 +15,7 @@
                 </div>
                 <div class="panel-body">                    
                     <div class="form-group" id="divEditNamaFile">
-                        <label>Nama File</label>
+                        <label class="col-sm-2 control-label">Nama File</label>
                         <com:TTextBox ID="txtEditNamaFile" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Nama File" />
                         <com:TRequiredFieldValidator ID="FieldEditNamaFileValidator" ControlToValidate="txtEditNamaFile" Display="Dynamic" ErrorMessage="Isi Nama File" ValidationGroup="editFile" FocusOnError="true" CssClass="has-error help-block">				
                             <prop:ClientSide.OnValidationError>
@@ -28,7 +28,7 @@
                         </com:TRequiredFieldValidator>
                     </div>
                     <div class="form-group">
-                        <label>Keterangan</label>
+                        <label class="col-sm-2 control-label">Keterangan</label>
                         <com:TTextBox ID="txtEditKeterangan" Columns="60" CssClass="form-control" Width="450px" Attributes.PlaceHolder="Keterangan File" TextMode="MultiLine" />                        
                     </div>                    
                 </div>
@@ -62,7 +62,7 @@
                 </div>
                 <div class="panel-body">                    
                     <div class="form-group" id="divNamaFile">
-                        <label>Nama File</label>
+                        <label class="col-sm-2 control-label">Nama File</label>
                         <com:TTextBox ID="txtAddNamaFile" CssClass="form-control" Width="350px" Attributes.PlaceHolder="Nama File" />
                         <com:TRequiredFieldValidator ID="FieldAddNamaFileValidator" ControlToValidate="txtAddNamaFile" Display="Dynamic" ErrorMessage="Isi Nama File" ValidationGroup="addFile" FocusOnError="true" CssClass="has-error help-block">				
                             <prop:ClientSide.OnValidationError>
@@ -75,11 +75,11 @@
                         </com:TRequiredFieldValidator>
                     </div>
                     <div class="form-group">
-                        <label>Keterangan</label>
+                        <label class="col-sm-2 control-label">Keterangan</label>
                         <com:TTextBox ID="txtAddKeterangan" Columns="60" CssClass="form-control" Width="450px" Attributes.PlaceHolder="Keterangan File" TextMode="MultiLine" />                        
                     </div>                    
                     <div class="form-group" id="divFile1">
-                        <label>UPLOAD (Maks. <%=ini_get('upload_max_filesize')%>)</label>
+                        <label class="col-sm-2 control-label">UPLOAD (Maks. <%=ini_get('upload_max_filesize')%>)</label>
                         <com:TFileUpload ID="File1" MaxFileSize="<%=$this->setup->getMaxFileSize()%>"/>
                         <com:TRequiredFieldValidator ID="FieldAddFile1Validator" ControlToValidate="File1" Display="Dynamic" ErrorMessage="Pilih File yang Akan di Upload" ValidationGroup="addFile" CssClass="has-error help-block">				
                             <prop:ClientSide.OnValidationError>

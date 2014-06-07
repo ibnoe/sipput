@@ -44,11 +44,17 @@ class Logic_Perizinan extends Logic_Pemohon {
     public function printSIUP () {    
         $nama_dinas=strtoupper($this->report->setup->getSettingValue('config_nama_dinas'));
         $nama_kabupaten=  strtoupper($this->report->setup->getSettingValue('config_nama_kabupaten'));
+        
+        $recnosiup=$this->dataReport['recnosiup'];
+        $str = "SELECT NoSiup,TglStartSiup,	TglLastSiup FROM siup WHERE RecNoSiup=$recnosiup";
+        $this->db->setFieldTable(array('NoSiup','TglStartSiup','TglLastSiup'));
+        $r=$this->db->getRecord($str);
+        $datasiup=$r[1];
         switch ($this->dataReport['outputmode']) {
             case 'pdf' :                
                 $this->report->setMode('pdf'); 
                 $this->report->setHeaderSertifikat('SIUP');
-               
+                
                 $row=$this->report->currentRow;
                 $this->report->rpt->setXY(3,$row);
                 $this->report->rpt->Cell (203,5,'SURAT IZIN USAHA PERIKANAN',0,0,'C');
@@ -59,7 +65,7 @@ class Logic_Perizinan extends Logic_Pemohon {
                 $row+=5;
                 $this->report->rpt->setXY(3,$row);
                 $this->report->rpt->SetFont ('helvetica','',12);
-                $this->report->rpt->Cell (203,5,'NOMOR : 51/523.3.32.5/SIUP/DKP-BTN/2013',0,0,'C');
+                $this->report->rpt->Cell (203,5,'NOMOR : '. $datasiup['NoSiup'],0,0,'C');
                 
                 $row+=10;
                 $this->report->rpt->setXY(3,$row);
@@ -71,7 +77,7 @@ class Logic_Perizinan extends Logic_Pemohon {
                 $this->report->rpt->setXY(3,$row);                
                 $this->report->rpt->Cell (35,5,'NAMA PERUSAHAAN /','L',0,'L');
                 $this->report->rpt->MultiCell(3,10,':',0,'C',false,0,'','');
-                $this->report->rpt->MultiCell(55,10,'MOCHAMMAD RIZKI ROMDONI','R','L',false,0,'','');
+                $this->report->rpt->MultiCell(55,10,$this->dataReport['NmPem'],'R','L',false,0,'','');
                 $this->report->rpt->Cell (110,5,'SURAT PERMOHONAN SIUP','R',0,'L');                
                 $row+=5;                
                 $this->report->rpt->setXY(3,$row);                
@@ -79,12 +85,12 @@ class Logic_Perizinan extends Logic_Pemohon {
                 $this->report->rpt->setXY(96,$row);
                 $this->report->rpt->Cell (35,5,'NOMOR SURAT','L',0,'L');         
                 $this->report->rpt->Cell (3,5,':',0,0,'L');
-                $this->report->rpt->Cell (72,5,'523.33/UPTD-PUP/BP-M/150','R',0,'L');
+                $this->report->rpt->Cell (72,5,'-','R',0,'L');
                 $row+=5;                
                 $this->report->rpt->setXY(3,$row);                
                 $this->report->rpt->Cell (35,5,'ALAMAT','L',0,'L');
                 $this->report->rpt->MultiCell(3,10,':',0,'C',false,0,'','');
-                $this->report->rpt->MultiCell(55,10,'JL. BRIGJEND KATAMSON NO. 92 KM 2,5 TANJUNG PINANG',0,'L',false,0,'','');                                
+                $this->report->rpt->MultiCell(55,10,$this->dataReport['AlmtPem'],0,'L',false,0,'','');                                
                 $this->report->rpt->Cell (35,5,'TANGGAL','L',0,'L');                 
                 $this->report->rpt->Cell (3,5,':',0,0,'L');
                 $this->report->rpt->Cell (72,5,'04 NOVEMBER 2014','R',0,'L');
@@ -99,14 +105,14 @@ class Logic_Perizinan extends Logic_Pemohon {
                 $this->report->rpt->setXY(3,$row); 
                 $this->report->rpt->Cell (35,5,'NO.TELEFON','L',0,'L');
                 $this->report->rpt->Cell (3,5,':',0,0,'L');
-                $this->report->rpt->Cell (55,5,'(0771) 7002638',0,0,'L');                 
+                $this->report->rpt->Cell (55,5,$this->dataReport['TelpPem'],0,0,'L');                 
                 $this->report->rpt->setXY(96,$row);
                 $this->report->rpt->Cell (110,5,'USAHA PENANGKAPAN IKAN',1,0,'L');
                 $row+=5;                
                 $this->report->rpt->setXY(3,$row); 
                 $this->report->rpt->Cell (35,5,'NO.FAX','L',0,'L');
                 $this->report->rpt->Cell (3,5,':',0,0,'C');
-                $this->report->rpt->Cell (55,5,'(0771) 7002638',0,0,'L');
+                $this->report->rpt->Cell (55,5,'-',0,0,'L');
                 $this->report->rpt->setXY(96,$row);
                 $this->report->rpt->SetFont ('helvetica','B',10);
                 $this->report->rpt->Cell (110,5,'KAPAL DAN DEARAH USAHA',1,0,'C');
@@ -123,13 +129,13 @@ class Logic_Perizinan extends Logic_Pemohon {
                 $this->report->rpt->SetFont ('helvetica','',8);
                 $this->report->rpt->Cell (35,5,'NPWP','L',0,'L');
                 $this->report->rpt->Cell (3,5,':',0,0,'L');
-                $this->report->rpt->Cell (55,5,'15.274.014.8-214.000','R',0,'L');                
+                $this->report->rpt->Cell (55,5,$this->dataReport['NpwpPem'],'R',0,'L');                
                 $row+=5;
                 $this->report->rpt->SetFont ('helvetica','',8);
                 $this->report->rpt->setXY(3,$row);                
                 $this->report->rpt->Cell (35,5,'NO.AKTE PENDIRIAN /','L',0,'L');
                 $this->report->rpt->MultiCell(3,10,':',0,'C',false,0,'','');
-                $this->report->rpt->MultiCell(55,10,'0828282.9292','R','L',false,0,'','');                
+                $this->report->rpt->MultiCell(55,10,'-','R','L',false,0,'','');                
                 $row+=5;                
                 $this->report->rpt->setXY(3,$row);                
                 $this->report->rpt->Cell (35,5,'PERUBAHAN','L',0,'L');
@@ -141,20 +147,22 @@ class Logic_Perizinan extends Logic_Pemohon {
                 $this->report->rpt->setXY(3,$row);                
                 $this->report->rpt->Cell (35,5,'NAMA PENANGGUNG','L',0,'L');
                 $this->report->rpt->MultiCell(3,10,':',0,'C',false,0,'','');
-                $this->report->rpt->MultiCell(55,10,'MOCHAMMAD RIZKI ROMDONI','R','L',false,0,'','');
+                $this->report->rpt->MultiCell(55,10,$this->dataReport['NmPem'],'R','L',false,0,'','');
                 $this->report->rpt->setXY(96,$row);                
-                $this->report->rpt->Cell (110,5,'SIUP INI BERLAKU SEJAK TANGGAL : 09 DESEMBER 2014','R',0,'L');                                                
+                $mulaiberlaku=$this->report->tgl->tanggal('j F Y',$datasiup['TglStartSiup']);
+                $this->report->rpt->Cell (110,5,"SIUP INI BERLAKU SEJAK TANGGAL : $mulaiberlaku",'R',0,'L');                                                
                 $row+=5;                
                 $this->report->rpt->setXY(3,$row);                
                 $this->report->rpt->Cell (35,5,'JAWAB','L',0,'L');
                 $this->report->rpt->setXY(96,$row);                
-                $this->report->rpt->Cell (110,5,'SAMPAI DENGAN TANGGAL : 09 DESEMBER 2015','R',0,'L');                                                
+                $selesaiberlaku=$this->report->tgl->tanggal('j F Y',$datasiup['TglLastSiup']);
+                $this->report->rpt->Cell (110,5,"SAMPAI DENGAN TANGGAL : $selesaiberlaku",'R',0,'L');                                                
                 $row+=5;
                 $this->report->rpt->SetFont ('helvetica','',8);
                 $this->report->rpt->setXY(3,$row);                
                 $this->report->rpt->Cell (35,5,'NO.KTP PENANGGUNG','L',0,'L');
                 $this->report->rpt->MultiCell(3,10,':',0,'C',false,0,'','');
-                $this->report->rpt->MultiCell(55,10,'9292929292929229','R','L',false,0,'','');
+                $this->report->rpt->MultiCell(55,10,$this->dataReport['KtpPem'],'R','L',false,0,'','');
                 $this->report->rpt->setXY(96,$row);                
                 $this->report->rpt->Cell (110,5,'','R',0,'L');                                                
                 $row+=5;                
@@ -271,7 +279,13 @@ class Logic_Perizinan extends Logic_Pemohon {
      */
     public function printSIPI () {
         $nama_dinas=strtoupper($this->report->setup->getSettingValue('config_nama_dinas'));
-        $nama_kabupaten=  strtoupper($this->report->setup->getSettingValue('config_nama_kabupaten'));
+        $nama_kabupaten=  strtoupper($this->report->setup->getSettingValue('config_nama_kabupaten'));      
+        
+        $recnobup=$this->dataReport['recnobup'];
+        echo $str = "SELECT s.NoSiup,s.TglSahSiup,bup.NoBUP,k.NoRegKpl,k.NmKpl,k.MrkMsnIdk,k.NoSrMsnIdk,k.DkMsnIdk,k.GrossKpl,k.status_kepemilikan,bup.TglLastBUP FROM siup s,bup,relasi_sipi rs,kapal k WHERE bup.RecNoSiup=s.RecNoSiup AND rs.RecNoBup=bup.RecNoBup AND k.RecNoKpl=rs.RecNoKpl AND bup.RecNoBup=$recnobup";
+        $this->db->setFieldTable(array('NoSiup','TglSahSiup','NoBUP','NoRegKpl','NmKpl','MrkMsnIdk','NoSrMsnIdk','DkMsnIdk','GrossKpl','status_kepemilikan','TglLastBUP'));
+        $r=$this->db->getRecord($str);
+        $datasipi=$r[1];
         switch ($this->dataReport['outputmode']) {
             case 'pdf' :                
                 $this->report->setMode('pdf'); 
@@ -282,7 +296,7 @@ class Logic_Perizinan extends Logic_Pemohon {
                 $row+=5;
                 $this->report->rpt->setXY(3,$row);
                 $this->report->rpt->SetFont ('helvetica','',12);
-                $this->report->rpt->Cell (203,5,'NOMOR : 51/523.3.32.5/SIUP/DKP-BTN/2013',0,0,'C');
+                $this->report->rpt->Cell (203,5,'NOMOR : '.$datasipi['NoBUP'],0,0,'C');
                 
                 $row+=10;
                 $this->report->rpt->setXY(3,$row);
@@ -294,22 +308,22 @@ class Logic_Perizinan extends Logic_Pemohon {
                 $this->report->rpt->setXY(3,$row);                
                 $this->report->rpt->Cell (42,5,'NAMA PERUSAHAAN /','L',0,'L');
                 $this->report->rpt->MultiCell(3,10,':',0,'C',false,0,'','');
-                $this->report->rpt->MultiCell(59,10,'MOCHAMMAD RIZKI ROMDONI','R',1,false,0,'','');                
+                $this->report->rpt->MultiCell(59,10,$this->dataReport['NmPem'],'R',1,false,0,'','');                
                 $this->report->rpt->Cell (30,5,'NO.SIUP',0,0,'L');         
                 $this->report->rpt->Cell (3,5,':',0,0,'L');
-                $this->report->rpt->Cell (66,5,'51/523.3.32.5/SIUP/DKP-BTN/2013','R',0,'L');
+                $this->report->rpt->Cell (66,5,$datasipi['NoSiup'],'R',0,'L');
                 $row+=5;                
                 $this->report->rpt->setXY(3,$row);                
                 $this->report->rpt->Cell (42,5,'PERORANGAN','L',0,'L');                
                 $this->report->rpt->setXY(107,$row);
                 $this->report->rpt->Cell (30,5,'TANGGAL SIUP','L',0,'L');         
                 $this->report->rpt->Cell (3,5,':',0,0,'L');
-                $this->report->rpt->Cell (66,5,'14 September 2014','R',0,'L');
+                $this->report->rpt->Cell (66,5,$this->report->tgl->Tanggal ('d F Y',$datasipi['TglSahSiup']),'R',0,'L');
                 $row+=5;                
                 $this->report->rpt->setXY(3,$row);                
                 $this->report->rpt->Cell (42,5,'ALAMAT','L',0,'L');
                 $this->report->rpt->MultiCell(3,10,':',0,'C',false,0,'','');
-                $this->report->rpt->MultiCell(59,10,'JL. BRIGJEND KATAMSON NO. 92 KM 2,5 TANJUNG PINANG','R','L',false,0,'','');                                
+                $this->report->rpt->MultiCell(59,10,$this->dataReport['AlmtPem'],'R','L',false,0,'','');                                
                 $this->report->rpt->Cell (99,5,'','R',0,'L');                                 
                 $row+=5;
                 $this->report->rpt->setXY(3,$row);                
@@ -336,7 +350,7 @@ class Logic_Perizinan extends Logic_Pemohon {
                 $this->report->rpt->Cell (5,5,'1.','L',0,'L');
                 $this->report->rpt->Cell (37,5,'NAMA KAPAL',0,0,'L');
                 $this->report->rpt->Cell (3,5,':',0,0,'L');
-                $this->report->rpt->Cell (59,5,'KM. RESTI','R',0,'L');                 
+                $this->report->rpt->Cell (59,5,$datasipi['NmKpl'],'R',0,'L');                 
                 $this->report->rpt->Cell (30,5,'TANDA TERIMA',0,0,'L');         
                 $this->report->rpt->Cell (3,5,':',0,0,'L');
                 $this->report->rpt->Cell (66,5,'-','R',0,'L');
@@ -345,10 +359,10 @@ class Logic_Perizinan extends Logic_Pemohon {
                 $this->report->rpt->Cell (5,5,'2.','L',0,'L');
                 $this->report->rpt->Cell (37,5,'TEMPAT & NO.REGISTER/',0,0,'L');                
                 $this->report->rpt->MultiCell(3,15,':',0,'C',false,0,'','');
-                $this->report->rpt->MultiCell(59,15,'JL. BRIGJEND KATAMSON NO. 92 KM 2,5 TANJUNG PINANG',0,'L',false,0,'','');                                
+                $this->report->rpt->MultiCell(59,15,$datasipi['NoRegKpl'],0,'L',false,0,'','');                                
                 $this->report->rpt->Cell (30,5,'STATUS','L',0,'L');         
                 $this->report->rpt->Cell (3,5,':',0,0,'L');
-                $this->report->rpt->Cell (66,5,'','R',0,'L');
+                $this->report->rpt->Cell (66,5,'-','R',0,'L');
                 $row+=5;
                 $this->report->rpt->setXY(3,$row);
                 $this->report->rpt->Cell (5,5,'','L',0,'L');
@@ -364,13 +378,13 @@ class Logic_Perizinan extends Logic_Pemohon {
                 $this->report->rpt->setXY(107,$row);                
                 $this->report->rpt->Cell (30,5,'TANGGAL TERIMA','L',0,'L');         
                 $this->report->rpt->MultiCell(3,10,':',0,'C',false,0,'','');
-                $this->report->rpt->MultiCell(66,10,'JL. BRIGJEND KATAMSON NO. 92 KM 2,5 TANJUNG PINANG','R','L',false,0,'','');
+                $this->report->rpt->MultiCell(66,10,'-','R','L',false,0,'','');
                 $row+=5;
                 $this->report->rpt->setXY(3,$row);                
                 $this->report->rpt->Cell (5,5,'3.','L',0,'L');
                 $this->report->rpt->Cell (37,5,'NAMA PANGGILAN',0,0,'L');
                 $this->report->rpt->Cell (3,5,':',0,0,'L');
-                $this->report->rpt->Cell (59,5,'KM. RESTI','R',0,'L');
+                $this->report->rpt->Cell (59,5,'-','R',0,'L');
                 $this->report->rpt->Cell (30,5,'SSBP LUNAS',0,0,'L');                         
                 $row+=5;
                 $this->report->rpt->setXY(3,$row);                
@@ -416,7 +430,7 @@ class Logic_Perizinan extends Logic_Pemohon {
                 $this->report->rpt->SetFont ('helvetica','',8);
                 $this->report->rpt->Cell (42,5,'MILIK SENDIRI','L',0,'L');                
                 $this->report->rpt->Cell (3,5,':',0,0,'C');
-                $this->report->rpt->Cell (59,5,'MILIK SENDIRI',0,0,'L');                                
+                $this->report->rpt->Cell (59,5,$this->getStatusKepemilikanKapal($datasipi['status_kepemilikan']),0,0,'L');                                
                 $this->report->rpt->Cell (99,5,'DESA KELONG – KEC.BINTAN PESISIR',1,0,'C');
                 $row+=5;
                 $this->report->rpt->setXY(3,$row);                                                              
@@ -435,7 +449,7 @@ class Logic_Perizinan extends Logic_Pemohon {
                 $this->report->rpt->Cell (5,5,'1.','L',0,'L');
                 $this->report->rpt->Cell (37,5,'BERAT KOTOR (GT)',0,0,'L');
                 $this->report->rpt->Cell (3,5,':',0,0,'L');
-                $this->report->rpt->Cell (59,5,'3 GT',0,0,'L');                        
+                $this->report->rpt->Cell (59,5,$datasipi['GrossKpl'],0,0,'L');                        
                 $this->report->rpt->SetFont ('helvetica','B',10);
                 $this->report->rpt->Cell (99,5,'MASA BERLAKU IZIN',1,0,'C');
                 $row+=5;
@@ -444,21 +458,22 @@ class Logic_Perizinan extends Logic_Pemohon {
                 $this->report->rpt->Cell (5,5,'2.','L',0,'L');
                 $this->report->rpt->Cell (37,5,'MUATAN BERSIH',0,0,'L');
                 $this->report->rpt->Cell (3,5,':',0,0,'L');
-                $this->report->rpt->Cell (59,5,'3 GT','R',0,'L');                                           
+                $this->report->rpt->Cell (59,5,'-','R',0,'L');                                           
                 $this->report->rpt->Cell (99,5,'SURAT IZIN PENANGKAPAN IKAN INI BERLAKU','R',0,'L');                
                 $row+=5;
                 $this->report->rpt->setXY(3,$row);                               
                 $this->report->rpt->Cell (5,5,'3.','L',0,'L');
                 $this->report->rpt->Cell (37,5,'MEREK MESIN',0,0,'L');
                 $this->report->rpt->Cell (3,5,':',0,0,'L');
-                $this->report->rpt->Cell (59,5,'3 GT','R',0,'L');                                      
-                $this->report->rpt->Cell (99,5,'SAMPAI DENGAN TANGGAL 04 DESEMBER 2014','R',0,'L');
+                $this->report->rpt->Cell (59,5,$datasipi['MrkMsnIdk'],'R',0,'L');     
+                $tanggal=$this->report->tgl->tanggal('d F Y',$datasipi['TglLastBUP']);
+                $this->report->rpt->Cell (99,5,"SAMPAI DENGAN TANGGAL $tanggal",'R',0,'L');
                 $row+=5;
                 $this->report->rpt->setXY(3,$row);                               
                 $this->report->rpt->Cell (5,5,'4.','L',0,'L');
                 $this->report->rpt->Cell (37,5,'KEKUATAN MESIN',0,0,'L');
                 $this->report->rpt->Cell (3,5,':',0,0,'L');
-                $this->report->rpt->Cell (59,5,'3 GT','R',0,'L');                              
+                $this->report->rpt->Cell (59,5,$datasipi['DkMsnIdk'],'R',0,'L');                              
                 $this->report->rpt->SetFont ('helvetica','',8);
                 $this->report->rpt->Cell (99,5,'','R',0,'C');
                 $row+=5;
@@ -466,7 +481,7 @@ class Logic_Perizinan extends Logic_Pemohon {
                 $this->report->rpt->Cell (5,5,'5.','L',0,'L');
                 $this->report->rpt->Cell (37,5,'NO.MESIN',0,0,'L');
                 $this->report->rpt->Cell (3,5,':',0,0,'L');
-                $this->report->rpt->Cell (59,5,'3 GT','R',0,'L');                             
+                $this->report->rpt->Cell (59,5,$datasipi['NoSrMsnIdk'],'R',0,'L');                             
                 $this->report->rpt->Cell (99,5,'','R',0,'C');
                 $row+=5;
                 $this->report->rpt->setXY(3,$row);                
@@ -544,7 +559,7 @@ class Logic_Perizinan extends Logic_Pemohon {
                 $this->report->rpt->MultiCell(203,10,'Apabila ada data dan atau informasi dan atau dokumen pendukung penerbitan izin ini yang ternyata di kemudian hari terbukti tidak benar dan tidak absah, maka izin ini akan dicabut.',1,'L',false,0,'','');
             break;
         }
-        $this->report->printOut($this->dataReport['recnosiup']);
+        $this->report->printOut($this->dataReport['recnobup']);
         $this->report->setLink($this->dataReport['linkoutput'],'Sertifikat SIPI');
     }
         

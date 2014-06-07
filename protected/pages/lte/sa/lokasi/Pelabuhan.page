@@ -21,7 +21,7 @@
                 </div>
                 <div class="panel-body">
                     <div class="form-group" id="divCmbAddJenisPelabuhan">
-                        <label>Jenis Pelabuhan :</label>
+                        <label class="col-sm-2 control-label">Jenis Pelabuhan :</label>
                         <div class="radio">
                             <com:TDropDownList ID="cmbAddJenisPelabuhan" CssClass="form-control chosen" AutoPostBack="false" Width="250px" />                                 
                             <com:TRequiredFieldValidator ID="FieldAddJenisPelabuhanValidator" ControlToValidate="cmbAddJenisPelabuhan" InitialValue="none" Display="Dynamic" ErrorMessage="Pilih jenis pelabuhan" ValidationGroup="addpelabuhan" FocusOnError="true" CssClass="has-error help-block">				
@@ -36,7 +36,7 @@
                         </div>
                     </div> 
                     <div class="form-group" id="divTxtAddNamaPelabuhan">
-                        <label>Nama Pelabuhan :</label>                        
+                        <label class="col-sm-2 control-label">Nama Pelabuhan :</label>                        
                         <com:TTextBox ID="txtAddNamaPelabuhan" CssClass="form-control" Attributes.PlaceHolder="Nama Pelabuhan" Width="280px" />			                            
                         <com:TRequiredFieldValidator ID="FieldAddNamaPelabuhanValidator" ControlToValidate="txtAddNamaPelabuhan" Display="Dynamic" ErrorMessage="Isi Nama Pelabuhan" ValidationGroup="addpelabuhan" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -49,7 +49,7 @@
                         </com:TRequiredFieldValidator>                                         
                     </div>                                             
                     <div class="form-group" id="divCmbAddSkalaPelabuhan">
-                        <label>Skala Pelabuhan :</label>
+                        <label class="col-sm-2 control-label">Skala Pelabuhan :</label>
                         <div class="radio">
                             <com:TDropDownList ID="cmbAddSkalaPelabuhan" CssClass="form-control chosen" AutoPostBack="false" Width="250px" />                                 
                             <com:TRequiredFieldValidator ID="FieldAddSkalaPelabuhanValidator" ControlToValidate="cmbAddSkalaPelabuhan" InitialValue="none" Display="Dynamic" ErrorMessage="Pilih skala pelabuhan" ValidationGroup="addpelabuhan" FocusOnError="true" CssClass="has-error help-block">				
@@ -95,7 +95,7 @@
                 </div>
                 <div class="panel-body">
                     <div class="form-group" id="divCmbEditJenisPelabuhan">
-                        <label>Jenis Pelabuhan :</label>
+                        <label class="col-sm-2 control-label">Jenis Pelabuhan :</label>
                         <div class="radio">
                             <com:TDropDownList ID="cmbEditJenisPelabuhan" CssClass="form-control chosen" AutoPostBack="false" Width="250px" />                                 
                             <com:TRequiredFieldValidator ID="FieldEditJenisPelabuhanValidator" ControlToValidate="cmbEditJenisPelabuhan" InitialValue="none" Display="Dynamic" ErrorMessage="Pilih jenis pelabuhan" ValidationGroup="editpelabuhan" FocusOnError="true" CssClass="has-error help-block">				
@@ -110,7 +110,7 @@
                         </div>
                     </div> 
                     <div class="form-group" id="divTxtEditNamaPelabuhan">
-                        <label>Nama Pelabuhan :</label>                        
+                        <label class="col-sm-2 control-label">Nama Pelabuhan :</label>                        
                         <com:TTextBox ID="txtEditNamaPelabuhan" CssClass="form-control" Attributes.PlaceHolder="Nama Pelabuhan" Width="280px" />			                            
                         <com:TRequiredFieldValidator ID="FieldEditNamaPelabuhanValidator" ControlToValidate="txtEditNamaPelabuhan" Display="Dynamic" ErrorMessage="Isi Nama Pelabuhan" ValidationGroup="editpelabuhan" FocusOnError="true" CssClass="has-error help-block">			
                             <prop:ClientSide.OnValidationError>
@@ -123,7 +123,7 @@
                         </com:TRequiredFieldValidator>                                         
                     </div>                                             
                     <div class="form-group" id="divCmbEditSkalaPelabuhan">
-                        <label>Skala Pelabuhan :</label>
+                        <label class="col-sm-2 control-label">Skala Pelabuhan :</label>
                         <div class="radio">
                             <com:TDropDownList ID="cmbEditSkalaPelabuhan" CssClass="form-control chosen" AutoPostBack="false" Width="250px" />                                 
                             <com:TRequiredFieldValidator ID="FieldEditSkalaPelabuhanValidator" ControlToValidate="cmbEditSkalaPelabuhan" InitialValue="none" Display="Dynamic" ErrorMessage="Pilih skala pelabuhan" ValidationGroup="editpelabuhan" FocusOnError="true" CssClass="has-error help-block">				
@@ -169,7 +169,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="form-group">
-                            <label>Jenis Pelabuhan :</label>                        
+                            <label class="col-sm-2 control-label">Jenis Pelabuhan :</label>                        
                             <com:TActiveDropDownList ID="cmbJenisPelabuhan" CssClass="form-control" OnSelectedIndexChanged="changeJenisPelabuhan" Width="150px;">                                                                                                                                       
                                 <prop:ClientSide.OnPreDispatch>
                                     $('loading').show();                                             
@@ -185,13 +185,13 @@
                             </com:TActiveDropDownList>                             
                         </div>
                         <div class="form-group">
-                            <label>Kriteria :</label>                        
+                            <label class="col-sm-2 control-label">Kriteria :</label>                        
                             <com:TDropDownList ID="cmbKriteria" AutoPostBack="false" CssClass="form-control" Width="180px;">                                
                                 <com:TListItem Text="Nama Pelabuhan" value="namapelabuhan"/>                                
                             </com:TDropDownList>                              
                         </div>
                         <div class="form-group" id="divtxtKriteria">
-                            <label>Isi Kriteria :</label>                        
+                            <label class="col-sm-2 control-label">Isi Kriteria :</label>                        
                             <com:TTextBox ID="txtKriteria" CssClass="form-control" Width="250px;" />
                             <com:TRequiredFieldValidator ID="spanTxtKriteriaValidator" ControlToValidate="txtKriteria" Display="Dynamic" ErrorMessage="Isi Kriteria pencarian" ValidationGroup="filterForm" FocusOnError="true" CssClass="has-error help-block">				
                                 <prop:ClientSide.OnValidationError>
