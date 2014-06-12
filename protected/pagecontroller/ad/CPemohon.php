@@ -3,8 +3,7 @@ prado::using ('Application.MainPageSA');
 class CPemohon extends MainPageSA {
 	public function onLoad($param) {
 		parent::onLoad($param);
-        $this->showPemohon=true;
-        $this->createObj('DMaster');
+        $this->showPemohon=true;       
 		if (!$this->IsPostBack&&!$this->IsCallBack) {
             if (!isset($_SESSION['currentPagePemohon'])||$_SESSION['currentPagePemohon']['page_name']!='ad.Pemohon') {
                 $_SESSION['currentPagePemohon']=array('page_name'=>'ad.Pemohon','page_num'=>0,'search'=>false,'iduptd'=>$this->Pengguna->getDataUser('iduptd'));
@@ -84,10 +83,19 @@ class CPemohon extends MainPageSA {
     }
     public function checkTypeFile ($sender,$param) {
         $this->idProcess=$sender->getId()=='addFileFoto'?'add':'edit';
-        if ($this->FileFoto->HasFile) {
-            if ($this->FileFoto->FileType!='image/png' && $this->FileFoto->FileType!='image/jpeg')
+        $control = $this->idProcess == 'add' ?$this->FileFoto:$this->editFileFoto;        
+        if ($control->HasFile) {            
+            if ($control->FileType!='image/png' && $this->FileFoto->FileType!='image/jpeg')
                 $param->IsValid=false;
         }
+    }
+    public function addProcess($sender,$param) {
+        $this->idProcess='add';
+        $this->createObj('Pemohon');
+        if (!($recnopem=$this->Pemohon->getAutoRecNoPem() )) {
+            $recnopem = $this->setup->getSettingValue('mulai_kode_pemohon');
+        }        
+        $this->txtAddKodePemohon->Text=$recnopem;
     }
     public function processNextButton($sender,$param) {
         $this->idProcess='add';
@@ -99,23 +107,29 @@ class CPemohon extends MainPageSA {
 	}
     public function addNewPemohonCompleted ($sender,$param) {
         $this->idProcess='add';
-        $filename=substr(hash('sha512',rand()),0,8);
-        $name=$this->FileFoto->FileName;
-        $part=$this->setup->cleanFileNameString($name);
-        $path=$this->setup->getSettingValue('dir_userimages')."/$filename-$part";
-        $this->path_userimages->Value=$path;
-        $this->FileFoto->saveAs("./$path");
+        if ($this->FileFoto->HasFile) {
+            $filename=substr(hash('sha512',rand()),0,8);
+            $name=$this->FileFoto->FileName;
+            $part=$this->setup->cleanFileNameString($name);
+            $path=$this->setup->getSettingValue('dir_userimages')."/$filename-$part";
+            $this->path_userimages->Value=$path;
+            $this->FileFoto->saveAs("./$path");
+        }else{
+            $path=$this->setup->getSettingValue('dir_userimages')."/empty_applicant.png";                
+            $this->path_userimages->Value=$path;
+        }
     }
     public function saveData($sender,$param) {
         if ($this->Page->IsValid) {
             $status_pemohon=$this->rdAddStatusPemohonPerorangan->Checked==true?'perorangan':'perusahaan';
-            $kode_pemohon=$this->txtAddKodePemohon->Text;
-            $nama_pemohon=$this->txtAddNamaPemohon->Text;
-            $no_ktp_pemohon=$this->txtAddNoKTP->Text;
-            $alamat_pemohon=$this->txtAddAlamatPemohon->Text;
-            $npwp_pemohon=$this->txtAddNoNPWPPemohon->Text;
-            $notelp_pemohon=$this->txtAddNoTelp->Text;
+            $kode_pemohon=strtoupper(addslashes($this->txtAddKodePemohon->Text));
+            $nama_pemohon=strtoupper(addslashes($this->txtAddNamaPemohon->Text));
+            $no_ktp_pemohon=strtoupper(addslashes($this->txtAddNoKTP->Text));
+            $alamat_pemohon=strtoupper(addslashes($this->txtAddAlamatPemohon->Text));
+            $npwp_pemohon=strtoupper(addslashes($this->txtAddNoNPWPPemohon->Text));
+            $notelp_pemohon=strtoupper(addslashes($this->txtAddNoTelp->Text));
             $iduptd=$_SESSION['currentPagePemohon']['iduptd'];
+            $this->createObj('DMaster');
             $nama_uptd=$this->DMaster->getUPTName($iduptd);
             $path_userimages=$this->path_userimages->Value;
 
@@ -161,42 +175,47 @@ class CPemohon extends MainPageSA {
         $this->txtEditAlamatPemohon->Text=$this->dataPengajuan['AlmtPem'];
         $this->txtEditNoTelp->Text=$this->dataPengajuan['TelpPem'];
         $this->txtEditNoNPWPPemohon->Text=$this->dataPengajuan['NpwpPem'];
+        $this->editPath_userimages->Value=$this->dataPengajuan['Foto'];
 	}
     public function processEditNextButton($sender,$param) {
-        $this->idProcess='edit';        
+        $this->idProcess='edit';          
 		if ($param->CurrentStepIndex ==0) {
             if ($this->rdEditStatusPemohonPerorangan->Checked) {
                 $this->editpemohonwizard->ActiveStepIndex=2;                
             }else {
                 $idcom=$this->hiddenidcom->Value;
-                $str = "SELECT idCom,RecStsCom,NmCom,NoAkte,TglAkte,NPWPCom,AlmtCom,TelCom,FaxCom,AlmtComCab FROM perusahaan WHERE IdCom=$idcom";
-                $this->DB->setFieldTable(array('idCom','RecStsCom','NmCom','NoAkte','TglAkte','NPWPCom','AlmtCom','TelCom','FaxCom','AlmtComCab'));
-                $r=$this->DB->getRecord($str);                
-                $data=$r[1];
-                if($data['RecStsCom']=='pusat') {
-                    $this->rdEditStatusPerusahaanPusat->Checked=true;
-                }else {
-                    $this->rdEditStatusPerusahaanCabang->Checked=true;
+                if ($idcom != '') {
+                    $str = "SELECT idCom,RecStsCom,NmCom,NoAkte,TglAkte,NPWPCom,AlmtCom,TelCom,FaxCom,AlmtComCab FROM perusahaan WHERE IdCom=$idcom";
+                    $this->DB->setFieldTable(array('idCom','RecStsCom','NmCom','NoAkte','TglAkte','NPWPCom','AlmtCom','TelCom','FaxCom','AlmtComCab'));
+                    $r=$this->DB->getRecord($str);                
+                    $data=$r[1];
+                    if($data['RecStsCom']=='pusat') {
+                        $this->rdEditStatusPerusahaanPusat->Checked=true;
+                    }else {
+                        $this->rdEditStatusPerusahaanCabang->Checked=true;
+                    }
+                    $this->txtEditNamaPerusahaan->Text=$data['NmCom'];
+                    $this->txtEditNoAktePerusahaan->Text=$data['NoAkte'];                
+                    $this->cmbEditTGLAktePendirian->Text=$this->TGL->tanggal ('d-m-Y',$data['TglAkte']);
+                    $this->txtEditNoNPWP->Text=$data['NPWPCom'];
+                    $this->txtEditAlamatPerusahaan->Text=$data['AlmtCom'];
+                    $this->txtEditNoTelpPerusahaan->Text=$data['TelCom'];
+                    $this->txtEditNoFaxPerusahaan->Text=$data['FaxCom'];
+                    $this->txtEditAlamatCabang->Text=$data['AlmtComCab'];
                 }
-                $this->txtEditNamaPerusahaan->Text=$data['NmCom'];
-                $this->txtEditNoAktePerusahaan->Text=$data['NoAkte'];                
-                $this->cmbEditTGLAktePendirian->Text=$this->TGL->tanggal ('d-m-Y',$data['TglAkte']);
-                $this->txtEditNoNPWP->Text=$data['NPWPCom'];
-                $this->txtEditAlamatPerusahaan->Text=$data['AlmtCom'];
-                $this->txtEditNoTelpPerusahaan->Text=$data['TelCom'];
-                $this->txtEditNoFaxPerusahaan->Text=$data['FaxCom'];
-                $this->txtEditAlamatCabang->Text=$data['AlmtComCab'];
             }
 		}
 	}
     public function editPemohonCompleted ($sender,$param) {
-        $this->idProcess='edit';
-        $filename=substr(hash('sha512',rand()),0,8);
-        $name=$this->FileFoto->FileName;
-        $part=$this->setup->cleanFileNameString($name);
-        $path=$this->setup->getSettingValue('dir_userimages')."/$filename-$part";
-        $this->path_userimages->Value=$path;
-        $this->FileFoto->saveAs("./$path");
+        $this->idProcess='edit';         
+        if ($this->editFileFoto->HasFile) {
+            $filename=substr(hash('sha512',rand()),0,8);
+            $name=$this->editFileFoto->FileName;
+            $part=$this->setup->cleanFileNameString($name);
+            $path=$this->setup->getSettingValue('dir_userimages')."/$filename-$part";
+            $this->editPath_userimages->Value=$path;
+            $this->editFileFoto->saveAs("./$path");
+        }
     }
     public function updateData($sender,$param) {
         if ($this->Page->IsValid) {

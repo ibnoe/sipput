@@ -1,4 +1,4 @@
-<%@ Title="Data Master - Area/Daerah Penangkapan" %>
+<%@ Title="Lokasi - Area/Daerah Penangkapan" %>
 <com:TContent ID="moduleheader">
     <i class="fa fa-location-arrow"></i> Area/Daerah Penangkapan Ikan
 </com:TContent>
@@ -26,7 +26,7 @@
                 </div>
                 <div class="box-body">
                     <div class="form-group" id="divAddAreaTangkap">
-                        <label class="col-sm-2 control-label">Area/Daerah Tangkap</label>
+                        <label class="col-sm-2 control-label">Area/Daerah Tangkap :</label>
                         <div class="col-xs-3">
                             <com:TTextBox ID="txtAddAreaTangkap" CssClass="form-control" Attributes.PlaceHolder="Nama Area/Daerah" />			                            
                             <com:TRequiredFieldValidator ID="FieldAddAreaTangkapValidator" ControlToValidate="txtAddAreaTangkap" Display="Dynamic" ErrorMessage="Isi Nama Area/Daerah" ValidationGroup="addareatangkap" FocusOnError="true" CssClass="has-error help-block">			
@@ -41,7 +41,7 @@
                         </div>
                     </div>                     
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Keterangan Area/Daerah</label> 
+                        <label class="col-sm-2 control-label">Keterangan Area/Daerah :</label> 
                         <div class="col-xs-4">
                             <com:TTextBox ID="txtAddKetArea" CssClass="form-control" Attributes.PlaceHolder="Keterangan Area/Daerah" TextMode="MultiLine" />			                                                    
                         </div>
@@ -90,7 +90,7 @@
                 </div>
                 <div class="box-body">                                                                                     
                     <div class="form-group" id="divEditAreaTangkap">
-                        <label class="col-sm-2 control-label">Area/Daerah Tangkap</label>
+                        <label class="col-sm-2 control-label">Area/Daerah Tangkap :</label>
                         <div class="col-xs-3">
                             <com:TTextBox ID="txtEditAreaTangkap" CssClass="form-control" Attributes.PlaceHolder="Nama Area/Daerah" />			                            
                             <com:TRequiredFieldValidator ID="FieldEditAreaTangkapValidator" ControlToValidate="txtEditAreaTangkap" Display="Dynamic" ErrorMessage="Isi Nama Area/Daerah" ValidationGroup="editareatangkap" FocusOnError="true" CssClass="has-error help-block">			
@@ -105,7 +105,7 @@
                         </div>
                     </div>                     
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Keterangan Area/Daerah</label>     
+                        <label class="col-sm-2 control-label">Keterangan Area/Daerah :</label>     
                         <div class="col-xs-4">
                             <com:TTextBox ID="txtEditKetArea" CssClass="form-control" Attributes.PlaceHolder="Keterangan Area/Daerah" TextMode="MultiLine" />			                                                    
                         </div>
@@ -154,7 +154,7 @@
                     </div>
                     <div class="box-body">                       
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">Kriteria</label>     
+                            <label class="col-sm-2 control-label">Kriteria :</label>     
                             <div class="col-xs-3">
                                 <com:TDropDownList ID="cmbKriteria" AutoPostBack="false" CssClass="form-control">                                
                                     <com:TListItem Text="Nama Area/Daerah" value="namaarea"/>                                
@@ -162,7 +162,7 @@
                             </div>
                         </div>
                         <div class="form-group" id="divtxtKriteria">
-                            <label class="col-sm-2 control-label">Isi Kriteria</label>        
+                            <label class="col-sm-2 control-label">Isi Kriteria :</label>        
                             <div class="col-xs-2">
                                 <com:TTextBox ID="txtKriteria" CssClass="form-control"/>
                                 <com:TRequiredFieldValidator ID="spanTxtKriteriaValidator" ControlToValidate="txtKriteria" Display="Dynamic" ErrorMessage="Isi Kriteria pencarian" ValidationGroup="filterForm" FocusOnError="true" CssClass="has-error help-block">				

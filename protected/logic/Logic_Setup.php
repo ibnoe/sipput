@@ -202,6 +202,6 @@ class Logic_Setup extends Logic_Global {
 			$rupiah = "Rp. " . $bilangan . $rupiah.$pecahan;
 		}
 		return $rupiah;
-	}
+	}    
 }
 ?>

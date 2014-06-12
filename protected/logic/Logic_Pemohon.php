@@ -28,7 +28,7 @@ class Logic_Pemohon extends Logic_Global {
         $this->report = $this->getLogic('Report');
 	}
     /**
-     * setter NIP
+     * setter Kode Pemohon
      * @param type $nip integer
      */
     public function setRecNoPem ($id,$load=false,$mode=0) {
@@ -36,6 +36,13 @@ class Logic_Pemohon extends Logic_Global {
         if ($load){
             $this->getDataPemohon($mode);
         }
+    }
+    /**
+     * di gunakan untuk mendapatkan kode pemohon automically
+     */
+    public function getAutoRecNoPem () {
+        $r=$this->db->getMaxOfRecord ('RecNoPem','pemohon');
+        return $r > 0 ? $r+1 : false;
     }
     /**
      * digunakan untuk mendapatkan data pemohon

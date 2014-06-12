@@ -1,51 +1,71 @@
-<%@ Title="Data Master - Lokasi Usaha" %>
+<%@ Title="Lokasi - Lokasi Usaha" %>
 <com:TContent ID="moduleheader">
-    <i class="fa fa-anchor"></i> Lokasi Usaha
+    <i class="fa fa-road"></i> Lokasi Usaha
+</com:TContent>
+<com:TContent ID="modulebreadcrumb">    
+    <li><a href="#">Lokasi</a></li>
+    <li class="active">Lokasi Usaha</li>
 </com:TContent>
 <com:TContent ID="maincontent">
     <com:TPanel Visible="<%= $this->getAddProcess(false) %>" CssClass="row">
         <div class="col-lg-12">
-            <div class="panel panel-primary">
-                <div class="panel-heading-process">                        
-                    <h3 class="panel-title">
+            <div class="box box-solid box-primary">
+                <div class="box-header">                        
+                    <h3 class="box-title">
                         <i class="fa fa-plus"></i>
                         TAMBAH LOKASI USAHA
                     </h3>
+                    <div class="box-tools pull-right">
+                        <button data-widget="collapse" class="btn btn-primary btn-sm" onclick="JavaScript:return false;">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <button data-widget="remove" class="btn btn-primary btn-sm" onclick="pageredirect('<%=$this->constructUrl('lokasi.LokasiUsaha',true)%>');return false;">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="panel-body">
+                <div class="box-body">
                     <div class="form-group" id="divAddNamaLokasi">
-                        <label class="col-sm-2 control-label">Lokasi </label>
-                        <com:TTextBox ID="txtAddNamaLokasi" CssClass="form-control" Attributes.PlaceHolder="Nama Lokasi" Width="350px" />			                            
-                        <com:TRequiredFieldValidator ID="FieldAddNamaLokasiValidator" ControlToValidate="txtAddNamaLokasi" Display="Dynamic" ErrorMessage="Isi Nama Lokasi" ValidationGroup="addlokasiusaha" FocusOnError="true" CssClass="has-error help-block">			
-                            <prop:ClientSide.OnValidationError>
-                                $('divAddNamaLokasi').addClassName('has-error');
-                                jQuery('#<%=$this->FieldAddNamaLokasiValidator->ClientID%>').removeAttr('style');
-                            </prop:ClientSide.OnValidationError>
-                            <prop:ClientSide.OnValidationSuccess>
-                                $('divAddNamaLokasi').removeClassName('has-error');
-                            </prop:ClientSide.OnValidationSuccess>
-                        </com:TRequiredFieldValidator>                                         
+                        <label class="col-sm-2 control-label">Lokasi  :</label>
+                        <div class="col-xs-3">
+                            <com:TTextBox ID="txtAddNamaLokasi" CssClass="form-control" Attributes.PlaceHolder="Nama Lokasi" />			                            
+                            <com:TRequiredFieldValidator ID="FieldAddNamaLokasiValidator" ControlToValidate="txtAddNamaLokasi" Display="Dynamic" ErrorMessage="Isi Nama Lokasi" ValidationGroup="addlokasiusaha" FocusOnError="true" CssClass="has-error help-block">			
+                                <prop:ClientSide.OnValidationError>
+                                    $('divAddNamaLokasi').addClassName('has-error');
+                                    jQuery('#<%=$this->FieldAddNamaLokasiValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('divAddNamaLokasi').removeClassName('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>                                         
+                        </div>
                     </div>                     
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Keterangan Lokasi</label>                        
-                        <com:TTextBox ID="txtAddKetLokasi" CssClass="form-control" Attributes.PlaceHolder="Keterangan Lokasi" Width="350px" TextMode="MultiLine" />			                                                    
+                        <label class="col-sm-2 control-label">Keterangan Lokasi :</label>                        
+                        <div class="col-xs-4">
+                            <com:TTextBox ID="txtAddKetLokasi" CssClass="form-control" Attributes.PlaceHolder="Keterangan Lokasi" TextMode="MultiLine" />			                                                    
+                        </div>
                     </div>            
                 </div>
-                <div class="panel-footer">
-                    <com:TActiveLinkButton ID="btnSave" CssClass="btn btn-primary" OnClick="saveData" ValidationGroup="addlokasiusaha">
-                        <prop:Text><i class="fa fa-save"></i> Simpan</prop:Text>
-                        <prop:ClientSide.OnPreDispatch>
-                            $('loading').show();                                             
-                            $('<%=$this->btnSave->ClientId%>').disabled='disabled';						
-                        </prop:ClientSide.OnPreDispatch>
-                        <prop:ClientSide.OnLoading>
-                            $('<%=$this->btnSave->ClientId%>').disabled='disabled';						
-                        </prop:ClientSide.OnLoading>
-                        <prop:ClientSide.OnComplete>																	
-                            $('<%=$this->btnSave->ClientId%>').disabled='';						                                            
-                            $('loading').hide(); 
-                        </prop:ClientSide.OnComplete>
-                    </com:TActiveLinkButton>
+                <div class="box-footer">
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <com:TActiveLinkButton ID="btnSave" CssClass="btn btn-primary" OnClick="saveData" ValidationGroup="addlokasiusaha">
+                                <prop:Text><i class="fa fa-save"></i> Simpan</prop:Text>
+                                <prop:ClientSide.OnPreDispatch>
+                                    $('loading').show();                                             
+                                    $('<%=$this->btnSave->ClientId%>').disabled='disabled';						
+                                </prop:ClientSide.OnPreDispatch>
+                                <prop:ClientSide.OnLoading>
+                                    $('<%=$this->btnSave->ClientId%>').disabled='disabled';						
+                                </prop:ClientSide.OnLoading>
+                                <prop:ClientSide.OnComplete>																	
+                                    $('<%=$this->btnSave->ClientId%>').disabled='';						                                            
+                                    $('loading').hide(); 
+                                </prop:ClientSide.OnComplete>
+                            </com:TActiveLinkButton>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>           
@@ -53,47 +73,63 @@
     <com:TPanel Visible="<%= $this->getEditProcess(false) %>" CssClass="row">
         <com:TActiveHiddenField ID="hiddenid" />        
         <div class="col-lg-12">
-            <div class="panel panel-primary">
-                <div class="panel-heading-process">                        
-                    <h3 class="panel-title">
+            <div class="box box-solid box-primary">
+                <div class="box-header">                        
+                    <h3 class="box-title">
                         <i class="fa fa-pencil"></i>
                         UBAH LOKASI USAHA
                     </h3>
+                    <div class="box-tools pull-right">
+                        <button data-widget="collapse" class="btn btn-primary btn-sm" onclick="JavaScript:return false;">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <button data-widget="remove" class="btn btn-primary btn-sm" onclick="pageredirect('<%=$this->constructUrl('lokasi.LokasiUsaha',true)%>');return false;">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="panel-body">                                                                                     
+                <div class="box-body">                                                                                     
                     <div class="form-group" id="divEditNamaLokasi">
-                        <label class="col-sm-2 control-label">Lokasi </label>
-                        <com:TTextBox ID="txtEditNamaLokasi" CssClass="form-control" Attributes.PlaceHolder="Nama Lokasi" Width="350px" />			                            
-                        <com:TRequiredFieldValidator ID="FieldEditLokasiValidator" ControlToValidate="txtEditNamaLokasi" Display="Dynamic" ErrorMessage="Isi Nama Lokasi" ValidationGroup="editlokasiusaha" FocusOnError="true" CssClass="has-error help-block">			
-                            <prop:ClientSide.OnValidationError>
-                                $('divEditNamaLokasi').addClassName('has-error');
-                                jQuery('#<%=$this->FieldEditLokasiValidator->ClientID%>').removeAttr('style');
-                            </prop:ClientSide.OnValidationError>
-                            <prop:ClientSide.OnValidationSuccess>
-                                $('divEditNamaLokasi').removeClassName('has-error');
-                            </prop:ClientSide.OnValidationSuccess>
-                        </com:TRequiredFieldValidator>                                         
+                        <label class="col-sm-2 control-label">Lokasi  :</label>
+                        <div class="col-xs-3">
+                            <com:TTextBox ID="txtEditNamaLokasi" CssClass="form-control" Attributes.PlaceHolder="Nama Lokasi" />			                            
+                            <com:TRequiredFieldValidator ID="FieldEditLokasiValidator" ControlToValidate="txtEditNamaLokasi" Display="Dynamic" ErrorMessage="Isi Nama Lokasi" ValidationGroup="editlokasiusaha" FocusOnError="true" CssClass="has-error help-block">			
+                                <prop:ClientSide.OnValidationError>
+                                    $('divEditNamaLokasi').addClassName('has-error');
+                                    jQuery('#<%=$this->FieldEditLokasiValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('divEditNamaLokasi').removeClassName('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>                                         
+                        </div>
                     </div>                     
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Keterangan Lokasi</label>                        
-                        <com:TTextBox ID="txtEditKetLokasi" CssClass="form-control" Attributes.PlaceHolder="Keterangan Lokasi" Width="350px" TextMode="MultiLine" />			                                                    
+                        <label class="col-sm-2 control-label">Keterangan Lokasi :</label>                        
+                        <div class="col-xs-4">
+                            <com:TTextBox ID="txtEditKetLokasi" CssClass="form-control" Attributes.PlaceHolder="Keterangan Lokasi" TextMode="MultiLine" />			                                                    
+                        </div>
                     </div>                
                 </div>
-                <div class="panel-footer">
-                    <com:TActiveLinkButton ID="btnUpdate" CssClass="btn btn-primary" OnClick="updateData" ValidationGroup="editlokasiusaha">
-                        <prop:Text><i class="fa fa-save"></i> Simpan</prop:Text>
-                        <prop:ClientSide.OnPreDispatch>
-                            $('loading').show();                                             
-                            $('<%=$this->btnUpdate->ClientId%>').disabled='disabled';						
-                        </prop:ClientSide.OnPreDispatch>
-                        <prop:ClientSide.OnLoading>
-                            $('<%=$this->btnUpdate->ClientId%>').disabled='disabled';						
-                        </prop:ClientSide.OnLoading>
-                        <prop:ClientSide.OnComplete>																	
-                            $('<%=$this->btnUpdate->ClientId%>').disabled='';						                                            
-                            $('loading').hide(); 
-                        </prop:ClientSide.OnComplete>
-                    </com:TActiveLinkButton>
+                <div class="box-footer">
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <com:TActiveLinkButton ID="btnUpdate" CssClass="btn btn-primary" OnClick="updateData" ValidationGroup="editlokasiusaha">
+                                <prop:Text><i class="fa fa-save"></i> Simpan</prop:Text>
+                                <prop:ClientSide.OnPreDispatch>
+                                    $('loading').show();                                             
+                                    $('<%=$this->btnUpdate->ClientId%>').disabled='disabled';						
+                                </prop:ClientSide.OnPreDispatch>
+                                <prop:ClientSide.OnLoading>
+                                    $('<%=$this->btnUpdate->ClientId%>').disabled='disabled';						
+                                </prop:ClientSide.OnLoading>
+                                <prop:ClientSide.OnComplete>																	
+                                    $('<%=$this->btnUpdate->ClientId%>').disabled='';						                                            
+                                    $('loading').hide(); 
+                                </prop:ClientSide.OnComplete>
+                            </com:TActiveLinkButton>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -101,64 +137,88 @@
     <com:TPanel Visible="<%= $this->getDefaultProcess(false) %>">
         <div class="row">
             <div class="col-lg-12">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">                        
-                        <h3 class="panel-title">
+                <div class="box box-solid box-info">
+                    <div class="box-header">                        
+                        <h3 class="box-title">
                             <i class="fa fa-search"></i>
                             Pencarian dan Filter Data
                         </h3>
+                        <div class="box-tools pull-right">
+                            <button data-widget="collapse" class="btn btn-info btn-sm" onclick="JavaScript:return false;">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                            <button data-widget="remove" class="btn btn-info btn-sm" onclick="JavaScript:return false;return false;">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
                     </div>
-                    <div class="panel-body">                       
+                    <div class="box-body">                       
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">Kriteria</label>                        
-                            <com:TDropDownList ID="cmbKriteria" AutoPostBack="false" CssClass="form-control" Width="200px;">                                
-                                <com:TListItem Text="Nama Lokasi" value="namalokasi"/>                                
-                            </com:TDropDownList>                              
+                            <label class="col-sm-2 control-label">Kriteria :</label>   
+                            <div class="col-xs-2">
+                                <com:TDropDownList ID="cmbKriteria" AutoPostBack="false" CssClass="form-control" Width="200px;">                                
+                                    <com:TListItem Text="Nama Lokasi" value="namalokasi"/>                                
+                                </com:TDropDownList>                              
+                            </div>
                         </div>
                         <div class="form-group" id="divtxtKriteria">
-                            <label class="col-sm-2 control-label">Isi Kriteria</label>                        
-                            <com:TTextBox ID="txtKriteria" CssClass="form-control" Width="250px;" />
-                            <com:TRequiredFieldValidator ID="spanTxtKriteriaValidator" ControlToValidate="txtKriteria" Display="Dynamic" ErrorMessage="Isi Kriteria pencarian" ValidationGroup="filterForm" FocusOnError="true" CssClass="has-error help-block">				
-                                <prop:ClientSide.OnValidationError>
-                                    $('divtxtKriteria').addClassName('has-error');
-                                    jQuery('#<%=$this->spanTxtKriteriaValidator->ClientID%>').removeAttr('style');                                
-                                </prop:ClientSide.OnValidationError>
-                                <prop:ClientSide.OnValidationSuccess>
-                                    $('divtxtKriteria').removeClassName('has-error');
-                                </prop:ClientSide.OnValidationSuccess>
-                            </com:TRequiredFieldValidator>                        
+                            <label class="col-sm-2 control-label">Isi Kriteria :</label>      
+                            <div class="col-xs-3">
+                                <com:TTextBox ID="txtKriteria" CssClass="form-control" />
+                                <com:TRequiredFieldValidator ID="spanTxtKriteriaValidator" ControlToValidate="txtKriteria" Display="Dynamic" ErrorMessage="Isi Kriteria pencarian" ValidationGroup="filterForm" FocusOnError="true" CssClass="has-error help-block">				
+                                    <prop:ClientSide.OnValidationError>
+                                        $('divtxtKriteria').addClassName('has-error');
+                                        jQuery('#<%=$this->spanTxtKriteriaValidator->ClientID%>').removeAttr('style');                                
+                                    </prop:ClientSide.OnValidationError>
+                                    <prop:ClientSide.OnValidationSuccess>
+                                        $('divtxtKriteria').removeClassName('has-error');
+                                    </prop:ClientSide.OnValidationSuccess>
+                                </com:TRequiredFieldValidator>                        
+                            </div>
                         </div>                                                        
                     </div>
-                    <div class="panel-footer">
-                        <com:TActiveLinkButton ID="btnSearch" CssClass="btn btn-outline btn-primary" Text="<i class='fa fa-search'></i> Cari" Attributes.Title="Cari" OnClick="filterRecord" ValidationGroup="filterForm">                        
-                            <prop:ClientSide.OnPreDispatch>
-                                $('loading').show();                                             
-                                $('<%=$this->btnSearch->ClientId%>').disabled='disabled';						
-                            </prop:ClientSide.OnPreDispatch>
-                            <prop:ClientSide.OnLoading>
-                                $('<%=$this->btnSearch->ClientId%>').disabled='disabled';									                            
-                            </prop:ClientSide.OnLoading>
-                            <prop:ClientSide.onComplete>
-                                $('loading').hide();
-                                $('<%=$this->btnSearch->ClientId%>').disabled='';
-                            </prop:ClientSide.OnComplete>
-                        </com:TActiveLinkButton>
+                    <div class="box-footer">
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <com:TActiveLinkButton ID="btnSearch" CssClass="btn btn-info" Text="<i class='fa fa-search'></i> Cari" Attributes.Title="Cari" OnClick="filterRecord" ValidationGroup="filterForm">                        
+                                    <prop:ClientSide.OnPreDispatch>
+                                        $('loading').show();                                             
+                                        $('<%=$this->btnSearch->ClientId%>').disabled='disabled';						
+                                    </prop:ClientSide.OnPreDispatch>
+                                    <prop:ClientSide.OnLoading>
+                                        $('<%=$this->btnSearch->ClientId%>').disabled='disabled';									                            
+                                    </prop:ClientSide.OnLoading>
+                                    <prop:ClientSide.onComplete>
+                                        $('loading').hide();
+                                        $('<%=$this->btnSearch->ClientId%>').disabled='';
+                                    </prop:ClientSide.OnComplete>
+                                </com:TActiveLinkButton>
+                            </div>
+                        </div>
                     </div>
                 </div>            
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">
-                            <i class="fa fa-anchor"></i>
+                <div class="box box-solid box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">
+                            <i class="fa fa-road"></i>
                             Daftar Lokasi Usaha
                         </h3>
+                        <div class="box-tools pull-right">
+                            <button data-widget="collapse" class="btn btn-primary btn-sm" onclick="JavaScript:return false;">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                            <button data-widget="remove" class="btn btn-primary btn-sm" onclick="JavaScript:return false;return false;">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
                     </div>
-                    <div class="panel-body">
+                    <div class="box-body">
                         <p class="text-right">
-                            <com:TLinkButton ID="add" CssClass="btn btn-outline btn-primary" Text="<i class='fa fa-plus'></i>" Attributes.Title="Tambah Lokasi" OnClick="addProcess" CausesValidation="false" />
+                            <com:TLinkButton ID="add" CssClass="btn btn-app" Text="<i class='fa fa-plus'></i> Tambah" Attributes.Title="Tambah Lokasi" OnClick="addProcess" CausesValidation="false" />
                         </p>
                         <com:TActiveRepeater ID="RepeaterS" DataKeyField="RecNoLokasi" AllowPaging="true" PageSize="10" AllowCustomPaging="true">
                             <prop:HeaderTemplate>			
@@ -181,8 +241,8 @@
                                     <td><%#$this->DataItem['KetLokasi']%></td>
                                     <td class="text-center"><i class="fa <%=$this->DataItem['enabled']==true?'fa-check-circle':'fa-times-circle'%>"></i></td>
                                     <td class="text-center">                                                 
-                                        <com:TLinkButton CausesValidation="false" CssClass="btn btn-info" Text="<i class='fa fa-pencil'></i>" Attributes.Title="Ubah Lokasi" OnClick="Page.editRecord" />                                                                                                      
-                                        <com:TActiveLinkButton ID="btnDelete" CausesValidation="false" CssClass="btn btn-danger" Attributes.Title="Hapus Lokasi" Text="<i class='fa fa-times'></i>" OnClick="Page.deleteRecord" Attributes.OnClick="if(!confirm('Anda ingin menghapus lokasi usaha ini ?')) return false;">              
+                                        <com:TLinkButton CausesValidation="false" CssClass="btn bg-olive btn-sm" Text="<i class='fa fa-pencil'></i>" Attributes.Title="Ubah Lokasi" OnClick="Page.editRecord" />                                                                                                      
+                                        <com:TActiveLinkButton ID="btnDelete" CausesValidation="false" CssClass="btn btn-danger btn-sm" Attributes.Title="Hapus Lokasi" Text="<i class='fa fa-times'></i>" OnClick="Page.deleteRecord" Attributes.OnClick="if(!confirm('Anda ingin menghapus lokasi usaha ini ?')) return false;">              
                                             <prop:ClientSide.OnPreDispatch>
                                                 $('loading').show();                                             
                                                 $('<%=$this->btnDelete->ClientId%>').disabled='disabled';						
@@ -205,8 +265,8 @@
                                     <td><%#$this->DataItem['KetLokasi']%></td>
                                     <td class="text-center"><i class="fa <%=$this->DataItem['enabled']==true?'fa-check-circle':'fa-times-circle'%>"></i></td>
                                     <td class="text-center">                                                 
-                                        <com:TLinkButton CausesValidation="false" CssClass="btn btn-info" Text="<i class='fa fa-pencil'></i>" Attributes.Title="Ubah Lokasi" OnClick="Page.editRecord" />                                                                                                      
-                                        <com:TActiveLinkButton ID="btnDelete" CausesValidation="false" CssClass="btn btn-danger" Attributes.Title="Hapus Lokasi" Text="<i class='fa fa-times'></i>" OnClick="Page.deleteRecord" Attributes.OnClick="if(!confirm('Anda ingin menghapus menghapus area/dearah ini ?')) return false;">              
+                                        <com:TLinkButton CausesValidation="false" CssClass="btn bg-olive btn-sm" Text="<i class='fa fa-pencil'></i>" Attributes.Title="Ubah Lokasi" OnClick="Page.editRecord" />                                                                                                      
+                                        <com:TActiveLinkButton ID="btnDelete" CausesValidation="false" CssClass="btn btn-danger btn-sm" Attributes.Title="Hapus Lokasi" Text="<i class='fa fa-times'></i>" OnClick="Page.deleteRecord" Attributes.OnClick="if(!confirm('Anda ingin menghapus menghapus area/dearah ini ?')) return false;">              
                                             <prop:ClientSide.OnPreDispatch>
                                                 $('loading').show();                                             
                                                 $('<%=$this->btnDelete->ClientId%>').disabled='disabled';						

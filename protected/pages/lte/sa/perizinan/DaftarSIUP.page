@@ -25,7 +25,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group" id="divCmbUPTD">
-                                    <label class="col-sm-2 control-label">UPTD </label>
+                                    <label class="col-sm-2 control-label">UPTD  :</label>
                                     <div class="col-xs-5">
                                         <com:TDropDownList ID="cmbUPTD" AutoPostBack="false" CssClass="form-control chosen"/>                                                                                                                    
                                     </div>

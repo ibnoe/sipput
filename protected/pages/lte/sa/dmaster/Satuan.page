@@ -26,7 +26,7 @@
                 </div>
                 <div class="box-body">
                     <div class="form-group" id="divAddSatuan">
-                        <label class="col-sm-2 control-label">Nama Satuan</label>
+                        <label class="col-sm-2 control-label">Nama Satuan :</label>
                         <div class="col-xs-2">
                             <com:TTextBox ID="txtAddSatuan" CssClass="form-control" Attributes.PlaceHolder="Nama Satuan" />			                            
                             <com:TRequiredFieldValidator ID="FieldAddSatuanValidator" ControlToValidate="txtAddSatuan" Display="Dynamic" ErrorMessage="Isi Nama Satuan" ValidationGroup="addsatuan" FocusOnError="true" CssClass="has-error help-block">			
@@ -84,7 +84,7 @@
                 </div>
                 <div class="box-body">                                                                                     
                     <div class="form-group" id="divEditSatuan">
-                        <label class="col-sm-2 control-label">Nama Satuan</label>
+                        <label class="col-sm-2 control-label">Nama Satuan :</label>
                         <div class="col-xs-2">
                             <com:TTextBox ID="txtEditSatuan" CssClass="form-control" Attributes.PlaceHolder="Nama Satuan" Width="120px" />			                            
                             <com:TRequiredFieldValidator ID="FieldEditSatuanValidator" ControlToValidate="txtEditSatuan" Display="Dynamic" ErrorMessage="Isi Nama Satuan" ValidationGroup="editsatuan" FocusOnError="true" CssClass="has-error help-block">			
@@ -142,7 +142,7 @@
                     </div>
                     <div class="box-body">                       
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">Kriteria</label>                        
+                            <label class="col-sm-2 control-label">Kriteria :</label>                        
                             <div class="col-xs-4">
                                 <com:TDropDownList ID="cmbKriteria" AutoPostBack="false" CssClass="form-control">                                
                                     <com:TListItem Text="Nama Satuan" value="namasatuan"/>                                
@@ -150,7 +150,7 @@
                             </div>
                         </div>
                         <div class="form-group" id="divtxtKriteria">
-                            <label class="col-sm-2 control-label">Isi Kriteria</label>                        
+                            <label class="col-sm-2 control-label">Isi Kriteria :</label>                        
                             <div class="col-xs-3">
                                 <com:TTextBox ID="txtKriteria" CssClass="form-control" />
                                 <com:TRequiredFieldValidator ID="spanTxtKriteriaValidator" ControlToValidate="txtKriteria" Display="Dynamic" ErrorMessage="Isi Kriteria pencarian" ValidationGroup="filterForm" FocusOnError="true" CssClass="has-error help-block">				
@@ -227,7 +227,7 @@
                                     <td><%#$this->DataItem['NmSatuan']%></td>                                                                        
                                     <td class="text-center"><i class="fa <%=$this->DataItem['enabled']==true?'fa-check-circle':'fa-times-circle'%>"></i></td>
                                     <td class="text-center">                                                 
-                                        <com:TLinkButton CausesValidation="false" CssClass="btn bg-olive btn-info btn-sm" Text="<i class='fa fa-pencil'></i>" Attributes.Title="Ubah Satuan" OnClick="Page.editRecord" />                                                                                                      
+                                        <com:TLinkButton CausesValidation="false" CssClass="btn bg-olive btn-sm" Text="<i class='fa fa-pencil'></i>" Attributes.Title="Ubah Satuan" OnClick="Page.editRecord" />                                                                                                      
                                         <com:TActiveLinkButton ID="btnDelete" CausesValidation="false" CssClass="btn btn-danger btn-sm" Attributes.Title="Hapus Satuan" Text="<i class='fa fa-times'></i>" OnClick="Page.deleteRecord" Attributes.OnClick="if(!confirm('Anda ingin menghapus satuan ini ?')) return false;">              
                                             <prop:ClientSide.OnPreDispatch>
                                                 $('loading').show();                                             
@@ -251,7 +251,7 @@
                                     <td><%#$this->DataItem['NmSatuan']%></td>                                                                        
                                     <td class="text-center"><i class="fa <%=$this->DataItem['enabled']==true?'fa-check-circle':'fa-times-circle'%>"></i></td>
                                     <td class="text-center">                                                 
-                                        <com:TLinkButton CausesValidation="false" CssClass="btn bg-olive btn-info btn-sm" Text="<i class='fa fa-pencil'></i>" Attributes.Title="Ubah Satuan" OnClick="Page.editRecord" />                                                                                                      
+                                        <com:TLinkButton CausesValidation="false" CssClass="btn bg-olive btn-sm" Text="<i class='fa fa-pencil'></i>" Attributes.Title="Ubah Satuan" OnClick="Page.editRecord" />                                                                                                      
                                         <com:TActiveLinkButton ID="btnDelete" CausesValidation="false" CssClass="btn btn-danger btn-sm" Attributes.Title="Hapus Satuan" Text="<i class='fa fa-times'></i>" OnClick="Page.deleteRecord" Attributes.OnClick="if(!confirm('Anda ingin menghapus satuan ini ?')) return false;">              
                                             <prop:ClientSide.OnPreDispatch>
                                                 $('loading').show();                                             

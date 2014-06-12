@@ -29,7 +29,7 @@
                 </div>
                 <div class="box-body">
                     <div class="form-group" id="divCmbAddJenisAlat">
-                        <label class="col-sm-2 control-label">Jenis Alat</label>
+                        <label class="col-sm-2 control-label">Jenis Alat :</label>
                         <div class="col-xs-2">
                             <com:TDropDownList ID="cmbAddKodeJenis" CssClass="form-control" AutoPostBack="false" />                                 
                             <com:TRequiredFieldValidator ID="FieldAddJenisAlatValidator" ControlToValidate="cmbAddKodeJenis" InitialValue="none" Display="Dynamic" ErrorMessage="Pilih jenis alat" ValidationGroup="addbidangizin" FocusOnError="true" CssClass="has-error help-block">				
@@ -44,7 +44,7 @@
                         </div>
                     </div>                     
                     <div class="form-group" id="divTxtAddNamaBidang">
-                        <label class="col-sm-2 control-label">Nama Jenis</label>          
+                        <label class="col-sm-2 control-label">Nama Jenis :</label>          
                         <div class="col-xs-3">
                             <com:TTextBox ID="txtAddNamaJenisAlat" CssClass="form-control" Attributes.PlaceHolder="Nama Jenis Alat" Width="350px" />			                            
                             <com:TRequiredFieldValidator ID="FieldAddNamaBidangValidator" ControlToValidate="txtAddNamaJenisAlat" Display="Dynamic" ErrorMessage="Isi Nama Jenis Alat" ValidationGroup="addbidangizin" FocusOnError="true" CssClass="has-error help-block">			
@@ -102,7 +102,7 @@
                 </div>
                 <div class="box-body">                                                                
                     <div class="form-group" id="divCmbEditJenisAlat">
-                        <label class="col-sm-2 control-label">Jenis Izin</label>
+                        <label class="col-sm-2 control-label">Jenis Izin :</label>
                         <div class="col-xs-2">
                             <com:TDropDownList ID="cmbEditKodeJenis" CssClass="form-control" AutoPostBack="false" Width="250px" />                                                         
                             <com:TRequiredFieldValidator ID="FieldEditJenisAlatValidator" ControlToValidate="cmbEditKodeJenis" InitialValue="none" Display="Dynamic" ErrorMessage="Pilih jenis alat" ValidationGroup="addbidangizin" FocusOnError="true" CssClass="has-error help-block">				
@@ -117,7 +117,7 @@
                         </div>
                     </div>
                     <div class="form-group" id="divTxtEditNamaBidang">
-                        <label class="col-sm-2 control-label">Nama Jenis Alat</label>    
+                        <label class="col-sm-2 control-label">Nama Jenis Alat :</label>    
                         <div class="col-xs-3">
                             <com:TTextBox ID="txtEditNamaJenisAlat" CssClass="form-control" Attributes.PlaceHolder="Nama Jenis Alat" Width="350px" />			                            
                             <com:TRequiredFieldValidator ID="FieldEditNamaBidangValidator" ControlToValidate="txtEditNamaJenisAlat" Display="Dynamic" ErrorMessage="Isi Nama Jenis Alat" ValidationGroup="editbidangizin" FocusOnError="true" CssClass="has-error help-block">			
@@ -174,7 +174,7 @@
                     </div>
                     <div class="box-body">
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">Jenis Izin</label>  
+                            <label class="col-sm-2 control-label">Jenis Izin :</label>  
                             <div class="col-xs-3">
                                 <com:TActiveDropDownList ID="cmbJenisAlat" CssClass="form-control" OnSelectedIndexChanged="changeJenisAlat">                                                                                                                                       
                                     <prop:ClientSide.OnPreDispatch>
@@ -192,7 +192,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">Kriteria</label>                        
+                            <label class="col-sm-2 control-label">Kriteria :</label>                        
                             <div class="col-xs-2">
                                 <com:TDropDownList ID="cmbKriteria" AutoPostBack="false" CssClass="form-control">                                
                                     <com:TListItem Text="Nama Jenis" value="namajenis"/>                                
@@ -200,7 +200,7 @@
                             </div>
                         </div>
                         <div class="form-group" id="divtxtKriteria">
-                            <label class="col-sm-2 control-label">Isi Kriteria</label>                        
+                            <label class="col-sm-2 control-label">Isi Kriteria :</label>                        
                             <div class="col-xs-3">
                                 <com:TTextBox ID="txtKriteria" CssClass="form-control" Width="250px;" />
                                 <com:TRequiredFieldValidator ID="spanTxtKriteriaValidator" ControlToValidate="txtKriteria" Display="Dynamic" ErrorMessage="Isi Kriteria pencarian" ValidationGroup="filterForm" FocusOnError="true" CssClass="has-error help-block">				
@@ -218,7 +218,7 @@
                     <div class="box-footer">
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <com:TActiveLinkButton ID="btnSearch" CssClass="btn btn-outline btn-primary" Text="<i class='fa fa-search'></i> Cari" Attributes.Title="Cari" OnClick="filterRecord" ValidationGroup="filterForm">                        
+                                <com:TActiveLinkButton ID="btnSearch" CssClass="btn btn-info" Text="<i class='fa fa-search'></i> Cari" Attributes.Title="Cari" OnClick="filterRecord" ValidationGroup="filterForm">                        
                                     <prop:ClientSide.OnPreDispatch>
                                         $('loading').show();                                             
                                         $('<%=$this->btnSearch->ClientId%>').disabled='disabled';						

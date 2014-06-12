@@ -16,10 +16,18 @@
                         <i class="fa fa-pencil"></i>
                         UBAH JENIS IZIN
                     </h3>
+                    <div class="box-tools pull-right">
+                        <button data-widget="collapse" class="btn btn-primary btn-sm" onclick="JavaScript:return false;">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <button data-widget="remove" class="btn btn-primary btn-sm" onclick="pageredirect('<%=$this->constructUrl('dmaster.JenisIzinUsaha',true)%>');return false;">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="box-body">       
                     <div class="form-group" id="divTxtEditInsIzinUsaha">
-                        <label class="col-sm-2 control-label">Inisial Izin</label> 
+                        <label class="col-sm-2 control-label">Inisial Izin :</label> 
                         <div class="col-xs-2">
                             <com:TTextBox ID="txtEditInsIzinUsaha" CssClass="form-control" Attributes.PlaceHolder="Inisial Izin Usaha" />			                            
                             <com:TRequiredFieldValidator ID="FieldEditInsIzinUsahaValidator" ControlToValidate="txtEditInsIzinUsaha" Display="Dynamic" ErrorMessage="Isi Inisial Bidang Izin Usaha" ValidationGroup="editbidangizin" FocusOnError="true" CssClass="has-error help-block">			
@@ -34,7 +42,7 @@
                         </div>
                     </div>
                     <div class="form-group" id="divTxtEditNamaIzin">
-                        <label class="col-sm-2 control-label">Nama Izin</label> 
+                        <label class="col-sm-2 control-label">Nama Izin :</label> 
                         <div class="col-xs-4">
                             <com:TTextBox ID="txtEditNamaIzin" CssClass="form-control" Attributes.PlaceHolder="Nama Jenis Alat" />			                            
                             <com:TRequiredFieldValidator ID="FieldEditNamaIzinValidator" ControlToValidate="txtEditNamaIzin" Display="Dynamic" ErrorMessage="Isi Nama Jenis Alat" ValidationGroup="editbidangizin" FocusOnError="true" CssClass="has-error help-block">			
@@ -107,7 +115,7 @@
                                 <td><%#$this->DataItem['InsIzin']%></td>	
                                 <td><%#$this->DataItem['NmIzin']%></td>											                                                   
                                 <td class="text-center">                                    
-                                    <com:TLinkButton CausesValidation="false" CssClass="btn bg-olive btn-info btn-sm" Text="<i class='fa fa-pencil'></i>" Attributes.Title="Ubah Jenis Izin Usaha" OnClick="Page.editRecord" />
+                                    <com:TLinkButton CausesValidation="false" CssClass="btn bg-olive btn-sm" Text="<i class='fa fa-pencil'></i>" Attributes.Title="Ubah Jenis Izin Usaha" OnClick="Page.editRecord" />
                                 </td>
                             </tr>
                         </prop:ItemTemplate>				
@@ -117,7 +125,7 @@
                                 <td><%#$this->DataItem['InsIzin']%></td>	
                                 <td><%#$this->DataItem['NmIzin']%></td>											                                                   
                                 <td class="text-center">
-                                    <com:TLinkButton CausesValidation="false" CssClass="btn bg-olive btn-info btn-sm" Text="<i class='fa fa-pencil'></i>" Attributes.Title="Ubah Jenis Izin Usaha" OnClick="Page.editRecord" />
+                                    <com:TLinkButton CausesValidation="false" CssClass="btn bg-olive btn-sm" Text="<i class='fa fa-pencil'></i>" Attributes.Title="Ubah Jenis Izin Usaha" OnClick="Page.editRecord" />
                                 </td>
                             </tr>
                         </prop:AlternatingItemTemplate>

@@ -3,7 +3,7 @@ prado::using ('Application.MainPageSA');
 class CLokasiUsaha extends MainPageSA {
 	public function onLoad($param) {		
 		parent::onLoad($param);		        
-        $this->showDMaster=true;
+        $this->showLokasi=true;
         $this->showLokasiUsaha=true;        
 		if (!$this->IsPostBack&&!$this->IsCallBack) {
             if (!isset($_SESSION['currentPageLokasiUsaha'])||$_SESSION['currentPageLokasiUsaha']['page_name']!='sa.dmaster.LokasiUsaha') {

@@ -2,6 +2,9 @@
 <com:TContent ID="moduleheader">
     <i class="fa fa-building-o"></i> UPTD (Unit Pelaksana Teknis Dinas)
 </com:TContent>
+<com:TContent ID="modulebreadcrumb">        
+    <li class="active">UPTD</li>
+</com:TContent>
 <com:TContent ID="maincontent">
     <com:TPanel Visible="<%= $this->getEditProcess(false) %>" CssClass="row">
         <com:TActiveHiddenField ID="hiddenkode_uptd" />        

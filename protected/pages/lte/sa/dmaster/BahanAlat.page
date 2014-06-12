@@ -26,7 +26,7 @@
                 </div>
                 <div class="box-body">
                     <div class="form-group" id="divAddBahanAlat">
-                        <label class="col-sm-2 control-label">Nama Bahan Jenis Alat</label>
+                        <label class="col-sm-2 control-label">Nama Bahan Jenis Alat :</label>
                         <div class="col-xs-3">
                             <com:TTextBox ID="txtAddBahanAlat" CssClass="form-control" Attributes.PlaceHolder="Nama Jenis Bahan Alat" />			                            
                             <com:TRequiredFieldValidator ID="FieldAddBahanAlatValidator" ControlToValidate="txtAddBahanAlat" Display="Dynamic" ErrorMessage="Isi Nama Bahan Jenis Alat" ValidationGroup="addbahanalat" FocusOnError="true" CssClass="has-error help-block">			
@@ -84,7 +84,7 @@
                 </div>
                 <div class="box-body">                                                                                     
                     <div class="form-group" id="divEditBahanAlat">
-                        <label class="col-sm-2 control-label">Nama Bahan Jenis Alat</label>
+                        <label class="col-sm-2 control-label">Nama Bahan Jenis Alat :</label>
                         <div class="col-xs-3">
                             <com:TTextBox ID="txtEditBahanAlat" CssClass="form-control" Attributes.PlaceHolder="Nama Bahan Jenis Alat"/>			                            
                             <com:TRequiredFieldValidator ID="FieldEditBahanAlatValidator" ControlToValidate="txtEditBahanAlat" Display="Dynamic" ErrorMessage="Isi Nama Bahan Jenis Alat" ValidationGroup="editbahanalat" FocusOnError="true" CssClass="has-error help-block">			
@@ -142,7 +142,7 @@
                     </div>
                     <div class="box-body">                       
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">Kriteria</label>            
+                            <label class="col-sm-2 control-label">Kriteria :</label>            
                             <div class="col-xs-2">
                                 <com:TDropDownList ID="cmbKriteria" AutoPostBack="false" CssClass="form-control">                                
                                     <com:TListItem Text="Nama Bahan Alat" value="namabahan"/>                                
@@ -150,7 +150,7 @@
                             </div>
                         </div>
                         <div class="form-group" id="divtxtKriteria">
-                            <label class="col-sm-2 control-label">Isi Kriteria</label>                        
+                            <label class="col-sm-2 control-label">Isi Kriteria :</label>                        
                             <div class="col-xs-3">
                                 <com:TTextBox ID="txtKriteria" CssClass="form-control" />
                                 <com:TRequiredFieldValidator ID="spanTxtKriteriaValidator" ControlToValidate="txtKriteria" Display="Dynamic" ErrorMessage="Isi Kriteria pencarian" ValidationGroup="filterForm" FocusOnError="true" CssClass="has-error help-block">				
@@ -168,7 +168,7 @@
                     <div class="box-footer">
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <com:TActiveLinkButton ID="btnSearch" CssClass="btn btn-outline btn-primary" Text="<i class='fa fa-search'></i> Cari" Attributes.Title="Cari" OnClick="filterRecord" ValidationGroup="filterForm">                        
+                                <com:TActiveLinkButton ID="btnSearch" CssClass="btn btn-info" Text="<i class='fa fa-search'></i> Cari" Attributes.Title="Cari" OnClick="filterRecord" ValidationGroup="filterForm">                        
                                     <prop:ClientSide.OnPreDispatch>
                                         $('loading').show();                                             
                                         $('<%=$this->btnSearch->ClientId%>').disabled='disabled';						

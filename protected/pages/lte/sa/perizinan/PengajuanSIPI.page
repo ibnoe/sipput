@@ -26,19 +26,19 @@
                                             <div class="box">
                                                 <div class="box-body">
                                                     <div class="form-group">
-                                                        <label class="col-sm-2 control-label">NO. SIUP</label>
+                                                        <label class="col-sm-2 control-label">NO. SIUP :</label>
                                                         <div class="col-xs-3">
                                                             <com:TActiveTextBox ID="txtNoSIUP" CssClass="form-control" />
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label class="col-sm-2 control-label">Mulai Masa Berlaku</label>
+                                                        <label class="col-sm-2 control-label">Mulai Masa Berlaku :</label>
                                                         <div class="col-xs-5">
                                                            <com:TActiveCustomDatePicker ID="cmbMulaiBerlakuSIUP" DateFormat="dd-MMMM-yyyy" Culture="id" FromYear="2000" UpToYear="<%=date('Y')%>" InputMode="DropDownList" OnCallBack="changeMasaBerlakuSIUP" /> 
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label class="col-sm-2 control-label">Selesai Masa Berlaku</label>
+                                                        <label class="col-sm-2 control-label">Selesai Masa Berlaku :</label>
                                                         <div class="col-xs-5">
                                                            <com:TActiveCustomDatePicker ID="cmbSelesaiBerlakuSIUP" DateFormat="dd-MMMM-yyyy" Culture="id" FromYear="2000" InputMode="DropDownList" Enabled="false" ShowCalendar="false" /> 
                                                         </div>
@@ -95,7 +95,7 @@
                                             <div class="box">
                                                 <div class="box-body">
                                                     <div class="form-group">
-                                                        <label class="col-sm-2 control-label">NO. SIUP</label>
+                                                        <label class="col-sm-2 control-label">NO. SIUP :</label>
                                                         <div class="col-sm-10">
                                                             <p class="form-control-static">
                                                                 <com:TLiteral ID="literalNoSiup" />
@@ -104,19 +104,19 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label class="col-sm-2 control-label">NO. SIPI</label>
+                                                        <label class="col-sm-2 control-label">NO. SIPI :</label>
                                                         <div class="col-xs-3">
                                                             <com:TActiveTextBox ID="txtNoSIPI" CssClass="form-control" />
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label class="col-sm-2 control-label">Mulai Masa Berlaku</label>
+                                                        <label class="col-sm-2 control-label">Mulai Masa Berlaku :</label>
                                                         <div class="col-xs-5">
                                                            <com:TActiveCustomDatePicker ID="cmbMulaiBerlakuSIPI" DateFormat="dd-MMMM-yyyy" Culture="id" FromYear="2000" UpToYear="<%=date('Y')%>" InputMode="DropDownList" OnCallBack="changeMasaBerlaku" /> 
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label class="col-sm-2 control-label">Selesai Masa Berlaku</label>
+                                                        <label class="col-sm-2 control-label">Selesai Masa Berlaku :</label>
                                                         <div class="col-xs-5">
                                                            <com:TActiveCustomDatePicker ID="cmbSelesaiBerlakuSIPI" DateFormat="dd-MMMM-yyyy" Culture="id" FromYear="2000" InputMode="DropDownList" OnCallBack="changeMasaBerlaku" Enabled="false" ShowCalendar="false" /> 
                                                         </div>

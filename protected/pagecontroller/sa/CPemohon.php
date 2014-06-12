@@ -111,12 +111,17 @@ class CPemohon extends MainPageSA {
 	}
     public function addNewPemohonCompleted ($sender,$param) {
         $this->idProcess='add'; 
-        $filename=substr(hash('sha512',rand()),0,8);
-        $name=$this->FileFoto->FileName;
-        $part=$this->setup->cleanFileNameString($name);                                
-        $path=$this->setup->getSettingValue('dir_userimages')."/$filename-$part";                
-        $this->path_userimages->Value=$path;
-        $this->FileFoto->saveAs("./$path");      
+        if ($this->FileFoto->HasFile) {
+            $filename=substr(hash('sha512',rand()),0,8);
+            $name=$this->FileFoto->FileName;
+            $part=$this->setup->cleanFileNameString($name);                                
+            $path=$this->setup->getSettingValue('dir_userimages')."/{$filename}$part";                
+            $this->path_userimages->Value=$path;
+            $this->FileFoto->saveAs("./$path");      
+        }else{
+            $path=$this->setup->getSettingValue('dir_userimages')."/empty_applicant.png";                
+            $this->path_userimages->Value=$path;
+        }
     }    
     public function saveData($sender,$param) {		
         if ($this->Page->IsValid) {		                                                                

@@ -45,7 +45,7 @@
                 </div>
                 <div class="box-body">                    
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Status Pemohon </label>
+                        <label class="col-sm-2 control-label">Status Pemohon :</label>
                         <div class="col-sm-4">
                             <div class="radio">
                                 <label>
@@ -60,9 +60,9 @@
                         </div>
                     </div>
                     <div class="form-group" id="divKodePemohon">
-                        <label class="col-sm-2 control-label">Kode Pemohon </label>
+                        <label class="col-sm-2 control-label">Kode Pemohon  :</label>
                         <div class="col-sm-10">
-                            <com:TActiveTextBox ID="txtEditKodePemohon" Columns="4" MaxLength="4" Attributes.OnKeyUp="formatangka(this,true)" CssClass="form-control" Attributes.PlaceHolder="kode" Width="75px;" />			                            
+                            <com:TActiveTextBox ID="txtEditKodePemohon" Columns="4" MaxLength="4" Attributes.OnKeyUp="formatangka(this,true)" CssClass="form-control" Attributes.PlaceHolder="kode" Width="75px;" Enabled="false" />			                            
                             <com:TRequiredFieldValidator ID="FieldEditKodeValidator" ControlToValidate="txtEditKodePemohon" Display="Dynamic" ErrorMessage="Isi Kode Pemohon" ValidationGroup="editPemohon" FocusOnError="true" CssClass="has-error help-block">			
                                 <prop:ClientSide.OnValidationError>
                                     $('divKodePemohon').addClassName('has-error');
@@ -84,7 +84,7 @@
                         </div>
                     </div>
                     <div class="form-group" id="divNamaPemohon">
-                        <label class="col-sm-2 control-label">Nama Pemohon </label>
+                        <label class="col-sm-2 control-label">Nama Pemohon  :</label>
                         <div class="col-xs-5">
                             <com:TTextBox ID="txtEditNamaPemohon" CssClass="form-control" Attributes.PlaceHolder="Nama Pemohon" />
                             <com:TRequiredFieldValidator ID="FieldEditNamaPemohonValidator" ControlToValidate="txtEditNamaPemohon" Display="Dynamic" ErrorMessage="Isi Nama Pemohon" ValidationGroup="editPemohon" FocusOnError="true" CssClass="has-error help-block">				
@@ -99,7 +99,7 @@
                         </div>
                     </div>
                     <div class="form-group" id="divKTPPemohon">
-                        <label class="col-sm-2 control-label">No. KTP Pemohon </label>
+                        <label class="col-sm-2 control-label">No. KTP Pemohon  :</label>
                         <div class="col-xs-2">
                             <com:TTextBox ID="txtEditNoKTP" CssClass="form-control" Attributes.PlaceHolder="Nomor KTP" Attributes.OnKeyUp="formatangka(this,true)" />
                             <com:TRequiredFieldValidator ID="FieldEditNoKTPValidator" ControlToValidate="txtEditNoKTP" Display="Dynamic" ErrorMessage="Isi Nomor KTP Pemohon" ValidationGroup="editPemohon" FocusOnError="true" CssClass="has-error help-block">
@@ -114,7 +114,7 @@
                         </div>
                     </div>                    
                     <div class="form-group" id="divAlamatPemohon">
-                        <label class="col-sm-2 control-label">Alamat Pemohon </label>
+                        <label class="col-sm-2 control-label">Alamat Pemohon  :</label>
                         <div class="col-xs-7">
                             <com:TTextBox ID="txtEditAlamatPemohon" CssClass="form-control" Attributes.PlaceHolder="Alamat Pemohon" />
                             <com:TRequiredFieldValidator ID="FieldEditAlamatPemohonValidator" ControlToValidate="txtEditAlamatPemohon" Display="Dynamic" ErrorMessage="Isi Alamat Pemohon" ValidationGroup="editPemohon" FocusOnError="true" CssClass="has-error help-block">
@@ -129,7 +129,7 @@
                         </div>
                     </div>
                     <div class="form-group" id="divNoTelp">
-                        <label class="col-sm-2 control-label">No. Telp Pemohon </label>
+                        <label class="col-sm-2 control-label">No. Telp Pemohon  :</label>
                         <div class="col-xs-2">
                             <com:TTextBox ID="txtEditNoTelp" CssClass="form-control" Attributes.PlaceHolder="Nomor Telepon" Attributes.OnKeyUp="formatangka(this,true)" />
                             <com:TRequiredFieldValidator ID="FieldEditNoTelpValidator" ControlToValidate="txtEditNoTelp" Display="Dynamic" ErrorMessage="Isi Nomor Telp Pemohon" ValidationGroup="editPemohon" FocusOnError="true" CssClass="has-error help-block">
@@ -144,7 +144,7 @@
                         </div>
                     </div>     
                     <div class="form-group" id="divNPWPPemohon">
-                        <label class="col-sm-2 control-label">No. NPWP Pemohon </label>
+                        <label class="col-sm-2 control-label">No. NPWP Pemohon  :</label>
                         <div class="col-xs-3">
                             <com:TTextBox ID="txtEditNoNPWPPemohon" CssClass="form-control" Attributes.PlaceHolder="Nomor NPWP Pemohon" Attributes.OnKeyUp="formatangka(this,true)" />                        
                         </div
@@ -168,7 +168,7 @@
                 </div>
                 <div class="box-body">
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Status Perusahaan </label>
+                        <label class="col-sm-2 control-label">Status Perusahaan  :</label>
                         <div class="col-sm-4">
                             <div class="radio">
                                 <label>
@@ -183,7 +183,7 @@
                         </div>
                     </div>     
                     <div class="form-group" id="divNamaPerusahaan">
-                        <label class="col-sm-2 control-label">Nama Perusahaan </label>
+                        <label class="col-sm-2 control-label">Nama Perusahaan  :</label>
                         <div class="col-xs-5">
                             <com:TTextBox ID="txtEditNamaPerusahaan" CssClass="form-control" Attributes.PlaceHolder="Nama Perusahaan" />
                             <com:TRequiredFieldValidator ID="FieldEditNamaPerusahaanValidator" ControlToValidate="txtEditNamaPerusahaan" Display="Dynamic" ErrorMessage="Isi Nama Perusahaan" ValidationGroup="editPemohon" FocusOnError="true" CssClass="has-error help-block">				
@@ -198,7 +198,7 @@
                         </div>
                     </div>
                     <div class="form-group" id="divNoAktePerusahaan">
-                        <label class="col-sm-2 control-label">Nomor Akte Pendirian Perusahaan</label>
+                        <label class="col-sm-2 control-label">Nomor Akte Pendirian Perusahaan :</label>
                         <div class="col-xs-4">
                             <com:TTextBox ID="txtEditNoAktePerusahaan" CssClass="form-control" Width="200px" Attributes.PlaceHolder="No. Akte Perusahaan" />
                             <com:TRequiredFieldValidator ID="FieldEditNoAkteValidator" ControlToValidate="txtEditNoAktePerusahaan" Display="Dynamic" ErrorMessage="Isi Nomor Akte Perusahaan" ValidationGroup="editPemohon" FocusOnError="true" CssClass="has-error help-block">				
@@ -213,7 +213,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Tanggal Akte Pendirian Perusahaan</label>
+                        <label class="col-sm-2 control-label">Tanggal Akte Pendirian Perusahaan :</label>
                         <div class="col-xs-4">
                             <div class="radio">                                
                                 <com:TCustomDatePicker ID="cmbEditTGLAktePendirian" DateFormat="dd-MMMM-yyyy" Culture="id"  FromYear="1970" UpToYear="<%= @date('Y') %>" InputMode="DropDownList" ShowCalendar="true" />                                                        
@@ -221,7 +221,7 @@
                         </div>
                     </div>
                     <div class="form-group" id="divNPWPPerusahaan">
-                        <label class="col-sm-2 control-label">No. NPWP Perusahaan</label>
+                        <label class="col-sm-2 control-label">No. NPWP Perusahaan :</label>
                         <div class="col-xs-3">
                             <com:TTextBox ID="txtEditNoNPWP" CssClass="form-control" Attributes.PlaceHolder="Nomor NPWP Perusahaan" Attributes.OnKeyUp="formatangka(this,true)" />
                             <com:TRequiredFieldValidator ID="FieldEditNoNPWPValidator" ControlToValidate="txtEditNoNPWP" Display="Dynamic" ErrorMessage="Isi Nomor NPWP Perusahaan" ValidationGroup="editPemohon" FocusOnError="true" CssClass="has-error help-block">
@@ -236,7 +236,7 @@
                         </div>
                     </div>
                     <div class="form-group" id="divAlamatPerusahaan">
-                        <label class="col-sm-2 control-label">Alamat Perusahaan</label>
+                        <label class="col-sm-2 control-label">Alamat Perusahaan :</label>
                         <div class="col-xs-5">
                             <com:TTextBox ID="txtEditAlamatPerusahaan" CssClass="form-control" Attributes.PlaceHolder="Alamat Perusahaan" />
                             <com:TRequiredFieldValidator ID="FieldEditAlamatPerusahaanValidator" ControlToValidate="txtEditAlamatPerusahaan" Display="Dynamic" ErrorMessage="Isi Alamat Perusahaan" ValidationGroup="editPemohon" FocusOnError="true" CssClass="has-error help-block">
@@ -251,7 +251,7 @@
                         </div>
                     </div>
                     <div class="form-group" id="divNoTelpPerusahaan">
-                        <label class="col-sm-2 control-label">No. Telp Perusahaan</label>
+                        <label class="col-sm-2 control-label">No. Telp Perusahaan :</label>
                         <div class="col-xs-2">
                             <com:TTextBox ID="txtEditNoTelpPerusahaan" CssClass="form-control" Attributes.PlaceHolder="Nomor Telp" Attributes.OnKeyUp="formatangka(this,true)" />
                             <com:TRequiredFieldValidator ID="FieldEditNoTelpPerusahaanValidator" ControlToValidate="txtEditNoTelpPerusahaan" Display="Dynamic" ErrorMessage="Isi Nomor Telp Perusahaan" ValidationGroup="editPemohon" FocusOnError="true" CssClass="has-error help-block">
@@ -266,13 +266,13 @@
                         </div>
                     </div>     
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">No. Fax Perusahaan</label>
+                        <label class="col-sm-2 control-label">No. Fax Perusahaan :</label>
                         <div class="col-xs-2">
                             <com:TTextBox ID="txtEditNoFaxPerusahaan" CssClass="form-control" Attributes.PlaceHolder="Nomor Fax" Attributes.OnKeyUp="formatangka(this,true)" />                        
                         </div>
                     </div> 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Alamat Kantor Cabang</label>
+                        <label class="col-sm-2 control-label">Alamat Kantor Cabang :</label>
                         <div class="col-xs-5">
                             <com:TTextBox ID="txtEditAlamatCabang" CssClass="form-control" Attributes.PlaceHolder="Alamat Kantor Cabang" />                        
                         </div>
@@ -283,7 +283,7 @@
                 <div class="box-header">
                     <h3 class='box-title'>
                         <i class='fa fa-plus'></i>
-                        TAMBAH PEMOHON - FOTO PEMOHON
+                        UBAH PEMOHON - FOTO PEMOHON (Maks. <%=$this->setup->formatSizeUnits(3148576)%>)
                     </h3>
                     <div class="box-tools pull-right">
                         <button data-widget="collapse" class="btn btn-primary btn-sm" onclick="JavaScript:return false;">
@@ -295,17 +295,23 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    <div class="form-group" id="divFile1">
-                        <label class="col-sm-2 control-label">UPLOAD (Maks. <%=$this->setup->formatSizeUnits(3148576)%>)</label>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Preview Foto Pemohon :</label>
+                         <div class="col-sm-10">
+                            <p class="form-control-static"><img src="<%=$this->editPath_userimages->Value%>" height="189" width="139" /></p>
+                         </div>
+                    </div>                                
+                    <div class="form-group" id="divFile2">
+                        <label class="col-sm-2 control-label">UPLOAD FOTO (ukuran 189x139) :</label>
                         <div class="col-xs-5">
                             <com:TFileUpload ID="editFileFoto" MaxFileSize="3148576"/>
                             <com:TCustomValidator ID="editFileFotoValidator" ControlToValidate="editFileFoto" Display="Dynamic" OnServerValidate="checkTypeFile" ValidationGroup="editPemohon" ErrorMessage="Ekstensi File yang di Ijinkan hanya jpg dan png." FocusOnError="true" CssClass="has-error help-block">
                                 <prop:ClientSide.OnValidationError>
-                                    $('divFile1').addClassName('has-error');
+                                    $('divFile2').addClassName('has-error');
                                     jQuery('#<%=$this->addKodePemohon->ClientID%>').removeAttr('style');
                                 </prop:ClientSide.OnValidationError>
                                 <prop:ClientSide.OnValidationSuccess>
-                                    $('divFile1').removeClassName('has-error');
+                                    $('divFile2').removeClassName('has-error');
                                 </prop:ClientSide.OnValidationSuccess>
                             </com:TCustomValidator>
                         </div>
@@ -313,12 +319,11 @@
                 </div>
             </com:TWizardStep> 
             <com:TWizardStep Title="Summary" AllowReturn="false" StepType="Complete">
-                <com:THiddenField ID="editPath_userimages" />
-                <com:THiddenField ID="editPath_temp_userimages" />
+                <com:THiddenField ID="editPath_userimages" />                
                 <div class="box-header">
                     <h3 class='box-title'>
                         <i class='fa fa-plus'></i>
-                        TAMBAH PEMOHON - RANGKUMAN
+                        UBAH PEMOHON - RANGKUMAN
                     </h3>
                     <div class="box-tools pull-right">
                         <button data-widget="collapse" class="btn btn-primary btn-sm" onclick="JavaScript:return false;">
@@ -348,99 +353,105 @@
                             <h4>&nbsp;</h4>
                             <div class="row">
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">Status Pemohon</label>
+                                    <label class="col-sm-2 control-label">Status Pemohon :</label>
                                      <div class="col-sm-10">
                                         <p class="form-control-static"><%=$this->rdEditStatusPemohonPerorangan->Checked==true?'Perorangan':'Perusahaan'%></p>
                                      </div>
                                 </div>                                
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">Kode Pemohon</label>
+                                    <label class="col-sm-2 control-label">Kode Pemohon :</label>
                                      <div class="col-sm-10">
                                         <p class="form-control-static"><%=$this->txtEditKodePemohon->Text%></p>
                                      </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">Nama Pemohon</label>
+                                    <label class="col-sm-2 control-label">Nama Pemohon :</label>
                                      <div class="col-sm-10">
                                         <p class="form-control-static"><%=$this->txtEditNamaPemohon->Text%></p>
                                      </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">No. KTP Pemohon</label>
+                                    <label class="col-sm-2 control-label">No. KTP Pemohon :</label>
                                      <div class="col-sm-10">
                                         <p class="form-control-static"><%=$this->txtEditNoKTP->Text%></p>
                                      </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">Alamat Pemohon</label>
+                                    <label class="col-sm-2 control-label">Alamat Pemohon :</label>
                                      <div class="col-sm-10">
                                         <p class="form-control-static"><%=$this->txtEditAlamatPemohon->Text%></p>
                                      </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">No. Telp Pemohon</label>
+                                    <label class="col-sm-2 control-label">No. Telp Pemohon :</label>
                                      <div class="col-sm-10">
                                         <p class="form-control-static"><%=$this->txtEditNoTelp->Text%></p>
                                      </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">NPWP Pemohon</label>
+                                    <label class="col-sm-2 control-label">NPWP Pemohon :</label>
                                      <div class="col-sm-10">
                                         <p class="form-control-static"><%=$this->txtEditNoNPWPPemohon->Text%></p>
                                      </div>
                                 </div>
                             </div>                                                       
                         </div>
-                        <div class="tab-pane fade" id="profilperusahaan">
+                        <com:TPanel CssClass="tab-pane fade" Attributes.id="profilperusahaan" Visible="<%=$this->rdEditStatusPemohonPerorangan->Checked==true%>">
+                            <h4>&nbsp;</h4> 
+                            <div class="alert alert-warning">                                
+                                <p>Tidak ada data perusahaan.</p>
+                            </div>    
+                        </com:TPanel>
+                        <com:TPanel CssClass="tab-pane fade" Attributes.id="profilperusahaan" Visible="<%=$this->rdEditStatusPemohonPerusahaan->Checked==true%>">
                             <h4>&nbsp;</h4>                            
                             <div class="row">
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">Nama Perusahaan</label>
+                                    <label class="col-sm-2 control-label">Nama Perusahaan :</label>
                                      <div class="col-sm-10">
                                         <p class="form-control-static"><%=$this->txtEditNamaPerusahaan->Text%></p>
                                      </div>
                                 </div>                            
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">Nomor Akte Perusahaan</label>
+                                    <label class="col-sm-2 control-label">Nomor Akte Perusahaan :</label>
                                      <div class="col-sm-10">
                                         <p class="form-control-static"><%=$this->txtEditNoAktePerusahaan->Text%></p>
                                      </div>
                                 </div>                                
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">Tanggal Akte Pendirian</label>
+                                    <label class="col-sm-2 control-label">Tanggal Akte Pendirian :</label>
                                      <div class="col-sm-10">
                                         <p class="form-control-static"><%=date('d M Y',$this->cmbEditTGLAktePendirian->TimeStamp)%></p>
                                      </div>
                                 </div>                                
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">Nomor NPWP Perusahaan</label>
+                                    <label class="col-sm-2 control-label">Nomor NPWP Perusahaan :</label>
                                      <div class="col-sm-10">
                                         <p class="form-control-static"><%=$this->txtEditNoNPWP->Text%></p>
                                      </div>
                                 </div>    
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">Alamat Perusahaan</label>
-                                     <div class="col-sm-10">
+                                    <label class="col-sm-2 control-label">Alamat Perusahaan :</label>
+                                    <div class="col-sm-10">
                                         <p class="form-control-static"><%=$this->txtEditAlamatPerusahaan->Text%></p>
-                                     </div>
+                                    </div>
                                 </div>  
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">Nomor Fax Perusahaan</label>
-                                     <div class="col-sm-10">
+                                    <label class="col-sm-2 control-label">Nomor Fax Perusahaan :</label>
+                                    <div class="col-sm-10">
                                         <p class="form-control-static"><%=$this->txtEditNoFaxPerusahaan->Text%></p>
-                                     </div>
+                                    </div>
                                 </div>  
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">Alamat Kantor Cabang</label>
-                                     <div class="col-sm-10">
+                                    <label class="col-sm-2 control-label">Alamat Kantor Cabang :</label>
+                                    <div class="col-sm-10">
                                         <p class="form-control-static"><%=$this->txtEditAlamatCabang->Text%></p>
-                                     </div>
+                                    </div>
                                 </div>  
                             </div>                                                                                                                                                                       
-                        </div>
+                        </com:TPanel>                        
                         <div class="tab-pane fade" id="fotopemohon">
                             <h4>&nbsp;</h4>
-                            <p><img src="<%=$this->editPath_userimages->Value%>" height="189" widht="139" /></p>
+                            <p><img src="<%=$this->editPath_userimages->Value%>" height="189" width="139" /></p>
                         </div>                       
                     </div>
                 </div>                
@@ -497,7 +508,7 @@
                 </div>
                 <div class="box-body">
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Status Pemohon </label>
+                        <label class="col-sm-2 control-label">Status Pemohon :</label>
                         <div class="col-sm-4">
                             <div class="radio">
                                 <label>
@@ -512,7 +523,7 @@
                         </div>
                     </div>
                     <div class="form-group" id="divKodePemohon">
-                        <label class="col-sm-2 control-label">Kode Pemohon </label>
+                        <label class="col-sm-2 control-label">Kode Pemohon  :</label>
                         <div class="col-sm-10">
                             <com:TActiveTextBox ID="txtAddKodePemohon" Columns="4" MaxLength="4" Attributes.OnKeyUp="formatangka(this,true)" CssClass="form-control" Attributes.PlaceHolder="kode" Width="75px;" />			                            
                             <com:TRequiredFieldValidator ID="FieldAddKodeValidator" ControlToValidate="txtAddKodePemohon" Display="Dynamic" ErrorMessage="Isi Kode Pemohon" ValidationGroup="addPemohon" FocusOnError="true" CssClass="has-error help-block">			
@@ -536,7 +547,7 @@
                         </div>
                     </div>
                     <div class="form-group" id="divNamaPemohon">
-                        <label class="col-sm-2 control-label">Nama Pemohon </label>
+                        <label class="col-sm-2 control-label">Nama Pemohon  :</label>
                         <div class="col-xs-5">
                             <com:TTextBox ID="txtAddNamaPemohon" CssClass="form-control" Attributes.PlaceHolder="Nama Pemohon" />
                             <com:TRequiredFieldValidator ID="FieldAddNamaPemohonValidator" ControlToValidate="txtAddNamaPemohon" Display="Dynamic" ErrorMessage="Isi Nama Pemohon" ValidationGroup="addPemohon" FocusOnError="true" CssClass="has-error help-block">				
@@ -551,7 +562,7 @@
                         </div>
                     </div>
                     <div class="form-group" id="divKTPPemohon">
-                        <label class="col-sm-2 control-label">No. KTP Pemohon </label>
+                        <label class="col-sm-2 control-label">No. KTP Pemohon  :</label>
                         <div class="col-xs-2">
                             <com:TTextBox ID="txtAddNoKTP" CssClass="form-control" Attributes.PlaceHolder="Nomor KTP" Attributes.OnKeyUp="formatangka(this,true)" />
                             <com:TRequiredFieldValidator ID="FieldAddNoKTPValidator" ControlToValidate="txtAddNoKTP" Display="Dynamic" ErrorMessage="Isi Nomor KTP Pemohon" ValidationGroup="addPemohon" FocusOnError="true" CssClass="has-error help-block">
@@ -566,7 +577,7 @@
                         </div>
                     </div>                    
                     <div class="form-group" id="divAlamatPemohon">
-                        <label class="col-sm-2 control-label">Alamat Pemohon </label>
+                        <label class="col-sm-2 control-label">Alamat Pemohon  :</label>
                         <div class="col-xs-7">
                             <com:TTextBox ID="txtAddAlamatPemohon" CssClass="form-control" Attributes.PlaceHolder="Alamat Pemohon" />
                             <com:TRequiredFieldValidator ID="FieldAddAlamatPemohonValidator" ControlToValidate="txtAddAlamatPemohon" Display="Dynamic" ErrorMessage="Isi Alamat Pemohon" ValidationGroup="addPemohon" FocusOnError="true" CssClass="has-error help-block">
@@ -581,7 +592,7 @@
                         </div>
                     </div>
                     <div class="form-group" id="divNoTelp">
-                        <label class="col-sm-2 control-label">No. Telp Pemohon </label>
+                        <label class="col-sm-2 control-label">No. Telp Pemohon  :</label>
                         <div class="col-xs-2">
                             <com:TTextBox ID="txtAddNoTelp" CssClass="form-control" Attributes.PlaceHolder="Nomor Telepon" Attributes.OnKeyUp="formatangka(this,true)" />
                             <com:TRequiredFieldValidator ID="FieldAddNoTelpValidator" ControlToValidate="txtAddNoTelp" Display="Dynamic" ErrorMessage="Isi Nomor Telp Pemohon" ValidationGroup="addPemohon" FocusOnError="true" CssClass="has-error help-block">
@@ -596,7 +607,7 @@
                         </div>
                     </div>     
                     <div class="form-group" id="divNPWPPemohon">
-                        <label class="col-sm-2 control-label">No. NPWP Pemohon </label>
+                        <label class="col-sm-2 control-label">No. NPWP Pemohon  :</label>
                         <div class="col-xs-3">
                             <com:TTextBox ID="txtAddNoNPWPPemohon" CssClass="form-control" Attributes.PlaceHolder="Nomor NPWP Pemohon" Attributes.OnKeyUp="formatangka(this,true)" />                        
                         </div
@@ -620,7 +631,7 @@
                 </div>
                 <div class="box-body">
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Status Perusahaan </label>
+                        <label class="col-sm-2 control-label">Status Perusahaan  :</label>
                         <div class="col-sm-4">
                             <div class="radio">
                                 <label>
@@ -635,7 +646,7 @@
                         </div>
                     </div>     
                     <div class="form-group" id="divNamaPerusahaan">
-                        <label class="col-sm-2 control-label">Nama Perusahaan </label>
+                        <label class="col-sm-2 control-label">Nama Perusahaan  :</label>
                         <div class="col-xs-5">
                             <com:TTextBox ID="txtAddNamaPerusahaan" CssClass="form-control" Attributes.PlaceHolder="Nama Perusahaan" />
                             <com:TRequiredFieldValidator ID="FieldAddNamaPerusahaanValidator" ControlToValidate="txtAddNamaPerusahaan" Display="Dynamic" ErrorMessage="Isi Nama Perusahaan" ValidationGroup="addPemohon" FocusOnError="true" CssClass="has-error help-block">				
@@ -650,7 +661,7 @@
                         </div>
                     </div>
                     <div class="form-group" id="divNoAktePerusahaan">
-                        <label class="col-sm-2 control-label">Nomor Akte Pendirian Perusahaan</label>
+                        <label class="col-sm-2 control-label">Nomor Akte Pendirian Perusahaan :</label>
                         <div class="col-xs-4">
                             <com:TTextBox ID="txtAddNoAktePerusahaan" CssClass="form-control" Width="200px" Attributes.PlaceHolder="No. Akte Perusahaan" />
                             <com:TRequiredFieldValidator ID="FieldAddNoAkteValidator" ControlToValidate="txtAddNoAktePerusahaan" Display="Dynamic" ErrorMessage="Isi Nomor Akte Perusahaan" ValidationGroup="addPemohon" FocusOnError="true" CssClass="has-error help-block">				
@@ -665,7 +676,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Tanggal Akte Pendirian Perusahaan</label>
+                        <label class="col-sm-2 control-label">Tanggal Akte Pendirian Perusahaan :</label>
                         <div class="col-xs-4">
                             <div class="radio">                                
                                 <com:TCustomDatePicker ID="cmbAddTGLAktePendirian" DateFormat="dd-MMMM-yyyy" Culture="id"  FromYear="1970" UpToYear="<%= @date('Y') %>" InputMode="DropDownList" ShowCalendar="true" />                                                        
@@ -673,7 +684,7 @@
                         </div>
                     </div>
                     <div class="form-group" id="divNPWPPerusahaan">
-                        <label class="col-sm-2 control-label">No. NPWP Perusahaan</label>
+                        <label class="col-sm-2 control-label">No. NPWP Perusahaan :</label>
                         <div class="col-xs-3">
                             <com:TTextBox ID="txtAddNoNPWP" CssClass="form-control" Attributes.PlaceHolder="Nomor NPWP Perusahaan" Attributes.OnKeyUp="formatangka(this,true)" />
                             <com:TRequiredFieldValidator ID="FieldAddNoNPWPValidator" ControlToValidate="txtAddNoNPWP" Display="Dynamic" ErrorMessage="Isi Nomor NPWP Perusahaan" ValidationGroup="addPemohon" FocusOnError="true" CssClass="has-error help-block">
@@ -688,7 +699,7 @@
                         </div>
                     </div>
                     <div class="form-group" id="divAlamatPerusahaan">
-                        <label class="col-sm-2 control-label">Alamat Perusahaan</label>
+                        <label class="col-sm-2 control-label">Alamat Perusahaan :</label>
                         <div class="col-xs-5">
                             <com:TTextBox ID="txtAddAlamatPerusahaan" CssClass="form-control" Attributes.PlaceHolder="Alamat Perusahaan" />
                             <com:TRequiredFieldValidator ID="FieldAddAlamatPerusahaanValidator" ControlToValidate="txtAddAlamatPerusahaan" Display="Dynamic" ErrorMessage="Isi Alamat Perusahaan" ValidationGroup="addPemohon" FocusOnError="true" CssClass="has-error help-block">
@@ -703,7 +714,7 @@
                         </div>
                     </div>
                     <div class="form-group" id="divNoTelpPerusahaan">
-                        <label class="col-sm-2 control-label">No. Telp Perusahaan</label>
+                        <label class="col-sm-2 control-label">No. Telp Perusahaan :</label>
                         <div class="col-xs-2">
                             <com:TTextBox ID="txtAddNoTelpPerusahaan" CssClass="form-control" Attributes.PlaceHolder="Nomor Telp" Attributes.OnKeyUp="formatangka(this,true)" />
                             <com:TRequiredFieldValidator ID="FieldAddNoTelpPerusahaanValidator" ControlToValidate="txtAddNoTelpPerusahaan" Display="Dynamic" ErrorMessage="Isi Nomor Telp Perusahaan" ValidationGroup="addPemohon" FocusOnError="true" CssClass="has-error help-block">
@@ -718,13 +729,13 @@
                         </div>
                     </div>     
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">No. Fax Perusahaan</label>
+                        <label class="col-sm-2 control-label">No. Fax Perusahaan :</label>
                         <div class="col-xs-2">
                             <com:TTextBox ID="txtAddNoFaxPerusahaan" CssClass="form-control" Attributes.PlaceHolder="Nomor Fax" Attributes.OnKeyUp="formatangka(this,true)" />                        
                         </div>
                     </div> 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Alamat Kantor Cabang</label>
+                        <label class="col-sm-2 control-label">Alamat Kantor Cabang :</label>
                         <div class="col-xs-5">
                             <com:TTextBox ID="txtAddAlamatCabang" CssClass="form-control" Attributes.PlaceHolder="Alamat Kantor Cabang" />                        
                         </div>
@@ -735,7 +746,7 @@
                 <div class="box-header">
                     <h3 class='box-title'>
                         <i class='fa fa-plus'></i>
-                        TAMBAH PEMOHON - FOTO PEMOHON
+                        TAMBAH PEMOHON - FOTO PEMOHON (Maks. <%=$this->setup->formatSizeUnits(3148576)%>)
                     </h3>
                     <div class="box-tools pull-right">
                         <button data-widget="collapse" class="btn btn-primary btn-sm" onclick="JavaScript:return false;">
@@ -748,7 +759,7 @@
                 </div>
                 <div class="box-body">
                     <div class="form-group" id="divFile1">
-                        <label class="col-sm-2 control-label">UPLOAD (Maks. <%=$this->setup->formatSizeUnits(3148576)%>)</label>
+                        <label class="col-sm-2 control-label">UPLOAD FOTO (ukuran 189x139) :</label>                        
                         <div class="col-xs-5">
                             <com:TFileUpload ID="FileFoto" MaxFileSize="3148576"/>
                             <com:TCustomValidator ID="addFileFoto" ControlToValidate="FileFoto" Display="Dynamic" OnServerValidate="checkTypeFile" ValidationGroup="addPemohon" ErrorMessage="Ekstensi File yang di Ijinkan hanya jpg dan png." FocusOnError="true" CssClass="has-error help-block">
@@ -765,8 +776,7 @@
                 </div>
             </com:TWizardStep> 
             <com:TWizardStep Title="Summary" AllowReturn="false" StepType="Complete">
-                <com:THiddenField ID="path_userimages" />
-                <com:THiddenField ID="path_temp_userimages" />
+                <com:THiddenField ID="path_userimages" />                
                 <div class="box-header">
                     <h3 class='box-title'>
                         <i class='fa fa-plus'></i>
@@ -800,69 +810,103 @@
                         <div class="tab-pane fade in active" id="profilpemohon">
                             <h4>&nbsp;</h4>
                             <div class="row">
-                                <div class="col-md-3"><strong>Status Pemohon:</strong></div>                                
-                                <div class="col-md-9"><%=$this->rdAddStatusPemohonPerorangan->Checked==true?'Perorangan':'Perusahaan'%></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-3"><strong>Kode Pemohon:</strong></div>                                
-                                <div class="col-md-9"><%=$this->txtAddKodePemohon->Text%></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-3"><strong>Nama Pemohon:</strong></div>                                
-                                <div class="col-md-9"><%=$this->txtAddNamaPemohon->Text%></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-3"><strong>No. KTP Pemohon:</strong></div>                                
-                                <div class="col-md-9"><%=$this->txtAddNoKTP->Text%></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-3"><strong>Alamat Pemohon:</strong></div>                                
-                                <div class="col-md-9"><%=$this->txtAddAlamatPemohon->Text%></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-3"><strong>No. Telp Pemohon:</strong></div>                                
-                                <div class="col-md-9"><%=$this->txtAddNoTelp->Text%></div>
-                            </div>                            
-                            <div class="row">
-                                <div class="col-md-3"><strong>NPWP Pemohon:</strong></div>                                
-                                <div class="col-md-9"><%=$this->txtAddNoNPWPPemohon->Text%></div>
-                            </div>                            
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Status Pemohon :</label>
+                                     <div class="col-sm-10">
+                                        <p class="form-control-static"><%=$this->rdAddStatusPemohonPerorangan->Checked==true?'Perorangan':'Perusahaan'%></p>
+                                     </div>
+                                </div>                                
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Kode Pemohon :</label>
+                                     <div class="col-sm-10">
+                                        <p class="form-control-static"><%=$this->txtAddKodePemohon->Text%></p>
+                                     </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Nama Pemohon :</label>
+                                     <div class="col-sm-10">
+                                        <p class="form-control-static"><%=$this->txtAddNamaPemohon->Text%></p>
+                                     </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">No. KTP Pemohon :</label>
+                                     <div class="col-sm-10">
+                                        <p class="form-control-static"><%=$this->txtAddNoKTP->Text%></p>
+                                     </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Alamat Pemohon :</label>
+                                     <div class="col-sm-10">
+                                        <p class="form-control-static"><%=$this->txtAddAlamatPemohon->Text%></p>
+                                     </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">No. Telp Pemohon :</label>
+                                     <div class="col-sm-10">
+                                        <p class="form-control-static"><%=$this->txtAddNoTelp->Text%></p>
+                                     </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">NPWP Pemohon :</label>
+                                     <div class="col-sm-10">
+                                        <p class="form-control-static"><%=$this->txtAddNoNPWPPemohon->Text%></p>
+                                     </div>
+                                </div>
+                            </div>                                                       
                         </div>
-                        <div class="tab-pane fade" id="profilperusahaan">
-                            <h4>&nbsp;</h4>
+                        <com:TPanel CssClass="tab-pane fade" Attributes.id="profilperusahaan" Visible="<%=$this->rdAddStatusPemohonPerorangan->Checked==true%>">
+                            <h4>&nbsp;</h4> 
+                            <div class="alert alert-warning">                                
+                                <p>Tidak ada data perusahaan.</p>
+                            </div>    
+                        </com:TPanel>
+                        <com:TPanel CssClass="tab-pane fade" Attributes.id="profilperusahaan" Visible="<%=$this->rdEditStatusPemohonPerusahaan->Checked==true%>">
+                            <h4>&nbsp;</h4>                            
                             <div class="row">
-                                <div class="col-md-3"><strong>Nama Perusahaan:</strong></div>                                
-                                <div class="col-md-9"><%=$this->txtAddNamaPerusahaan->Text%></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-3"><strong>Nomor Akte Perusahaan:</strong></div>                                
-                                <div class="col-md-9"><%=$this->txtAddNoAktePerusahaan->Text%></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-3"><strong>Tanggal Akte Pendirian:</strong></div>                                
-                                <div class="col-md-9"><%=date('d M Y',$this->cmbAddTGLAktePendirian->TimeStamp)%></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-3"><strong>Nomor NPWP Perusahaan:</strong></div>                                
-                                <div class="col-md-9"><%=$this->txtAddNoNPWP->Text%></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-3"><strong>Alamat Perusahaan:</strong></div>                                
-                                <div class="col-md-9"><%=$this->txtAddAlamatPerusahaan->Text%></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-3"><strong>Nomor Telepon Perusahaan:</strong></div>                                
-                                <div class="col-md-9"><%=$this->txtAddNoTelpPerusahaan->Text%></div>
-                            </div>  
-                            <div class="row">
-                                <div class="col-md-3"><strong>Nomor Fax Perusahaan:</strong></div>                                
-                                <div class="col-md-9"><%=$this->txtAddNoFaxPerusahaan->Text%></div>
-                            </div>  
-                            <div class="row">
-                                <div class="col-md-3"><strong>Alamat Kantor Cabang:</strong></div>                                
-                                <div class="col-md-9"><%=$this->txtAddAlamatCabang->Text%></div>
-                            </div> 
-                        </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Nama Perusahaan :</label>
+                                     <div class="col-sm-10">
+                                        <p class="form-control-static"><%=$this->txtAddNamaPerusahaan->Text%></p>
+                                     </div>
+                                </div>                            
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Nomor Akte Perusahaan :</label>
+                                     <div class="col-sm-10">
+                                        <p class="form-control-static"><%=$this->txtAddNoAktePerusahaan->Text%></p>
+                                     </div>
+                                </div>                                
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Tanggal Akte Pendirian :</label>
+                                     <div class="col-sm-10">
+                                        <p class="form-control-static"><%=date('d M Y',$this->cmbAddTGLAktePendirian->TimeStamp)%></p>
+                                     </div>
+                                </div>                                
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Nomor NPWP Perusahaan :</label>
+                                     <div class="col-sm-10">
+                                        <p class="form-control-static"><%=$this->txtAddNoNPWP->Text%></p>
+                                     </div>
+                                </div>    
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Alamat Perusahaan :</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static"><%=$this->txtAddAlamatPerusahaan->Text%></p>
+                                    </div>
+                                </div>  
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Nomor Fax Perusahaan :</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static"><%=$this->txtAddNoFaxPerusahaan->Text%></p>
+                                    </div>
+                                </div>  
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Alamat Kantor Cabang :</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static"><%=$this->txtAddAlamatCabang->Text%></p>
+                                    </div>
+                                </div>  
+                            </div>                                                                                                                                                                       
+                        </com:TPanel>                        
                         <div class="tab-pane fade" id="fotopemohon">
                             <h4>&nbsp;</h4>
                             <p><img src="<%=$this->path_userimages->Value%>" height="189" widht="139" /></p>
@@ -891,17 +935,17 @@
     <com:TPanel Visible="<%= $this->getDefaultProcess(false) %>">  
         <div class="row">
             <div class="col-lg-12">
-                <div class="box box-solid box-primary">
+                <div class="box box-solid box-info">
                     <div class="box-header">                        
                         <h3 class="box-title">
                             <i class="fa fa-search"></i>
                             Pencarian dan Filter Data
                         </h3>
                         <div class="box-tools pull-right">
-                            <button data-widget="collapse" class="btn btn-primary btn-sm" onclick="JavaScript:return false;">
+                            <button data-widget="collapse" class="btn btn-info btn-sm" onclick="JavaScript:return false;">
                                 <i class="fa fa-minus"></i>
                             </button>
-                            <button data-widget="remove" class="btn btn-primary btn-sm" onclick="JavaScript:return false;">
+                            <button data-widget="remove" class="btn btn-info btn-sm" onclick="JavaScript:return false;">
                                 <i class="fa fa-times"></i>
                             </button>
                         </div>
@@ -910,7 +954,7 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label class="col-sm-4 control-label">Kriteria </label>   
+                                    <label class="col-sm-4 control-label">Kriteria  :</label>   
                                     <div class="col-sm-4">
                                         <com:TDropDownList ID="cmbKriteria" AutoPostBack="false" CssClass="form-control">
                                             <com:TListItem Text="Kode" value="kode"/>
@@ -919,7 +963,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group" id="divtxtKriteria">
-                                    <label class="col-sm-4 control-label text-left">Isi Kriteria </label>                        
+                                    <label class="col-sm-4 control-label text-left">Isi Kriteria  :</label>                        
                                     <div class="col-sm-8">
                                         <com:TTextBox ID="txtKriteria" CssClass="form-control" Width="250px;" />
                                         <com:TRequiredFieldValidator ID="spanTxtKriteriaValidator" ControlToValidate="txtKriteria" Display="Dynamic" ErrorMessage="Isi Kriteria pencarian" ValidationGroup="filterForm" FocusOnError="true" CssClass="has-error help-block">				
@@ -942,7 +986,7 @@
                     <div class="box-footer">
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <com:TActiveLinkButton ID="btnSearch" CssClass="btn btn-outline btn-primary" Text="<i class='fa fa-search'></i> Cari" Attributes.Title="Cari" OnClick="filterRecord" ValidationGroup="filterForm">                        
+                                <com:TActiveLinkButton ID="btnSearch" CssClass="btn btn-info" Text="<i class='fa fa-search'></i> Cari" Attributes.Title="Cari" OnClick="filterRecord" ValidationGroup="filterForm">                        
                                     <prop:ClientSide.OnPreDispatch>
                                         $('loading').show();                                             
                                         $('<%=$this->btnSearch->ClientId%>').disabled='disabled';						
@@ -980,7 +1024,7 @@
                     </div>
                     <div class="box-body">
                         <p class="text-right">                            
-                            <com:TLinkButton ID="add" CssClass="btn btn-app" Text="<i class='fa fa-plus'></i> Tambah" Attributes.Title="Tambah Pemohon" OnClick="setIdProcess" CausesValidation="false" />                                                                                                               
+                            <com:TLinkButton ID="add" CssClass="btn btn-app" Text="<i class='fa fa-plus'></i> Tambah" Attributes.Title="Tambah Pemohon" OnClick="addProcess" CausesValidation="false" />                                                                                                               
                         </p>
                         <com:TActiveRepeater ID="RepeaterS" DataKeyField="RecNoPem" AllowPaging="true" PageSize="10" AllowCustomPaging="true">
                             <prop:HeaderTemplate>			
@@ -1009,7 +1053,7 @@
                                     <td><%#$this->DataItem['TelpPem']%></td>                                    
                                     <td class="text-center"><%#$this->Page->TGL->tanggal('d/m/Y',$this->DataItem['DateAdded'])%></td> 
                                     <td class="text-center"> 
-                                        <com:TLinkButton CausesValidation="false" CssClass="btn btn-sm btn-info" Text="<i class='fa fa-pencil'></i>" Attributes.Title="Ubah Pemohon" OnClick="Page.editRecord" CommandParameter="<%#$this->DataItem['idCom']%>" />
+                                        <com:TLinkButton CausesValidation="false" CssClass="btn btn-sm bg-olive" Text="<i class='fa fa-pencil'></i>" Attributes.Title="Ubah Pemohon" OnClick="Page.editRecord" CommandParameter="<%#$this->DataItem['idCom']%>" />
                                         <com:TActiveLinkButton ID="btnDeleteRecord" CausesValidation="false" ClientSide.PostState="false" CssClass="btn btn-sm btn-danger" OnClick="Page.deleteRecord" Attributes.Title="Hapus Pemohon" Text="<i class='fa fa-times'></i>" Attributes.OnClick="if(!confirm('Anda ingin menghapus Pemohon ini ?')) return false;" CommandParameter="<%#$this->DataItem['idCom']%>">
                                             <prop:ClientSide.OnPreDispatch>
                                                 $('loading').show();                                                                                         
@@ -1035,7 +1079,7 @@
                                     <td><%#$this->DataItem['TelpPem']%></td>                                    
                                     <td class="text-center"><%#$this->Page->TGL->tanggal('d/m/Y',$this->DataItem['DateAdded'])%></td> 
                                     <td class="text-center"> 
-                                        <com:TLinkButton CausesValidation="false" CssClass="btn btn-sm btn-info" Text="<i class='fa fa-pencil'></i>" Attributes.Title="Ubah Pemohon" OnClick="Page.editRecord" CommandParameter="<%#$this->DataItem['idCom']%>" />
+                                        <com:TLinkButton CausesValidation="false" CssClass="btn btn-sm bg-olive" Text="<i class='fa fa-pencil'></i>" Attributes.Title="Ubah Pemohon" OnClick="Page.editRecord" CommandParameter="<%#$this->DataItem['idCom']%>" />
                                         <com:TActiveLinkButton ID="btnDeleteRecord" CausesValidation="false" ClientSide.PostState="false" CssClass="btn btn-sm btn-danger" OnClick="Page.deleteRecord" Attributes.Title="Hapus Pemohon" Text="<i class='fa fa-times'></i>" Attributes.OnClick="if(!confirm('Anda ingin menghapus Pemohon ini ?')) return false;" CommandParameter="<%#$this->DataItem['idCom']%>">
                                             <prop:ClientSide.OnPreDispatch>
                                                 $('loading').show();                                                                                         
