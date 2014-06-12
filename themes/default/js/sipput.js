@@ -39,5 +39,11 @@ var handleDropdown = function () {
     jQuery('#event_priority_chzn_o_4').html('<span class="label label-warning">' + jQuery('#event_priority_chzn_o_4').text() + '</span>');
     jQuery('#event_priority_chzn_o_5').html('<span class="label label-important">' + jQuery('#event_priority_chzn_o_5').text() + '</span>');
 }
-
 jQuery('#event_priority_chzn').click(handleDropdown);
+
+jQuery(document).click(function(){    
+    var target = jQuery(".dropdown.user.user-menu");
+    if (target.is("[style]")) {        
+        target.removeAttr("style");        
+    }    
+});

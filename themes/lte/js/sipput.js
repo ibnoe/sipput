@@ -53,4 +53,12 @@ jQuery(document).click(function(){
     if (target.is("[style]")) {        
         target.removeAttr("style");        
     } 
+    target = jQuery(".dropdown.dummyclass");    
+    if (target.is("[style]")) {        
+        target.removeAttr("style");        
+    }
+    
 });
+function pageredirect (page) {
+    window.location.href=page;
+}
