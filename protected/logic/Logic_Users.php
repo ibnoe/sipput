@@ -25,7 +25,7 @@ class Logic_Users extends Logic_Global {
 		if (method_exists($this->U,'getRoles')) {
 			$dataUser=$this->U->getName();	
 			if ($dataUser != 'Guest') {
-				$this->Roles=$this->U->getRoles();			
+				$this->Roles=$this->U->getRoles();			                
 				$this->DataUser=$dataUser;		                
             }		
 		}				
@@ -44,7 +44,13 @@ class Logic_Users extends Logic_Global {
 			$data =array('salt'=>$salt,'password'=>$password);		
 		}
 		return $data;
-	}	
+	}
+    /**
+	* digunakan untuk mendapatkan roles user
+	*/		
+	public function getRoles () {
+		return $this->Roles[0];
+	}
 	/**
 	* digunakan untuk mendapatkan tipe user
 	*/		

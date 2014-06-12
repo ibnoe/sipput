@@ -85,7 +85,8 @@
                         <li class="user-header bg-light-blue">
                             <img src="<%=$this->Page->Theme->baseUrl%>/img/avatar3.png" class="img-circle" alt="User Image" />
                             <p>
-                                <%=$this->Page->Pengguna->getUsername()%>                                
+                                <%=$this->Page->Pengguna->getUsername()%> - <%=$this->Page->Pengguna->getRoles()%>
+                                <small><%=$this->Page->Pengguna->getDataUser('nama_uptd')%></small>
                             </p>
                         </li>                       
                         <!-- Menu Footer-->
