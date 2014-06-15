@@ -147,7 +147,7 @@
                         <label class="col-sm-2 control-label">No. NPWP Pemohon  :</label>
                         <div class="col-xs-3">
                             <com:TTextBox ID="txtEditNoNPWPPemohon" CssClass="form-control" Attributes.PlaceHolder="Nomor NPWP Pemohon" Attributes.OnKeyUp="formatangka(this,true)" />                        
-                        </div
+                        </div>
                     </div>                    
                 </div>
             </com:TWizardStep>
@@ -524,7 +524,7 @@
                     </div>
                     <div class="form-group" id="divKodePemohon">
                         <label class="col-sm-2 control-label">Kode Pemohon  :</label>
-                        <div class="col-sm-10">
+                        <div class="col-xs-10">
                             <com:TActiveTextBox ID="txtAddKodePemohon" Columns="4" MaxLength="4" Attributes.OnKeyUp="formatangka(this,true)" CssClass="form-control" Attributes.PlaceHolder="kode" Width="75px;" />			                            
                             <com:TRequiredFieldValidator ID="FieldAddKodeValidator" ControlToValidate="txtAddKodePemohon" Display="Dynamic" ErrorMessage="Isi Kode Pemohon" ValidationGroup="addPemohon" FocusOnError="true" CssClass="has-error help-block">			
                                 <prop:ClientSide.OnValidationError>
@@ -610,7 +610,7 @@
                         <label class="col-sm-2 control-label">No. NPWP Pemohon  :</label>
                         <div class="col-xs-3">
                             <com:TTextBox ID="txtAddNoNPWPPemohon" CssClass="form-control" Attributes.PlaceHolder="Nomor NPWP Pemohon" Attributes.OnKeyUp="formatangka(this,true)" />                        
-                        </div
+                        </div>
                     </div>                    
                 </div>
             </com:TWizardStep>
@@ -742,7 +742,7 @@
                     </div>
                 </div>
             </com:TWizardStep>                     
-            <com:TWizardStep Title="Data Perusahaan" AllowReturn="false">                    
+            <com:TWizardStep Title="Foto Pemohon" AllowReturn="false">                    
                 <div class="box-header">
                     <h3 class='box-title'>
                         <i class='fa fa-plus'></i>
@@ -860,7 +860,7 @@
                                 <p>Tidak ada data perusahaan.</p>
                             </div>    
                         </com:TPanel>
-                        <com:TPanel CssClass="tab-pane fade" Attributes.id="profilperusahaan" Visible="<%=$this->rdEditStatusPemohonPerusahaan->Checked==true%>">
+                        <com:TPanel CssClass="tab-pane fade" Attributes.id="profilperusahaan" Visible="<%=$this->rdAddStatusPemohonPerusahaan->Checked==true%>">
                             <h4>&nbsp;</h4>                            
                             <div class="row">
                                 <div class="form-group">
@@ -963,7 +963,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group" id="divtxtKriteria">
-                                    <label class="col-sm-4 control-label text-left">Isi Kriteria  :</label>                        
+                                    <label class="col-sm-4 control-label">Isi Kriteria  :</label>                        
                                     <div class="col-sm-8">
                                         <com:TTextBox ID="txtKriteria" CssClass="form-control" Width="250px;" />
                                         <com:TRequiredFieldValidator ID="spanTxtKriteriaValidator" ControlToValidate="txtKriteria" Display="Dynamic" ErrorMessage="Isi Kriteria pencarian" ValidationGroup="filterForm" FocusOnError="true" CssClass="has-error help-block">				

@@ -65,6 +65,14 @@ class CPemohon extends MainPageSA {
 		$this->RepeaterS->DataSource=$r;
 		$this->RepeaterS->dataBind();
     }
+    public function addProcess($sender,$param) {
+        $this->idProcess='add';
+        $this->createObj('Pemohon');
+        if (!($recnopem=$this->Pemohon->getAutoRecNoPem() )) {
+            $recnopem = $this->setup->getSettingValue('mulai_kode_pemohon');
+        }        
+        $this->txtAddKodePemohon->Text=$recnopem;
+    }
     public function checkId ($sender,$param) {
 		$this->idProcess=$sender->getId()=='addKodeUPDT'?'add':'edit';
         $idpemohon=$param->Value;
@@ -88,15 +96,7 @@ class CPemohon extends MainPageSA {
             if ($control->FileType!='image/png' && $this->FileFoto->FileType!='image/jpeg')
                 $param->IsValid=false;
         }
-    }
-    public function addProcess($sender,$param) {
-        $this->idProcess='add';
-        $this->createObj('Pemohon');
-        if (!($recnopem=$this->Pemohon->getAutoRecNoPem() )) {
-            $recnopem = $this->setup->getSettingValue('mulai_kode_pemohon');
-        }        
-        $this->txtAddKodePemohon->Text=$recnopem;
-    }
+    }    
     public function processNextButton($sender,$param) {
         $this->idProcess='add';
 		if ($param->CurrentStepIndex ==0) {
