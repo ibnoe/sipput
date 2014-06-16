@@ -41,7 +41,7 @@
                 </div>
                 <div class="box-body">                                 
                     <div class="form-group" id="divCmbAddPemohon">
-                        <label class="col-sm-2 control-label">Pilih Pemohon</label>
+                        <label class="col-sm-2 control-label">Pilih Pemohon :</label>
                         <div class="col-xs-4">
                             <com:TDropDownList ID="cmbAddPemohon" AutoPostBack="false" CssClass="form-control chosen"/>                                                                                                        
                             <com:TRequiredFieldValidator ID="FieldAddPemohonValidator" InitialValue="none" ControlToValidate="cmbAddPemohon" Display="Dynamic" ErrorMessage="Pilih Pemohon" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">				
@@ -56,7 +56,7 @@
                         </div>                        
                     </div>
                     <div class="form-group" id="divTxtAddNoSurat">
-                        <label class="col-sm-2 control-label">No. Surat Permohononan Model A.1</label>
+                        <label class="col-sm-2 control-label">No. Surat Permohononan Model A.1 :</label>
                         <div class="col-sm-10">
                             <com:TTextBox ID="txtAddNomorSurat" CssClass="form-control" Width="150px" Attributes.PlaceHolder="No. Surat" />			                            
                             <com:TRequiredFieldValidator ID="FieldAddNomorSuratValidator" ControlToValidate="txtAddNomorSurat" Display="Dynamic" ErrorMessage="Isi Nomor surat Model A.1" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">			
@@ -71,13 +71,13 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Pilih Tanggal Surat Permohonan Model A.1 yang Diajukan Oleh Pemohon</label>
+                        <label class="col-sm-2 control-label">Pilih Tanggal Surat Permohonan Model A.1 yang Diajukan Oleh Pemohon :</label>
                         <div class="col-sm-10">                            
                             <com:TCustomDatePicker ID="cmbAddTanggalSurat" DateFormat="dd-MMMM-yyyy" Culture="id" FromYear="2014" UpToYear="<%=date('Y')%>" InputMode="DropDownList"/>
                         </div>                        
                     </div>                                  
                     <div class="form-group" id="divAddModalUsaha">
-                        <label class="col-sm-2 control-label">Sebutkan Banyaknya Modal Usaha</label>
+                        <label class="col-sm-2 control-label">Sebutkan Banyaknya Modal Usaha :</label>
                         <div class="col-xs-3">
                             <com:TTextBox ID="txtAddModalUsaha" Attributes.OnKeyUp="formatangka(this,false)" CssClass="form-control" Attributes.PlaceHolder="Modal Usaha" />			                            
                             <com:TRequiredFieldValidator ID="FieldAddModalUsahaValidator" ControlToValidate="txtAddModalUsaha" Display="Dynamic" ErrorMessage="Isi Modal Usaha" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">			
@@ -110,7 +110,7 @@
                 </div>
                 <div class="box-body">
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Status Pemohon</label>
+                        <label class="col-sm-2 control-label">Status Pemohon :</label>
                         <div class="col-sm-10">
                             <p class="form-control-static">
                                 <%=$this->Pemohon->DataPemohon['Status']=='perorangan'?'PEORANGAN':'PERUSAHAAN'%>
@@ -120,7 +120,7 @@
                         </div>                        
                     </div>
                     <div class="form-group" id="divKodePemohon">
-                        <label class="col-sm-2 control-label">Kode Pemohon</label>
+                        <label class="col-sm-2 control-label">Kode Pemohon :</label>
                         <div class="col-sm-10">
                             <p class="form-control-static">
                                 <%=$this->Pemohon->DataPemohon['RecNoPem']%>
@@ -128,7 +128,7 @@
                         </div>    
                     </div>
                     <div class="form-group" id="divNamaPemohon">
-                        <label class="col-sm-2 control-label">Nama Pemohon</label>
+                        <label class="col-sm-2 control-label">Nama Pemohon :</label>
                         <div class="col-sm-10">
                             <p class="form-control-static">
                                 <%=$this->Pemohon->DataPemohon['NmPem']%>
@@ -136,7 +136,7 @@
                         </div>    
                     </div>
                     <div class="form-group" id="divKTPPemohon">
-                        <label class="col-sm-2 control-label">No. KTP Pemohon</label>
+                        <label class="col-sm-2 control-label">No. KTP Pemohon :</label>
                         <div class="col-sm-10">
                             <p class="form-control-static">
                                 <%=$this->Pemohon->DataPemohon['KtpPem']%>
@@ -144,7 +144,7 @@
                         </div> 
                     </div>                    
                     <div class="form-group" id="divAlamatPemohon">
-                        <label class="col-sm-2 control-label">Alamat</label>
+                        <label class="col-sm-2 control-label">Alamat :</label>
                         <div class="col-sm-10">
                             <p class="form-control-static">
                                 <%=$this->Pemohon->DataPemohon['AlmtPem']%>
@@ -152,7 +152,7 @@
                         </div> 
                     </div>
                     <div class="form-group" id="divNoTelp">
-                        <label class="col-sm-2 control-label">No. Telp Pemohon</label>
+                        <label class="col-sm-2 control-label">No. Telp Pemohon :</label>
                         <div class="col-sm-10">
                             <p class="form-control-static">
                                 <%=$this->Pemohon->DataPemohon['TelpPem']%>
@@ -160,7 +160,7 @@
                         </div> 
                     </div>     
                     <div class="form-group" id="divNPWPPemohon">
-                        <label class="col-sm-2 control-label">No. NPWP Pemohon</label>
+                        <label class="col-sm-2 control-label">No. NPWP Pemohon :</label>
                         <div class="col-sm-10">
                             <p class="form-control-static">
                                 <%=$this->Pemohon->DataPemohon['NpwpPem']%>
@@ -187,7 +187,7 @@
                 <div class="box-body">
                     <com:TActiveHiddenField ID="hiddenidperusahaan" />
                     <div class="form-group" ids="divPilihPerusahaan">                        
-                        <label class="col-sm-2 control-label">Daftar Perusahaan</label>
+                        <label class="col-sm-2 control-label">Daftar Perusahaan :</label>
                         <div class="col-xs-4">
                             <com:TActiveDropDownList ID="cmbAddDaftarPerusahaan" OnSelectedIndexChanged="changePerusahaanPemohon" CssClass="form-control" >
                                 <prop:ClientSide.OnPreDispatch>
@@ -206,7 +206,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Status Perusahaan</label>
+                        <label class="col-sm-2 control-label">Status Perusahaan :</label>
                         <div class="col-sm-10">
                             <p class="form-control-static">
                                 <com:TActiveLabel ID="lblStatusPerusahaan" Text="-" />
@@ -214,7 +214,7 @@
                         </div>                        
                     </div>     
                     <div class="form-group" id="divNamaPerusahaan">
-                        <label class="col-sm-2 control-label">Nama Perusahaan</label>
+                        <label class="col-sm-2 control-label">Nama Perusahaan :</label>
                         <div class="col-sm-10">
                             <p class="form-control-static">
                                 <com:TActiveLabel ID="lblNamaPerusahaan" Text="-" />
@@ -222,7 +222,7 @@
                         </div>  
                     </div>
                     <div class="form-group" id="divNoAktePerusahaan">
-                        <label class="col-sm-2 control-label">Nomor Akte Pendirian Perusahaan</label>
+                        <label class="col-sm-2 control-label">Nomor Akte Pendirian Perusahaan :</label>
                         <div class="col-sm-10">
                             <p class="form-control-static">
                                 <com:TActiveLabel ID="lblNoAktePerusahaan" Text="-" />
@@ -230,7 +230,7 @@
                         </div>  
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Tanggal Akte Pendirian Perusahaan</label>
+                        <label class="col-sm-2 control-label">Tanggal Akte Pendirian Perusahaan :</label>
                         <div class="col-sm-10">
                             <p class="form-control-static">
                                 <com:TActiveLabel ID="lblTglAktePendirianPerusahaan" Text="-" />
@@ -238,7 +238,7 @@
                         </div>  
                     </div>
                     <div class="form-group" id="divNPWPPerusahaan">
-                        <label class="col-sm-2 control-label">No. NPWP Perusahaan</label>
+                        <label class="col-sm-2 control-label">No. NPWP Perusahaan :</label>
                         <div class="col-sm-10">
                             <p class="form-control-static">
                                 <com:TActiveLabel ID="lblNoNPWPPerusahaan" Text="-" />
@@ -246,7 +246,7 @@
                         </div>
                     </div>
                     <div class="form-group" id="divAlamatPerusahaan">
-                        <label class="col-sm-2 control-label">Alamat Perusahaan</label>
+                        <label class="col-sm-2 control-label">Alamat Perusahaan :</label>
                         <div class="col-sm-10">
                             <p class="form-control-static">
                                 <com:TActiveLabel ID="lblAlamatPerusahaan" Text="-" />
@@ -254,7 +254,7 @@
                         </div>
                     </div>
                     <div class="form-group" id="divNoTelpPerusahaan">
-                        <label class="col-sm-2 control-label">No. Telp Perusahaan</label>
+                        <label class="col-sm-2 control-label">No. Telp Perusahaan :</label>
                         <div class="col-sm-10">
                             <p class="form-control-static">
                                 <com:TActiveLabel ID="lblNoTelpPerusahaan" Text="-" />
@@ -262,7 +262,7 @@
                         </div>
                     </div>     
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">No. Fax Perusahaan</label>
+                        <label class="col-sm-2 control-label">No. Fax Perusahaan :</label>
                         <div class="col-sm-10">
                             <p class="form-control-static">
                                 <com:TActiveLabel ID="lblNoFaxPerusahaan" Text="-" />
@@ -270,7 +270,7 @@
                         </div>
                     </div> 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Alamat Kantor Cabang</label>
+                        <label class="col-sm-2 control-label">Alamat Kantor Cabang :</label>
                         <div class="col-sm-10">
                             <p class="form-control-static">
                                 <com:TActiveLabel ID="lblAlamatKantorCabangPerusahaan" Text="-" />
@@ -297,7 +297,7 @@
                 </div>
                 <div class="box-body">                    
                     <div class="form-group" id="divCmbAddAreaPenangkapan">
-                        <label class="col-sm-2 control-label">Daerah Penangkapan</label>
+                        <label class="col-sm-2 control-label">Daerah Penangkapan :</label>
                         <div class="col-xs-3">
                             <com:TDropDownList ID="cmbAddAreaPenangkapan" AutoPostBack="false" CssClass="form-control chosen" />                                                                                                        
                             <com:TRequiredFieldValidator ID="FieldAddAreaPenangkapanValidator" InitialValue="none" ControlToValidate="cmbAddAreaPenangkapan" Display="Dynamic" ErrorMessage="Pilih Area/Daerah Penangkapan" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">				
@@ -312,7 +312,7 @@
                         </div>
                     </div>
                     <div class="form-group" id="divAddKoordinatPenangkapan">
-                        <label class="col-sm-2 control-label">Koordinat/Jalur Penangkapan</label>
+                        <label class="col-sm-2 control-label">Koordinat/Jalur Penangkapan :</label>
                         <div class="col-xs-2">
                             <com:TTextBox ID="txtAddKoordinatPenangkapan" CssClass="form-control" Attributes.PlaceHolder="Koordinat/Jalur" />			                            
                             <com:TRequiredFieldValidator ID="FieldAddKoordinatPenangkapanValidator" ControlToValidate="txtAddKoordinatPenangkapan" Display="Dynamic" ErrorMessage="Isi Koordinat/Jalur Penangkapan" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">			
@@ -327,7 +327,7 @@
                         </div>                                                                    
                     </div>
                     <div class="form-group" id="divAddLokasiUsaha">
-                        <label class="col-sm-2 control-label">Lokasi Usaha</label>
+                        <label class="col-sm-2 control-label">Lokasi Usaha :</label>
                         <div class="col-xs-3">
                             <com:TDropDownList ID="cmbAddLokasiUsaha" AutoPostBack="false" CssClass="form-control chosen" />                                                                                                        			                            
                             <com:TRequiredFieldValidator ID="FieldAddLokasiUsahaValidator" InitialValue="none" ControlToValidate="cmbAddLokasiUsaha" Display="Dynamic" ErrorMessage="Isi Lokasi Usaha" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">			
@@ -360,7 +360,7 @@
                 </div>
                 <div class="box-body">
                     <div class="form-group" id="divCmbAddJenisAlatTangkap">
-                        <label class="col-sm-2 control-label">Jenis Alat</label>
+                        <label class="col-sm-2 control-label">Jenis Alat :</label>
                         <div class="col-xs-3">
                             <com:TDropDownList ID="cmbAddJenisAlat" AutoPostBack="false" CssClass="form-control chosen" />                                                                                                        
                             <com:TRequiredFieldValidator ID="FieldAddJenisAlatValidator" InitialValue="none" ControlToValidate="cmbAddJenisAlat" Display="Dynamic" ErrorMessage="Pilih Jenis Alat Penangkapan" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">				
@@ -375,7 +375,7 @@
                         </div>
                     </div>
                     <div class="form-group" id="divAddJumlahAlat">
-                        <label class="col-sm-2 control-label">Jumlah Alat</label>
+                        <label class="col-sm-2 control-label">Jumlah Alat :</label>
                         <div class="col-xs-2">
                             <com:TTextBox ID="txtAddJumlahAlat" CssClass="form-control" Attributes.OnKeyUp="formatangka(this,true)"  />			                            
                             <com:TRequiredFieldValidator ID="FieldAddJumlahAlatValidator" ControlToValidate="txtAddJumlahAlat" Display="Dynamic" ErrorMessage="Isi Jumlah Alat Tangkap" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">			
@@ -390,7 +390,7 @@
                         </div>
                     </div>
                     <div class="form-group" id="divCmbAddBahanAlat">
-                        <label class="col-sm-2 control-label">Bahan Alat</label>
+                        <label class="col-sm-2 control-label">Bahan Alat :</label>
                         <div class="col-xs-3">
                             <com:TDropDownList ID="cmbAddBahanAlat" AutoPostBack="false" CssClass="form-control chosen" />                                                                                                        
                             <com:TRequiredFieldValidator ID="FieldAddBahanAlatValidator" InitialValue="none" ControlToValidate="cmbAddBahanAlat" Display="Dynamic" ErrorMessage="Pilih Bahan Alat Tangkap dan Budidaya" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">				
@@ -405,7 +405,7 @@
                         </div>
                     </div>
                     <div class="form-group" id="divAddUkuranPanjangAlat">
-                        <label class="col-sm-2 control-label">Ukuran Panjang</label>
+                        <label class="col-sm-2 control-label">Ukuran Panjang :</label>
                         <div class="col-xs-2">
                             <com:TTextBox ID="txtAddUkuranPanjangAlat" CssClass="form-control" Attributes.OnKeyUp="formatangka(this,true)"  />			                            
                             <com:TRequiredFieldValidator ID="FieldAddUkuranPanjangAlatValidator" ControlToValidate="txtAddUkuranPanjangAlat" Display="Dynamic" ErrorMessage="Isi Ukuran Panjang Alat Tangkap" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">			
@@ -420,7 +420,7 @@
                         </div>
                     </div>
                     <div class="form-group" id="divAddUkuranLebarAlat">
-                        <label class="col-sm-2 control-label">Ukuran Lebar </label>
+                        <label class="col-sm-2 control-label">Ukuran Lebar  :</label>
                         <div class="col-xs-2">
                             <com:TTextBox ID="txtAddUkuranLebarAlat" CssClass="form-control" Attributes.OnKeyUp="formatangka(this,true)"  />			                            
                             <com:TRequiredFieldValidator ID="FieldAddUkuranLebarAlatValidator" ControlToValidate="txtAddUkuranLebarAlat" Display="Dynamic" ErrorMessage="Isi Ukuran Lebar Alat Tangkap" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">			
@@ -435,7 +435,7 @@
                         </div>
                     </div>
                     <div class="form-group" id="divAddUkuranTinggiAlat">
-                        <label class="col-sm-2 control-label">Ukuran Tinggi</label>
+                        <label class="col-sm-2 control-label">Ukuran Tinggi :</label>
                         <div class="col-xs-2">
                             <com:TTextBox ID="txtAddUkuranTinggiAlat" CssClass="form-control" Attributes.OnKeyUp="formatangka(this,true)"  />			                            
                             <com:TRequiredFieldValidator ID="FieldAddUkuranTinggiAlatValidator" ControlToValidate="txtAddUkuranTinggiAlat" Display="Dynamic" ErrorMessage="Isi Ukuran Tinggi Alat Tangkap" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">			
@@ -450,7 +450,7 @@
                         </div>
                     </div>
                     <div class="form-group" id="divAddUkuranSizeMataAlat">
-                        <label class="col-sm-2 control-label">Ukuran Size Mata </label>
+                        <label class="col-sm-2 control-label">Ukuran Size Mata  :</label>
                         <div class="col-xs-2">
                             <com:TTextBox ID="txtAddUkuranSizeMataAlat" CssClass="form-control" Attributes.OnKeyUp="formatangka(this,true)"  />			                            
                             <com:TRequiredFieldValidator ID="FieldAddUkuranSizeMataAlatValidator" ControlToValidate="txtAddUkuranSizeMataAlat" Display="Dynamic" ErrorMessage="Isi Ukuran Size Mata Alat Tangkap" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">			
@@ -483,7 +483,7 @@
                 </div>
                 <div class="box-body">
                     <div class="form-group" id="divCmbAddKapal">
-                        <label class="col-sm-2 control-label">Pilih Kapal</label>
+                        <label class="col-sm-2 control-label">Pilih Kapal :</label>
                         <div class="col-xs-3">
                             <com:TActiveDropDownList ID="cmbAddKapal" CssClass="form-control chosen">
                                 <prop:ClientSide.OnPreDispatch>
@@ -498,7 +498,7 @@
                                     $('loading').hide(); 
                                 </prop:ClientSide.OnComplete>
                             </com:TActiveDropDownList>
-                            <com:TRequiredFieldValidator ID="FieldAddKapalValidator" ControlToValidate="cmbAddKapal" Display="Dynamic" ErrorMessage="Pilih Kapal" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">				                                                    
+                            <com:TRequiredFieldValidator ID="FieldAddKapalValidator" InitialValue="none" ControlToValidate="cmbAddKapal" Display="Dynamic" ErrorMessage="Pilih Kapal" ValidationGroup="addSIPI" FocusOnError="true" CssClass="has-error help-block">				                                                    
                                 <prop:ClientSide.OnValidationError>
                                     $('divCmbAddKapal').addClassName('has-error');
                                     jQuery('#<%=$this->FieldAddKapalValidator->ClientID%>').removeAttr('style');
@@ -528,7 +528,7 @@
                 </div>
                 <div class="box-body">
                     <div class="form-group" id="divAddJumlahTenagaKerja">
-                        <label class="col-sm-2 control-label">Jumlah Tenaga Kerja</label>
+                        <label class="col-sm-2 control-label">Jumlah Tenaga Kerja :</label>
                         <div class="input-group col-xs-1">
                             <com:TTextBox ID="txtAddJumlahTenagaKerja" CssClass="form-control" Attributes.PlaceHolder="Jumlah" Attributes.OnKeyUp="formatangka(this,false)" />			                            
                         </div>
@@ -565,19 +565,19 @@
                         <b>Jelaskan cara pembagian hasil usaha.</b>                        
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Bagi Hasil</label>
+                        <label class="col-sm-2 control-label">Bagi Hasil :</label>
                         <div class="col-xs-7">
                             <com:TTextBox ID="txtAddPembagianHasilUsahaBagiHasil" CssClass="form-control" Attributes.PlaceHolder="Bagi Hasil" TextMode="MultiLine" />			                                                    
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Upah</label>
+                        <label class="col-sm-2 control-label">Upah :</label>
                         <div class="col-xs-7">
                             <com:TTextBox ID="txtAddPembagianHasilUsahaUpah" CssClass="form-control" Attributes.PlaceHolder="Upah" TextMode="MultiLine" />			                                                    
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Gaji</label>
+                        <label class="col-sm-2 control-label">Gaji :</label>
                         <div class="col-xs-7">
                             <com:TTextBox ID="txtAddPembagianHasilUsahaGaji" CssClass="form-control" Attributes.PlaceHolder="Gaji" TextMode="MultiLine" />			                                                    
                         </div>
@@ -605,19 +605,19 @@
                         <b>Rencana Pemasaran hasil Usaha Perikanan (sebut nama tempat dan nama yang menerima hasil tersebut)</b>                        
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Lokal/Dalam Daerah</label>
+                        <label class="col-sm-2 control-label">Lokal/Dalam Daerah :</label>
                         <div class="col-xs-7">
                             <com:TTextBox ID="txtAddPemasaranHasilUsahaLokal" CssClass="form-control" Attributes.PlaceHolder="Lokal/Dalam Daerah" TextMode="MultiLine" />			                                                    
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Nasional/Domestik</label>
+                        <label class="col-sm-2 control-label">Nasional/Domestik :</label>
                         <div class="col-xs-7">
                             <com:TTextBox ID="txtAddPemasaranHasilUsahaDomestik" CssClass="form-control" Attributes.PlaceHolder="Nasional/Domestik" TextMode="MultiLine" />			                                                    
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Internasional</label>
+                        <label class="col-sm-2 control-label">Internasional :</label>
                         <div class="col-xs-7">
                             <com:TTextBox ID="txtAddPemasaranHasilUsahaInternasional" CssClass="form-control" Attributes.PlaceHolder="Internasional" TextMode="MultiLine" />			                                                    
                         </div>

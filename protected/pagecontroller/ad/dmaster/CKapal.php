@@ -54,7 +54,7 @@ class CKapal extends MainPageSA {
 		}
 		if ($limit < 0) {$offset=0;$limit=10;$_SESSION['currentPageKapal']['page_num']=0;}
         $str = "$str ORDER BY NoRegKpl ASC LIMIT $offset,$limit";        
-		$this->DB->setFieldTable(array('RecNoKpl','NmPem','NoRegKpl','NmKpl'));
+		$this->DB->setFieldTable(array('RecNoKpl','NmPem','NoRegKpl','NmKpl','active'));
 		$r=$this->DB->getRecord($str);                    
 		$this->RepeaterS->DataSource=$r;
 		$this->RepeaterS->dataBind();      		
@@ -135,7 +135,7 @@ class CKapal extends MainPageSA {
         $this->DB->setFieldTable(array('RecNoKpl','RecNoPem','NoRegKpl','NmKpl','RecNakKpl','PjgKpl','LbrKpl','TgiKpl','GrossKpl','RecNoBhn','MrkMsnIdk','DkMsnIdk','RpmMsnIdk','NoSrMsnIdk','MrkMsnBtu','DkMsnBtu','NoSrMsnBtu','MrkMsnDgn','NoSrMsnDgn','RecNoJns_TypeKpl','RecNoJns_JnsKpl','TptBuat','ThnBuat','NoPasKpl','NoSrUkrKpl','NoStptKli','TndSlKpl','BdrKpl','muatan_bersih','status_kepemilikan','NmKplAwl','pergantian_kapal','AslBdr','active'));
 		$r=$this->DB->getRecord($str);
         $_SESSION['currentPageKapal']['dataKapal']=$r[1];
-        $listpemohon=$this->Pemohon->getListPemohon($_SESSION['currentPageKapal']['iduptd']);
+        $listpemohon=$this->Pemohon->removeIdFromArray($this->Pemohon->getListPemohon($_SESSION['currentPageKapal']['iduptd']),'none');        
         $this->cmbEditPemohon->DataSource=$listpemohon;            
         $this->cmbEditPemohon->Text=$_SESSION['currentPageKapal']['dataKapal']['RecNoPem'];
         $this->cmbEditPemohon->DataBind();
