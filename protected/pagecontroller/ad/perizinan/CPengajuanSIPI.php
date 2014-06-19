@@ -76,27 +76,125 @@ class CPengajuanSIPI extends MainPageAD {
     }    
     public function viewChanged($sender,$param) {
         $this->idProcess='view'; 
+        $recnosiup=$_SESSION['currentPagePengajuanSIPI']['datapengajuan']['recnosiup'];
         $activeviewindex=$this->MultiView->ActiveViewIndex;
         $_SESSION['currentPagePengajuanSIPI']['datapengajuan']['currentview']=$activeviewindex;
+        switch ($activeviewindex) {
+            case 0 :
+                $bool_bukukapal=true;
+                $bool_siup=true;
+                $bool_sipi=true;
+                $this->createObj('Perizinan');                      
+                $persyaratan_bukukapal_pemohon=$this->Perizinan->getPersyaratanPengajuanMilikPemohon('bukukapal',$recnosiup,0);
+                if (count($persyaratan_bukukapal_pemohon) > 1 ) {    
+                    $bool_bukukapal=false;
+                    $this->RepeaterPermohonanBUKUKAPAL->DataSource=$persyaratan_bukukapal_pemohon;                     
+                    $this->RepeaterPermohonanBUKUKAPAL->DataBind();                                
+                }else {
+                    $persyaratan_bukukapal=$this->Perizinan->getPersyaratanPengajuan('bukukapal');                
+                    $this->listSyaratPermohonanBUKUKAPAL->DataSource=$persyaratan_bukukapal; 
+                    $this->listSyaratPermohonanBUKUKAPAL->DataBind();                               
+                }                
+                $persyaratan_bukusiup_pemohon=$this->Perizinan->getPersyaratanPengajuanMilikPemohon('siup',$recnosiup,0);
+                if (count($persyaratan_bukusiup_pemohon) > 1 ) {                    
+                    $bool_siup=false;
+                    $this->RepeaterPermohonanSIUP->DataSource=$persyaratan_bukusiup_pemohon;                     
+                    $this->RepeaterPermohonanSIUP->DataBind(); 
+                }else{
+                    $this->listSyaratPermohonanSIUP->DataSource=$this->Perizinan->getPersyaratanPengajuan('siup');
+                    $this->listSyaratPermohonanSIUP->DataBind();                                                            
+                }
+                $persyaratan_bukusipi_pemohon=$this->Perizinan->getPersyaratanPengajuanMilikPemohon('sipi',$recnosiup,0);
+                if (count($persyaratan_bukusipi_pemohon) > 1 ) {                    
+                    $bool_sipi=false;
+                    $this->RepeaterPermohonanSIPI->DataSource=$persyaratan_bukusipi_pemohon;                     
+                    $this->RepeaterPermohonanSIPI->DataBind(); 
+                }else{
+                    $this->listSyaratPermohonanSIPI->DataSource=$this->Perizinan->getPersyaratanPengajuan('sipi');
+                    $this->listSyaratPermohonanSIPI->DataBind();                                                            
+                }
+                $this->btnVerifikasi->Enabled=($bool_bukukapal&&$bool_siup&&$bool_sipi) ? true:false;
+            break;
+        }
     }
     public function closeDetailPengajuan ($sender,$param) {
         $_SESSION['currentPagePengajuanSIPI']['datapengajuan']=array();
         $this->redirect('perizinan.PengajuanSIPI',true);
-    }
+    }    
     public function verifikasiData ($sender,$param) {
-        $this->dataPengajuan=$_SESSION['currentPagePengajuanSIPI']['datapengajuan'];
-        $recnobup=$this->dataPengajuan['recnobup'];
-        $recnosiup=$this->dataPengajuan['recnosiup'];
-        $this->DB->query('BEGIN');        
-        $str = "UPDATE bup SET StatusBup='verified',date_modified=NOW() WHERE RecNoBup=$recnobup";
-        if ($this->DB->updateRecord($str)) {
-            $str = "UPDATE siup SET StatusSiup='verified',date_modified=NOW() WHERE RecNoSiup=$recnosiup";
-            $this->DB->updateRecord($str);
-            $this->DB->query('COMMIT');
-        }else {
-            $this->DB->query('ROLLBACK');
+        if ($this->IsValid) {
+            $this->dataPengajuan=$_SESSION['currentPagePengajuanSIPI']['datapengajuan'];
+            $recnobup=$this->dataPengajuan['recnobup'];
+            $recnosiup=$this->dataPengajuan['recnosiup'];
+            $indices_bukukapal=$this->listSyaratPermohonanBUKUKAPAL->SelectedIndices;   
+            $totalItemBUKUKAPAL=$this->listSyaratPermohonanBUKUKAPAL->getItemCount(); 
+            $totalBukuSelected=count($indices_bukukapal);
+            $bool_buku_kapal=false;            
+            if ($totalBukuSelected == $totalItemBUKUKAPAL) {
+                $bool_buku_kapal=true;
+                for ($i=0; $i<$totalBukuSelected;$i++) {                                 
+                    $item=$this->listSyaratPermohonanBUKUKAPAL->Items[$i];
+                    $idpersyaratan=$item->Value;
+                    $nama_persyaratan=preg_replace("/&nbsp;/",'',addslashes($item->Text));
+                    if ($totalBukuSelected > $i+1) {
+                        $value_buku_kapal = "$value_buku_kapal (NULL,$recnosiup,$idpersyaratan,'bukukapal','$nama_persyaratan',1),";                                
+                    }else{
+                        $value_buku_kapal = "$value_buku_kapal (NULL,$recnosiup,$idpersyaratan,'bukukapal','$nama_persyaratan',1)";                                
+                    }
+                }                                 
+            }   
+            $indices_siup=$this->listSyaratPermohonanSIUP->SelectedIndices;   
+            $totalItemSIUP=$this->listSyaratPermohonanSIUP->getItemCount(); 
+            $totalSIUPSelected=count($indices_siup);
+            $bool_siup_kapal=false;
+            if ($totalSIUPSelected == $totalItemSIUP) {
+                $bool_siup_kapal=true;
+                $value='';
+                for ($i=0; $i<$totalSIUPSelected;$i++) {
+                    $item=$this->listSyaratPermohonanSIUP->Items[$i];
+                    $idpersyaratan=$item->Value;
+                    $nama_persyaratan=preg_replace("/&nbsp;/",'',addslashes($item->Text));
+                    if ($totalSIUPSelected > $i+1) {
+                        $value_siup = "$value_siup (NULL,$recnosiup,$idpersyaratan,'siup','$nama_persyaratan',1),";                                
+                    }else{
+                        $value_siup = "$value_siup (NULL,$recnosiup,$idpersyaratan,'siup','$nama_persyaratan',1)";                                
+                    }                                        
+                }                
+            }
+            $indices_sipi=$this->listSyaratPermohonanSIPI->SelectedIndices;   
+            $totalItemSIPI=$this->listSyaratPermohonanSIPI->getItemCount(); 
+            $totalSIPISelected=count($indices_sipi);
+            $bool_sipi_kapal=false;
+            if ($totalSIPISelected == $totalItemSIPI) {
+                $bool_sipi_kapal=true;                
+                for ($i=0; $i<$totalSIPISelected;$i++) {
+                    $item=$this->listSyaratPermohonanSIPI->Items[$i];
+                    $idpersyaratan=$item->Value;
+                    $nama_persyaratan=preg_replace("/&nbsp;/",'',addslashes($item->Text));
+                    if ($totalSIPISelected > $i+1) {
+                        $value_sipi = "$value_sipi (NULL,$recnosiup,$idpersyaratan,'sipi','$nama_persyaratan',1),";                                
+                    }else{
+                        $value_sipi = "$value_sipi (NULL,$recnosiup,$idpersyaratan,'sipi','$nama_persyaratan',1)";                                
+                    }                                        
+                }                
+            }
+            if ($bool_buku_kapal&&$bool_siup_kapal&&$bool_sipi_kapal) {
+                $this->DB->query('BEGIN');        
+                $str_persyaratan_siup = "INSERT INTO persyaratan_siup (idpersyaratan_siup,RecNoSiup,idpersyaratan,`group`,nama_persyaratan,status) VALUES $value_buku_kapal,$value_siup,$value_sipi";                 
+                $this->DB->insertRecord($str_persyaratan_siup);         
+                $str = "UPDATE bup SET StatusBup='verified',date_modified=NOW() WHERE RecNoBup=$recnobup";
+                if ($this->DB->updateRecord($str)) {
+                    $str = "UPDATE siup SET StatusSiup='verified',date_modified=NOW() WHERE RecNoSiup=$recnosiup";
+                    $this->DB->updateRecord($str);
+                    $this->DB->query('COMMIT');
+                }else {
+                    $this->DB->query('ROLLBACK');
+                }
+                $this->redirect('perizinan.PengajuanSIPI', true);
+            }else {
+                $this->errormessage->Text="Mohon diperiksa kembali persyaratan, apakah sudah di centang semuanya ?";
+            }
         }
-        $this->redirect('perizinan.PengajuanSIPI', true);
     }
     public function approvalData ($sender,$param) {
         $this->dataPengajuan=$_SESSION['currentPagePengajuanSIPI']['datapengajuan'];

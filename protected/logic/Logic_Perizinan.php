@@ -39,6 +39,37 @@ class Logic_Perizinan extends Logic_Pemohon {
         return $noregsiup;
     }   
     /**
+     * digunakan untuk mendapatkan persyaratan dokumen pengajuan
+     * @param type $group
+     */
+    public function getPersyaratanPengajuan ($group,$mode=5) {        
+        $r = $this->getList("persyaratan_permohonan WHERE `group`='$group' AND active=1", array('idpersyaratan','nama_persyaratan'),null,null,$mode);
+        $result = array();
+        foreach ($r as $k=>$v) {
+            $result[$k] = "&nbsp;&nbsp;$v";
+        }
+        return $result;
+    }
+    /**
+     * digunakan untuk mendapatkan persyaratan dokumen pengajuan milik pemohon
+     * @param type $group
+     */
+    public function getPersyaratanPengajuanMilikPemohon ($group,$recnosiup,$mode=5) {   
+        $r = $this->getList("persyaratan_siup WHERE `group`='$group' AND RecNoSiup=$recnosiup", array('idpersyaratan','nama_persyaratan'),null,null,$mode);
+        switch ($mode) {
+            case 0 :
+                $result=$r;
+            break;
+            case 5 :
+                $result = array();
+                foreach ($r as $k=>$v) {
+                    $result[$k] = "&nbsp;&nbsp;$v";
+                }
+            break;
+        }        
+        return $result;
+    }
+    /**
      * digunakan untuk mencetak sertifikat SIUP
      */
     public function printSIUP () {    
