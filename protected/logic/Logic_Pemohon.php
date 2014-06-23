@@ -12,6 +12,11 @@ class Logic_Pemohon extends Logic_Global {
      */
     protected $RecNoPem=null;
     /**
+     * Nomor ID SIUP
+     * @var integer
+     */
+    protected $RecNoSiup=null;
+    /**
      * data pemohon     
      */
     public $DataPemohon;
@@ -29,10 +34,20 @@ class Logic_Pemohon extends Logic_Global {
 	}
     /**
      * setter Kode Pemohon
-     * @param type $nip integer
+     * @param type $id integer
      */
     public function setRecNoPem ($id,$load=false,$mode=0) {
         $this->RecNoPem=$id;
+        if ($load){
+            $this->getDataPemohon($mode);
+        }
+    }
+    /**
+     * setter Kode SIUP
+     * @param type $id integer
+     */
+    public function setRecNoSIUP ($id,$load=false,$mode=1) {
+        $this->RecNoSiup=$id;
         if ($load){
             $this->getDataPemohon($mode);
         }
@@ -48,20 +63,32 @@ class Logic_Pemohon extends Logic_Global {
      * digunakan untuk mendapatkan data pemohon
      */
     public function getDataPemohon ($mode) {
-        $result=array();		
-        $id=$this->RecNoPem; //bisa siup atau id pemohon
+        $result=array();		        
         switch($mode) {
 			case 0 :
+                $id=$this->RecNoPem;
                 $str = "SELECT RecNoPem,NmPem,KtpPem,AlmtPem,TelpPem,NpwpPem,Foto,Status,p.iduptd,uptd.nama_uptd,active,DateAdded FROM pemohon p LEFT JOIN uptd ON (uptd.iduptd=p.iduptd) WHERE RecNoPem=$id";
                 $this->db->setFieldTable(array('RecNoPem','NmPem','KtpPem','AlmtPem','TelpPem','NpwpPem','Foto','Status','iduptd','nama_uptd','active','DateAdded'));
                 $r=$this->db->getRecord($str);
                 $result=isset($r[1])?$r[1]:array();
             break;
-            case 1 : //dapatkan data pemohon berdasarkan id siup
-                $str = "SELECT sdp.RecNoPem,sdp.NmPem,sdp.KtpPem,sdp.AlmtPem,sdp.TelpPem,sdp.NpwpPem,sdp.Foto,sdp.Status,sdp.iduptd,sdp.nama_uptd,p.active,p.DateAdded AS date_added FROM siup_data_pemohon sdp LEFT JOIN pemohon p ON (p.RecNoPem=sdp.RecNoPem) WHERE sdp.RecNoSiup=$id";
+            case 1 : //dapatkan data pemohon berdasarkan id siup beserta data perusahaannya
+                $recnosiup=explode('/',$this->RecNoSiup);                
+                $str = "SELECT sdp.RecNoPem,sdp.NmPem,sdp.KtpPem,sdp.AlmtPem,sdp.TelpPem,sdp.NpwpPem,sdp.Foto,sdp.Status,sdp.iduptd,sdp.nama_uptd,p.active,p.DateAdded AS date_added FROM siup_data_pemohon sdp LEFT JOIN pemohon p ON (p.RecNoPem=sdp.RecNoPem) WHERE sdp.RecNoSiup={$recnosiup[0]}";
                 $this->db->setFieldTable(array('RecNoPem','NmPem','KtpPem','AlmtPem','TelpPem','NpwpPem','Foto','Status','iduptd','nama_uptd','active','date_added'));
                 $r=$this->db->getRecord($str);
-                $result=isset($r[1])?$r[1]:array();
+                if (isset($r[1])) {
+                    $result=$r[1];
+                    if ($result['Status'] == 'perusahaan') {
+                        $str = "SELECT RecStsCom,NmCom,AlmtCom,TelCom,AlmtComCab FROM siup_data_perusahaan WHERE idsiup_data_perusahaan={$recnosiup[1]}";
+                        $this->db->setFieldTable(array('RecStsCom','NmCom','AlmtCom','AlmtComCab'));
+                        $r=$this->db->getRecord($str);
+                        $result['RecStsCom']=$r[1]['RecStsCom'];
+                        $result['NmCom']=$r[1]['NmCom'];
+                        $result['AlmtCom']=$r[1]['AlmtCom'];
+                        $result['AlmtComCab']=$r[1]['AlmtComCab'];
+                    }
+                }                
             break;
         }
         $this->DataPemohon=$result;
@@ -135,13 +162,13 @@ class Logic_Pemohon extends Logic_Global {
                 $this->report->rpt->Cell (5,5,'2.',0,0,'C');
                 $this->report->rpt->Cell (63,5,'Alamat Kantor Pusat',0,0,'L');
                 $this->report->rpt->Cell (5,5,':',0,0,'C');
-                $this->report->rpt->Cell (125,5,'',0,0,'L');
+                $this->report->rpt->Cell (125,5,$this->dataReport['AlmtPem'],0,0,'L');
                 $row+=5;
                 $this->report->rpt->setXY(8,$row);                
                 $this->report->rpt->Cell (5,5,'2.',0,0,'C');
                 $this->report->rpt->Cell (63,5,'Nama Pimpinan Pusat',0,0,'L');
                 $this->report->rpt->Cell (5,5,':',0,0,'C');
-                $this->report->rpt->Cell (125,5,'',0,0,'L');
+                $this->report->rpt->Cell (125,5,$this->dataReport['NmPem'],0,0,'L');
                 $row+=5;
                 $this->report->rpt->setXY(8,$row);                
                 $this->report->rpt->Cell (5,5,'3.',0,0,'C');
@@ -467,6 +494,7 @@ class Logic_Pemohon extends Logic_Global {
         $recnobup=$this->dataReport['recnobup'];
         $nama_dinas=strtoupper($this->report->setup->getSettingValue('config_nama_dinas'));
         $nama_kabupaten=  strtoupper($this->report->setup->getSettingValue('config_nama_kabupaten'));
+        $dataReport = $this->dataReport;
         switch ($this->dataReport['outputmode']) {
             case 'pdf' :
                 $this->report->setMode('pdf'); 
@@ -511,7 +539,7 @@ class Logic_Pemohon extends Logic_Global {
                 $row+=5;
                 $this->report->rpt->setXY(28,$row);                                
                 $this->report->rpt->Cell (10,5,'1',1,0,'C');
-                $this->report->rpt->Cell (65,5,'APNAL JONY',1,0,'L');
+                $this->report->rpt->Cell (65,5,$dataReport['NmPem'],1,0,'L');
                 $this->report->rpt->Cell (53,5,'PENANGKAP IKAN (BUBU)',1,0,'C');
                 $this->report->rpt->Cell (50,5,'Permohonan baru IUP/SPI',1,0,'L');
                 $row+=10;

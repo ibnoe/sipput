@@ -8,7 +8,7 @@ class CPengajuanSIPI extends MainPageAD {
         $this->createObj('Pemohon');
 		if (!$this->IsPostBack&&!$this->IsCallBack) {
             if (isset($_SESSION['currentPagePengajuanSIPI']['datapengajuan']['recnobup'])) {
-                $this->dataPengajuan=$_SESSION['currentPagePengajuanSIPI']['datapengajuan'];
+                $this->dataPengajuan=$_SESSION['currentPagePengajuanSIPI']['datapengajuan'];                
                 $this->idProcess='view';
                 $this->MultiView->ActiveViewIndex=$this->dataPengajuan['currentview'];
             }else {                
@@ -36,7 +36,7 @@ class CPengajuanSIPI extends MainPageAD {
     protected function populateData ($search=false) {
         $iduptd=$_SESSION['currentPagePengajuanSIPI']['iduptd'];
         $str_stastuspermohonan=$_SESSION['currentPagePengajuanSIPI']['jenispengajuan']=='none'?'':"AND JnsDtSIUP='{$_SESSION['currentPagePengajuanSIPI']['jenispengajuan']}'";
-        $str = "SELECT s.RecNoSiup,bup.RecNoBup,JnsDtSIUP,NoRegSiup,NmPem,NoSrtSiup,TglSrtSiup,StatusBup,bup.date_added FROM siup s JOIN bup ON (bup.RecNoSiup=s.RecNoSiup) LEFT JOIN siup_data_pemohon sdp ON (sdp.RecNoSiup=s.RecNoSiup) WHERE s.RecNoIzin=1 AND s.iduptd=$iduptd $str_stastuspermohonan";
+        $str = "SELECT s.RecNoSiup,bup.RecNoBup,s.JnsDtSIUP,s.NoRegSiup,sdp.NmPem,sdpe.idsiup_data_perusahaan,sdpe.RecStsCom,sdpe.NmCom,s.NoSrtSiup,s.TglSrtSiup,bup.StatusBup,s.JnsDtPemSIUP,bup.date_added FROM siup s JOIN bup ON (bup.RecNoSiup=s.RecNoSiup) LEFT JOIN siup_data_pemohon sdp ON (sdp.RecNoSiup=s.RecNoSiup) LEFT JOIN siup_data_perusahaan sdpe ON (sdpe.RecNoSiup=s.RecNoSiup) WHERE s.RecNoIzin=1 AND s.iduptd=$iduptd $str_stastuspermohonan";
         if ($search) {
             
         }else{
@@ -53,9 +53,19 @@ class CPengajuanSIPI extends MainPageAD {
 		}
 		if ($limit <= 0) {$offset=0;$limit=10;$_SESSION['currentPagePengajuanSIPI']['page_num']=0;}
         $str = "$str ORDER BY date_added DESC LIMIT $offset,$limit";        
-        $this->DB->setFieldTable(array('RecNoSiup','RecNoBup','NmPem','JnsDtSIUP','NoRegSiup','NoSrtSiup','TglSrtSiup','StatusBup','date_added'));
-		$r=$this->DB->getRecord($str,$offset+1);        
-		$this->RepeaterS->DataSource=$r;
+        $this->DB->setFieldTable(array('RecNoSiup','RecNoBup','NmPem','idsiup_data_perusahaan','RecStsCom','NmCom','JnsDtSIUP','NoRegSiup','NoSrtSiup','TglSrtSiup','JnsDtPemSIUP','StatusBup','date_added'));
+		$r=$this->DB->getRecord($str,$offset+1);   
+        $result=array();
+        while (list($k,$v)=each($r)) {
+            if ($v['JnsDtPemSIUP'] == 'perusahaan')  {
+                $v['RecNoSiup']=$v['RecNoSiup'] . '/'.$v['idsiup_data_perusahaan'];
+                $v['NmPem']=$v['NmCom'];
+            }else {
+                $v['RecNoSiup']=$v['RecNoSiup'] . '/0';
+            }
+            $result[$k]=$v;
+        }
+		$this->RepeaterS->DataSource=$result;
 		$this->RepeaterS->dataBind();      		
     }
     public function deleteRecord ($sender,$param) {
@@ -65,11 +75,14 @@ class CPengajuanSIPI extends MainPageAD {
     }
     public function viewDetailPengajuan ($sender,$param) {
         $recnobup=$this->getDataKeyField($sender,$this->RepeaterS);
-        $recnosiup=$sender->CommandParameter;  
-        $this->Pemohon->setRecNoPem($recnosiup,true,1);        
-        $data=$this->Pemohon->DataPemohon;        
+        $recnosiup=explode('/',$sender->CommandParameter);  
+        
+        $this->Pemohon->setRecNoSIUP($sender->CommandParameter,true);        
+        $data=$this->Pemohon->DataPemohon;                        
         $data['recnobup']=$recnobup;
-        $data['recnosiup']=$recnosiup;
+        $data['recnosiup']=$recnosiup[0];
+        $data['recsiupdataperusahaan']=$recnosiup[1];
+        
         $data['currentview']=0;                       
         $_SESSION['currentPagePengajuanSIPI']['datapengajuan']=$data;
         $this->redirect('perizinan.PengajuanSIPI',true);
@@ -122,6 +135,7 @@ class CPengajuanSIPI extends MainPageAD {
         $this->redirect('perizinan.PengajuanSIPI',true);
     }    
     public function verifikasiData ($sender,$param) {
+        $this->idProcess='view';
         if ($this->IsValid) {
             $this->dataPengajuan=$_SESSION['currentPagePengajuanSIPI']['datapengajuan'];
             $recnobup=$this->dataPengajuan['recnobup'];
@@ -197,24 +211,29 @@ class CPengajuanSIPI extends MainPageAD {
         }
     }
     public function approvalData ($sender,$param) {
-        $this->dataPengajuan=$_SESSION['currentPagePengajuanSIPI']['datapengajuan'];
-        $recnobup=$this->dataPengajuan['recnobup'];
-        $recnosiup=$this->dataPengajuan['recnosiup'];
-        $this->DB->query('BEGIN');
-        $str = "UPDATE bup SET StatusBup='approved',date_modified=NOW() WHERE RecNoBup=$recnobup";
-        if ($this->DB->updateRecord($str)) {
-            $str = "UPDATE siup SET StatusSiup='approved',date_modified=NOW() WHERE RecNoSiup=$recnosiup";
-            $this->DB->updateRecord($str);
-            $this->DB->query('COMMIT');
-        }else {
-            $this->DB->query('ROLLBACK');
+        $this->idProcess='view';
+        $this->IsValid=false;
+        if ($this->IsValid) {
+            $this->dataPengajuan=$_SESSION['currentPagePengajuanSIPI']['datapengajuan'];
+            $recnobup=$this->dataPengajuan['recnobup'];
+            $recnosiup=$this->dataPengajuan['recnosiup'];
+            $this->DB->query('BEGIN');
+            $str = "UPDATE bup SET StatusBup='approved',date_modified=NOW() WHERE RecNoBup=$recnobup";
+            if ($this->DB->updateRecord($str)) {
+                $str = "UPDATE siup SET StatusSiup='approved',date_modified=NOW() WHERE RecNoSiup=$recnosiup";
+                $this->DB->updateRecord($str);
+                $this->DB->query('COMMIT');
+            }else {
+                $this->DB->query('ROLLBACK');
+            }
+            $this->redirect('perizinan.PengajuanSIPI', true);
         }
-        $this->redirect('perizinan.PengajuanSIPI', true);
     }
-    public function printOut ($sender,$param) {        
+    public function printOut ($sender,$param) {  
+        $this->idProcess='view';
         $processprintout=$sender->CommandParameter;
-        $dataReport=$_SESSION['currentPagePengajuanSIPI']['datapengajuan'];        
-        $dataReport['outputmode']='pdf';        
+        $dataReport=$_SESSION['currentPagePengajuanSIPI']['datapengajuan'];                
+        $dataReport['outputmode']='pdf';                
         $dataReport['linkoutput']=$this->linkOutput;                
         switch ($processprintout) {
             case 'pemeriksaankapal':  
@@ -222,10 +241,15 @@ class CPengajuanSIPI extends MainPageAD {
                 $this->Pemohon->setDataReport($dataReport);
                 $this->Pemohon->printFormPemeriksaanFisikKapal();
             break;
-            case 'suratpengantar':                
-                $label='Surat Pengantar dari KA. UPT';
-                $this->Pemohon->setDataReport($dataReport);
-                $this->Pemohon->printSuratPengantarUPT();
+            case 'suratpengantar':            
+                if ($this->DB->checkRecordIsExist('StatusBup','bup',$dataReport['StatusBup']," AND RecNoBup={$dataReport['recnobup']}")) {
+                    $label='Surat Pengantar dari KA. UPT';
+                    $this->Pemohon->setDataReport($dataReport);
+                    $this->Pemohon->printSuratPengantarUPT();
+                }else {
+                    $label='Surat Pengantar Tidak bisa';
+                    $this->labelBoxBody->Text='Tidak bisa print Surat Pengantar dari KA. UPT karena belum di Approve.';
+                }                
             break;
         }        
         $this->lblPrintout->Text = $label;

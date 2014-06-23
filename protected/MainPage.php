@@ -138,8 +138,7 @@ class MainPage extends TPage {
      */
     public $showSetting=false;
     
-    /**
-     *
+    /**     
      * @var type digunakan untuk menyimpan data pengajuan
      */
     public $dataPengajuan;    

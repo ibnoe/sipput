@@ -13,7 +13,8 @@
                 </div>
             </div>
             <div class="box-body">
-                <com:TActiveHyperLink ID="linkOutput" />        
+                <com:TActiveLabel ID="labelBoxBody" />
+                <com:TActiveHyperLink ID="linkOutput" />                        
             </div>
             <div class="box-footer text-right">
                 <a OnClick="new Modal.Box('<%=$this->modalPrintOut->ClientID%>').hide();return false;" class="btn btn-default btn-sm"><i class="fa fa-sign-out"></i> Close</a>                              

@@ -98,21 +98,46 @@
                         <div class="nav-tabs-custom">
                             <%include Application.pages.lte.ad.perizinan.TabMenuPengajuan%>
                             <div class="tab-content">
-                                <div class="tab-pane active">
-                                    <com:TActiveLinkButton ID="btnApproval" CssClass="btn btn-primary" OnClick="approvalData">
-                                        <prop:Text><i class="fa fa-save"></i> Approve</prop:Text>
-                                        <prop:ClientSide.OnPreDispatch>
-                                            $('loading').show();                                             
-                                            $('<%=$this->btnApproval->ClientId%>').disabled='disabled';						
-                                        </prop:ClientSide.OnPreDispatch>
-                                        <prop:ClientSide.OnLoading>
-                                            $('<%=$this->btnApproval->ClientId%>').disabled='disabled';						
-                                        </prop:ClientSide.OnLoading>
-                                        <prop:ClientSide.OnComplete>																	
-                                            $('<%=$this->btnApproval->ClientId%>').disabled='';						                                            
-                                            $('loading').hide(); 
-                                        </prop:ClientSide.OnComplete>
-                                    </com:TActiveLinkButton> 
+                                <div class="tab-pane active">        
+                                    <div class="row">
+                                        <div class="box-body">
+                                            <div class="form-group" id="divCmbAddKepalaUTPD">
+                                                <label class="col-sm-2 control-label">Kepala UPTD :</label>
+                                                <div class="col-xs-4">
+                                                    <com:TDropDownList ID="cmbAddKepalaUPTD" AutoPostBack="false" CssClass="form-control chosen" />                                                                                                        
+                                                    <com:TRequiredFieldValidator ID="FieldAddKepalaUTPD" InitialValue="none" ControlToValidate="cmbAddKepalaUPTD" Display="Dynamic" ErrorMessage="Pilih Kepala UPTD" ValidationGroup="addApprovalPengajuan" FocusOnError="true" CssClass="has-error help-block">				
+                                                        <prop:ClientSide.OnValidationError>
+                                                            $('divCmbAddKepalaUTPD').addClassName('has-error');
+                                                            jQuery('#<%=$this->FieldAddKepalaUTPD->ClientID%>').removeAttr('style');
+                                                        </prop:ClientSide.OnValidationError>
+                                                        <prop:ClientSide.OnValidationSuccess>
+                                                            $('divCmbAddKepalaUTPD').removeClassName('has-error');
+                                                        </prop:ClientSide.OnValidationSuccess>
+                                                    </com:TRequiredFieldValidator>
+                                                </div>                      
+                                            </div>
+                                        </div>
+                                        <div class="box-footer">
+                                            <div class="form-group">
+                                                <div class="col-sm-offset-2 col-sm-10">
+                                                    <com:TActiveLinkButton ID="btnApproval" CssClass="btn btn-primary" OnClick="approvalData" ValidationGroup="addApprovalPengajuan">
+                                                        <prop:Text><i class="fa fa-save"></i> Approve</prop:Text>
+                                                        <prop:ClientSide.OnPreDispatch>
+                                                            $('loading').show();                                             
+                                                            $('<%=$this->btnApproval->ClientId%>').disabled='disabled';						
+                                                        </prop:ClientSide.OnPreDispatch>
+                                                        <prop:ClientSide.OnLoading>
+                                                            $('<%=$this->btnApproval->ClientId%>').disabled='disabled';						
+                                                        </prop:ClientSide.OnLoading>
+                                                        <prop:ClientSide.OnComplete>																	
+                                                            $('<%=$this->btnApproval->ClientId%>').disabled='';						                                            
+                                                            $('loading').hide(); 
+                                                        </prop:ClientSide.OnComplete>
+                                                    </com:TActiveLinkButton>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div><!-- /.tab-pane -->                            
                             </div><!-- /.tab-content -->
                         </div>
@@ -190,11 +215,12 @@
                                     <tbody>
                                     <tr>                                                                
                                         <th style="width:18px" class="text-center">NO</th>
-                                        <th class="text-center">NO. REGISTRASI</th>
-                                        <th class="text-center">NAMA PEMOHON<br />PERUSAHAAN/PEMOHON</th>                        
+                                        <th style="width:130px" class="text-center">NO. REGISTRASI</th>
+                                        <th style="width:350px" class="text-center">NAMA PEMOHON<br />PERUSAHAAN/PEMOHON</th>                        
+                                        <th class="text-center">STATUS <br />PEMOHON</th>
                                         <th class="text-center">JENIS <br />PERMOHONAN</th>                                                                                                                                                
                                         <th class="text-center">TGL. DAFTAR</th>
-                                        <th class="text-center">STATUS</th>
+                                        <th class="text-center">STATUS <br />PERMOHONAN</th>
                                         <th class="text-center">AKSI</th>							
                                     </tr>								                                                                        
                             </prop:HeaderTemplate>
@@ -202,7 +228,8 @@
                                 <tr>			                                
                                     <td><%#$this->DataItem['no']%></td>
                                     <td class="text-center"><%#$this->DataItem['NoRegSiup']%></td>	
-                                    <td><%#$this->DataItem['NmPem']%></td>
+                                    <td><%#$this->DataItem['NmPem']%></td>                                    
+                                    <td class="text-center"><%#strtoupper($this->DataItem['JnsDtPemSIUP'])%><%#$this->DataItem['JnsDtPemSIUP']=='perusahaan'?'<br /><span class="badge bg-red">'.strtoupper($this->DataItem['RecStsCom']).'</span>':''%></td>
                                     <td class="text-center"><span class="label label-primary"><%#strtoupper($this->DataItem['JnsDtSIUP'])%></span></td>                                    
                                     <td class="text-center"><%#$this->Page->TGL->tanggal('d/m/Y',$this->DataItem['date_added'])%></td> 
                                     <td class="text-center"><span class="label <%#$this->DataItem['StatusBup']=='registered'?'label-warning':'label-success'%>"><%#$this->DataItem['StatusBup']%></span></td>                                    
@@ -226,10 +253,11 @@
                                 <tr>			                                
                                     <td><%#$this->DataItem['no']%></td>
                                     <td class="text-center"><%#$this->DataItem['NoRegSiup']%></td>	
-                                    <td><%#$this->DataItem['NmPem']%></td>
+                                    <td><%#$this->DataItem['NmPem']%></td>                                    
+                                    <td class="text-center"><%#strtoupper($this->DataItem['JnsDtPemSIUP'])%><%#$this->DataItem['JnsDtPemSIUP']=='perusahaan'?'<br /><span class="badge bg-red">'.strtoupper($this->DataItem['RecStsCom']).'</span>':''%></td>
                                     <td class="text-center"><span class="label label-primary"><%#strtoupper($this->DataItem['JnsDtSIUP'])%></span></td>                                    
                                     <td class="text-center"><%#$this->Page->TGL->tanggal('d/m/Y',$this->DataItem['date_added'])%></td> 
-                                    <td class="text-center"><span class="label label-warning"><%#$this->DataItem['StatusBup']%></span></td>                                    
+                                    <td class="text-center"><span class="label <%#$this->DataItem['StatusBup']=='registered'?'label-warning':'label-success'%>"><%#$this->DataItem['StatusBup']%></span></td>                                    
                                     <td class="text-center">
                                         <com:TActiveLinkButton ID="btnDetail" CausesValidation="false" ClientSide.PostState="false" OnClick="Page.viewDetailPengajuan" Attributes.Title="Detail Pengajuan" Text="<i class='fa fa-wrench'></i> Detail" CommandParameter="<%#$this->DataItem['RecNoSiup']%>" CssClass="btn bg-purple btn-sm">                                                                                                            
                                             <prop:ClientSide.OnPreDispatch>
@@ -243,7 +271,7 @@
                                                 $('loading').hide();
                                             </prop:ClientSide.OnComplete>
                                         </com:TActiveLinkButton>
-                                    </td>
+                                    </td>                                   
                                 </tr>
                             </prop:AlternatingItemTemplate>
                             <prop:FooterTemplate>               

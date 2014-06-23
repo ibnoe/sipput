@@ -1,11 +1,11 @@
 <?php
 
-class MainPageSA extends MainPage {  
-     /**     
-     * show page lokasi [dmaster]
+class MainPageSA extends MainPage {      
+    /**     
+     * show page Satuan[dmaster]
      */
-    public $showLokasi=false;    
-     /**     
+    public $showJabatan=false;
+    /**     
      * show page Satuan[dmaster]
      */
     public $showSatuan=false;        
@@ -22,16 +22,19 @@ class MainPageSA extends MainPage {
      */
     public $showBahanAlat=false; 
     /**     
-     * show page lokasi usaha [dmaster]
+     * show page lokasi [Lokasi]
+    */
+    public $showLokasi=false;    
+    /**     
+     * show page lokasi usaha [Lokasi]
      */
     public $showLokasiUsaha=false; 
     /**     
-     * show page area penangkapan [dmaster]
+     * show page area penangkapan [Lokasi]
      */
-    public $showAreaPenangkapan=false;
-    
+    public $showAreaPenangkapan=false;    
     /**     
-     * show page lokasi Negara [lokasi]
+     * show page lokasi Negara [Lokasi]
      */
     public $showNegara=false;
     /**     

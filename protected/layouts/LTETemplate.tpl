@@ -135,6 +135,9 @@
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
+                            <li<%=$this->Page->showJabatan==true ? ' class="active"':''%>>
+                                <a href="<%=$this->Page->constructUrl('dmaster.Jabatan',true)%>"><i class="fa fa-angle-double-right"></i> Jabatan</a>
+                            </li>
                             <li<%=$this->Page->showSatuan==true ? ' class="active"':''%>>
                                 <a href="<%=$this->Page->constructUrl('dmaster.Satuan',true)%>"><i class="fa fa-angle-double-right"></i> Satuan</a>
                             </li>
@@ -271,6 +274,21 @@
                             </li>                                                        
                         </ul>
                     </li>                    
+                    <li class="treeview<%=$this->Page->showDaftarIzin==true ? ' active':''%>">
+                        <a href="#">
+                            <i class="fa fa-tasks"></i>
+                            <span>Daftar Izin</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li<%=$this->Page->showDaftarSIUP==true ? ' class="active"':''%>>
+                                <a href="<%=$this->Page->constructUrl('perizinan.DaftarSIUP',true)%>"><i class="fa fa-angle-double-right"></i> SIUP</a>                                
+                            </li>                            
+                            <li<%=$this->Page->showDaftarSIPI==true ? ' class="active"':''%>>
+                                <a href="<%=$this->Page->constructUrl('perizinan.DaftarSIPI',true)%>"><i class="fa fa-angle-double-right"></i> SIPI</a>                                
+                            </li>                                                        
+                        </ul>
+                    </li>
                 </ul>
             </com:TLiteral>
         </section>

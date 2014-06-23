@@ -12,7 +12,7 @@
         <div class="box box-solid box-primary">
             <div class="box-header">                        
                 <h3 class="box-title">
-                    <i class="fa fa-gear"></i>
+                    <i class="fa fa-archive"></i>
                     Cache
                 </h3>
                 <div class="box-tools pull-right">

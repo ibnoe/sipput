@@ -62,8 +62,8 @@ class CAddSIPI extends MainPageSA {
 	}    
     public function changePerusahaanPemohon ($sender,$param) {
         $id=$this->cmbAddDaftarPerusahaan->Text;
-        $str = "SELECT RecStsCom,NmCom,NoAkte,TglAkte,NPWPCom,AlmtCom,TelCom,FaxComp,AlmtComCab FROM perusahaan WHERE IdCom='$id'";
-        $this->DB->setFieldTable(array('RecStsCom','NmCom','NoAkte','TglAkte','NPWPCom','AlmtCom','TelCom','FaxComp','AlmtComCab'));
+        $str = "SELECT RecStsCom,NmCom,NoAkte,TglAkte,NPWPCom,AlmtCom,TelCom,FaxCom,AlmtComCab FROM perusahaan WHERE IdCom='$id'";
+        $this->DB->setFieldTable(array('RecStsCom','NmCom','NoAkte','TglAkte','NPWPCom','AlmtCom','TelCom','FaxCom','AlmtComCab'));
         $r=$this->DB->getRecord($str);     
         if (isset($r[1])) {
             $this->hiddenidperusahaan->Value=$id;
@@ -74,7 +74,7 @@ class CAddSIPI extends MainPageSA {
             $this->lblNoNPWPPerusahaan->Text=$r[1]['NPWPCom'];
             $this->lblAlamatPerusahaan->Text=$r[1]['AlmtCom'];
             $this->lblNoTelpPerusahaan->Text=$r[1]['TelCom'];
-            $this->lblNoFaxPerusahaan->Text=$r[1]['FaxComp'];
+            $this->lblNoFaxPerusahaan->Text=$r[1]['FaxCom'];
             $this->lblAlamatKantorCabangPerusahaan->Text=$r[1]['AlmtComCab'];              
         }else {
             $this->hiddenidperusahaan->Value='';
@@ -113,17 +113,13 @@ class CAddSIPI extends MainPageSA {
             if ($this->DB->insertRecord($str)) {
                 //insert pemohon{                
                 $recnosiup=$this->DB->getLastInsertID ();
-                if ($statuspemohon == 'perorangan') {
-                    //insert siup_data_pemohon
-                    $str="INSERT INTO siup_data_pemohon (RecNoSiup,RecNoPem,NmPem,KtpPem,AlmtPem,TelpPem,NpwpPem,iduptd,nama_uptd,Foto) SELECT '$recnosiup',RecNoPem,NmPem,KtpPem,AlmtPem,TelpPem,NpwpPem,iduptd,nama_uptd,Foto FROM pemohon WHERE RecNoPem=$NoRecPem";
-                    $this->DB->insertRecord($str);
-                }else {
-                    //insert siup_data_pemohon
-                    $str="INSERT INTO siup_data_pemohon (RecNoSiup,RecNoPem,NmPem,KtpPem,AlmtPem,TelpPem,NpwpPem,Foto,Status) SELECT '$recnosiup',NmPem,KtpPem,AlmtPem,TelpPem,NpwpPem,Foto,Status FROM pemohon WHERE RecNoPem=$NoRecPem";
-                    $this->DB->insertRecord($str);
+                //insert siup_data_pemohon
+                $str="INSERT INTO siup_data_pemohon (RecNoSiup,RecNoPem,NmPem,KtpPem,AlmtPem,TelpPem,NpwpPem,iduptd,nama_uptd,Foto,Status) SELECT '$recnosiup',RecNoPem,NmPem,KtpPem,AlmtPem,TelpPem,NpwpPem,iduptd,nama_uptd,Foto,Status FROM pemohon WHERE RecNoPem=$NoRecPem";
+                $this->DB->insertRecord($str);
+                if ($statuspemohon == 'perusahaan') {                    
                     //insert siup_data_perusahaan
                     $idcom=$this->cmbAddDaftarPerusahaan->Text;
-                    $str="INSERT INTO siup_data_perusahaan (IdCom,RecNoSiup,RecStsCom,NmCom,NoAkte,TglAkte,NPWPCom,AlmtCom,TelCom,FaxComp,AlmtComCab,iduptd,nama_uptd) SELECT IdCom,'$recnosiup',RecStsCom,NmCom,NoAkte,TglAkte,NPWPCom,AlmtCom,TelCom,FaxComp,AlmtComCab,iduptd,nama_uptd FROM perusahaan WHERE RecNoPem=$NoRecPem AND IdCom=$idcom";                    
+                    $str="INSERT INTO siup_data_perusahaan (IdCom,RecNoSiup,RecStsCom,NmCom,NoAkte,TglAkte,NPWPCom,AlmtCom,TelCom,FaxCom,AlmtComCab,iduptd,nama_uptd) SELECT IdCom,'$recnosiup',RecStsCom,NmCom,NoAkte,TglAkte,NPWPCom,AlmtCom,TelCom,FaxCom,AlmtComCab,iduptd,nama_uptd FROM perusahaan WHERE RecNoPem=$NoRecPem AND IdCom=$idcom";                    
                     $this->DB->insertRecord($str);
                 }    
                 
